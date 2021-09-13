@@ -1,3 +1,11 @@
+## To Note
+
+I added animation for our homepage from [Vantajs](https://www.vantajs.com/)<br>
+To see it in action 
+### `npm i vanta`
+### `npm install three`
+### `npm install p5`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
