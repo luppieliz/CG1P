@@ -6,6 +6,9 @@ To see it in action
 ### `npm install three`
 ### `npm install p5`
 
+also to change the design just go to HomeComponent.jsx and change the import <br>
+eg: import GLOBE from 'vanta/dist/vanta.globe.min' , change the vanta.globe.min to vanta.cells.min depending on which one u wna play with ^^
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
