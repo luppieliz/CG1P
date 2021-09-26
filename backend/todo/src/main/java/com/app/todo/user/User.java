@@ -2,7 +2,11 @@ package com.app.todo.user;
 
 import com.app.todo.todo.ToDo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +28,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table
-public class User  {
+public class User implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private @Id
@@ -57,7 +61,10 @@ public class User  {
     @Column(name = "todo")
     private List<ToDo> toDos;
 
-    public User(String username, String email, String password, String authority) {
+    public User(@JsonProperty("username") String username,
+                @JsonProperty("email") String email,
+                @JsonProperty("password") String password,
+                @JsonProperty("authority") String authority) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -72,28 +79,30 @@ public class User  {
 //        authorities.forEach(authority -> authorityList.add(new SimpleGrantedAuthority(authority)));
 //        return authorityList;
 //    }
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return Arrays.asList(new SimpleGrantedAuthority(authority));
-//    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority(authority));
+    }
+
     /*
     The various is___Expired() methods return a boolean to indicate whether
     or not the user’s account is enabled or expired.
     */
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

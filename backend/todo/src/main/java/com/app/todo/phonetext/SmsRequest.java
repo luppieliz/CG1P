@@ -16,11 +16,13 @@ public class SmsRequest {
 
     @NotBlank
     @NotNull
-    private String msg;
+    private String message;
+
+    public SmsRequest() {}
 
     public SmsRequest(@JsonProperty("phone_number") String destPhoneNumber,
-                      @JsonProperty("msg") String msg) {
+                      @JsonProperty("message") String message) {
         this.destPhoneNumber = destPhoneNumber;
-        this.msg = msg;
+        this.message = message;
     }
 }

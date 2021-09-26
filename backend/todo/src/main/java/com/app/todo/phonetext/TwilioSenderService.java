@@ -27,7 +27,7 @@ public class TwilioSenderService implements SenderService {
         if (isPhoneNumberValid(smsRequest.getDestPhoneNumber())) {
             PhoneNumber to = new PhoneNumber(smsRequest.getDestPhoneNumber());
             PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber());
-            String msg = smsRequest.getMsg();
+            String msg = smsRequest.getMessage();
 
             MessageCreator msgCreator = new MessageCreator(to,from,msg);
 
@@ -43,7 +43,7 @@ public class TwilioSenderService implements SenderService {
             Message message = Message.creator(
                             new PhoneNumber(MmsRequest.getDestPhoneNumber()),
                             new PhoneNumber(twilioConfig.getPhoneNumber()),
-                            MmsRequest.getMsg())
+                            MmsRequest.getMessage())
                     .setMediaUrl(
                             Arrays.asList(URI.create(MmsRequest.getImageURL())))
                     .create();

@@ -1,6 +1,7 @@
 package com.app.todo.todo;
 
 import com.app.todo.user.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,8 +13,6 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode
 @Table
 public class ToDo {
@@ -26,6 +25,24 @@ public class ToDo {
     @NotNull(message = "Description should not be null")
     @Size(min = 5, message = "Description should be at least 5 characters long")
     private String description;
-    private Date createdDate;
-    private boolean isDone;
+
+    private Date createdDate = new Date();
+    private Boolean isDone = false;
+
+    public ToDo() {
+
+    }
+
+    public ToDo(@JsonProperty("description") String description) {
+        this.description = description;
+    }
+
+    public ToDo(Long id, User user, String description, Date createdDate, Boolean isDone) {
+        this.id = id;
+        this.user = user;
+        this.description = description;
+        this.createdDate = createdDate;
+        this.isDone = isDone;
+    }
+
 }

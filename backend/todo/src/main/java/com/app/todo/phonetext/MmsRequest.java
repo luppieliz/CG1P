@@ -16,16 +16,20 @@ public class MmsRequest {
 
     @NotBlank
     @NotNull
-    private String msg;
+    private String message;
 
     @NotNull
     private String imageURL;
 
+    public MmsRequest() {}
+
     public MmsRequest(@JsonProperty("phone_number") String destPhoneNumber,
-                      @JsonProperty("msg") String msg,
+                      @JsonProperty("message") String message,
     @JsonProperty("url") String imageURL) {
         this.destPhoneNumber = destPhoneNumber;
-        this.msg = msg;
+        this.message = message;
         this.imageURL = imageURL;
     }
+
+
 }
