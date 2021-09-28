@@ -27,7 +27,7 @@ public class ScrapperService {
         final WebElement words = driver.findElementByClassName("article-body");
         final List<WebElement> wordList = words.findElements(By.tagName("a"));
         wordList.forEach(word -> scrappedSrc.add(word.getAttribute("href").toString()));
-//        driver.quit();
+        driver.quit();
         return scrappedSrc;
     }
 }
