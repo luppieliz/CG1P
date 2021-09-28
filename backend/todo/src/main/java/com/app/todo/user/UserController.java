@@ -1,10 +1,10 @@
 package com.app.todo.user;
 
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins={ "http://localhost:3000", "http://localhost:4200" })
 @RestController
 public class UserController {
     private UserService userService;

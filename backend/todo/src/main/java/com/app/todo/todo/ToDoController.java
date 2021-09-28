@@ -10,8 +10,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@CrossOrigin(origins={ "http://localhost:3000", "http://localhost:4200"})
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
 public class ToDoController {
     private ToDoServiceImpl toDoService;
 
@@ -20,43 +20,48 @@ public class ToDoController {
         this.toDoService = toDoService;
     }
 
-    @GetMapping("/{userId}/todos")
+    @GetMapping("/{username}/todos")
     public List<ToDo> getTodosByUsername(
-            @PathVariable (value = "userId") Long userId) {
-        return toDoService.findToDoByUserId(userId);
+            @PathVariable (value = "username") String username) {
+        return toDoService.findToDoByUsername(username);
     }
 
-    @GetMapping("/{userId}/todos/{todoId}")
+    @GetMapping("/{username}/todos/{todoId}")
     public ToDo getTodo(
-            @PathVariable (value = "userId") Long userId, @PathVariable (value = "todoId") Long todoId) {
-        return toDoService.getSpecificToDo(userId, todoId);
+            @PathVariable (value = "username") String username, @PathVariable (value = "todoId") Long todoId) {
+        return toDoService.getSpecificToDo(username, todoId);
     }
 
-    @DeleteMapping("/{userId}/todos/{todoId}")
+    @DeleteMapping("/{username}/todos/{todoId}")
     public ResponseEntity<Void> deleteTodo(
-            @PathVariable (value = "userId") Long userId, @PathVariable (value = "todoId") Long todoId) {
-        toDoService.deleteSpecificToDo(userId, todoId);
+            @PathVariable (value = "username") String username, @PathVariable (value = "todoId") Long todoId) {
+        toDoService.deleteSpecificToDo(username, todoId);
 
         // return 204 no content
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{userId}/todos/{todoId}")
+    @PutMapping("/{username}/todos/{todoId}")
     public ResponseEntity<ToDo> updateTodo(
-            @PathVariable (value = "userId") Long userId, @PathVariable (value = "todoId") Long todoId, @RequestBody ToDo newToDo) {
-        toDoService.updateSpecificToDo(userId, todoId, newToDo);
+            @PathVariable (value = "username") String username, @PathVariable (value = "todoId") Long todoId, @RequestBody ToDo newToDo) {
+        toDoService.updateSpecificToDo(username, todoId, newToDo);
         return new ResponseEntity<ToDo>(newToDo, HttpStatus.OK);
     }
 
     // REST standard: Should return URI of new resource
-    @PostMapping("/{userId}/todos")
-    public ResponseEntity<Void> createTodo(
-            @PathVariable (value = "userId") Long userId, @RequestBody ToDo newToDo) {
-        ToDo createdNewTodo = toDoService.addToDo(userId, newToDo);
-
-        // append id to new URI
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(createdNewTodo.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+    @PostMapping("/{username}/todos/-1")
+    public void createTodo(
+            @PathVariable (value = "username") String username, @RequestBody ToDo newToDo) {
+        toDoService.addToDo(username, newToDo);
     }
+
+//    public ResponseEntity<Void> createTodo(
+//            @PathVariable (value = "username") String username, @RequestBody ToDo newToDo) {
+//        ToDo createdNewTodo = toDoService.addToDo(username, newToDo);
+//
+//        // append id to new URI
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+//                .path("/{id}").buildAndExpand(createdNewTodo.getId()).toUri();
+//        return ResponseEntity.created(uri).build();
+//    }
 }

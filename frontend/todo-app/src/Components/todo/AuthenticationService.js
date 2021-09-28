@@ -27,8 +27,37 @@ class AuthenticationService {
         if (user === null) return ''
         return user
     }
-    
+
+    // CODE FOR BASIC AUTH
+    executeBasicAuthenticationService(username, password) {
+            return axios.post(`${API_URL}/basicauth`,
+                { headers: { authorization: this.createBasicAuthToken(username, password), "Access-Control-Allow-Origin": "*",
+                "crossorigin" :true  } })
+    }
+
+    // executeBasicAuthenticationService(username, password) {
+    //     return axios.post(`${API_URL}/basicauth`, {
+    //         username,
+    //         password
+    //     })
+    // }
+
+    createBasicAuthToken(username, password) {
+            return 'Basic ' + window.btoa(username + ":" + password)
+    }
+
+    registerSuccessfulLoginForBasicAuth(username, token) {
+            sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+
+            this.setupAxiosInterceptors(this.createBasicAuthToken(token))
+
+    }
+
+
+
     // BELOW CODE IS SPECIFICALLY FOR JWT AUTH
+
+
 
     executeJwtAuthenticationService(username, password) {
         return axios.post(`${API_URL}/authenticate`, {

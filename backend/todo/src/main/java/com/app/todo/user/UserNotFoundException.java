@@ -10,4 +10,8 @@ public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException(Long userId) {
         super("User with ID:" + userId + " is not registered!");
     }
+
+    public UserNotFoundException(String username) {
+        super("Username" + username + " is not registered!");
+    }
 }

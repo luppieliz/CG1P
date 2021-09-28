@@ -1,29 +1,28 @@
 import axios from 'axios'
-import {JPA_API_URL } from '../../Constants';
+import { API_URL } from '../../Constants';
 
 // API to facilitate sending HTTP requests to the backend via the Axios dependency
 // Uses JPA_API_URL to use JPA database instead of the hardcoded service.
 
 class TodoDataService {
-    retrieveAllTodos(name) {
-        return axios.get(`${JPA_API_URL}/users/${name}/todos`);
+    retrieveAllTodos(username) {
+        return axios.get(`${API_URL}/${username}/todos`);
     }
 
-    retrieveTodo(name, id) {
-        return axios.get(`${JPA_API_URL}/users/${name}/todos/${id}`);
+    retrieveTodo(username, id) {
+        return axios.get(`${API_URL}/${username}/todos/${id}`);
     }
 
-    deleteTodo(name, id) {
-        return axios.delete(`${JPA_API_URL}/users/${name}/todos/${id}`);
+    deleteTodo(username, id) {
+        return axios.delete(`${API_URL}/${username}/todos/${id}`);
     }
 
-    updateTodo(name, id, todo) {
-        return axios.put(`${JPA_API_URL}/users/${name}/todos/${id}`, todo);
+    updateTodo(username, id, todo) {
+        return axios.put(`${API_URL}/${username}/todos/${id}`, todo);
     }
 
-
-    createTodo(name, todo) {
-        return axios.post(`${JPA_API_URL}/users/${name}/todos`);
+    createTodo(username, todo) {
+        return axios.post(`${API_URL}/${username}/todos/-1`,todo);
     }
 
 }
