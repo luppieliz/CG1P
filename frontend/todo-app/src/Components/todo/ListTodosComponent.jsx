@@ -63,8 +63,8 @@ class ListTodosComponent extends Component {
     // jsx render for entire table
     render() {
         return (
-            <div>
-                <h1>List of Todos</h1>
+            <div  className="text-white">
+                <h1>Dashboard</h1>
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">

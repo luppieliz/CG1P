@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import AuthenticationService from './AuthenticationService.js';
 import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+
 
 // Log In
 class LoginComponent extends Component {
-
+    
     constructor(props) {
         super(props)
 
@@ -17,7 +22,10 @@ class LoginComponent extends Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
+
+        
     }
+    
 
     // handle change in a field (manual way)
     handleChange(event) {
@@ -50,17 +58,29 @@ class LoginComponent extends Component {
 
     render() {
         return (
+
+            
             // In JavaScript, BOOLEAN && SHOW X means IF BOOLEAN, THEN SHOW X
             // If login is failed (reflected in state), display alert.
-            <div>
-                <h1>Login</h1>
-                <div className="container">
-                    <div className="row row align-items-center">
-                        <div className="col-sm">
-                            <Image src="https://getthematic.com/insights/content/images/wordpress/2019/01/shutterstock_1112175710-1.jpg" fluid />
-                        </div>
-                        <div className="col-md">
-                            <div className="form-group">
+            <Container>
+            <Row>
+                <Col></Col>
+                <Col>
+                <h1 className="text-warning" style={{ padding:'100px'}}>COVby</h1>
+                </Col>
+                <Col></Col>
+            </Row>
+
+            <Row>
+                <Col >
+                    <Image style={{ width: '35rem' }}src="https://images.unsplash.com/photo-1603357465999-241beecc2629?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1232&q=80" rounded fluid/>
+                </Col>
+                
+                <Col className="text-black text-left">
+                    
+                    <Card border="warning" style={{ width: '35rem' ,height: '20rem',borderWidth:'5px'}}>
+                    <Card.Body>
+                            <div className="form-group ">
                                 <label>User Name</label>
                                 <input type="text" className="form-control" name="username" value={this.state.username} onChange={this.handleChange} />
                             </div>
@@ -71,10 +91,14 @@ class LoginComponent extends Component {
                             <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
                             <p className="forgot-password text-center"><a href="#placeholder">Forgot password?</a> or new to the app? <Link className="new user text-right" to="/signup">Sign up!</Link></p>
                             {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    </Card.Body>
+                    </Card>
+                </Col>
+                
+            </Row>
+                        
+            
+            </Container>
 
         )
     }
