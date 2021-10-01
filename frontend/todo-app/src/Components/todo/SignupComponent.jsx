@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
+import Image from 'react-bootstrap/Image'
+
 
 class SignupComponent extends Component {
 
@@ -45,13 +47,19 @@ class SignupComponent extends Component {
     render() {
         return (
             <Container>
-                <Row  style={{ padding:'50px'}}>
-                    <Col xs={6} md={4}></Col>
-                    <Col xs={6} md={4}>
-                    <Card border="info" style={{ padding:'20px',width: '18rem' }}>
-                    <form>
-                    <Card.Header>Sign Up</Card.Header>
 
+            <Row>
+                <Col></Col>
+                <Col>
+                <h1 className="text-info" style={{ padding:'100px'}}>COVby</h1>
+                </Col>
+                <Col></Col>
+            </Row>
+            <Row  style={{ padding:'50px'}}>
+                <Col><Image style={{ width: '35rem', height:'24rem' }}src="https://media.istockphoto.com/photos/business-people-standing-behind-social-distancing-signage-on-office-picture-id1262271993?b=1&k=20&m=1262271993&s=170667a&w=0&h=ssGXGBFECItq--aJ7gAGWgFWC_NXO_fN58oi5J4_bWs=" rounded fluid/></Col>
+                <Col>
+                    <Card border="info" style={{ padding:'20px',width: '30rem' ,borderWidth:'4px' }}>
+                    <form>
                         <div className="form-group">
                             <label>User name</label>
                             <input type="text" className="form-control" placeholder="First name" value={this.state.username} onChange={this.handleChange} />
@@ -70,9 +78,8 @@ class SignupComponent extends Component {
                         <button type="submit" className="btn btn-primary btn-block"  onClick={this.signupClicked}>Sign Up</button>
                         <p className="forgot-password text-center">Already registered <a href="#placeholder">sign in?</a></p>
                     </form>
-                    </Card>
+                </Card>
                 </Col>
-                <Col xs={6} md={4}></Col>
             </Row>
         </Container>
         );

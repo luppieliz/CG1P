@@ -86,8 +86,8 @@ class TodoComponent extends Component {
 
         return (
             <div>
-                <h1>Todo</h1>
-                <div className="container">
+                <h1  className="text-white">Todo</h1>
+                <div className="container text-white">
                     <Formik
                         initialValues={{ description, targetDate }}
                         onSubmit={this.onSubmit}
@@ -99,10 +99,10 @@ class TodoComponent extends Component {
                         {
                             (props) => (
                                 <Form>
-                                    <ErrorMessage name="description" component="div" className="alert alert-warning"></ErrorMessage>
+                                    <ErrorMessage name="description" component="div" className="alert alert-warning "></ErrorMessage>
                                     <ErrorMessage name="targetDate" component="div" className="alert alert-warning"></ErrorMessage>
                                     <fieldset className="form-group">
-                                        <label>Description</label>
+                                        <label >Description</label>
                                         <Field className="form-control" type="text" name="description"></Field>
                                     </fieldset>
                                     <fieldset className="form-group">
