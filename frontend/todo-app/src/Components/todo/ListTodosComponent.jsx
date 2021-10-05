@@ -19,7 +19,6 @@ class ListTodosComponent extends Component {
         this.refreshTodos = this.refreshTodos.bind(this);
     }
 
-
     // bring todos from axios get into current state for display, after initial render has been triggered.
     componentDidMount() {
         this.refreshTodos();
@@ -38,20 +37,20 @@ class ListTodosComponent extends Component {
     }
 
     // handler for when delete todo is clicked
-    deleteTodoClicked(id) {
+    deleteTodoClicked(todoId) {
         let username = AuthenticationService.getLoggedInUserName();
-        TodoDataService.deleteTodo(username, id)
+        TodoDataService.deleteTodo(username, todoId)
             .then(
                 response => {
-                    this.setState({ message: `Delete of todo ${id} was successful` });
+                    this.setState({ message: `Delete of todo ${todoId} was successful` });
                     this.refreshTodos();
                 }
             )
     }
 
     // handler for when update todo is clicked
-    updateTodoClicked(id) {
-        this.props.history.push(`/todos/${id}`);
+    updateTodoClicked(todoId) {
+        this.props.history.push(`/todos/${todoId}`);
     }
 
     // handler for when add todo is clicked
