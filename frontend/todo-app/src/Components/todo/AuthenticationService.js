@@ -30,64 +30,49 @@ class AuthenticationService {
 
     // CODE FOR BASIC AUTH
     executeBasicAuthenticationService(username, password) {
-            return axios.post(`${API_URL}/basicauth`,
-                { headers: { authorization: this.createBasicAuthToken(username, password), "Access-Control-Allow-Origin": "*",
-                "crossorigin" :true  } })
+            return axios.get(`${API_URL}/basicauth`
+                )
     }
-
-    // executeBasicAuthenticationService(username, password) {
-    //     return axios.post(`${API_URL}/basicauth`, {
-    //         username,
-    //         password
-    //     })
-    // }
 
     createBasicAuthToken(username, password) {
             return 'Basic ' + window.btoa(username + ":" + password)
     }
 
-    registerSuccessfulLoginForBasicAuth(username, token) {
+    registerSuccessfulLoginForBasicAuth(username, password) {
             sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-
-            this.setupAxiosInterceptors(this.createBasicAuthToken(token))
-
+            console.log("setting up axios interceptors")
+            this.setupAxiosInterceptors(username, password)
+            console.log("token %s", this.createBasicAuthToken(username,password))
     }
-
-
 
     // BELOW CODE IS SPECIFICALLY FOR JWT AUTH
-
-
-
-    executeJwtAuthenticationService(username, password) {
-        return axios.post(`${API_URL}/authenticate`, {
-            username,
-            password
-        })
-    }
-
-    registerSuccessfulLoginForJwt(username, token) {
-        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-        
-        this.setupAxiosInterceptors(this.createJWTToken(token))
-
-    }
-
-    createJWTToken(token) {
-        return 'Bearer ' + token
-    }
+//    executeJwtAuthenticationService(username, password) {
+//        return axios.post(`${API_URL}/authenticate`, {
+//            username,
+//            password
+//        })
+//    }
+//
+//    registerSuccessfulLoginForJwt(username, token) {
+//        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+//        this.setupAxiosInterceptors(this.createJWTToken(token))
+//    }
+//
+//    createJWTToken(token) {
+//        return 'Bearer ' + token
+//    }
 
     // intercept HTTP requests and include token
-    setupAxiosInterceptors(token) {
+    setupAxiosInterceptors(username,password) {
 
         axios.interceptors.request.use(
             (config) => {
 
                 if (this.isUserLoggedIn()) {
-                    config.headers.authorization = token
+                    config.headers.authorization = this.createBasicAuthToken(username,password)
                 }
-
                 return config;
+
             }
         )
     }

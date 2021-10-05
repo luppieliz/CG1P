@@ -6,7 +6,11 @@ import { API_URL } from '../../Constants';
 
 class TodoDataService {
     retrieveAllTodos(username) {
-        return axios.get(`${API_URL}/${username}/todos`);
+        return axios.get(`${API_URL}/${username}/todos`,{
+                                                                    auth: {
+                                                                      username: username,
+                                                                      password: "goodpassword"
+                                                                  }});
     }
 
     retrieveTodo(username, id) {

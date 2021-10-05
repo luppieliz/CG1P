@@ -41,7 +41,7 @@ class LoginComponent extends Component {
             .executeBasicAuthenticationService(this.state.username, this.state.password)
             .then((response) => {
 //                 AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token);
-                   AuthenticationService.registerSuccessfulLoginForBasicAuth(this.state.username, response.data.token);
+                   AuthenticationService.registerSuccessfulLoginForBasicAuth(this.state.username, this.state.username);
 
                 this.props.history.push(`/welcome/${this.state.username}`);
             })
