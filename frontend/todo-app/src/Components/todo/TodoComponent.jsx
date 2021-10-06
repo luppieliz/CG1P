@@ -7,6 +7,8 @@ import AuthenticationService from './AuthenticationService.js'
 // Page to update or add a specific todo
 class TodoComponent extends Component {
 
+    
+
     constructor(props) {
         super(props)
 
@@ -15,6 +17,7 @@ class TodoComponent extends Component {
             id: this.props.match.params.id,
             description: '',
             targetDate: moment(new Date()).format('YYYY-MM-DD')
+            
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -55,6 +58,7 @@ class TodoComponent extends Component {
         if (this.state.id === -1) {
             TodoDataService.createTodo(username, todo)
                 .then(() => this.props.history.push("/todos"))
+
         }
 
         // else update, do updateTodo
@@ -109,7 +113,7 @@ class TodoComponent extends Component {
                                         <label>Target Date</label>
                                         <Field className="form-control" type="date" name="targetDate"></Field>
                                     </fieldset>
-                                    <button className="btn btn-success" type="submit">Save</button>
+                                    <button className="btn btn-success" type="submit" >Save</button>
                                 </Form>
                             )
                         }

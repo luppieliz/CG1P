@@ -49,19 +49,19 @@ public class ToDoController {
     }
 
     // REST standard: Should return URI of new resource
-    @PostMapping("/{username}/todos/-1")
-    public void createTodo(
-            @PathVariable (value = "username") String username, @RequestBody ToDo newToDo) {
-        toDoService.addToDo(username, newToDo);
-    }
+    
+    // public void createTodo(
+    //         @PathVariable (value = "username") String username, @RequestBody ToDo newToDo) {
+    //     toDoService.addToDo(username, newToDo);
+    // }
+    @PostMapping("/{username}/todos")
+   public ResponseEntity<Void> createTodo(
+           @PathVariable (value = "username") String username, @RequestBody ToDo newToDo) {
+       ToDo createdNewTodo = toDoService.addToDo(username, newToDo);
 
-//    public ResponseEntity<Void> createTodo(
-//            @PathVariable (value = "username") String username, @RequestBody ToDo newToDo) {
-//        ToDo createdNewTodo = toDoService.addToDo(username, newToDo);
-//
-//        // append id to new URI
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}").buildAndExpand(createdNewTodo.getId()).toUri();
-//        return ResponseEntity.created(uri).build();
-//    }
+       // append id to new URI
+       URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+               .path("/{id}").buildAndExpand(createdNewTodo.getId()).toUri();
+       return ResponseEntity.created(uri).build();
+   }
 }

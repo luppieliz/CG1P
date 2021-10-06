@@ -31,7 +31,11 @@ class AuthenticationService {
     // CODE FOR BASIC AUTH
     executeBasicAuthenticationService(username, password) {
             return axios.get(`${API_URL}/basicauth`
-                )
+            , {
+                username,
+                password
+            })
+            
     }
 
     createBasicAuthToken(username, password) {
@@ -41,7 +45,7 @@ class AuthenticationService {
     registerSuccessfulLoginForBasicAuth(username, password) {
             sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
             console.log("setting up axios interceptors")
-            this.setupAxiosInterceptors(username, password)
+            this.setupAxiosInterceptors(this.createBasicAuthToken(username,password))
             console.log("token %s", this.createBasicAuthToken(username,password))
     }
 
@@ -63,16 +67,16 @@ class AuthenticationService {
 //    }
 
     // intercept HTTP requests and include token
-    setupAxiosInterceptors(username,password) {
+    setupAxiosInterceptors(token) {
 
         axios.interceptors.request.use(
             (config) => {
 
                 if (this.isUserLoggedIn()) {
-                    config.headers.authorization = this.createBasicAuthToken(username,password)
+                    config.headers.authorization = token
                 }
-                return config;
 
+                return config;
             }
         )
     }

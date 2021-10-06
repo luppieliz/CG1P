@@ -16,8 +16,8 @@ class LoginComponent extends Component {
 
         // State - contains the username, password, and hasLoginFailed boolean fields.
         this.state = {
-            username: 'username',
-            password: 'password',
+            username: 'admin',
+            password: 'goodpassword',
             hasLoginFailed: false, // boolean 1
         }
         this.handleChange = this.handleChange.bind(this)
@@ -45,18 +45,14 @@ class LoginComponent extends Component {
     loginClicked() {
 
         AuthenticationService
-//             .executeJwtAuthenticationService(this.state.username, this.state.password)
             .executeBasicAuthenticationService(this.state.username, this.state.password)
             .then((response) => {
-//                 AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token);
-                   AuthenticationService.registerSuccessfulLoginForBasicAuth(this.state.username, this.state.username);
-
+                   AuthenticationService.registerSuccessfulLoginForBasicAuth(this.state.username, this.state.password);
                 this.props.history.push(`/welcome/${this.state.username}`);
             })
             .catch(() => {
                 this.setState({ hasLoginFailed: true })
             })
-
     }
 
     render() {
