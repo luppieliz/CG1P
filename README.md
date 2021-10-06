@@ -18,8 +18,7 @@ but I believe its enough for what we want to do :D, if not we'll just pick it up
 # HOW TO RUN
 if you notice there are two main files frontend and restful-web-services 
 # Frontend 
-is run using REACT so when u click on it there will be another README file explaining how to run it.
-but basically just run 
+Navigate to /frontend/todo-app then run:
 ### `npm start`
 
 if it doesn't work try (in that order)
