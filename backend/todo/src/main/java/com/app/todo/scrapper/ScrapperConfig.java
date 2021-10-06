@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class ScrapperConfig {
     @PostConstruct
     void postConstruct() {
-        System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/java/com/app/todo/scrapper/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/java/com/app/todo/scrapper/chromedriver");
     }
 
     @Bean
