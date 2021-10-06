@@ -3,6 +3,9 @@ import moment from 'moment'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import TodoDataService from '../../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 // Page to update or add a specific todo
 class TodoComponent extends Component {
@@ -92,6 +95,10 @@ class TodoComponent extends Component {
 
         return (
             <div>
+                <Container>
+                    <Row>
+                        <Col></Col>
+                        <Col>
                 <h1 className="text-white">Todo</h1>
                 <div className="container text-white">
                     <Formik
@@ -121,6 +128,10 @@ class TodoComponent extends Component {
                         }
                     </Formik>
                 </div>
+                </Col>
+                <Col></Col>
+                </Row>
+                </Container>
             </div>
         )
     }

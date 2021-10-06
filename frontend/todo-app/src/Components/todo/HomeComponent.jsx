@@ -36,7 +36,7 @@ class HomeComponent extends React.Component {
   render() {
     return <div style={{ height: "92vh", width: "100%"}}  ref={this.vantaRef}>
       <Container>
-        <Row style={{ padding:'100px'}}><h1 className="text-white "> Welcome to </h1><h1 className="text-danger "> COVby</h1></Row>
+        <Row style={{ padding:'100px'}}><h1 className="text-white"> Welcome to </h1><h1 className="text-danger "> COVby</h1></Row>
        <Row style={{ padding:'50'}}>
        <Col><h3 class="text-white "> COVby serves as both a
             one-stop information hub and a companion tool, providing services for business owners to better understand and manage
