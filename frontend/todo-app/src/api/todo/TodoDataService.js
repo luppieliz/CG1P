@@ -2,13 +2,12 @@ import axios from 'axios'
 import { API_URL } from '../../Constants';
 
 // API to facilitate sending HTTP requests to the backend via the Axios dependency
-// Uses JPA_API_URL to use JPA database instead of the hardcoded service.
 
 class TodoDataService {
     retrieveAllTodos(username) {
-        return axios.get(`${API_URL}/${username}/todos`,{
-                headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
-            });
+        return axios.get(`${API_URL}/${username}/todos`
+        //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
+            );
     } 
 
     // executeHelloWorldPathVariableService(name) {
@@ -20,27 +19,27 @@ class TodoDataService {
     // }
 
     retrieveTodo(username, id) {
-        return axios.get(`${API_URL}/${username}/todos/${id}`,{
-            headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
-        });
+        return axios.get(`${API_URL}/${username}/todos/${id}`
+                //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
+            );
     }
 
     deleteTodo(username, id) {
-        return axios.delete(`${API_URL}/${username}/todos/${id}`,{
-            headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
-        });
+        return axios.delete(`${API_URL}/${username}/todos/${id}`        
+        //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
+        );
     }
 
     updateTodo(username, id, todo) {
-        return axios.put(`${API_URL}/${username}/todos/${id}`, todo,{
-            headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
-        });
+        return axios.put(`${API_URL}/${username}/todos/${id}`, todo        
+        //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
+        );
     }
 
     createTodo(username, todo) {
-        return axios.post(`${API_URL}/${username}/todos`,todo,{
-            headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
-        });
+        return axios.post(`${API_URL}/${username}/todos`,todo
+                //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
+        );
     }
 
 }

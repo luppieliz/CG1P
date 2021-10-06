@@ -7,7 +7,7 @@ import AuthenticationService from './AuthenticationService.js'
 // Page to update or add a specific todo
 class TodoComponent extends Component {
 
-    
+
 
     constructor(props) {
         super(props)
@@ -17,7 +17,7 @@ class TodoComponent extends Component {
             id: this.props.match.params.id,
             description: '',
             targetDate: moment(new Date()).format('YYYY-MM-DD')
-            
+
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -54,16 +54,18 @@ class TodoComponent extends Component {
             targetDate: values.targetDate
         }
 
-        // if -1 (create), do createTodo
-        if (this.state.id === -1) {
+        console.log(this.state.id)
+
+        // if state (todo id) is -1, means todo does not exist yet, means create todo
+        if (this.state.id == -1) {
+            console.log("id=1")
             TodoDataService.createTodo(username, todo)
                 .then(() => this.props.history.push("/todos"))
-
+            // else state (todo id) is not -1, means todo exists, means update todo
+        } else {
+            TodoDataService.updateTodo(username, this.state.id, todo)
+                .then(() => this.props.history.push("/todos"))
         }
-
-        // else update, do updateTodo
-        TodoDataService.updateTodo(username, this.state.id, todo)
-            .then(() => this.props.history.push("/todos"))
     }
 
     // on Formik Validate call
@@ -90,7 +92,7 @@ class TodoComponent extends Component {
 
         return (
             <div>
-                <h1  className="text-white">Todo</h1>
+                <h1 className="text-white">Todo</h1>
                 <div className="container text-white">
                     <Formik
                         initialValues={{ description, targetDate }}
