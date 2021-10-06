@@ -15,6 +15,8 @@ import WelcomeComponent from './WelcomeComponent.jsx'
 import TodoComponent from './TodoComponent.jsx'
 import SignupComponent from './SignupComponent.jsx'
 import HomeComponent from './HomeComponent.jsx'
+import Faqcomponent from './GeneralFaq'
+
 
 
 class TodoApp extends Component {
@@ -28,9 +30,11 @@ class TodoApp extends Component {
             <div className="TodoApp">
                 <Router>
                     <HeaderComponent />
+                    
                     <Switch>
                         <Route path="/" exact component={HomeComponent} />
                         <Route path="/login" component={LoginComponent} />
+                        <Route path="/faq" exact component={ Faqcomponent } />
                         <AuthenticatedRoute path="/logout" component={LogoutComponent} />
                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
                         <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
