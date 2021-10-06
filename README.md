@@ -32,7 +32,24 @@ it should auto pop up, if it doesn't go to
 *localhost:4200*
 
 # Backend
-navigate to 
+
+### Web Scraper config for Windows vs. Mac
+Inside 
+```
+CG1P/backend/todo/src/main/java/com/app/todo/scrapper/ScrapperConfig
+```
+
+There is this line
+```
+System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/java/com/app/todo/scrapper/chromedriver.exe");
+```
+
+For Windows: Leave it as ```'chromedriver.exe'```<br>
+For Mac: Delete the ```'.exe'``` it should just be ```'chromedriver'```
+
+
+<br><br>
+to run, navigate to 
 ```
 restful-web-services/src/com/myapp/rest/webservices/restfulwebservices/RestfulWebServicesApplication.java
 ```
