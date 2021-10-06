@@ -55,8 +55,7 @@ class ListTodosComponent extends Component {
 
     // handler for when add todo is clicked
     addTodoClicked() {
-        // -1 as id, to add todo insteaad of update todo
-        this.props.history.push("/todos/-1");
+        this.props.history.push(`/todos/-1`);
     }
 
     // jsx render for entire table
@@ -94,7 +93,7 @@ class ListTodosComponent extends Component {
                     </table>
                     <div className = "row">
                         <button className = "btn btn-success" onClick={() => this.addTodoClicked()}>Add</button>
-                    </div>
+                        </div>
                 </div>
             </div>
         )

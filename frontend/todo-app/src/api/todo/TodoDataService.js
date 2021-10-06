@@ -7,26 +7,40 @@ import { API_URL } from '../../Constants';
 class TodoDataService {
     retrieveAllTodos(username) {
         return axios.get(`${API_URL}/${username}/todos`,{
-                                                                    auth: {
-                                                                      username: username,
-                                                                      password: "goodpassword"
-                                                                  }});
-    }
+                headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
+            });
+    } 
+
+    // executeHelloWorldPathVariableService(name) {
+    //     const token = 'Basic ' + window.btoa(name + "goodpassword")
+    //     return axios.get(`${API_URL}/hello-world/path-variable/${name}`,
+    //     {
+    //         headers: { authorization: 'Basic ' + window.btoa(name + ":" + "goodpassword") }
+    //     });
+    // }
 
     retrieveTodo(username, id) {
-        return axios.get(`${API_URL}/${username}/todos/${id}`);
+        return axios.get(`${API_URL}/${username}/todos/${id}`,{
+            headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
+        });
     }
 
     deleteTodo(username, id) {
-        return axios.delete(`${API_URL}/${username}/todos/${id}`);
+        return axios.delete(`${API_URL}/${username}/todos/${id}`,{
+            headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
+        });
     }
 
     updateTodo(username, id, todo) {
-        return axios.put(`${API_URL}/${username}/todos/${id}`, todo);
+        return axios.put(`${API_URL}/${username}/todos/${id}`, todo,{
+            headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
+        });
     }
 
     createTodo(username, todo) {
-        return axios.post(`${API_URL}/${username}/todos/-1`,todo);
+        return axios.post(`${API_URL}/${username}/todos`,todo,{
+            headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }
+        });
     }
 
 }
