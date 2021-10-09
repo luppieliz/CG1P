@@ -20,9 +20,9 @@ public class NewsAPIService {
         this.newsAPIConfig = newsAPIConfig;
     }
 
-    public NewsAPIResponse getAPIResponse(String country, String query) throws IOException, InterruptedException {
+    public NewsAPIResponse getAPIResponse(String countryCode, String query) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(newsAPIConfig.getAPIQuery(country, query)))
+                .uri(URI.create(newsAPIConfig.getAPIQuery(countryCode, query)))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());

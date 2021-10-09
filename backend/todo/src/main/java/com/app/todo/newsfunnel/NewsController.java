@@ -1,12 +1,11 @@
 package com.app.todo.newsfunnel;
 
+import com.app.todo.phonetext.PhoneTextController;
+import com.app.todo.phonetext.SmsRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,14 +16,15 @@ import java.util.List;
 public class NewsController {
     private NewsAPIService apiService;
     private NewsService newsService;
+    private PhoneTextController textController;
 
     @Autowired
-    public NewsController(NewsAPIService apiService, NewsService newsService) {
+    public NewsController(NewsAPIService apiService, NewsService newsService,PhoneTextController textController) {
         this.apiService = apiService;
         this.newsService = newsService;
+        this.textController = textController;
     }
 
-    // country = sg, query = anythingggg
     @GetMapping("/news/{country_code}/{query}")
     public List<News> getNews(@PathVariable(value = "country_code") String countryCode,
                         @PathVariable(value="query") String query) throws IOException, InterruptedException {
@@ -45,9 +45,26 @@ public class NewsController {
             singleNews.setPublishedDate(newsDTO.getPublishedAt());
             singleNews.setContent(newsDTO.getContent());
             resultNews.add(singleNews);
-//            System.out.println(newsService.addNews(singleNews));
+            newsService.addNews(singleNews);
         }
 
         return resultNews;
     }
+
+    @PostMapping("/news/{phone_number}")
+    public void notifyNews(@PathVariable(value="phone_number") String phoneNo ) {
+        List<News> currentNews = newsService.getAllNews();
+        String message = "Check out the latest COVID news:\n";
+        int index = 1;
+
+        for (News news: currentNews) {
+            message += index + ". " + news.getURL() + "\n";
+            index++;
+        }
+
+        SmsRequest sms = new SmsRequest(phoneNo,message);
+        textController.sendSms(sms);
+    }
+
+
 }
