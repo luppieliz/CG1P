@@ -6,6 +6,7 @@ import java.util.List;
 
 @CrossOrigin(origins={ "http://localhost:3000", "http://localhost:4200" })
 @RestController
+@RequestMapping("/user")
 public class UserController {
     private UserService userService;
 
@@ -14,17 +15,17 @@ public class UserController {
 
     }
 
-    @GetMapping("/user")
+    @GetMapping
     public List<User> getUsers() {
         return userService.getUsers();
     }
 
-    @PostMapping("/user")
+    @PostMapping
     public User addUser(@Valid @RequestBody User newUser){
         return userService.addUser(newUser);
     }
 
-    @DeleteMapping("/user/{userId}")
+    @DeleteMapping("/{userId}")
     public User deleteUser(@Valid @PathVariable (value = "userId") Long userId) {
         return userService.deleteUser(userId);
     }

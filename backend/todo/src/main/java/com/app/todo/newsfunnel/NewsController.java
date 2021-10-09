@@ -13,6 +13,7 @@ import java.util.List;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
+@RequestMapping("/news")
 public class NewsController {
     private NewsAPIService apiService;
     private NewsService newsService;
@@ -25,7 +26,7 @@ public class NewsController {
         this.textController = textController;
     }
 
-    @GetMapping("/news/{country_code}/{query}")
+    @GetMapping("/{country_code}/{query}")
     public List<News> getNews(@PathVariable(value = "country_code") String countryCode,
                         @PathVariable(value="query") String query) throws IOException, InterruptedException {
         NewsAPIResponse newsResponse = apiService.getAPIResponse(countryCode,query);
@@ -51,7 +52,7 @@ public class NewsController {
         return resultNews;
     }
 
-    @PostMapping("/news/{phone_number}")
+    @PostMapping("/{phone_number}")
     public void notifyNews(@PathVariable(value="phone_number") String phoneNo ) {
         List<News> currentNews = newsService.getAllNews();
         String message = "Check out the latest COVID news:\n";

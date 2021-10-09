@@ -2,6 +2,7 @@ package com.app.todo.todo;
 
 import com.app.todo.user.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,17 +20,23 @@ import java.util.Date;
 @EqualsAndHashCode
 @Table
 public class ToDo {
+    @ApiModelProperty(notes = "The database generated todo ID")
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
 
+    @ApiModelProperty(notes = "Owner of a todo")
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
+    @ApiModelProperty(notes = "A todo's description")
     @NotNull(message = "Description should not be null")
     @Size(min = 5, message = "Description should be at least 5 characters long")
     private String description;
 
+    @ApiModelProperty(notes = "The date a todo is created")
     private Date createdDate = new Date();
+
+    @ApiModelProperty(notes = "State of a todo's completion")
     private Boolean isDone = false;
 
     public ToDo() {
