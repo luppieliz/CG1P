@@ -3,8 +3,12 @@ import { API_URL } from '../../Constants';
 
 class NewsDataService {
     retrieveAllNews() {
-        //todo replace with call to database
-        return axios.get(`${API_URL}/newsapi/sg/covid`);
+        return axios.get(`${API_URL}/newsapi/newsdb/all`);
+    }
+
+    retrieveNewsWithTags(tags) {
+        return axios.get(`${API_URL}/newsdb/${tags}`);
+        // return axios.get(`${API_URL}/newsapi/sg/covid`);
     }
 }
 

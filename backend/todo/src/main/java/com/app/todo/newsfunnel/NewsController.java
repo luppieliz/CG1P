@@ -52,6 +52,21 @@ public class NewsController {
         return resultNews;
     }
 
+    @GetMapping("/newsdb/{tags}") //check exceptions
+    public List<News> getNewsFromDB(@PathVariable(value = "tags") String tags) {
+        //process tags
+        //preferred format {tags} = (String): "tag1+tag2+tag3" or all
+        if (tags.equals("all")) {
+            return newsService.getAllNews();
+        } else {
+            //process tags
+            String [] tagList = tags.split("\\+");
+            return new ArrayList<>(); //temporary
+//            return newsService.getNewsWithTags(tagList); TODO
+        }
+
+    }
+
     @PostMapping("/{phone_number}")
     public void notifyNews(@PathVariable(value="phone_number") String phoneNo ) {
         List<News> currentNews = newsService.getAllNews();
