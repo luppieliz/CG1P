@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-@RequestMapping("/news")
+@RequestMapping("/newsapi")
 public class NewsController {
     private NewsAPIService apiService;
     private NewsService newsService;
