@@ -18,8 +18,10 @@ class HeaderComponent extends Component {
                         {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/admin">Home</Link></li>}
                         {!isUserLoggedIn && <li><Link className="nav-link" to="/about">About</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/todos">Dashboard</Link></li>}
-                        {!isUserLoggedIn && <li><Link className="nav-link" to="/faq">faq</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/faq">faq</Link></li>}
+                        {!isUserLoggedIn && <li><Link className="nav-link" to="/faq">FAQ</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/faq">FAQ</Link></li>}
+                        {!isUserLoggedIn && <li><Link className="nav-link" to="/news">News</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/news">News</Link></li>}
                         
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
