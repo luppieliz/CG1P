@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TodoDataService from '../../api/todo/TodoDataService';
-import AuthenticationService from './AuthenticationService.js'
+import AuthenticationService from '../../api/todo/AuthenticationService.js';
 import moment from 'moment'
 import Placeholder from 'react-bootstrap/Placeholder'
 import Card from 'react-bootstrap/Card'
@@ -31,7 +31,7 @@ class ListTodosComponent extends Component {
 
     // same as above, but for subsequent refreshes
     refreshTodos() {
-        let username = AuthenticationService.getLoggedInUserName();
+        let username = AuthenticationService.getLoggedInEmail();
         TodoDataService.retrieveAllTodos(username)
             .then(
                 response => {
@@ -43,7 +43,7 @@ class ListTodosComponent extends Component {
 
     // handler for when delete todo is clicked
     deleteTodoClicked(todoId) {
-        let username = AuthenticationService.getLoggedInUserName();
+        let username = AuthenticationService.getLoggedInEmail();
         TodoDataService.deleteTodo(username, todoId)
             .then(
                 response => {

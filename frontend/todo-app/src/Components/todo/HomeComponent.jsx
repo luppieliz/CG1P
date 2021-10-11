@@ -48,7 +48,7 @@ class HomeComponent extends React.Component {
        <Row style={{paddingTop:'100px'}}>
         <Col>
             <Link className="new user text-left" to="/signup"><Button variant="light" >Sign Up</Button></Link>
-            <Link style={{ padding:'10px'}}className="new user text-left" to="/login"><Button variant="dark">Login In </Button></Link>
+            <Link style={{ padding:'10px'}}className="new user text-left" to="/login"><Button variant="dark">Login</Button></Link>
           </Col>
           <Col></Col>
          

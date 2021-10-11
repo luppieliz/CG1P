@@ -11,12 +11,8 @@ class HelloWorldService {
         return axios.get(`${API_URL}/hello-world-bean`);
     }
 
-    executeHelloWorldPathVariableService(name) {
-        const token = 'Basic ' + window.btoa(name + "goodpassword")
-        return axios.get(`${API_URL}/hello-world/path-variable/${name}`,
-        {
-            headers: { authorization: 'Basic ' + window.btoa(name + ":" + "goodpassword") }
-        });
+    executeHelloWorldPathVariableService(email) {
+        return axios.get(`${API_URL}/hello-world/path-variable/${email}`);
     }
 
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AuthenticationService from './AuthenticationService.js';
+import AuthenticationService from '../../api/todo/AuthenticationService.js';
 import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container'
@@ -14,16 +14,15 @@ class LoginComponent extends Component {
     constructor(props) {
         super(props)
 
-        // State - contains the username, password, and hasLoginFailed boolean fields.
+        // State - contains the email, password, and hasLoginFailed boolean fields.
         this.state = {
-            username: 'admin',
-            password: 'goodpassword',
+            email: '',
+            password: '',
             hasLoginFailed: false, // boolean 1
         }
+
         this.handleChange = this.handleChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
-
-        
     }
     
 
@@ -43,12 +42,11 @@ class LoginComponent extends Component {
     // If successful, use authenticationService to register the log in ad redirect to the welcone page for that user
     // Else, set login failed to true to display alert
     loginClicked() {
-
         AuthenticationService
-            .executeBasicAuthenticationService(this.state.username, this.state.password)
-            .then((response) => {
-                   AuthenticationService.registerSuccessfulLoginForBasicAuth(this.state.username, this.state.password);
-                this.props.history.push(`/welcome/${this.state.username}`);
+            .executeBasicAuthenticationService(this.state.email, this.state.password)
+            .then(() => {
+                   AuthenticationService.registerSuccessfulLoginForBasicAuth(this.state.email, this.state.password);
+                this.props.history.push(`/welcome/${this.state.email}`);
             })
             .catch(() => {
                 this.setState({ hasLoginFailed: true })
@@ -80,8 +78,8 @@ class LoginComponent extends Component {
                     <Card border="warning" style={{ width: '35rem' ,height: '20rem',borderWidth:'5px'}}>
                     <Card.Body>
                             <div className="form-group ">
-                                <label>User Name</label>
-                                <input type="text" className="form-control" name="username" value={this.state.username} onChange={this.handleChange} />
+                                <label>Email</label>
+                                <input type="text" className="form-control" name="email" value={this.state.email} onChange={this.handleChange} />
                             </div>
                             <div className="form-group">
                                 <label>Password</label>

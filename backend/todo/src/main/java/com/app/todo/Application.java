@@ -13,7 +13,6 @@ import com.google.gson.stream.JsonReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -36,9 +35,8 @@ public class Application {
 		sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
 
 		UserService users = ctx.getBean(UserService.class);
-		BCryptPasswordEncoder encoder = ctx.getBean(BCryptPasswordEncoder.class);
 		System.out.println("[Add user]: " + users.addUser(
-				new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), "ROLE_ADMIN")).getUsername());
+				new User("admin@gmail.com", "admin", "goodpassword", "ROLE_ADMIN")).getUsername());
 
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://covid-19-data.p.rapidapi.com/country/code?code=sg"))

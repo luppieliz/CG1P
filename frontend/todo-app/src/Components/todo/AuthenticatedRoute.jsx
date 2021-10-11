@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import AuthenticationService from './AuthenticationService.js';
+import AuthenticationService from '../../api/todo/AuthenticationService.js';
 
 // Ensures user is authenticated before granting access to a route, else redirect to login
 class AuthenticatedRoute extends Component {
