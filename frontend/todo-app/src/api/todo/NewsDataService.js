@@ -7,7 +7,7 @@ class NewsDataService {
     }
 
     retrieveNewsWithTags(tags) {
-        return axios.get(`${API_URL}/newsdb/${tags}`);
+        return axios.get(`${API_URL}/newsapi/newsdb/${tags}`);
         // return axios.get(`${API_URL}/newsapi/sg/covid`);
     }
 }

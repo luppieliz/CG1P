@@ -13,7 +13,8 @@ class NewsFeedComponent extends Component {
 
         //state contains array of news items taken from database through api call
         this.state = {
-            news: []
+            news: [],
+            isEmpty: false
         }
     }
 
@@ -26,6 +27,7 @@ class NewsFeedComponent extends Component {
         NewsDataService.retrieveAllNews()
             .then(
                 response => {
+                    this.state.isEmpty = response.data.length === 0;
                     this.setState({news:response.data})
                     console.log("retrieveall made");
                     console.log(response);
@@ -33,8 +35,57 @@ class NewsFeedComponent extends Component {
             )
     }
 
+    tagClicked(tags) {
+        NewsDataService.retrieveNewsWithTags(tags)
+            .then(
+                response => {
+                    this.state.isEmpty = response.data.length === 0;
+                    this.setState({news:response.data})
+                    console.log("retrieve by tag made. tags: " + tags);
+                    console.log(response);
+                    console.log("this.state.isEmpty: " + this.state.isEmpty)
+                }
+            )
+    }
     //root component of NewsFeed that displays header, footer, and news cards
     render () {
+        let newsFeedColumn; //display empty message if there is no news in this.state
+        if (this.state.isEmpty) {
+            newsFeedColumn = <Card className="text-dark">
+                <Card.Body>
+                    <Card.Text>
+                        <h1>empty!</h1>
+                    </Card.Text>
+                </Card.Body>
+            </Card>;
+        } else {
+            //iterate through all this.state.news items and display them in card form
+            newsFeedColumn = <Row xs={1} md={1} className="g-4">
+                {Array.from(this.state.news, (_, idx) => (
+                    <Col>
+                        <Card bg={'dark'}>
+                            {/*<Card.Img variant="top" src="holder.js/100px160" />*/}
+                            <Card.Body>
+                                <Card.Title>
+                                    <Card.Link href={this.state.news[idx].url}>
+                                        {this.state.news[idx].title}
+                                    </Card.Link>
+                                </Card.Title>
+                                <Card.Text>
+                                    {this.state.news[idx].description}
+                                </Card.Text>
+                            </Card.Body>
+                            <Card.Footer>
+                                <small className="text-muted">tags go here</small>
+                            </Card.Footer>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        }
+
+
+        //return the render
         return (
             <div>
                 <Card className="text-dark">
@@ -49,28 +100,22 @@ class NewsFeedComponent extends Component {
                 <Placeholder xs={12} bg="dark" className="bg-black" />
                 <Placeholder xs={12} bg="dark" className="bg-black" />
                 <Container>
-                    <Row xs={1} md={1} className="g-4">
-                        {Array.from(this.state.news, (_, idx) => (
-                            <Col>
-                                <Card bg={'dark'}>
-                                    {/*<Card.Img variant="top" src="holder.js/100px160" />*/}
-                                    <Card.Body>
-                                        <Card.Title>
-                                            <Card.Link href={this.state.news[idx].url}>
-                                                {this.state.news[idx].title}
-                                            </Card.Link>
-                                        </Card.Title>
-                                        <Card.Text>
-                                            {this.state.news[idx].description}
-                                        </Card.Text>
-                                    </Card.Body>
-                                    <Card.Footer>
-                                        <small className="text-muted">tags go here</small>
-                                    </Card.Footer>
-                                </Card>
-                            </Col>
-                        ))}
+                    <Row>
+                        {/*test column*/}
+                        Filter by:
+                        <Col>
+                            <button className = "btn btn-success" onClick={() => this.tagClicked("tagname")}>tagname</button>
+                            <button className = "btn btn-success" onClick={() => this.tagClicked("all")}>all</button>
+                        </Col>
+                        {/*news column*/}
+                        <Col>
+                            {/*see newsFeedColumn definition for more information*/}
+                            {newsFeedColumn}
+
+
+                        </Col>
                     </Row>
+
                 </Container>
             </div>
         )
