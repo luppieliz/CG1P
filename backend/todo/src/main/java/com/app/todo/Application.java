@@ -33,6 +33,7 @@ public class Application {
 		ApplicationContext ctx = SpringApplication.run(Application.class, args);
 
 		MeasureService testService = ctx.getBean(MeasureService.class);
+//		testService.getTag();
 		List<String> sourcesLink = testService.getMeasures();
 		sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
 

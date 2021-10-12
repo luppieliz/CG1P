@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,26 +24,9 @@ public class News {
     @Length(max=50000000)
     private String content;
 
+    private String tagList;
+
     public News() {}
 
-    public News(String publisher, String author, String title, String description, String URL, String publishedDate) {
-        this.publisher = publisher;
-        this.author = author;
-        this.title = title;
-        this.description = description;
-        this.URL = URL;
-        this.publishedDate = publishedDate;
-    }
 
-    @Override
-    public String toString() {
-        return "News{" +
-                "publisher='" + publisher + '\'' +
-                ", author='" + author + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", URL='" + URL + '\'' +
-                ", publishedDate='" + publishedDate + '\'' +
-                '}';
-    }
 }

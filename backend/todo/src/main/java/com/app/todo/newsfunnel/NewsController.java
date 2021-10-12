@@ -1,9 +1,11 @@
 package com.app.todo.newsfunnel;
 
+import com.app.todo.measure.MeasureController;
 import com.app.todo.phonetext.PhoneTextController;
 import com.app.todo.phonetext.SmsRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +20,18 @@ public class NewsController {
     private NewsAPIService apiService;
     private NewsService newsService;
     private PhoneTextController textController;
+    private MeasureController measureController;
 
     @Autowired
-    public NewsController(NewsAPIService apiService, NewsService newsService,PhoneTextController textController) {
+    public NewsController(NewsAPIService apiService, NewsService newsService,PhoneTextController textController, MeasureController measureController) {
         this.apiService = apiService;
         this.newsService = newsService;
         this.textController = textController;
+        this.measureController = measureController;
     }
 
-    @GetMapping("/{country_code}/{query}")
+    @ApiOperation(value = "Get news with a specific country code and query")
+    @GetMapping(path = "/{country_code}/{query}", produces = "application/json")
     public List<News> getNews(@PathVariable(value = "country_code") String countryCode,
                         @PathVariable(value="query") String query) throws IOException, InterruptedException {
         NewsAPIResponse newsResponse = apiService.getAPIResponse(countryCode,query);
@@ -45,6 +50,22 @@ public class NewsController {
             singleNews.setURL(newsDTO.getUrl());
             singleNews.setPublishedDate(newsDTO.getPublishedAt());
             singleNews.setContent(newsDTO.getContent());
+
+            List<String> tagList = new ArrayList<>();
+            measureController.getTag(newsDTO.getUrl(), tagList);
+
+            String arrTag = "";
+
+            for (int i = 0; i < tagList.size() - 1; i++) {
+                System.out.println(tagList.get(i));
+                arrTag += tagList.get(i) + ",";
+            }
+            if (!tagList.isEmpty()) {
+                arrTag += tagList.get(tagList.size() - 1);
+            }
+
+            singleNews.setTagList(arrTag);
+
             resultNews.add(singleNews);
             newsService.addNews(singleNews);
         }
@@ -52,7 +73,8 @@ public class NewsController {
         return resultNews;
     }
 
-    @GetMapping("/newsdb/{tags}") //check exceptions
+    @ApiOperation(value = "Get news with specific tags from database")
+    @GetMapping(path = "/newsdb/{tags}",  produces = "application/json") //check exceptions
     public List<News> getNewsFromDB(@PathVariable(value = "tags") String tags) {
         //process tags
         //preferred format {tags} = (String): "tag1+tag2+tag3" or all
@@ -66,8 +88,8 @@ public class NewsController {
         }
 
     }
-
-    @PostMapping("/{phone_number}")
+    @ApiOperation(value = "Send SMS of new news retrieved")
+    @PostMapping(path = "/{phone_number}", produces = "application/json")
     public void notifyNews(@PathVariable(value="phone_number") String phoneNo ) {
         List<News> currentNews = newsService.getAllNews();
         String message = "Check out the latest COVID news:\n";

@@ -1,6 +1,8 @@
 package com.app.todo.measure;
 
 import java.util.List;
+
+//import com.app.todo.newsfunnel.Tag;
 import com.app.todo.scrapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +20,9 @@ public class MeasureService {
     public List<String> getMeasures() {
         List<String> sourcesList = scrapperService.scrape();
         return sourcesList;
+    }
+
+    public void getTag(String newsURL, List<String> tag) {
+        scrapperService.scrapeArticle(newsURL, tag);
     }
 }
