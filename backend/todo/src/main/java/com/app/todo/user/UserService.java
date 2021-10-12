@@ -1,8 +1,5 @@
 package com.app.todo.user;
 
-import com.app.todo.business.Business;
-import com.app.todo.business.BusinessNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,15 +11,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-
-import javax.validation.Valid;
-
 
 @Service
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 //    private BCryptPasswordEncoder encoder;
+
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -37,12 +31,8 @@ public class UserService implements UserDetailsService {
         );
     }
 
-    public List<User> getUsersByBusinessId(Long businessId) {
-        return userRepository.findByBusinessId(businessId);
-    }
-
-    public Optional<User> getUsersByUserIdAndBusinessId(Long userId, Long businessId) {
-        return userRepository.findByIdAndBusinessId(userId, businessId);
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
     public User addUser(User newUser) {
@@ -57,9 +47,5 @@ public class UserService implements UserDetailsService {
         User deleteUser = userRepository.findById(userId).get();
         userRepository.deleteById(userId);
         return deleteUser;
-    }
-
-	public Object save(@Valid User user) {
-		return null;
     }
 }

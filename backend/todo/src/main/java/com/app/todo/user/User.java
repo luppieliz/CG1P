@@ -1,6 +1,5 @@
 package com.app.todo.user;
 
-import com.app.todo.business.Business;
 import com.app.todo.todo.ToDo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -59,10 +58,6 @@ public class User implements UserDetails {
     @JsonIgnore
     @Column(name = "todo")
     private List<ToDo> toDos;
-
-    @ManyToOne
-    @JoinColumn(name="business_id")
-    private Business business;
 
     public User(@JsonProperty("username") String username,
                 @JsonProperty("email") String email,
