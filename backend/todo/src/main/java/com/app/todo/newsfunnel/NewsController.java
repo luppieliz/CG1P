@@ -88,6 +88,7 @@ public class NewsController {
         }
 
     }
+
     @ApiOperation(value = "Send SMS of new news retrieved")
     @PostMapping(path = "/{phone_number}", produces = "application/json")
     public void notifyNews(@PathVariable(value="phone_number") String phoneNo ) {
@@ -103,6 +104,5 @@ public class NewsController {
         SmsRequest sms = new SmsRequest(phoneNo,message);
         textController.sendSms(sms);
     }
-
 
 }

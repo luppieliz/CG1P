@@ -22,8 +22,8 @@ public class MeasureController {
 
     @ApiOperation(value = "Scrape for measures")
     @GetMapping(path="/industryMeasures",produces = "application/json")
-    public List<String> getMeasure() {
-        List<String> sourcesLink = measureService.getMeasures();
+    public List<String> getMeasure(String URL) {
+        List<String> sourcesLink = measureService.getMeasures(URL);
         sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
         return sourcesLink;
     }

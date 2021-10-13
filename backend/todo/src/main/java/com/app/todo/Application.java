@@ -1,6 +1,8 @@
 package com.app.todo;
 
 import com.app.todo.covid.DailyResponse;
+import com.app.todo.faq.FAQController;
+import com.app.todo.faq.FAQService;
 import com.app.todo.measure.MeasureService;
 import com.app.todo.user.User;
 import com.app.todo.user.UserService;
@@ -34,8 +36,12 @@ public class Application {
 
 		MeasureService testService = ctx.getBean(MeasureService.class);
 //		testService.getTag();
-		List<String> sourcesLink = testService.getMeasures();
+		String testURL = "https://www.enterprisesg.gov.sg/covid-19/safe-distance";
+		List<String> sourcesLink = testService.getMeasures(testURL);
 		sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
+
+		FAQController testFAQController = ctx.getBean(FAQController.class);
+		testFAQController.retrieveImage(testURL);
 
 		UserService users = ctx.getBean(UserService.class);
 		BCryptPasswordEncoder encoder = ctx.getBean(BCryptPasswordEncoder.class);

@@ -61,13 +61,6 @@ public class ToDoController {
         return new ResponseEntity<ToDo>(newToDo, HttpStatus.OK);
     }
 
-    // REST standard: Should return URI of new resource
-    
-    // public void createTodo(
-    //         @PathVariable (value = "username") String username, @RequestBody ToDo newToDo) {
-    //     toDoService.addToDo(username, newToDo);
-    // }
-
     @ApiOperation(value = "Create a new todo by a specific user")
     @PostMapping(path = "/{username}/todos", produces = "application/json")
    public ResponseEntity<Void> createTodo(

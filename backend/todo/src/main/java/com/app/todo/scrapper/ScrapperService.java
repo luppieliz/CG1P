@@ -13,7 +13,6 @@ import java.util.*;
 @Service
 //@AllArgsConstructor
 public class ScrapperService {
-    private static final String URL = "https://www.enterprisesg.gov.sg/covid-19/safe-distance";
 
     private final ChromeDriver driver;
     private static Map<String, List<String>> tagMap = new HashMap<>();
@@ -34,7 +33,7 @@ public class ScrapperService {
         this.driver = driver;
     }
 
-    public List<String> scrape() {
+    public List<String> scrapeFAQ(String URL) {
         List<String> scrappedSrc = new ArrayList<>();
         driver.get(URL);
 

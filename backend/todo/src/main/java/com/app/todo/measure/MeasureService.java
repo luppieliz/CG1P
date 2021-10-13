@@ -17,8 +17,8 @@ public class MeasureService {
         this.scrapperService = scrapperService;
     }
 
-    public List<String> getMeasures() {
-        List<String> sourcesList = scrapperService.scrape();
+    public List<String> getMeasures(String URL) {
+        List<String> sourcesList = scrapperService.scrapeFAQ(URL);
         return sourcesList;
     }
 
