@@ -25,7 +25,6 @@ class NewsFeedComponent extends Component {
     //functions that run on load
     componentDidMount() {
         this.refreshNews();
-        this.refreshTaglist();
     }
 
     //function to retrieve all news items from the database
@@ -39,17 +38,32 @@ class NewsFeedComponent extends Component {
                     this.setState({newsDisplay:response.data})
                     // console.log("retrieveall made");
                     console.log(response);
+                    this.generateTaglist();
                 }
             )
     }
 
-    //function to get all the tags from the system TODO
-    refreshTaglist() {
-        //this method fetches all the tags in the database to populate the filter
-        //todo implement fetching from database to replace hardcoding
-        var output = [{value: 'Healthcare'},
-            {value: 'Tourism'}
-            ];
+    //function to generate a list of tags based on news retrieved
+    //todo: reduce time complexity
+    generateTaglist() {
+        var tags = {}; //list of existing tags
+        var output = []; //output format: [{value:"tag1"},{value:"tag2"}]
+        var idx = 0;
+        for (var i in this.state.news) {
+            if (this.state.news[i].tagList.length != 0) { //iterate through news items and find ones with tags
+                var arr = this.state.news[i].tagList.split(",");
+                for (var s in arr) {
+                    if (!tags.hasOwnProperty(arr[s])) { //
+                        tags[arr[s]] = 0;
+                        // console.log("adding " + arr[s]);
+                        output[idx] = {value:arr[s]};
+                        idx++;
+                    }
+                }
+                // console.log(this.state.news[i].tagList);
+
+            }
+        }
         this.setState({options:output})
     }
 
