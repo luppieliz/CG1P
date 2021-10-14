@@ -6,9 +6,10 @@ class NewsDataService {
         return axios.get(`${API_URL}/newsapi/newsdb/all`);
     }
 
-    retrieveNewsWithTags(tags) {
-        return axios.get(`${API_URL}/newsapi/newsdb/${tags}`);
-    }
+    //TODO implement retrieve by date limit
+    // retrieveNewsByDate(date) {
+    //     return axios.get(`${API_URL}/newsapi/newsdb/${date}`);
+    // }
 
     triggerNewsApi() {
     return axios.get(`${API_URL}/newsapi/sg/covid`);

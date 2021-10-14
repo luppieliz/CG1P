@@ -22,7 +22,4 @@ public class NewsService {
     public List<News> getAllNews() {
         return newsRepository.findAll();
     }
-
-//  TODO findByTag //should it be at databse level or frontend level?
-    //public List<News> getNewsWithTags() { return newsRepository.findByTag(tagList)}
 }

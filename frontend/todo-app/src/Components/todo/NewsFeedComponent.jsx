@@ -13,7 +13,6 @@ class NewsFeedComponent extends Component {
     constructor(props) {
         super(props)
 
-        //state contains array of news items taken from database through api call
         this.state = {
             news: [],
             newsDisplay : [],
@@ -21,11 +20,9 @@ class NewsFeedComponent extends Component {
             tagsSelected: {},
             options: []
         }
-        // this.updateTodoClicked = this.updateTodoClicked.bind(this);
-        // this.onSelect = this.onSelect().bind(this);
-        // this.onRemove = this.onRemove().bind(this);
     }
 
+    //functions that run on load
     componentDidMount() {
         this.refreshNews();
         this.refreshTaglist();
@@ -33,7 +30,7 @@ class NewsFeedComponent extends Component {
 
     //function to retrieve all news items from the database
     refreshNews() {
-        //implement retrieve by date
+        //TODO implement retrieve by date
         NewsDataService.retrieveAllNews()
             .then(
                 response => {
@@ -100,20 +97,15 @@ class NewsFeedComponent extends Component {
     //function for when a filter option is selected
     onSelect = (selectedList, selectedItem) => { //note usage of arrow function here, necessary as this refers to multiselect, not newsfeed component see https://stackoverflow.com/questions/32317154/react-uncaught-typeerror-cannot-read-property-setstate-of-undefined?rq=1
         var tag = selectedItem['value'];
-        // console.log(selectedItem['value']);
-        // this.setState({tagsSelected: {tag:true}});
         this.state.tagsSelected[tag] = true;
         console.log(JSON.stringify(this.state.tagsSelected));
-        // console.log("list: " + JSON.stringify(selectedList) + " item: " + JSON.stringify(selectedItem));
     }
 
     //function for when a filter option is removed
     onRemove = (selectedList, removedItem) => {
         var tag = removedItem['value'];
-        // this.setState({tagsSelected: {tag:false}});
         this.state.tagsSelected[tag] = false;
         console.log(JSON.stringify(this.state.tagsSelected));
-        // console.log("list: " + JSON.stringify(selectedList) + " item: " + JSON.stringify(removedItem));
     }
 
     //root component of NewsFeed that displays header, footer, and news cards

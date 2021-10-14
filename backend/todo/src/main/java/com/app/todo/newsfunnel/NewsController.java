@@ -73,20 +73,10 @@ public class NewsController {
         return resultNews;
     }
 
-    @ApiOperation(value = "Get news with specific tags from database")
-    @GetMapping(path = "/newsdb/{tags}",  produces = "application/json") //check exceptions
-    public List<News> getNewsFromDB(@PathVariable(value = "tags") String tags) {
-        //process tags
-        //preferred format {tags} = (String): "tag1+tag2+tag3" or all
-        if (tags.equals("all")) {
-            return newsService.getAllNews();
-        } else {
-            //process tags
-            String [] tagList = tags.split("\\+");
-            return new ArrayList<>(); //temporary
-//            return newsService.getNewsWithTags(tagList); TODO
-        }
-
+    @ApiOperation(value = "Get all news from database") //TODO implement a datelimit so that future calls wont retrieve more than 100 entries
+    @GetMapping(path = "/newsdb/all",  produces = "application/json")
+    public List<News> getNewsFromDB() {
+        return newsService.getAllNews();
     }
 
     @ApiOperation(value = "Send SMS of new news retrieved")
