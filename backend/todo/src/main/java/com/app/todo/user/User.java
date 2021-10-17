@@ -66,7 +66,6 @@ public class User implements UserDetails {
     private String authority;
 
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "todo")
     private List<ToDo> toDos;
 
     public User(String email, String name, String password, String authority) {
