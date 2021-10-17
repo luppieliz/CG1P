@@ -1,10 +1,9 @@
 package com.app.todo.business;
 
-// import com.app.todo.business.BusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BusinessService {
@@ -15,55 +14,42 @@ public class BusinessService {
         this.businessRepository = businessRepository;
     }
 
-    public Business loadByBusinessName(String businessName) throws BusinessNotFoundException {
-        return businessRepository.findByBusinessName(businessName).orElseThrow(
-                () -> new BusinessNotFoundException("Business: " + businessName + " is not found!")
-        );
-    }
-
-    public List<Business> getBusinesses() {
+    public List<Business> getAllBusinesses() {
         return businessRepository.findAll();
     }
 
-    // add and delete Business should only be able to be done my admin 
-    // if done by admin, should password by generated then passed to business owner?
-    // or set by business owner?
-    public Business addBusiness(Business newBusiness) {
-        if (businessRepository.existsByBusinessName(newBusiness.getBusinessName())) {
-            throw new BusinessAlreadyRegisteredException(newBusiness.getBusinessName());
+    public Business getBusiness(String UEN) throws BusinessNotFoundException {
+        return businessRepository.findByUEN(UEN).orElseThrow(() -> new BusinessNotFoundException(UEN));
+    }
+
+    public Business addBusiness(Business business) throws BusinessAlreadyRegisteredException {
+        String UEN = business.getUEN();
+
+        if (businessRepository.existsByUEN(UEN)) {
+            throw new BusinessAlreadyRegisteredException(UEN);
         }
-        // newBusiness.setPassword(newBusiness.getPassword());
-        return businessRepository.save(newBusiness);
+
+        return businessRepository.save(business);
     }
 
-    public Business deleteBusiness(Long businessId) {
-        if (!businessRepository.existsById(businessId)) {
-            throw new BusinessNotFoundException(businessId);
-        }
-        Business deleteBusiness = businessRepository.findById(businessId).get();
-        businessRepository.deleteById(businessId);
-        return deleteBusiness;
-    }
+    // TODO: Implement other business services
+    // CRUD with id or UEN?
 
-    public Business updateBusiness(Long businessId, Business newBusiness) {
-        if (!businessRepository.existsById(businessId)) {
-            throw new BusinessNotFoundException(businessId);
-        }
-        Business business = businessRepository.findById(businessId).get();
-        business = newBusiness;
-        return business;
-    }
+    // public Business deleteBusiness(Long businessId) {
+    // if (!businessRepository.existsById(businessId)) {
+    // throw new BusinessNotFoundException(businessId);
+    // }
+    // Business deleteBusiness = businessRepository.findById(businessId).get();
+    // businessRepository.deleteById(businessId);
+    // return deleteBusiness;
+    // }
 
-    // businessRepo methods
-    public Boolean existsById(Long businessId) {
-        return businessRepository.existsById(businessId);
-    }
-
-    public Optional<Business> findById(Long businessId) {
-        return businessRepository.findById(businessId);
-    }
-
-    public Boolean existsByBusinessName(String businessName) {
-        return businessRepository.existsByBusinessName(businessName);
-    }
+    // public Business updateBusiness(Long businessId, Business newBusiness) {
+    // if (!businessRepository.existsById(businessId)) {
+    // throw new BusinessNotFoundException(businessId);
+    // }
+    // Business business = businessRepository.findById(businessId).get();
+    // business = newBusiness;
+    // return business;
+    // }
 }

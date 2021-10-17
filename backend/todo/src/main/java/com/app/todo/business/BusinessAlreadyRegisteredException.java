@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class BusinessAlreadyRegisteredException extends RuntimeException {
-    public static final long serialVersionUID = 1L;
-
-    public BusinessAlreadyRegisteredException(String businessName) {
-        super("Business " + businessName + " is already registered!");
-    }
+    private static final long serialVersionUID = 1L;
 
     public BusinessAlreadyRegisteredException(Long businessId) {
-        super("Business with business ID: " + businessId + " is already registered!");
+        super("Business with ID: " + businessId + " is already registered!");
+    }
+
+    public BusinessAlreadyRegisteredException(String UEN) {
+        super("Business " + UEN + " is already registered!");
     }
 }
