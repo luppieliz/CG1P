@@ -17,8 +17,12 @@ public class UserService {
         this.encoder = encoder;
     }
 
-    public List<User> getUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public User getUser(String email) throws UserNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
     }
 
     public User addUser(User user) {

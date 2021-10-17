@@ -17,12 +17,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public List<User> getUsers() {
-        return userService.getUsers();
+    @GetMapping("/user")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    @PostMapping("/users")
+    @GetMapping("/user/{email}")
+    public User getUser(@PathVariable String email) {
+        return userService.getUser(email);
+    }
+
+    @PostMapping("/user")
     public User addUser(@Valid @RequestBody User user) {
         return userService.addUser(user);
     }

@@ -37,6 +37,10 @@ public class Application {
 		UserService users = ctx.getBean(UserService.class);
 		System.out.println("[Add user]: " + users.addUser(
 				new User("admin@gmail.com", "admin", "goodpassword", "ROLE_ADMIN")).getUsername());
+		System.out.println("[Add user]: " + users.addUser(
+				new User("alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER")).getUsername());
+		System.out.println("[Add user]: " + users.addUser(
+				new User("ben@gmail.com", "Ben", "password2", "ROLE_EMPLOYEE")).getUsername());
 
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://covid-19-data.p.rapidapi.com/country/code?code=sg"))

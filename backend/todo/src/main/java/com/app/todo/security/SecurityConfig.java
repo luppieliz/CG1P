@@ -53,6 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(HttpMethod.POST, "/sms").authenticated()
                     .antMatchers(HttpMethod.POST, "/mms").authenticated()
 
+                    // for HellowWorld (Not working!)
+                    .antMatchers(HttpMethod.GET, "/hello-world/**").hasAnyRole("ADMIN", "BUSINESSOWNER")
+
                 .and()
                 .csrf().disable()
                 .formLogin().disable();
