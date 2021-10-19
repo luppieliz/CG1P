@@ -1,6 +1,8 @@
 package com.app.todo;
 
 import com.app.todo.covid.DailyResponse;
+import com.app.todo.faq.FAQController;
+import com.app.todo.faq.FAQService;
 import com.app.todo.measure.MeasureService;
 import com.app.todo.user.User;
 import com.app.todo.user.UserService;
@@ -14,6 +16,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -32,8 +35,13 @@ public class Application {
 		ApplicationContext ctx = SpringApplication.run(Application.class, args);
 
 		MeasureService testService = ctx.getBean(MeasureService.class);
-		List<String> sourcesLink = testService.getMeasures();
+//		testService.getTag();
+		String testURL = "https://www.enterprisesg.gov.sg/covid-19/safe-distance";
+		List<String> sourcesLink = testService.getMeasures(testURL);
 		sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
+
+		FAQController testFAQController = ctx.getBean(FAQController.class);
+		testFAQController.retrieveImage(testURL);
 
 		UserService users = ctx.getBean(UserService.class);
 		BCryptPasswordEncoder encoder = ctx.getBean(BCryptPasswordEncoder.class);

@@ -51,7 +51,7 @@ class SignupComponent extends Component {
             <Row>
                 <Col></Col>
                 <Col>
-                <h1 className="text-info" style={{ padding:'100px'}}>COVby</h1>
+                <h1 className="text-info" style={{ padding:'100px'}}>Buddy-19</h1>
                 </Col>
                 <Col></Col>
             </Row>

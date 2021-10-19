@@ -1,5 +1,6 @@
 package com.app.todo.email;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,8 @@ public class EmailController {
         this.emailService = emailService;
     }
 
-    @PostMapping
+    @ApiOperation(value = "Send email")
+    @PostMapping(produces = "application/json")
     public void sendEmailWithHTMLTemplate(@RequestBody EmailPost emailPost) throws MessagingException {
         Email email = new Email();
         email.setFrom("c1gp.email.service@gmail.com");

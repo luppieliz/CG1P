@@ -36,9 +36,9 @@ class HomeComponent extends React.Component {
   render() {
     return <div style={{ height: "92vh", width: "100%"}}  ref={this.vantaRef}>
       <Container>
-        <Row style={{ padding:'100px'}}><h1 className="text-white"> Welcome to </h1><h1 className="text-danger "> COVby</h1></Row>
+        <Row style={{ padding:'100px'}}><h1 className="text-white"> Welcome to </h1><h1 className="text-danger "> Buddy-19</h1></Row>
        <Row style={{ padding:'50'}}>
-       <Col><h3 class="text-white "> COVby serves as both a
+       <Col><h3 class="text-white ">Buddy-19 serves as both a
             one-stop information hub and a companion tool, providing services for business owners to better understand and manage
             the measures they have to take in the face of the pandemic.
             </h3>
@@ -48,7 +48,7 @@ class HomeComponent extends React.Component {
        <Row style={{paddingTop:'100px'}}>
         <Col>
             <Link className="new user text-left" to="/signup"><Button variant="light" >Sign Up</Button></Link>
-            <Link style={{ padding:'10px'}}className="new user text-left" to="/login"><Button variant="dark">Login In </Button></Link>
+            <Link style={{ padding:'10px'}}className="new user text-left" to="/login"><Button variant="dark">Log In</Button></Link>
           </Col>
           <Col></Col>
          

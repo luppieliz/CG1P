@@ -1,20 +1,21 @@
 package com.app.todo.authentication;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins={ "http://localhost:3000", "http://localhost:4200" })
 @RestController
+@RequestMapping("/basicauth")
 public class BasicAuthenticationController {
-    @GetMapping(path = "/basicauth")
+    @ApiOperation(value = "Check whether user is successfully authenticated")
+    @GetMapping(produces = "application/json")
     public AuthenticationBean authenticate() {
         //throw new RuntimeException("Some Error has Happened! Contact Support at ***-***");
         return new AuthenticationBean("You are authenticated");
     }
 
-    @PostMapping(path = "/basicauth")
+    @ApiOperation(value = "Check whether user is successfully authenticated")
+    @PostMapping(produces = "application/json")
     public AuthenticationBean postauthenticate() {
         //throw new RuntimeException("Some Error has Happened! Contact Support at ***-***");
         return new AuthenticationBean("You are authenticated");
