@@ -53,13 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable();
 
-        //enable h2 console
-        http.authorizeRequests()
-            .antMatchers("/").permitAll()
-            .antMatchers("/h2-console/**").permitAll();
 
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
     }
 
     @Bean
