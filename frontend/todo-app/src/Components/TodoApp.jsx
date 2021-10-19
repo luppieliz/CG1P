@@ -1,23 +1,24 @@
 // import react
 import React, { Component } from 'react'
 // auth route, make sure route is valid for user
-import AuthenticatedRoute from './AuthenticatedRoute'
+import AuthenticatedRoute from './fixed/AuthenticatedRoute'
 // import routing features
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 // import refactored components
-import LoginComponent from './LoginComponent.jsx'
-import LogoutComponent from './LogoutComponent.jsx'
-import ListTodosComponent from './ListTodosComponent.jsx'
-import HeaderComponent from './HeaderComponent.jsx'
-import FooterComponent from './FooterComponent.jsx'
-import ErrorComponent from './ErrorComponent.jsx'
-import WelcomeComponent from './WelcomeComponent.jsx'
-import TodoComponent from './TodoComponent.jsx'
-import SignupComponent from './SignupComponent.jsx'
-import HomeComponent from './HomeComponent.jsx'
-import Faqcomponent from './GeneralFaq'
-import NewsFeedComponent from "./NewsFeedComponent";
+import LoginComponent from './fixed/LoginComponent.jsx'
+import LogoutComponent from './fixed/LogoutComponent.jsx'
+import HeaderComponent from './fixed/HeaderComponent.jsx'
+import FooterComponent from './fixed/FooterComponent.jsx'
+import ErrorComponent from './fixed/ErrorComponent.jsx'
+import WelcomeComponent from './fixed/WelcomeComponent.jsx'
+import SignupComponent from './fixed/SignupComponent.jsx'
 
+import HomeComponent from './todo/HomeComponent.jsx'
+import TodoComponent from './todo/TodoComponent.jsx'
+import Faqcomponent from './todo/GeneralFaq'
+import NewsFeedComponent from "./todo/NewsFeedComponent";
+import ListTodosComponent from "./todo/ListTodosComponent";
+import SideBarComponent from "./todo/SideBarComponent";
 
 
 class TodoApp extends Component {
@@ -41,6 +42,8 @@ class TodoApp extends Component {
                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
                         <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
                         <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
+                        <AuthenticatedRoute path="/mylist" component={SideBarComponent} />
+                       
                         <Route path="/signup" component={SignupComponent}/>
                         <Route component={ErrorComponent} />
                     </Switch>

@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import TodoDataService from '../../api/todo/TodoDataService.js'
-import AuthenticationService from './AuthenticationService.js'
+import AuthenticationService from '../fixed/AuthenticationService.js'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import Placeholder from 'react-bootstrap/Placeholder'
 
 // Page to update or add a specific todo
 class TodoComponent extends Component {
@@ -95,42 +98,52 @@ class TodoComponent extends Component {
 
         return (
             <div>
+
                 <Container>
                     <Row>
                         <Col></Col>
                         <Col>
-                <h1 className="text-white">Todo</h1>
-                <div className="container text-white">
-                    <Formik
-                        initialValues={{ description, targetDate }}
-                        onSubmit={this.onSubmit}
-                        validateOnChange={false}
-                        validateOnBlur={false}
-                        validate={this.validate}
-                        enableReinitialize={true}
-                    >
-                        {
-                            (props) => (
-                                <Form>
-                                    <ErrorMessage name="description" component="div" className="alert alert-warning "></ErrorMessage>
-                                    <ErrorMessage name="targetDate" component="div" className="alert alert-warning"></ErrorMessage>
-                                    <fieldset className="form-group">
-                                        <label >Description</label>
-                                        <Field className="form-control" type="text" name="description"></Field>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Target Date</label>
-                                        <Field className="form-control" type="date" name="targetDate"></Field>
-                                    </fieldset>
-                                    <button className="btn btn-success" type="submit" >Save</button>
-                                </Form>
-                            )
-                        }
-                    </Formik>
-                </div>
-                </Col>
-                <Col></Col>
-                </Row>
+                        <Placeholder xs={12} bg="black" />
+                        <Placeholder xs={12} bg="black" />
+                            <Card>
+                                <Placeholder xs={12} bg="light" />
+                                <h1 className="text-dark">What are you gonna do today? :)</h1>
+                                <div className="container text-dark">
+                                    <Card.Body>
+                                        <Formik
+                                            initialValues={{ description, targetDate }}
+                                            onSubmit={this.onSubmit}
+                                            validateOnChange={false}
+                                            validateOnBlur={false}
+                                            validate={this.validate}
+                                            enableReinitialize={true}
+                                        >
+                                            {
+                                                (props) => (
+                                                    <Form>
+                                                        <ErrorMessage name="description" component="div" className="alert alert-warning "></ErrorMessage>
+                                                        <ErrorMessage name="targetDate" component="div" className="alert alert-warning"></ErrorMessage>
+                                                        <fieldset className="form-group">
+                                                            <label >Description</label>
+                                                            <Field className="form-control" type="text" name="description"></Field>
+                                                        </fieldset>
+                                                        <fieldset className="form-group">
+                                                            <label>Target Date</label>
+                                                            <Field className="form-control" type="date" name="targetDate"></Field>
+                                                        </fieldset>
+                                                        <Placeholder xs={12} bg="light" />
+                                                        <button className="btn btn-success" type="submit" >Save</button>
+                                                        <Placeholder xs={12} bg="light" />
+                                                    </Form>
+                                                )
+                                            }
+                                        </Formik>
+                                    </Card.Body>
+                                </div>
+                            </Card>
+                        </Col>
+                        <Col></Col>
+                    </Row>
                 </Container>
             </div>
         )
