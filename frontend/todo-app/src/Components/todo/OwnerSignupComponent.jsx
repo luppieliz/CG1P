@@ -5,12 +5,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image'
-import { Link } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
 
 
-
-class SignupComponent extends Component {
+class OwnerSignupComponent extends Component {
 
     constructor(props) {
         super(props)
@@ -40,7 +37,7 @@ class SignupComponent extends Component {
 
     signupClicked() {
 
-        // ADD EMPLOYEE SIGNUP LOGIC HERE
+        // ADD ADD-BUSINESS LOGIC HERE
         // SEND VERIFICATION EMAIL
 
     }
@@ -81,13 +78,22 @@ class SignupComponent extends Component {
                                     <input type="text" className="form-control" placeholder="Enter UEN" value={this.state.username} onChange={this.handleChange} />
                                 </div>
 
+                                <div className="form-group">
+                                    <label>Business Name (in accordance to UEN)</label>
+                                    <input type="text" className="form-control" placeholder="Enter Registered Name" value={this.state.username} onChange={this.handleChange} />
+                                </div>
+
+                                <div>
+                                    <label for="industryType">Please Select an Industry</label>
+                                    <select name="industryType" id="industryType">
+                                        <option value="Services">Services</option>
+                                        <option value="F&B">F&B</option>
+                                        <option value="Construction">Construction</option>
+                                    </select>
+                                </div>
 
 
-                                <button type="submit" className="btn btn-primary btn-block" onClick={this.signupClicked}>Sign Up</button>
-                                <p className="forgot-password text-center">Already registered? <a href="#placeholder">sign in</a></p>
-                                <Link style={{ padding: '10px' }} className="new user text-left" to="/signupbusiness"><Button variant="dark">Register as Business Owner</Button></Link>
-
-
+                                <button type="submit" className="btn btn-primary btn-block" onClick={this.signupClicked}>Register Business</button>
                             </form>
                         </Card>
                     </Col>
@@ -98,4 +104,4 @@ class SignupComponent extends Component {
     }
 }
 
-export default SignupComponent
+export default OwnerSignupComponent

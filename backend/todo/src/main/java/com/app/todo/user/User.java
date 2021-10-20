@@ -4,18 +4,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.app.todo.business.Business;
 import com.app.todo.todo.ToDo;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -45,6 +39,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
+//    @ManyToOne
+//    @JoinColumn(name = "business_id", nullable = false)
+//    private Business business;
 
     @NotNull(message = "Email should not be null")
     @Email(message = "Email should be valid")
