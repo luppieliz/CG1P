@@ -4,7 +4,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,10 +47,6 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "business_id", nullable = false)
-//    private Business business;
-
     @NotNull(message = "Email should not be null")
     @Email(message = "Email should be valid")
     @Column(name = "email")
@@ -62,6 +65,10 @@ public class User implements UserDetails {
     // We define three roles/authorities: ROLE_ADMIN, ROLE_BUSINESSOWNER, ROLE_EMPLOYEE
     @Column(name = "authority")
     private String authority;
+
+    // @ManyToOne
+    // @JoinColumn(name = "business_id", nullable = false)
+    // private Business business;
 
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToDo> toDos;

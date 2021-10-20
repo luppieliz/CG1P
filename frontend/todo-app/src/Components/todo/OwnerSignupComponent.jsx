@@ -13,9 +13,11 @@ class OwnerSignupComponent extends Component {
         super(props)
 
         this.state = {
-            Username: '',
+            name: '',
             email: '',
             password: '',
+            UEN: '',
+            businessName: '',
             hasSignupFailed: false,
             showSuccessMessage: false
         }
@@ -24,12 +26,11 @@ class OwnerSignupComponent extends Component {
         this.signupClicked = this.signupClicked.bind(this)
     }
 
+    // Remove eventually!
     handleChange(event) {
-
         this.setState(
             {
-                [event.target.name]
-                    : event.target.value
+                [event.target.name]: event.target.value
             }
         )
     }
@@ -59,39 +60,38 @@ class OwnerSignupComponent extends Component {
                         <Card border="info" style={{ padding: '20px', width: '30rem', borderWidth: '4px' }}>
                             <form>
                                 <div className="form-group">
-                                    <label>User name</label>
-                                    <input type="text" className="form-control" placeholder="First name" value={this.state.username} onChange={this.handleChange} />
+                                    <label>Name</label>
+                                    <input type="text" className="form-control" placeholder="Enter name" value={this.state.name} onChange={this.handleChange} />
                                 </div>
 
                                 <div className="form-group">
                                     <label>Email address</label>
-                                    <input type="email" className="form-control" placeholder="Enter email" value={this.state.username} onChange={this.handleChange} />
+                                    <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.handleChange} />
                                 </div>
 
                                 <div className="form-group">
                                     <label>Password</label>
-                                    <input type="password" className="form-control" placeholder="Enter password" value={this.state.username} onChange={this.handleChange} />
+                                    <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.handleChange} />
                                 </div>
 
                                 <div className="form-group">
-                                    <label>Business UEN</label>
-                                    <input type="text" className="form-control" placeholder="Enter UEN" value={this.state.username} onChange={this.handleChange} />
+                                    <label>UEN</label>
+                                    <input type="text" className="form-control" placeholder="Enter UEN" value={this.state.UEN} onChange={this.handleChange} />
                                 </div>
 
                                 <div className="form-group">
-                                    <label>Business Name (in accordance to UEN)</label>
-                                    <input type="text" className="form-control" placeholder="Enter Registered Name" value={this.state.username} onChange={this.handleChange} />
+                                    <label>Business name (in accordance with UEN)</label>
+                                    <input type="text" className="form-control" placeholder="Enter business name" value={this.state.businessName} onChange={this.handleChange} />
                                 </div>
 
                                 <div>
-                                    <label for="industryType">Please Select an Industry</label>
+                                    <label for="industryType">Please select an industry</label>
                                     <select name="industryType" id="industryType">
                                         <option value="Services">Services</option>
                                         <option value="F&B">F&B</option>
                                         <option value="Construction">Construction</option>
                                     </select>
                                 </div>
-
 
                                 <button type="submit" className="btn btn-primary btn-block" onClick={this.signupClicked}>Register Business</button>
                             </form>

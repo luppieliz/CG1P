@@ -45,8 +45,8 @@ public class Business {
     @Column(name = "industry_id")
     private int industryId;
 
-//    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<User> users;
+    // @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<User> users;
 
     public Business(String UEN, String name, @JsonProperty("industry_id") int industryId) {
         this.UEN = UEN;
