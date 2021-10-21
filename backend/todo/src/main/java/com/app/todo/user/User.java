@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -66,9 +68,9 @@ public class User implements UserDetails {
     @Column(name = "authority")
     private String authority;
 
-    // @ManyToOne
-    // @JoinColumn(name = "business_id", nullable = false)
-    // private Business business;
+    @ManyToOne
+    @JoinColumn(name = "business_id", nullable = false)
+    private Business business;
 
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToDo> toDos;

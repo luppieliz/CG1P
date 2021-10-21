@@ -8,12 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+// import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.app.todo.user.User;
+import com.app.todo.industry.Industry;
+import com.app.todo.industry.IndustryRepository;
+import com.app.todo.industry.IndustryService;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.*;
 
@@ -41,16 +50,18 @@ public class Business {
     @Column(name = "name")
     private String name;
 
-    @NotNull(message = "Industry ID should not be null")
-    @Column(name = "industry_id")
-    private int industryId;
+    @ManyToOne
+    @JoinColumn(name = "industry_id")
+    @NotNull(message = "Industry should not be null")
+    // @Column(name = "industry")
+    private Industry industry;
 
     // @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
     // private List<User> users;
 
-    public Business(String UEN, String name, @JsonProperty("industry_id") int industryId) {
+    public Business(String UEN, String name, Industry industry) { // @JsonProperty("industry_id") int industryId) {
         this.UEN = UEN;
         this.name = name;
-        this.industryId = industryId;
+        this.industry = industry;
     }
 }
