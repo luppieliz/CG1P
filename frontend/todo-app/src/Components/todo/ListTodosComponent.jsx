@@ -68,11 +68,7 @@ class ListTodosComponent extends Component {
         return (
 
             <div>
-                <Container>
-                    <Row>
-
-                        <Col>
-                            <Card className="text-dark">
+                <Card className="text-dark">
                                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                 <Card.Body>
                                     <Card.Text>
@@ -80,6 +76,10 @@ class ListTodosComponent extends Component {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
+                <Container>
+                    <Row>
+
+                        <Col>
                             <div className="text-white">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                                 <table className="table text-white">
                                     <thead>
