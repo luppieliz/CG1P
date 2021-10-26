@@ -75,11 +75,12 @@ public class User implements UserDetails {
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToDo> toDos;
 
-    public User(String email, String name, String password, String authority) {
+    public User(String email, String name, String password, String authority, Business business) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.authority = authority;
+        this.business = business;
     }
 
     /*

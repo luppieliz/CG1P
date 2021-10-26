@@ -7,7 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface BusinessRepository extends JpaRepository<Business, Long> {
-    Optional<Business> findById(Long id);
     Optional<Business> findByUEN(String UEN);
     Boolean existsByUEN(String UEN);
 }

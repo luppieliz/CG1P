@@ -11,18 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-// import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.app.todo.user.User;
 import com.app.todo.industry.Industry;
-import com.app.todo.industry.IndustryRepository;
-import com.app.todo.industry.IndustryService;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.*;
 
@@ -51,13 +44,11 @@ public class Business {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "industry_id")
-    @NotNull(message = "Industry should not be null")
-    // @Column(name = "industry")
+    @JoinColumn(name = "industry_id", nullable = false)
     private Industry industry;
 
-    // @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<User> users;
+    @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<User> users;
 
     public Business(String UEN, String name, Industry industry) { // @JsonProperty("industry_id") int industryId) {
         this.UEN = UEN;

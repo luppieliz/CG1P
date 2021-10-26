@@ -27,6 +27,11 @@ public class BusinessController {
         return businessService.getAllBusinesses();
     }
 
+    @GetMapping("/business/{businessId}")
+    public Business getBusiness(@PathVariable long businessId) {
+        return businessService.getBusiness(businessId);
+    }
+
     @GetMapping("/business/{UEN}")
     public Business getBusiness(@PathVariable String UEN) {
         return businessService.getBusiness(UEN);

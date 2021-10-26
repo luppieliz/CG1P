@@ -1,8 +1,8 @@
 package com.app.todo.industry;
 
-import com.app.todo.business.Business;
-
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.app.todo.business.Business;
 
 import lombok.*;
 
@@ -22,7 +24,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Industry {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "industry_id")
@@ -32,8 +34,7 @@ public class Industry {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "industry")
-    @Column(name = "business")
+    @OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Business> businesses;
 
     public Industry(String name) { // all args constructor

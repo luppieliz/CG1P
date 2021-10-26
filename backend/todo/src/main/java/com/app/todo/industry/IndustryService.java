@@ -18,19 +18,19 @@ public class IndustryService {
         return industryRepository.findAll();
     }
 
-    public Industry getIndustry(Long id) throws IndustryNotFoundException {
-        return industryRepository.findById(id).orElseThrow(() -> new IndustryNotFoundException(id));
+    public Industry getIndustry(Long industryId) throws IndustryNotFoundException {
+        return industryRepository.findById(industryId).orElseThrow(() -> new IndustryNotFoundException(industryId));
     }
 
-    public Industry getIndustry(String name) throws IndustryNotFoundException {
-        return industryRepository.findByName(name).orElseThrow(() -> new IndustryNotFoundException(name));
+    public Industry getIndustry(String industryName) throws IndustryNotFoundException {
+        return industryRepository.findByName(industryName).orElseThrow(() -> new IndustryNotFoundException(industryName));
     }
 
-    public Industry addIndustry(Industry industry) throws IndustryAlreadyRegistered {
-        String name = industry.getName();
+    public Industry addIndustry(Industry industry) throws IndustryAlreadyExistsException {
+        String industryName = industry.getName();
 
-        if (industryRepository.existsByName(name)) {
-            throw new IndustryAlreadyRegistered(name);
+        if (industryRepository.existsByName(industryName)) {
+            throw new IndustryAlreadyExistsException(industryName);
         }
 
         return industryRepository.save(industry);

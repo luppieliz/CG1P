@@ -18,6 +18,10 @@ public class BusinessService {
         return businessRepository.findAll();
     }
 
+    public Business getBusiness(Long businessId) throws BusinessNotFoundException {
+        return businessRepository.findById(businessId).orElseThrow(() -> new BusinessNotFoundException(businessId));
+    }
+
     public Business getBusiness(String UEN) throws BusinessNotFoundException {
         return businessRepository.findByUEN(UEN).orElseThrow(() -> new BusinessNotFoundException(UEN));
     }
@@ -33,7 +37,6 @@ public class BusinessService {
     }
 
     // TODO: Implement other business services
-    // CRUD with id or UEN?
 
     // public Business deleteBusiness(Long businessId) {
     // if (!businessRepository.existsById(businessId)) {

@@ -27,6 +27,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/user/{userId}")
+    public User getUser(@PathVariable long userId) {
+        return userService.getUser(userId);
+    }
+
     @GetMapping("/user/{email}")
     public User getUser(@PathVariable String email) {
         return userService.getUser(email);

@@ -21,6 +21,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User getUser(Long userId) throws UserNotFoundException {
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+    }
+
     public User getUser(String email) throws UserNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
     }
@@ -37,5 +41,4 @@ public class UserService {
     }
 
     // TODO: Implement other user services
-    // CRUD with id or email?
 }

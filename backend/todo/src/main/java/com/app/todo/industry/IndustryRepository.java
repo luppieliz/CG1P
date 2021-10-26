@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IndustryRepository extends JpaRepository<Industry, Long> {
-    Optional<Industry> findByName(String name);
-    Boolean existsByName(String name);
+    Optional<Industry> findByName(String industryName);
+    Boolean existsByName(String industryName);
 }

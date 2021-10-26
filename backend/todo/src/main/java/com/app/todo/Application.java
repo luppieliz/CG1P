@@ -38,14 +38,6 @@ public class Application {
 		List<String> sourcesLink = testService.getMeasures();
 		sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
 
-		UserService users = ctx.getBean(UserService.class);
-		System.out.println("[Add user]: " + users.addUser(
-				new User("admin@gmail.com", "admin", "goodpassword", "ROLE_ADMIN")).getUsername());
-		System.out.println("[Add user]: " + users.addUser(
-				new User("alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER")).getUsername());
-		System.out.println("[Add user]: " + users.addUser(
-				new User("ben@gmail.com", "Ben", "password2", "ROLE_EMPLOYEE")).getUsername());
-
 		IndustryService industries = ctx.getBean(IndustryService.class);
 		System.out.println("[Add industry]: " + industries.addIndustry(
 				new Industry("Healthcare")).getName());
@@ -62,6 +54,15 @@ public class Application {
 		System.out.println("[Add Business]: " + businesses.addBusiness(
 				new Business("dfgjj90", "macdonalds", industry)).getName());
 
+		UserService users = ctx.getBean(UserService.class);
+		Business business = businesses.getBusiness("abcde77777");
+		System.out.println("[Add user]: " + users.addUser(
+				new User("admin@gmail.com", "admin", "goodpassword", "ROLE_ADMIN", business)).getUsername());
+		System.out.println("[Add user]: " + users.addUser(
+				new User("alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER", business)).getUsername());
+		business = businesses.getBusiness("dfgjj90");
+		System.out.println("[Add user]: " + users.addUser(
+				new User("ben@gmail.com", "Ben", "password2", "ROLE_EMPLOYEE", business)).getUsername());
 
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://covid-19-data.p.rapidapi.com/country/code?code=sg"))
