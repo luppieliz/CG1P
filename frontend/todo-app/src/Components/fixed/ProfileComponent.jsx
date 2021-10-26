@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import AuthenticationService from './AuthenticationService.js';
-import { Image } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import Placeholder from 'react-bootstrap/Placeholder'
 import Form from 'react-bootstrap/Form'
+import Navbar from 'react-bootstrap/Navbar'
+
 
 
 class ProfileComponent extends Component {
@@ -116,7 +115,7 @@ class ProfileComponent extends Component {
                             </Form.Group>
 
                             <Button variant="primary" type="submit">
-                                Submit
+                                Update Information 
                             </Button>
                             </Form>
                         </Col>
