@@ -58,7 +58,7 @@ class SignupComponent extends Component {
             <Row  style={{ padding:'50px'}}>
                 <Col><Image style={{ width: '35rem', height:'24rem' }}src="https://media.istockphoto.com/photos/business-people-standing-behind-social-distancing-signage-on-office-picture-id1262271993?b=1&k=20&m=1262271993&s=170667a&w=0&h=ssGXGBFECItq--aJ7gAGWgFWC_NXO_fN58oi5J4_bWs=" rounded fluid/></Col>
                 <Col>
-                    <Card border="info" style={{ padding:'20px',width: '30rem' ,borderWidth:'4px' }}>
+                    <Card className="text-dark" border="info" style={{ padding:'20px',width: '30rem' ,borderWidth:'4px' }}>
                     <form>
                         <div className="form-group">
                             <label>User name</label>

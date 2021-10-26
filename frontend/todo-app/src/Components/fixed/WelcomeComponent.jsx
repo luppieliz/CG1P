@@ -41,7 +41,7 @@ class WelcomeComponent extends Component {
 
                 <Carousel fade>
                     <Carousel.Item>
-                        <img height={300}
+                        <img height={500}
                             className="d-block w-100"
                             src="https://i.pinimg.com/originals/d0/56/fc/d056fcad2c63462009271802ee5c5371.jpg"
                             alt="First slide"
@@ -52,7 +52,7 @@ class WelcomeComponent extends Component {
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img height={300}
+                        <img height={500}
                             className="d-block w-100"
                             src="https://images.unsplash.com/photo-1607418554432-e4331e6437f7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80"
                             alt="Second slide"
@@ -64,7 +64,7 @@ class WelcomeComponent extends Component {
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img height={300}
+                        <img height={500}
                             className="d-block w-100"
                             src="https://images.unsplash.com/photo-1607418557343-cd4c9e4d285b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1331&q=80"
                             alt="Third slide"
@@ -78,13 +78,10 @@ class WelcomeComponent extends Component {
                 </Carousel>
                 <Placeholder xs={12} bg="black" />
                 <Placeholder xs={12} bg="black" />
-                <Placeholder xs={12} bg="black" />
 
 
-                <Container>
+                <Container >
                     <Row>
-                        <Placeholder xs={12} bg="black" />
-                        <Placeholder xs={12} bg="black" />
                         <Placeholder xs={12} bg="black" />
 
                         <Card bg={variant.toLowerCase()} className="text-center">
@@ -134,8 +131,7 @@ class WelcomeComponent extends Component {
                                 <Card.Body>
                                     <Card.Title>Today's Top News!</Card.Title>
                                     <Card.Text>
-                                        Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.
+                                        BERRAKING NEWS COVID CASES HIGH AF!!
                                     </Card.Text>
                                 </Card.Body>
 
@@ -155,7 +151,14 @@ class WelcomeComponent extends Component {
                             </Card>
                         </Col>
                     </Row>
+                    <Row>
+                        <Card>
+                    <iframe className = "text-light" height="600px"  width= "100%;" src="https://infographics.channelnewsasia.com/covid-19/sgcovid19chart.html?type=embed&amp;channel=cna"></iframe>
+                    <iframe  width="100%" height="600" scrolling="no" src="https://infographics.channelnewsasia.com/covid-19/asia-covid-19-daily-cases.html?type=embed&amp;channel=cna" ></iframe>
+                    </Card>
+                    </Row>
                 </Container>
+                
 
             </div>
 
