@@ -37,7 +37,7 @@ class TodoApp extends Component {
                         <Route path="/login" component={LoginComponent} />
                         <Route path="/faq" exact component={ Faqcomponent } />
                         <AuthenticatedRoute path="/logout" component={LogoutComponent} />
-                        <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
+                        <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
                         <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
                         <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
                         <Route path="/signup" component={SignupComponent}/>
@@ -51,4 +51,4 @@ class TodoApp extends Component {
     }
 }
 
-export default TodoApp;
+export default TodoApp
