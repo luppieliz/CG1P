@@ -21,6 +21,7 @@ import javax.validation.constraints.Size;
 import com.app.todo.business.Business;
 import com.app.todo.todo.ToDo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -72,6 +73,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "business_id", nullable = false)
     private Business business;
 
+    @JsonIgnore
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToDo> toDos;
 

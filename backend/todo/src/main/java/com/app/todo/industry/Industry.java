@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import com.app.todo.business.Business;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Entity
@@ -34,6 +35,7 @@ public class Industry {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Business> businesses;
 

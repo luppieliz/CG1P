@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 import com.app.todo.user.User;
 import com.app.todo.industry.Industry;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Entity
@@ -47,10 +49,11 @@ public class Business {
     @JoinColumn(name = "industry_id", nullable = false)
     private Industry industry;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
-    public Business(String UEN, String name, Industry industry) { // @JsonProperty("industry_id") int industryId) {
+    public Business(@JsonProperty("UEN") String UEN, String name, Industry industry) { // @JsonProperty("industry_id") int industryId) {
         this.UEN = UEN;
         this.name = name;
         this.industry = industry;

@@ -10,8 +10,6 @@ import Col from 'react-bootstrap/Col'
 // Page to update or add a specific todo
 class TodoComponent extends Component {
 
-
-
     constructor(props) {
         super(props)
 

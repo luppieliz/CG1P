@@ -32,7 +32,7 @@ public class IndustryController {
         return industryService.getIndustry(industryId);
     }
 
-    @GetMapping("/industry/{industryName}")
+    @GetMapping("/industry/name/{industryName}")
     public Industry getIndustry(@PathVariable String industryName) {
         return industryService.getIndustry(industryName);
     }

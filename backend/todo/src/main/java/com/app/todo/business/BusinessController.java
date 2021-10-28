@@ -32,7 +32,7 @@ public class BusinessController {
         return businessService.getBusiness(businessId);
     }
 
-    @GetMapping("/business/{UEN}")
+    @GetMapping("/business/uen/{UEN}")
     public Business getBusiness(@PathVariable String UEN) {
         return businessService.getBusiness(UEN);
     }

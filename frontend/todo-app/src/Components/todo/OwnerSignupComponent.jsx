@@ -1,107 +1,202 @@
-
 import React, { Component } from 'react'
+import { Form, Formik, Field, ErrorMessage } from 'formik'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
-import Image from 'react-bootstrap/Image'
+import BusinessDataService from '../../api/todo/BusinessDataService.js';
+import UserDataService from '../../api/todo/UserDataService.js';
+import IndustryDataService from '../../api/todo/IndustryDataService.js'
 
-
+// Page to update or add a specific todo
 class OwnerSignupComponent extends Component {
+
+
 
     constructor(props) {
         super(props)
 
+        // State of the page - contains id, desc, and date for a specific todo.
         this.state = {
             name: '',
             email: '',
             password: '',
-            UEN: '',
+            businessUEN: '',
             businessName: '',
-            hasSignupFailed: false,
-            showSuccessMessage: false
+            industry: '',
+            industryList: [],
+            options: []
         }
 
-        this.handleChange = this.handleChange.bind(this)
-        this.signupClicked = this.signupClicked.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+        this.validate = this.validate.bind(this);
+
     }
 
-    // Remove eventually!
-    handleChange(event) {
-        this.setState(
-            {
-                [event.target.name]: event.target.value
+    componentDidMount() {
+        IndustryDataService.retrieveAllIndustries().then(
+            (response) => {
+                response.data.forEach(ind => {
+                    this.state.industryList.push(ind.name)
+                })
+            }
+        );
+    }
+
+
+
+    // on Formik Submit, add user, and business
+    onSubmit(values) {
+
+        // retrieve industry object, get response containing industry, 
+        // create new business witb industry, get response containing business, 
+        // create new user with business
+        let industry = values.industry
+        IndustryDataService.retrieveIndustry(industry).then(
+            response => {
+                let business = {
+                    uen: values.businessUEN,
+                    name: values.businessName,
+                    industry: response.data
+                }
+                BusinessDataService.createBusiness(business).then(
+                    response2 => {
+                        let user = {
+                            email: values.email,
+                            name: values.name,
+                            password: values.password,
+                            authority: "ROLE_BUSINESSOWNER",
+                            business: response2.data
+                        }
+                        UserDataService.createUser(user)
+                    }
+                )
             }
         )
     }
 
+    // on Formik Validate call
+    // if errors populated, will not call onSubmit above
+    validate(values) {
+        let errors = {}
 
-    signupClicked() {
+        if (!values.name) {
+            errors.name = "Enter your name"
+        }
 
-        // ADD ADD-BUSINESS LOGIC HERE
-        // SEND VERIFICATION EMAIL
+        if (!values.email) {
+            errors.email = "Enter your email"
+        }
 
+        if (!values.password) {
+            errors.password = "Enter a password"
+        } else if (values.password.length < 5) {
+            errors.password = "Enter at least 5 characters for password"
+        }
+
+        if (!values.businessUEN) {
+            errors.businessUEN = "Enter your business UEN"
+        }
+
+        if (!values.businessName) {
+            errors.businessName = "Enter your business name"
+        }
+
+        if (!values.industry) {
+            errors.industry = "Enter your industry"
+        }
+
+        return errors
     }
 
     render() {
+
+
+        let { name, email, password, businessUEN, businessName, industry } = this.state
+        const options = [];
+
+        // these do not work due to react lifecycle
+        // console.log(this.state.industryList);
+
+        // for (let [value] of Object.entries(this.state.industryList)) {
+        //     options.push(
+        //         <option value={value}>
+        //             {value}
+        //         </option>
+        //     );
+        // }       
+
         return (
-            <Container>
+            <div>
+                <Container>
+                    <Row>
+                        <Col></Col>
+                        <Col>
+                            <h1 className="text-white">Signup - Business Owner</h1>
+                            <div className="container text-white">
+                                <Formik
+                                    initialValues={{ name, email, password, businessUEN, businessName, industry }}
+                                    onSubmit={this.onSubmit}
+                                    validateOnChange={false}
+                                    validateOnBlur={false}
+                                    validate={this.validate}
+                                    enableReinitialize={true}
+                                >
+                                    {
+                                        (props) => (
+                                            <Form>
+                                                <ErrorMessage name="name" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="email" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="password" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="businessUEN" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="businessName" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="industry" component="div" className="alert alert-warning"></ErrorMessage>
 
-                <Row>
-                    <Col></Col>
-                    <Col>
-                        <h1 className="text-info" style={{ padding: '100px' }}>COVby</h1>
-                    </Col>
-                    <Col></Col>
-                </Row>
-                <Row style={{ padding: '50px' }}>
-                    <Col><Image style={{ width: '35rem', height: '24rem' }} src="https://media.istockphoto.com/photos/business-people-standing-behind-social-distancing-signage-on-office-picture-id1262271993?b=1&k=20&m=1262271993&s=170667a&w=0&h=ssGXGBFECItq--aJ7gAGWgFWC_NXO_fN58oi5J4_bWs=" rounded fluid /></Col>
-                    <Col className="text-black text-left">
-                        <Card border="info" style={{ padding: '20px', width: '30rem', borderWidth: '4px' }}>
-                            <form>
-                                <div className="form-group">
-                                    <label>Name</label>
-                                    <input type="text" className="form-control" placeholder="Enter name" value={this.state.name} onChange={this.handleChange} />
-                                </div>
+                                                <fieldset className="form-group">
+                                                    <label>Name</label>
+                                                    <Field className="form-control" type="text" placeholder="Enter name" name="name"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Email Address</label>
+                                                    <Field className="form-control" type="email" placeholder="Enter email" name="email"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Password</label>
+                                                    <Field className="form-control" type="password" placeholder="Enter password" name="password"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Your Business UEN</label>
+                                                    <Field className="form-control" type="text" placeholder="Enter Business UEN" name="businessUEN"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Your Business Name</label>
+                                                    <Field className="form-control" type="text" placeholder="Enter Business Name" name="businessName"></Field>
+                                                </fieldset>
 
-                                <div className="form-group">
-                                    <label>Email address</label>
-                                    <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.handleChange} />
-                                </div>
+                                                {/* TODO: Enable selection of industry from list of those in DB 
+                                                    i.e. the below code does not work yet */}
 
-                                <div className="form-group">
-                                    <label>Password</label>
-                                    <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.handleChange} />
-                                </div>
+                                                <fieldset className="form-group">
+                                                    <label>Your Industry</label>
+                                                    <Field className="form-control" as="select" onChange={this.onIndustryListDropdownSelected} name="industry">
+                                                        {this.state.options}
+                                                    </Field>
+                                                </fieldset>
 
-                                <div className="form-group">
-                                    <label>UEN</label>
-                                    <input type="text" className="form-control" placeholder="Enter UEN" value={this.state.UEN} onChange={this.handleChange} />
-                                </div>
+                                                <button className="btn btn-success" type="submit" >Sign Up</button>
 
-                                <div className="form-group">
-                                    <label>Business name (in accordance with UEN)</label>
-                                    <input type="text" className="form-control" placeholder="Enter business name" value={this.state.businessName} onChange={this.handleChange} />
-                                </div>
 
-                                <div>
-                                    <label for="industryType">Please select an industry</label>
-                                    <select name="industryType" id="industryType">
-                                        <option value="Services">Services</option>
-                                        <option value="F&B">F&B</option>
-                                        <option value="Construction">Construction</option>
-                                    </select>
-                                </div>
-
-                                <button type="submit" className="btn btn-primary btn-block" onClick={this.signupClicked}>Register Business</button>
-                            </form>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        );
-
+                                            </Form>
+                                        )
+                                    }
+                                </Formik>
+                            </div>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </Container>
+            </div>
+        )
     }
 }
 
-export default OwnerSignupComponent
+export default OwnerSignupComponent;
