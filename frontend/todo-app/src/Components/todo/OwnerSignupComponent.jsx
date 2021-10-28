@@ -10,8 +10,6 @@ import IndustryDataService from '../../api/todo/IndustryDataService.js'
 // Page to update or add a specific todo
 class OwnerSignupComponent extends Component {
 
-
-
     constructor(props) {
         super(props)
 
@@ -23,26 +21,20 @@ class OwnerSignupComponent extends Component {
             businessUEN: '',
             businessName: '',
             industry: '',
-            industryList: [],
-            options: []
+            industryList: []
         }
 
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this);
-
     }
 
     componentDidMount() {
         IndustryDataService.retrieveAllIndustries().then(
-            (response) => {
-                response.data.forEach(ind => {
-                    this.state.industryList.push(ind.name)
-                })
+            response => {
+                this.setState({ industryList: response.data })
             }
         );
     }
-
-
 
     // on Formik Submit, add user, and business
     onSubmit(values) {
@@ -110,20 +102,8 @@ class OwnerSignupComponent extends Component {
 
     render() {
 
-
         let { name, email, password, businessUEN, businessName, industry } = this.state
         const options = [];
-
-        // these do not work due to react lifecycle
-        // console.log(this.state.industryList);
-
-        // for (let [value] of Object.entries(this.state.industryList)) {
-        //     options.push(
-        //         <option value={value}>
-        //             {value}
-        //         </option>
-        //     );
-        // }       
 
         return (
             <div>
@@ -172,19 +152,17 @@ class OwnerSignupComponent extends Component {
                                                     <Field className="form-control" type="text" placeholder="Enter Business Name" name="businessName"></Field>
                                                 </fieldset>
 
-                                                {/* TODO: Enable selection of industry from list of those in DB 
-                                                    i.e. the below code does not work yet */}
-
                                                 <fieldset className="form-group">
                                                     <label>Your Industry</label>
                                                     <Field className="form-control" as="select" onChange={this.onIndustryListDropdownSelected} name="industry">
-                                                        {this.state.options}
+                                                        {this.state.industryList.map(
+                                                            oneIndustry =>
+                                                                <option value={oneIndustry.name}>{oneIndustry.name}</option>
+                                                        )}
                                                     </Field>
                                                 </fieldset>
 
                                                 <button className="btn btn-success" type="submit" >Sign Up</button>
-
-
                                             </Form>
                                         )
                                     }
