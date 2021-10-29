@@ -6,22 +6,22 @@ import Col from 'react-bootstrap/Col'
 import BusinessDataService from '../../api/todo/BusinessDataService.js';
 import UserDataService from '../../api/todo/UserDataService.js';
 import IndustryDataService from '../../api/todo/IndustryDataService.js'
+import ReactNotification, { store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
-// Page to update or add a specific todo
 class OwnerSignupComponent extends Component {
 
     constructor(props) {
         super(props)
 
-        // State of the page - contains id, desc, and date for a specific todo.
         this.state = {
-            name: '',
-            email: '',
-            password: '',
-            businessUEN: '',
-            businessName: '',
-            industry: '',
-            industryList: []
+            name: 'aaaa',
+            email: 'a@a',
+            password: 'aaaaaaaaa',
+            businessUEN: 'abc',
+            businessName: 'name',
+            industry: 'Healthcare',
+            industryList: [],
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -36,11 +36,10 @@ class OwnerSignupComponent extends Component {
         );
     }
 
-    // on Formik Submit, add user, and business
     onSubmit(values) {
 
         // retrieve industry object, get response containing industry, 
-        // create new business witb industry, get response containing business, 
+        // create new business with industry, get response containing business, 
         // create new user with business
         let industry = values.industry
         IndustryDataService.retrieveIndustry(industry).then(
@@ -59,54 +58,58 @@ class OwnerSignupComponent extends Component {
                             authority: "ROLE_BUSINESSOWNER",
                             business: response2.data
                         }
-                        UserDataService.createUser(user)
+                        UserDataService.createUser(user).then(() => {showSuccess()}).catch((error) => {
+                            throwError(error.response.data.message)
+                        })
                     }
-                )
+                ).catch((error) => {
+                    throwError(error.response.data.message)
+                })
             }
-        )
+        ).catch((error) => {
+            throwError(error.response.data.message)
+        })
     }
 
-    // on Formik Validate call
-    // if errors populated, will not call onSubmit above
     validate(values) {
         let errors = {}
-
         if (!values.name) {
-            errors.name = "Enter your name"
+            throwWarning("Please Enter Your Name!")
+            errors.name = "Please Enter Your Name!"
         }
-
         if (!values.email) {
-            errors.email = "Enter your email"
+            throwWarning("Please Enter Your Email!")
+            errors.email = "Please Enter Your Email!"
         }
-
         if (!values.password) {
-            errors.password = "Enter a password"
-        } else if (values.password.length < 5) {
-            errors.password = "Enter at least 5 characters for password"
+            throwWarning("Please Enter Your Password!")
+            errors.password = "Please Enter Your Password!"
+        } else if (values.password.length < 8) {
+            throwWarning("Password has to be at least 8 characters long!")
+            errors.password = "Password has to be at least 8 characters long!"
         }
-
         if (!values.businessUEN) {
-            errors.businessUEN = "Enter your business UEN"
+            throwWarning("Please Enter Your UEN!")
+            errors.businessUEN = "Please Enter Your UEN!"
         }
-
         if (!values.businessName) {
-            errors.businessName = "Enter your business name"
+            throwWarning("Please Enter Your Business Name!")
+            errors.businessUEN = "Please Enter Your Business Name!"
         }
-
         if (!values.industry) {
-            errors.industry = "Enter your industry"
+            throwWarning("Please Enter Your Industry!")     
+            errors.businessUEN = "Please Enter Your Industry!"   
         }
-
         return errors
     }
 
     render() {
 
         let { name, email, password, businessUEN, businessName, industry } = this.state
-        const options = [];
 
         return (
             <div>
+                <ReactNotification />
                 <Container>
                     <Row>
                         <Col></Col>
@@ -154,10 +157,10 @@ class OwnerSignupComponent extends Component {
 
                                                 <fieldset className="form-group">
                                                     <label>Your Industry</label>
-                                                    <Field className="form-control" as="select" onChange={this.onIndustryListDropdownSelected} name="industry">
+                                                    <Field className="form-control" as="select" name="industry">
                                                         {this.state.industryList.map(
                                                             oneIndustry =>
-                                                                <option value={oneIndustry.name}>{oneIndustry.name}</option>
+                                                                <option key={oneIndustry.name} value={oneIndustry.name}>{oneIndustry.name}</option>
                                                         )}
                                                     </Field>
                                                 </fieldset>
@@ -178,3 +181,50 @@ class OwnerSignupComponent extends Component {
 }
 
 export default OwnerSignupComponent;
+
+// ==================== UTILITY FUNCTIONS ====================
+
+function throwWarning(warningMessage) {
+    store.addNotification({
+        title: "Warning!",
+        message: warningMessage,
+        type: "warning",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 5000,
+        }
+    });
+}
+
+function throwError(errorMessage) {
+    store.addNotification({
+        title: "Error!",
+        message: errorMessage,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 5000,
+        }
+    });
+}
+
+function showSuccess () {
+    store.addNotification({
+        title: "Success!",
+        message: "You have signed up successfully! Please login.",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 10000,
+        }
+    });
+}

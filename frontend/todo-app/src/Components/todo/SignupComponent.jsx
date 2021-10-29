@@ -7,20 +7,20 @@ import BusinessDataService from '../../api/todo/BusinessDataService.js';
 import UserDataService from '../../api/todo/UserDataService.js';
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import ReactNotification, { store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
-// Page to update or add a specific todo
+
 class SignupComponent extends Component {
 
     constructor(props) {
         super(props)
-
-        // State of the page - contains id, desc, and date for a specific todo.
         this.state = {
-            name: '',
-            email: '',
-            password: '',
-            businessUEN: '',
-            business:{}
+            name: 'anrev',
+            email: 'A@A',
+            password: 'aaaaaaaaa',
+            businessUEN: 'aaaa',
+            business: {},
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -28,10 +28,8 @@ class SignupComponent extends Component {
 
     }
 
-
-    // on Formik Submit, add user
     onSubmit(values) {
-        // retrieve business object
+
         let uen = values.businessUEN
         BusinessDataService.retrieveBusiness(uen).then(
             response => {
@@ -44,92 +42,92 @@ class SignupComponent extends Component {
                     authority: "ROLE_EMPLOYEE",
                     business: response.data
                 }
-                UserDataService.createUser(user)
+                UserDataService.createUser(user).then(() => {showSuccess()}).catch((error) => {
+                    throwError(error.response.data.message)
+                })
             }
-        )
+        ).catch((error) => {
+            throwError(error.response.data.message)
+        })
     }
 
-    // on Formik Validate call
-    // if errors populated, will not call onSubmit above
     validate(values) {
         let errors = {}
-
         if (!values.name) {
-            console.log("flag");
-            errors.name = "Enter your name"
-        } 
-
-        if (!values.email) {
-            errors.email = "Enter your email"
-        } 
-
-        if (!values.password) {
-            errors.password = "Enter a password"
-        } else if (values.password.length < 5) {
-            errors.password = "Enter at least 5 characters for password"
+            throwWarning("Please Enter Your Name!")
+            errors.name = "Please Enter Your Name!"
         }
-
+        if (!values.email) {
+            throwWarning("Please Enter Your Email!")
+            errors.email = "Please Enter Your Email!"
+        }
+        if (!values.password) {
+            throwWarning("Please Enter Your Password!")
+            errors.password = "Please Enter Your Password!"
+        } else if (values.password.length < 8) {
+            throwWarning("Password has to be at least 8 characters long!")
+            errors.password = "Password has to be at least 8 characters long!"
+        }
         if (!values.businessUEN) {
-            errors.businessUEN = "Enter your business UEN"
-        } 
-
+            throwWarning("Please Enter Your UEN!")
+            errors.businessUEN = "Please Enter Your UEN!"
+        }
         return errors
     }
 
     render() {
-
         let { name, email, password, businessUEN } = this.state
-
         return (
             <div>
+                <ReactNotification />
                 <Container>
                     <Row>
                         <Col></Col>
                         <Col>
-                <h1 className="text-white">Signup - Employee</h1>
-                <div className="container text-white">
-                    <Formik
-                        initialValues={{ name, email, password, businessUEN }}
-                        onSubmit={this.onSubmit}
-                        validateOnChange={false}
-                        validateOnBlur={false}
-                        validate={this.validate}
-                        enableReinitialize={true}
-                    >
-                        {
-                            (props) => (
-                                <Form>
-                                    <ErrorMessage name="name" component="div" className="alert alert-warning"></ErrorMessage>
-                                    <ErrorMessage name="email" component="div" className="alert alert-warning"></ErrorMessage>
-                                    <ErrorMessage name="password" component="div" className="alert alert-warning"></ErrorMessage>
-                                    <ErrorMessage name="businessUEN" component="div" className="alert alert-warning"></ErrorMessage>
-                                    <fieldset className="form-group">
-                                        <label>Name</label>
-                                        <Field className="form-control" type="text" placeholder="Enter name" name="name"></Field>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Email Address</label>
-                                        <Field className="form-control" type="email" placeholder="Enter email" name="email"></Field>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Password</label>
-                                        <Field className="form-control" type="password" placeholder="Enter password" name="password"></Field>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>Your Business UEN</label>
-                                        <Field className="form-control" type="text" placeholder="Enter Business UEN" name="businessUEN"></Field>
-                                    </fieldset>
-                                    <button className="btn btn-success" type="submit" >Sign Up</button>
-                                    <p className="forgot-password text-center">Already registered? <a href="#placeholder">Sign In</a></p>
-                                    <Link style={{ padding: '10px' }} className="new user text-left" to="/signupbusiness"><Button variant="dark">Register as a Business Owner</Button></Link>
-                                </Form>
-                            )
-                        }
-                    </Formik>
-                </div>
-                </Col>
-                <Col></Col>
-                </Row>
+                            <h1 className="text-white">Signup - Employee</h1>
+                            <div className="container text-white">
+                                <Formik
+                                    initialValues={{ name, email, password, businessUEN }}
+                                    onSubmit={this.onSubmit}
+                                    validateOnChange={false}
+                                    validateOnBlur={false}
+                                    validate={this.validate}
+                                    enableReinitialize={true}
+                                >
+                                    {
+                                        (props) => (
+                                            <Form>
+                                                {/* <ErrorMessage name="name" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="email" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="password" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="businessUEN" component="div" className="alert alert-warning"></ErrorMessage> */}
+                                                <fieldset className="form-group">
+                                                    <label>Name</label>
+                                                    <Field className="form-control" type="text" placeholder="Enter name" name="name"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Email Address</label>
+                                                    <Field className="form-control" type="email" placeholder="Enter email" name="email"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Password</label>
+                                                    <Field className="form-control" type="password" placeholder="Enter password" name="password"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Your Business UEN</label>
+                                                    <Field className="form-control" type="text" placeholder="Enter Business UEN" name="businessUEN"></Field>
+                                                </fieldset>
+                                                <button className="btn btn-success" type="submit" >Sign Up</button>
+                                                <p className="forgot-password text-center">Already registered? <a href="#placeholder">Sign In</a></p>
+                                                <Link style={{ padding: '10px' }} className="new user text-left" to="/signupbusiness"><Button variant="dark">Register as a Business Owner</Button></Link>
+                                            </Form>
+                                        )
+                                    }
+                                </Formik>
+                            </div>
+                        </Col>
+                        <Col></Col>
+                    </Row>
                 </Container>
             </div>
         )
@@ -137,3 +135,50 @@ class SignupComponent extends Component {
 }
 
 export default SignupComponent;
+
+// ==================== UTILITY FUNCTIONS ====================
+
+function throwWarning(warningMessage) {
+    store.addNotification({
+        title: "Warning!",
+        message: warningMessage,
+        type: "warning",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 50000000,
+        }
+    });
+}
+
+function throwError(errorMessage) {
+    store.addNotification({
+        title: "Error!",
+        message: errorMessage,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 5000000,
+        }
+    });
+}
+
+function showSuccess () {
+    store.addNotification({
+        title: "Success!",
+        message: "You have signed up successfully! Please login.",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 10000000,
+        }
+    });
+}
