@@ -2,16 +2,18 @@ import React, { Component } from 'react'
 // import routing features
 import { Link } from 'react-router-dom'
 import HelloWorldService from '../../api/todo/HelloWorldService'
+import { SESSION_EMAIL } from '../../Constants'
 
 // Welcome landing page, that links to the Todos page.
 class WelcomeComponent extends Component {
     constructor(props) {
-        super(props);
-        this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);
-        this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this);
-        this.handleError = this.handleError.bind(this);
+        super(props)
+        this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this)
+        this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this)
+        this.handleError = this.handleError.bind(this)
 
         this.state = {
+            email: sessionStorage.getItem(SESSION_EMAIL),
             welcomeMessage: '',
             errorMessage: ''
         }
@@ -20,9 +22,9 @@ class WelcomeComponent extends Component {
     render() {
         return (
             <>
-                <h1  className="text-white">Welcome</h1>
+                <h1 className="text-white">Welcome</h1>
                 <div className="container text-white">
-                    Welcome {this.props.match.params.name}. You can manage your todos <Link to="/todos">here</Link>
+                    Welcome {this.state.email}. You can manage your todos <Link to="/todos">here</Link>
                 </div>
                 <div className="container text-white">
                     Click here to get a customized welcome message.
@@ -35,8 +37,6 @@ class WelcomeComponent extends Component {
                     {this.state.errorMessage}
                 </div>
             </>
-
-
         )
     }
 
@@ -48,10 +48,9 @@ class WelcomeComponent extends Component {
         // HelloWorldService.executeHelloWorldBeanService()
         //     .then(response => this.handleSuccessfulResponse(response));
 
-        HelloWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)
+        HelloWorldService.executeHelloWorldPathVariableService(this.state.email)
             .then(response => this.handleSuccessfulResponse(response))
             .catch(error => this.handleError(error));
-
     }
 
     handleSuccessfulResponse(response) {
@@ -61,16 +60,15 @@ class WelcomeComponent extends Component {
     handleError(error) {
         console.log(error.response)
         let errorMessage = '';
-        if(error.message) {
+        if (error.message) {
             errorMessage += error.message
         }
-        if(error.response && error.response.data) {
+        if (error.response && error.response.data) {
             errorMessage += error.response.data.message
         }
 
         this.setState({ errorMessage: errorMessage })
     }
-
 }
 
-export default WelcomeComponent;
+export default WelcomeComponent
