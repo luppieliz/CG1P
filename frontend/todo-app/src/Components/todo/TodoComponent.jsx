@@ -95,10 +95,12 @@ class TodoComponent extends Component {
 
         return (
             <div>
+                <Col></Col>
+                <Col></Col>
+                <Col></Col>
+                <Col>
                 <Container>
                     <Row>
-                        <Col></Col>
-                        <Col>
                 <h1 className="text-white">Todo</h1>
                 <div className="container text-white">
                     <Formik
@@ -128,10 +130,12 @@ class TodoComponent extends Component {
                         }
                     </Formik>
                 </div>
-                </Col>
-                <Col></Col>
                 </Row>
                 </Container>
+                </Col>
+                <Col></Col>
+                <Col></Col>
+                <Col></Col>
             </div>
         )
     }

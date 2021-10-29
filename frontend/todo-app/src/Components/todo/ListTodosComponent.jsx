@@ -70,9 +70,8 @@ class ListTodosComponent extends Component {
             <div>
                     <Row>
                         <Col></Col>
-                        <Col></Col>
-                        <Col></Col>
-                        <Col>
+                        <Col xs={6}>
+                            <Container>
                         <Card className="text-dark">
                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                             <Card.Body>
@@ -81,36 +80,38 @@ class ListTodosComponent extends Component {
                             </Card.Text>
                             </Card.Body>
                         </Card>
-                    <div className="text-white">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
-                        <table className="table text-white">
-                            <thead>
-                                <tr>
-                                    <th>Description</th>
-                                    <th>Is Completed</th>
-                                    <th>Target Date</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    // script that for each todo, map it and display id, desc, done, targetDate, and buttons
-                                    this.state.todos.map(
-                                        todo =>
-                                            <tr key={todo.id}>
-                                                <td>{todo.description}</td>
-                                                <td>{todo.done.toString()}</td>
-                                                <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
-                                                <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
-                                                <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
+                                <div className="text-white">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
+                                    <table className="table text-white">
+                                        <thead>
+                                            <tr>
+                                                <th>Description</th>
+                                                <th>Is Completed</th>
+                                                <th>Target Date</th>
+                                                <th>Update</th>
+                                                <th>Delete</th>
                                             </tr>
-                                    )
-                                }
-                            </tbody>
-                        </table>
-                        <div className = "row"><button className = "btn btn-success" onClick={() => this.addTodoClicked()}>Add</button></div>
-                    </div>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                // script that for each todo, map it and display id, desc, done, targetDate, and buttons
+                                                this.state.todos.map(
+                                                    todo =>
+                                                        <tr key={todo.id}>
+                                                            <td>{todo.description}</td>
+                                                            <td>{todo.done.toString()}</td>
+                                                            <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
+                                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
+                                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
+                                                        </tr>
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div className = "row"><button className = "btn btn-success" onClick={() => this.addTodoClicked()}>Add</button></div>
+                                </div>
+                            </Container>
                         </Col>
+                        <Col></Col>
                     </Row>
             
             </div>
