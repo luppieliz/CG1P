@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 // import routing features
 import { Link } from 'react-router-dom'
-import HelloWorldService from '../../api/todo/HelloWorldService'
-import { SESSION_EMAIL } from '../../Constants'
+import HelloWorldService from '../api/todo/HelloWorldService'
+import { SESSION_EMAIL } from '../Constants'
 
 // Welcome landing page, that links to the Todos page.
 class WelcomeComponent extends Component {

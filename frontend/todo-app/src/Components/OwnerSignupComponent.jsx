@@ -3,46 +3,66 @@ import { Form, Formik, Field, ErrorMessage } from 'formik'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import BusinessDataService from '../../api/todo/BusinessDataService.js';
-import UserDataService from '../../api/todo/UserDataService.js';
-import { Link } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
+import BusinessDataService from '../api/todo/BusinessDataService.js';
+import UserDataService from '../api/todo/UserDataService.js';
+import IndustryDataService from '../api/todo/IndustryDataService.js'
 import ReactNotification, { store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 
-
-class SignupComponent extends Component {
+class OwnerSignupComponent extends Component {
 
     constructor(props) {
         super(props)
+
         this.state = {
-            name: 'anrev',
-            email: 'A@A',
+            name: 'aaaa',
+            email: 'a@a',
             password: 'aaaaaaaaa',
-            businessUEN: 'aaaa',
-            business: {},
+            businessUEN: 'abc',
+            businessName: 'name',
+            industry: 'Healthcare',
+            industryList: [],
         }
 
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this);
+    }
 
+    componentDidMount() {
+        IndustryDataService.retrieveAllIndustries().then(
+            response => {
+                this.setState({ industryList: response.data })
+            }
+        );
     }
 
     onSubmit(values) {
 
-        let uen = values.businessUEN
-        BusinessDataService.retrieveBusiness(uen).then(
+        // retrieve industry object, get response containing industry, 
+        // create new business with industry, get response containing business, 
+        // create new user with business
+        let industry = values.industry
+        IndustryDataService.retrieveIndustry(industry).then(
             response => {
-                // this.setState({business: response.data})
-                // console.log(response)
-                let user = {
-                    email: values.email,
-                    name: values.name,
-                    password: values.password,
-                    authority: "ROLE_EMPLOYEE",
-                    business: response.data
+                let business = {
+                    uen: values.businessUEN,
+                    name: values.businessName,
+                    industry: response.data
                 }
-                UserDataService.createUser(user).then(() => {showSuccess()}).catch((error) => {
+                BusinessDataService.createBusiness(business).then(
+                    response2 => {
+                        let user = {
+                            email: values.email,
+                            name: values.name,
+                            password: values.password,
+                            authority: "ROLE_BUSINESSOWNER",
+                            business: response2.data
+                        }
+                        UserDataService.createUser(user).then(() => {showSuccess()}).catch((error) => {
+                            throwError(error.response.data.message)
+                        })
+                    }
+                ).catch((error) => {
                     throwError(error.response.data.message)
                 })
             }
@@ -72,11 +92,21 @@ class SignupComponent extends Component {
             throwWarning("Please Enter Your UEN!")
             errors.businessUEN = "Please Enter Your UEN!"
         }
+        if (!values.businessName) {
+            throwWarning("Please Enter Your Business Name!")
+            errors.businessUEN = "Please Enter Your Business Name!"
+        }
+        if (!values.industry) {
+            throwWarning("Please Enter Your Industry!")     
+            errors.businessUEN = "Please Enter Your Industry!"   
+        }
         return errors
     }
 
     render() {
-        let { name, email, password, businessUEN } = this.state
+
+        let { name, email, password, businessUEN, businessName, industry } = this.state
+
         return (
             <div>
                 <ReactNotification />
@@ -84,10 +114,10 @@ class SignupComponent extends Component {
                     <Row>
                         <Col></Col>
                         <Col>
-                            <h1 className="text-white">Signup - Employee</h1>
+                            <h1 className="text-white">Signup - Business Owner</h1>
                             <div className="container text-white">
                                 <Formik
-                                    initialValues={{ name, email, password, businessUEN }}
+                                    initialValues={{ name, email, password, businessUEN, businessName, industry }}
                                     onSubmit={this.onSubmit}
                                     validateOnChange={false}
                                     validateOnBlur={false}
@@ -97,10 +127,13 @@ class SignupComponent extends Component {
                                     {
                                         (props) => (
                                             <Form>
-                                                {/* <ErrorMessage name="name" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="name" component="div" className="alert alert-warning"></ErrorMessage>
                                                 <ErrorMessage name="email" component="div" className="alert alert-warning"></ErrorMessage>
                                                 <ErrorMessage name="password" component="div" className="alert alert-warning"></ErrorMessage>
-                                                <ErrorMessage name="businessUEN" component="div" className="alert alert-warning"></ErrorMessage> */}
+                                                <ErrorMessage name="businessUEN" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="businessName" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="industry" component="div" className="alert alert-warning"></ErrorMessage>
+
                                                 <fieldset className="form-group">
                                                     <label>Name</label>
                                                     <Field className="form-control" type="text" placeholder="Enter name" name="name"></Field>
@@ -117,9 +150,22 @@ class SignupComponent extends Component {
                                                     <label>Your Business UEN</label>
                                                     <Field className="form-control" type="text" placeholder="Enter Business UEN" name="businessUEN"></Field>
                                                 </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Your Business Name</label>
+                                                    <Field className="form-control" type="text" placeholder="Enter Business Name" name="businessName"></Field>
+                                                </fieldset>
+
+                                                <fieldset className="form-group">
+                                                    <label>Your Industry</label>
+                                                    <Field className="form-control" as="select" name="industry">
+                                                        {this.state.industryList.map(
+                                                            oneIndustry =>
+                                                                <option key={oneIndustry.name} value={oneIndustry.name}>{oneIndustry.name}</option>
+                                                        )}
+                                                    </Field>
+                                                </fieldset>
+
                                                 <button className="btn btn-success" type="submit" >Sign Up</button>
-                                                <p className="forgot-password text-center">Already registered? <a href="#placeholder">Sign In</a></p>
-                                                <Link style={{ padding: '10px' }} className="new user text-left" to="/signupbusiness"><Button variant="dark">Register as a Business Owner</Button></Link>
                                             </Form>
                                         )
                                     }
@@ -134,7 +180,7 @@ class SignupComponent extends Component {
     }
 }
 
-export default SignupComponent;
+export default OwnerSignupComponent;
 
 // ==================== UTILITY FUNCTIONS ====================
 
@@ -148,7 +194,7 @@ function throwWarning(warningMessage) {
         animationIn: ["animate__animated", "animate__fadeIn"],
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
-            duration: 50000000,
+            duration: 5000,
         }
     });
 }
@@ -163,7 +209,7 @@ function throwError(errorMessage) {
         animationIn: ["animate__animated", "animate__fadeIn"],
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
-            duration: 5000000,
+            duration: 5000,
         }
     });
 }
@@ -178,7 +224,7 @@ function showSuccess () {
         animationIn: ["animate__animated", "animate__fadeIn"],
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
-            duration: 10000000,
+            duration: 10000,
         }
     });
 }
