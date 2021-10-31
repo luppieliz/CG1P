@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 // import routing features
 import {Link} from 'react-router-dom'
 // auth service
-import AuthenticationService from './AuthenticationService.js'
+import AuthenticationService from '../../api/todo/AuthenticationService.js'
 // import withRouter to wrap - auto update header based on auth
-import {withRouter} from 'react-router';
+import {withRouter} from 'react-router'
 
 // Header with navigation features as a navbar. Shows different things based on whether user is logged in.
 class HeaderComponent extends Component {
+
     render() {
         const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
         return (
@@ -15,7 +16,7 @@ class HeaderComponent extends Component {
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <div><a href="/" className="navbar-brand">COVby</a></div>
                     <ul className="navbar-nav">
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/admin">Home</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/welcome">Home</Link></li>}
                         {!isUserLoggedIn && <li><Link className="nav-link" to="/about">About</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/todos">Dashboard</Link></li>}
                         {!isUserLoggedIn && <li><Link className="nav-link" to="/faq">FAQ</Link></li>}
@@ -36,4 +37,4 @@ class HeaderComponent extends Component {
     }
 }
 
-export default withRouter(HeaderComponent);
+export default withRouter(HeaderComponent)

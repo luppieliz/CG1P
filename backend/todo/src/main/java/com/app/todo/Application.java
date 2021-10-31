@@ -6,6 +6,10 @@ import com.app.todo.faq.FAQService;
 import com.app.todo.measure.MeasureService;
 import com.app.todo.user.User;
 import com.app.todo.user.UserService;
+import com.app.todo.industry.Industry;
+import com.app.todo.industry.IndustryService;
+import com.app.todo.business.Business;
+import com.app.todo.business.BusinessService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -43,10 +47,31 @@ public class Application {
 		FAQController testFAQController = ctx.getBean(FAQController.class);
 		testFAQController.retrieveImage(testURL);
 
+		IndustryService industries = ctx.getBean(IndustryService.class);
+		System.out.println("[Add industry]: " + industries.addIndustry(
+				new Industry("Healthcare")).getName());
+		System.out.println("[Add industry]: " + industries.addIndustry(
+				new Industry("Arts and Culture")).getName());
+		System.out.println("[Add industry]: " + industries.addIndustry(
+				new Industry("Food and Beverage")).getName());
+
+		BusinessService businesses = ctx.getBean(BusinessService.class);
+		Industry industry = industries.getIndustry("Arts and Culture");
+		System.out.println("[Add Business]: " + businesses.addBusiness(
+				new Business("abcde77777", "singapore museum", industry)).getName());
+		industry = industries.getIndustry("Food and Beverage");
+		System.out.println("[Add Business]: " + businesses.addBusiness(
+				new Business("dfgjj90", "macdonalds", industry)).getName());
+
 		UserService users = ctx.getBean(UserService.class);
-		BCryptPasswordEncoder encoder = ctx.getBean(BCryptPasswordEncoder.class);
+		Business business = businesses.getBusiness("abcde77777");
 		System.out.println("[Add user]: " + users.addUser(
-				new User("admin", "admin@gmail.com", encoder.encode("goodpassword"), "ROLE_ADMIN")).getUsername());
+				new User("admin@gmail.com", "admin", "goodpassword", "ROLE_ADMIN", business)).getUsername());
+		System.out.println("[Add user]: " + users.addUser(
+				new User("alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER", business)).getUsername());
+		business = businesses.getBusiness("dfgjj90");
+		System.out.println("[Add user]: " + users.addUser(
+				new User("ben@gmail.com", "Ben", "password2", "ROLE_EMPLOYEE", business)).getUsername());
 
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://covid-19-data.p.rapidapi.com/country/code?code=sg"))

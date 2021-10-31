@@ -1,51 +1,44 @@
 package com.app.todo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private UserRepository userRepository;
-//    private BCryptPasswordEncoder encoder;
-
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
-//        this.encoder = encoder;
+        this.encoder = encoder;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(
-                () -> new UsernameNotFoundException("User: " + username + " is not found!")
-        );
-    }
-
-    public List<User> getUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User addUser(User newUser) {
-        newUser.setPassword(newUser.getPassword());
-        return userRepository.save(newUser);
+    public User getUser(Long userId) throws UserNotFoundException {
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
-    public User deleteUser(Long userId) {
-        if (!userRepository.existsById(userId)) {
-            throw new UserNotFoundException(userId);
-        }
-        User deleteUser = userRepository.findById(userId).get();
-        userRepository.deleteById(userId);
-        return deleteUser;
+    public User getUser(String email) throws UserNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
     }
+
+    public User addUser(User user) throws UserAlreadyRegisteredException {
+        String email = user.getEmail();
+
+        if (userRepository.existsByEmail(email)) {
+            throw new UserAlreadyRegisteredException(email);
+        }
+        
+        user.setPassword(encoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    // TODO: Implement other user services
 }

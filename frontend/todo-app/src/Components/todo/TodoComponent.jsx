@@ -2,15 +2,13 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import TodoDataService from '../../api/todo/TodoDataService.js'
-import AuthenticationService from './AuthenticationService.js'
+import AuthenticationService from '../../api/todo/AuthenticationService.js';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 // Page to update or add a specific todo
 class TodoComponent extends Component {
-
-
 
     constructor(props) {
         super(props)
@@ -37,7 +35,7 @@ class TodoComponent extends Component {
             return
         }
 
-        let username = AuthenticationService.getLoggedInUserName();
+        let username = AuthenticationService.getLoggedInEmail();
 
         TodoDataService.retrieveTodo(username, this.state.id)
             .then(
@@ -50,7 +48,7 @@ class TodoComponent extends Component {
 
     // on Formik Submit
     onSubmit(values) {
-        let username = AuthenticationService.getLoggedInUserName();
+        let username = AuthenticationService.getLoggedInEmail();
         let todo = {
             id: this.state.id,
             description: values.description,

@@ -14,6 +14,7 @@ import ErrorComponent from './ErrorComponent.jsx'
 import WelcomeComponent from './WelcomeComponent.jsx'
 import TodoComponent from './TodoComponent.jsx'
 import SignupComponent from './SignupComponent.jsx'
+import OwnerSignupComponent from './OwnerSignupComponent.jsx'
 import HomeComponent from './HomeComponent.jsx'
 import Faqcomponent from './GeneralFaq'
 import NewsFeedComponent from "./NewsFeedComponent";
@@ -38,10 +39,11 @@ class TodoApp extends Component {
                         <Route path="/faq" exact component={ Faqcomponent } />
                         <Route path="/news" exact component={NewsFeedComponent} />
                         <AuthenticatedRoute path="/logout" component={LogoutComponent} />
-                        <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
+                        <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
                         <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
                         <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
                         <Route path="/signup" component={SignupComponent}/>
+                        <Route path="/signupbusiness" component={OwnerSignupComponent}/>
                         <Route component={ErrorComponent} />
                     </Switch>
                     {/*<FooterComponent />*/}
@@ -51,4 +53,4 @@ class TodoApp extends Component {
     }
 }
 
-export default TodoApp;
+export default TodoApp
