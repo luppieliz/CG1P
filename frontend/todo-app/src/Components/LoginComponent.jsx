@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AuthenticationService from './AuthenticationService.js';
+import AuthenticationService from '../api/AuthenticationService.js';
 import { Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container'

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import routing features
 import { Link } from 'react-router-dom'
 // auth service
-import AuthenticationService from './AuthenticationService.js'
+import AuthenticationService from '../api/AuthenticationService.js'
 // import withRouter to wrap - auto update header based on auth
 import { withRouter } from 'react-router';
 

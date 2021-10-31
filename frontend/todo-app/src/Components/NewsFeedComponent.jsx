@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Placeholder from "react-bootstrap/Placeholder";
-import NewsDataService from '../api/todo/NewsDataService';
+import NewsDataService from '../api/NewsDataService';
 import Multiselect from 'multiselect-react-dropdown';
 import '../newsfeed.css';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TodoDataService from '../api/todo/TodoDataService';
-import AuthenticationService from './AuthenticationService.js'
+import TodoDataService from '../api/TodoDataService';
+import AuthenticationService from '../api/AuthenticationService.js'
 import moment from 'moment'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
