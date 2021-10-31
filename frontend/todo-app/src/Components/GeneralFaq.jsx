@@ -17,21 +17,18 @@ class GeneralFaq extends Component {
 
     render() {
         return (
-            <div>
-                {/* header */}
-                <Card className="text-dark">
-                    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                    <Card.Body>
-                        <Card.Text>
-                            <h1>FAQ</h1>
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-
-                <Placeholder xs={12} bg="dark" className="bg-black" />
-                <Placeholder xs={12} bg="dark" className="bg-black" />
-
-
+            <div style={{
+                backgroundImage: "url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?size=626&ext=jpg"
+                , backgroundPosition: 'center'
+                , backgroundSize: 'cover'
+                , backgroundRepeat: 'no-repeat'
+                , width: '100%'
+                , height: '48rem'
+            }}>
+                <Placeholder xs={12} bg="transparent"  />
+                <h1 className="text-dark ">FAQ</h1>
+                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent"  />
                 <Row>
                     <Col></Col>
                     <Col xs={5}>
@@ -47,11 +44,10 @@ class GeneralFaq extends Component {
                     </Col>
                     <Col></Col>
                 </Row>
-
-                <Placeholder xs={12} bg="dark" className="bg-black" />
-                <Placeholder xs={12} bg="dark" className="bg-black" />
-                <Placeholder xs={12} bg="dark" className="bg-black" />
-                <Placeholder xs={12} bg="dark" className="bg-black" />
+                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent"  />
 
                 {/* the questions */}
                 <Container>
@@ -61,7 +57,7 @@ class GeneralFaq extends Component {
                             <Accordion>
                                 <Accordion.Item eventKey="0">
                                     <Accordion.Header>Do i need to declare my onsite manpower details?</Accordion.Header>
-                                    <Accordion.Body className="text-white bg-black">
+                                    <Accordion.Body className="text-black bg-white">
                                         You are required to declare your onsite manpower if you received an email
                                         notifying you to submit your onsite manpower details, or if there is a
                                         “MPSubmit” reference number in your company dashboard after you have logged into GoBusiness.

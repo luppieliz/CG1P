@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Card from 'react-bootstrap/Card'
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -15,7 +15,7 @@ class NewsFeedComponent extends Component {
 
         this.state = {
             news: [],
-            newsDisplay : [],
+            newsDisplay: [],
             isEmpty: false,
             tagsSelected: {},
             options: []
@@ -34,8 +34,8 @@ class NewsFeedComponent extends Component {
             .then(
                 response => {
                     this.state.isEmpty = response.data.length === 0;
-                    this.setState({news:response.data})
-                    this.setState({newsDisplay:response.data})
+                    this.setState({ news: response.data })
+                    this.setState({ newsDisplay: response.data })
                     // console.log("retrieveall made");
                     console.log(response);
                     this.generateTaglist();
@@ -56,7 +56,7 @@ class NewsFeedComponent extends Component {
                     if (!tags.hasOwnProperty(arr[s])) { //
                         tags[arr[s]] = 0;
                         // console.log("adding " + arr[s]);
-                        output[idx] = {value:arr[s]};
+                        output[idx] = { value: arr[s] };
                         idx++;
                     }
                 }
@@ -64,7 +64,7 @@ class NewsFeedComponent extends Component {
 
             }
         }
-        this.setState({options:output})
+        this.setState({ options: output })
     }
 
     //function to call the api to push news into database DEV ONLY
@@ -102,9 +102,9 @@ class NewsFeedComponent extends Component {
             }
         }
         if (output.length == 0) {
-            this.setState({newsDisplay:this.state.news});
+            this.setState({ newsDisplay: this.state.news });
         } else {
-            this.setState({newsDisplay: output});
+            this.setState({ newsDisplay: output });
         }
     }
 
@@ -123,7 +123,7 @@ class NewsFeedComponent extends Component {
     }
 
     //root component of NewsFeed that displays header, footer, and news cards
-    render () {
+    render() {
 
         //==========Column for news feed to display filtered news==========//
         let newsFeedColumn; //display empty message if there is no news in this.state
@@ -175,33 +175,31 @@ class NewsFeedComponent extends Component {
 
         //==========Final render==========//
         return (
-            <div>
-                <Card className="text-dark">
-                    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                    <Card.Body>
-                        <Card.Text>
-                            <h1>News</h1>
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-
-                <Placeholder xs={12} bg="dark" className="bg-black" />
-                <Placeholder xs={12} bg="dark" className="bg-black" />
+            <div style={{
+                backgroundImage: "url(https://cdn.shopify.com/s/files/1/2118/5289/products/EnvyLoops_Interconnected_V3_-_Glow-4K000_3840x.jpg?v=1527308804"
+                , backgroundPosition: 'center'
+                , backgroundSize: 'cover'
+                , backgroundRepeat: 'no-repeat'
+                , width: '100%'
+                , height: '100%'
+            }}>
+                <Placeholder xs={12} bg="transparent" />
+                <h1 className="text-dark " >News</h1>
+                <Placeholder xs={12} bg="transparent" />
                 <Container>
                     <Row>
                         <Col xs={8}>
                             {dropdown}
                         </Col>
                         <Col>
-                            <button className = "btn btn-success" onClick={() => this.showFilteredClicked()}>Filter</button>
+                            <button className="btn btn-success" onClick={() => this.showFilteredClicked()}>Filter</button>
                         </Col>
                         <Col>
-                                <button className = "btn btn-secondary" onClick={() => this.apiButtonClicked()}>Fetch News</button>
-                                {/*//todo: make buttons toggle colour when toggled*/}
+                            <button className="btn btn-secondary" onClick={() => this.apiButtonClicked()}>Fetch News</button>
+                            {/*//todo: make buttons toggle colour when toggled*/}
                         </Col>
                     </Row>
                     <Row>
-
                         {/*news column*/}
                         {/*see newsFeedColumn definition for more information*/}
                         {newsFeedColumn}

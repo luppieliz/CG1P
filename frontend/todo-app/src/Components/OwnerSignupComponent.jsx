@@ -3,11 +3,15 @@ import { Form, Formik, Field, ErrorMessage } from 'formik'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import Placeholder from 'react-bootstrap/Placeholder'
 import BusinessDataService from '../api/BusinessDataService.js';
 import UserDataService from '../api/UserDataService.js';
 import IndustryDataService from '../api/IndustryDataService.js'
 import ReactNotification, { store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import { Link } from 'react-router-dom'
 
 class OwnerSignupComponent extends Component {
 
@@ -58,7 +62,7 @@ class OwnerSignupComponent extends Component {
                             authority: "ROLE_BUSINESSOWNER",
                             business: response2.data
                         }
-                        UserDataService.createUser(user).then(() => {showSuccess()}).catch((error) => {
+                        UserDataService.createUser(user).then(() => { showSuccess() }).catch((error) => {
                             throwError(error.response.data.message)
                         })
                     }
@@ -97,8 +101,8 @@ class OwnerSignupComponent extends Component {
             errors.businessUEN = "Please Enter Your Business Name!"
         }
         if (!values.industry) {
-            throwWarning("Please Enter Your Industry!")     
-            errors.businessUEN = "Please Enter Your Industry!"   
+            throwWarning("Please Enter Your Industry!")
+            errors.businessUEN = "Please Enter Your Industry!"
         }
         return errors
     }
@@ -108,14 +112,24 @@ class OwnerSignupComponent extends Component {
         let { name, email, password, businessUEN, businessName, industry } = this.state
 
         return (
-            <div>
+             <div style={{ backgroundImage: "url(https://image.freepik.com/free-vector/green-tones-gradient-background_52683-29042.jpg"
+            ,backgroundPosition: 'center'
+            ,backgroundSize: 'cover'
+            ,backgroundRepeat: 'no-repeat'
+            ,width: '100vw'
+            ,height: '100vh'
+            }}>
                 <ReactNotification />
                 <Container>
                     <Row>
                         <Col></Col>
                         <Col>
-                            <h1 className="text-white">Signup - Business Owner</h1>
-                            <div className="container text-white">
+                            <Placeholder xs={12} bg="transparent" />
+                            <h1 className="text-dark">Signup - Business Owner</h1>
+                            <Placeholder xs={12} bg="transparent" />
+                            <div className="container text-dark">
+                              <Card border="success" style={{ width: '35rem', height: '31rem', borderWidth: '5px' }}>
+                              <Card.Body>
                                 <Formik
                                     initialValues={{ name, email, password, businessUEN, businessName, industry }}
                                     onSubmit={this.onSubmit}
@@ -164,12 +178,15 @@ class OwnerSignupComponent extends Component {
                                                         )}
                                                     </Field>
                                                 </fieldset>
-
+                                                <Placeholder xs={12} bg="transparent" />
                                                 <button className="btn btn-success" type="submit" >Sign Up</button>
+                                                <Link style={{ padding: '10px' }} className="new user text-left" to="/signup"><Button variant="dark">Register as an Employee</Button></Link>
                                             </Form>
                                         )
                                     }
                                 </Formik>
+                                </Card.Body>
+                                </Card>
                             </div>
                         </Col>
                         <Col></Col>
@@ -214,7 +231,7 @@ function throwError(errorMessage) {
     });
 }
 
-function showSuccess () {
+function showSuccess() {
     store.addNotification({
         title: "Success!",
         message: "You have signed up successfully! Please login.",
