@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
-import TodoDataService from '../api/todo/TodoDataService.js'
-import AuthenticationService from '../api/todo/AuthenticationService.js';
+import TodoDataService from '../api/TodoDataService.js'
+import AuthenticationService from '../api/AuthenticationService.js';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'

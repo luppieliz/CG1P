@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL, SESSION_EMAIL, SESSION_TOKEN } from '../../Constants'
+import { API_URL, SESSION_EMAIL, SESSION_TOKEN } from '../Constants'
 
 // Service for keeping track of currently authenticated user
 // Also facilitates retrieval of currently logged in email
