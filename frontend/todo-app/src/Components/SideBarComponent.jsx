@@ -60,7 +60,7 @@ class SideBarComponent extends Component {
     // }
 
     refreshTodos() {
-        let username = AuthenticationService.getLoggedInUserName();
+        let username = AuthenticationService.getLoggedInEmail();
         TodoDataService.retrieveAllTodos(username)
             .then(
                 response => {
@@ -71,7 +71,7 @@ class SideBarComponent extends Component {
     }
 
     deleteTodoClicked(todoId) {
-        let username = AuthenticationService.getLoggedInUserName();
+        let username = AuthenticationService.getLoggedInEmail();
         TodoDataService.deleteTodo(username, todoId)
             .then(
                 response => {

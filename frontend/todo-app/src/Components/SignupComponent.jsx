@@ -1,90 +1,184 @@
-
 import React, { Component } from 'react'
+import { Form, Formik, Field, ErrorMessage } from 'formik'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
-import Image from 'react-bootstrap/Image'
+import BusinessDataService from '../api/BusinessDataService.js';
+import UserDataService from '../api/UserDataService.js';
+import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
+import ReactNotification, { store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 
 class SignupComponent extends Component {
 
     constructor(props) {
         super(props)
-
         this.state = {
-            Username: '',
-            email: '',
-            password: '',
-            hasSignupFailed: false,
-            showSuccessMessage: false
+            name: 'anrev',
+            email: 'A@A',
+            password: 'aaaaaaaaa',
+            businessUEN: 'aaaa',
+            business: {},
         }
 
-        this.handleChange = this.handleChange.bind(this)
-        this.signupClicked = this.signupClicked.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+        this.validate = this.validate.bind(this);
+
     }
 
-    handleChange(event) {
+    onSubmit(values) {
 
-        this.setState(
-            {
-                [event.target.name]
-                    : event.target.value
+        let uen = values.businessUEN
+        BusinessDataService.retrieveBusiness(uen).then(
+            response => {
+                // this.setState({business: response.data})
+                // console.log(response)
+                let user = {
+                    email: values.email,
+                    name: values.name,
+                    password: values.password,
+                    authority: "ROLE_EMPLOYEE",
+                    business: response.data
+                }
+                UserDataService.createUser(user).then(() => {showSuccess()}).catch((error) => {
+                    throwError(error.response.data.message)
+                })
             }
-        )
+        ).catch((error) => {
+            throwError(error.response.data.message)
+        })
     }
 
-
-    signupClicked() {
-
-        //when clicked check if email alr taken,
-        // add new user and send verification email 
-        //post (create) new user and pw 
-        
-
+    validate(values) {
+        let errors = {}
+        if (!values.name) {
+            throwWarning("Please Enter Your Name!")
+            errors.name = "Please Enter Your Name!"
+        }
+        if (!values.email) {
+            throwWarning("Please Enter Your Email!")
+            errors.email = "Please Enter Your Email!"
+        }
+        if (!values.password) {
+            throwWarning("Please Enter Your Password!")
+            errors.password = "Please Enter Your Password!"
+        } else if (values.password.length < 8) {
+            throwWarning("Password has to be at least 8 characters long!")
+            errors.password = "Password has to be at least 8 characters long!"
+        }
+        if (!values.businessUEN) {
+            throwWarning("Please Enter Your UEN!")
+            errors.businessUEN = "Please Enter Your UEN!"
+        }
+        return errors
     }
 
     render() {
+        let { name, email, password, businessUEN } = this.state
         return (
-            <Container>
-
-            <Row>
-                <Col></Col>
-                <Col>
-                <h1 className="text-info" style={{ padding:'100px'}}>Buddy-19</h1>
-                </Col>
-                <Col></Col>
-            </Row>
-            <Row  style={{ padding:'50px'}}>
-                <Col><Image style={{ width: '35rem', height:'24rem' }}src="https://media.istockphoto.com/photos/business-people-standing-behind-social-distancing-signage-on-office-picture-id1262271993?b=1&k=20&m=1262271993&s=170667a&w=0&h=ssGXGBFECItq--aJ7gAGWgFWC_NXO_fN58oi5J4_bWs=" rounded fluid/></Col>
-                <Col>
-                    <Card className="text-dark" border="info" style={{ padding:'20px',width: '30rem' ,borderWidth:'4px' }}>
-                    <form>
-                        <div className="form-group">
-                            <label>User name</label>
-                            <input type="text" className="form-control" placeholder="First name" value={this.state.username} onChange={this.handleChange} />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Email address</label>
-                            <input type="email" className="form-control" placeholder="Enter email"  value={this.state.username} onChange={this.handleChange}/>
-                        </div>
-
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input type="password" className="form-control" placeholder="Enter password"  value={this.state.username} onChange={this.handleChange}/>
-                        </div>
-
-                        <button type="submit" className="btn btn-primary btn-block"  onClick={this.signupClicked}>Sign Up</button>
-                        <p className="forgot-password text-center">Already registered <a href="#placeholder">sign in?</a></p>
-                    </form>
-                </Card>
-                </Col>
-            </Row>
-        </Container>
-        );
-        
+            <div>
+                <ReactNotification />
+                <Container>
+                    <Row>
+                        <Col></Col>
+                        <Col>
+                            <h1 className="text-white">Signup - Employee</h1>
+                            <div className="container text-white">
+                                <Formik
+                                    initialValues={{ name, email, password, businessUEN }}
+                                    onSubmit={this.onSubmit}
+                                    validateOnChange={false}
+                                    validateOnBlur={false}
+                                    validate={this.validate}
+                                    enableReinitialize={true}
+                                >
+                                    {
+                                        (props) => (
+                                            <Form>
+                                                {/* <ErrorMessage name="name" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="email" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="password" component="div" className="alert alert-warning"></ErrorMessage>
+                                                <ErrorMessage name="businessUEN" component="div" className="alert alert-warning"></ErrorMessage> */}
+                                                <fieldset className="form-group">
+                                                    <label>Name</label>
+                                                    <Field className="form-control" type="text" placeholder="Enter name" name="name"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Email Address</label>
+                                                    <Field className="form-control" type="email" placeholder="Enter email" name="email"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Password</label>
+                                                    <Field className="form-control" type="password" placeholder="Enter password" name="password"></Field>
+                                                </fieldset>
+                                                <fieldset className="form-group">
+                                                    <label>Your Business UEN</label>
+                                                    <Field className="form-control" type="text" placeholder="Enter Business UEN" name="businessUEN"></Field>
+                                                </fieldset>
+                                                <button className="btn btn-success" type="submit" >Sign Up</button>
+                                                <p className="forgot-password text-center">Already registered? <a href="#placeholder">Sign In</a></p>
+                                                <Link style={{ padding: '10px' }} className="new user text-left" to="/signupbusiness"><Button variant="dark">Register as a Business Owner</Button></Link>
+                                            </Form>
+                                        )
+                                    }
+                                </Formik>
+                            </div>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </Container>
+            </div>
+        )
     }
 }
 
-export default SignupComponent
+export default SignupComponent;
+
+// ==================== UTILITY FUNCTIONS ====================
+
+function throwWarning(warningMessage) {
+    store.addNotification({
+        title: "Warning!",
+        message: warningMessage,
+        type: "warning",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 50000000,
+        }
+    });
+}
+
+function throwError(errorMessage) {
+    store.addNotification({
+        title: "Error!",
+        message: errorMessage,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 5000000,
+        }
+    });
+}
+
+function showSuccess () {
+    store.addNotification({
+        title: "Success!",
+        message: "You have signed up successfully! Please login.",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 10000000,
+        }
+    });
+}
