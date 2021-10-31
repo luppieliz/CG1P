@@ -6,23 +6,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/") // allow cross origin requests (i.e., from port 4200 to 8080)
 // Controller - Handle HTTP Requests
-@RequestMapping("/hello-world")
 public class HelloWorldController {
 
-    @GetMapping
+    @GetMapping(path = "/hello-world")
     public String helloWorld() {
         return "Hello World!";
     }
 
-    @GetMapping(path = "-bean")
+    @GetMapping(path = "/hello-world-bean")
     public HelloWorldBean helloWorldBean() {
         return new HelloWorldBean("Hello World!");
     }
 
-    @GetMapping(path = "/path-variable/{name}")
-    public HelloWorldBean helloWorldPathVariable(@PathVariable String name) {
-        return new HelloWorldBean(String.format("Hello World, %s", name));
+    @GetMapping(path = "/hello-world/path-variable/{email}")
+    public HelloWorldBean helloWorldPathVariable(@PathVariable String email) {
+        return new HelloWorldBean(String.format("Hello World, %s", email));
     }
-
-
 }

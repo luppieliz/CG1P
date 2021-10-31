@@ -16,6 +16,7 @@ import ProfileComponent from './ProfileComponent.jsx'
 import ContactusComponent from './ContactusComponent.jsx'
 import AboutusComponent from './AboutusComponent.jsx'
 
+import OwnerSignupComponent from './OwnerSignupComponent.jsx'
 import HomeComponent from './HomeComponent.jsx'
 import TodoComponent from './TodoComponent.jsx'
 import Faqcomponent from './GeneralFaq'
@@ -44,13 +45,14 @@ class TodoApp extends Component {
                         <Route path="/contactus" exact component={ContactusComponent} />
                         <Route path="/aboutus" exact component={AboutusComponent} />
                         <AuthenticatedRoute path="/logout" component={LogoutComponent} />
-                        <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
+                        <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
                         <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
                         <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
                         <AuthenticatedRoute path="/mylist" component={SideBarComponent} />
                         <AuthenticatedRoute path="/profile" component={ProfileComponent} />
-                       
+
                         <Route path="/signup" component={SignupComponent}/>
+                        <Route path="/signupbusiness" component={OwnerSignupComponent}/>
                         <Route component={ErrorComponent} />
                     </Switch>
                     <FooterComponent />
