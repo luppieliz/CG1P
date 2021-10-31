@@ -43,7 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                     // for UserController
                     .antMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMIN")
 
                     // for MeasureController
