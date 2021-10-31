@@ -105,6 +105,7 @@ class SideBarComponent extends Component {
                         <Offcanvas.Body className="text-dark">
                             <Row>
                                 <Col>
+                                
                                     <Card className="text-dark">
                                         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                         <Card.Body>

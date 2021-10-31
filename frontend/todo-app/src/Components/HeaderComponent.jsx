@@ -16,7 +16,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
-import Nav from 'react-bootstrap/Nav'
+import Placeholder from 'react-bootstrap/Placeholder'
 
 
 // Header with navigation features as a navbar. Shows different things based on whether user is logged in.
@@ -59,13 +59,9 @@ class HeaderComponent extends Component {
                             <Offcanvas.Body className="text-dark">
                                 <Row>
                                     <Col>
+                                    <iframe src="https://free.timeanddate.com/clock/i81r8hlp/n236/tlsg/fn6/fs20/fcfff/tc000/ftb/bacfff/pa8/tt0/tw1/th2/ta1/tb4" frameborder="0" width="368" height="68"></iframe>
                                         <Card className="text-dark">
                                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                                            <Card.Body>
-                                                <Card.Text>
-                                                    <h1>date maybe or calender</h1>
-                                                </Card.Text>
-                                            </Card.Body>
                                             <Card.Text className="text-dark" >
                                                 <h4>{isUserLoggedIn && <Link className="nav-link" to="/welcome/admin">Home</Link>}
                                                     {isUserLoggedIn && <Link className="nav-link" to="/todos">Dashboard</Link>}
@@ -76,6 +72,14 @@ class HeaderComponent extends Component {
                                                     {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
                                                     {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
                                                     {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
+                                                </h4>
+                                            </Card.Text>
+                                        </Card>
+                                        <Placeholder xs={12} bg="white" className="bg-black" />
+                                        <Card className="text-dark">
+                                            {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+                                            <Card.Text className="text-dark" >
+                                                <h4>
                                                     <NavDropdown
                                                         id="nav-dropdown-dark-example"
                                                         title="Questions"

@@ -66,54 +66,55 @@ class ListTodosComponent extends Component {
     // jsx render for entire table
     render() {
         return (
-            
-            <div>
-                    <Row>
-                        <Col></Col>
-                        <Col xs={6}>
-                            <Container>
-                        <Card className="text-dark">
-                            {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                            <Card.Body>
-                            <Card.Text>
-                                <h1>MY LIST</h1>
-                            </Card.Text>
-                            </Card.Body>
-                        </Card>
-                                <div className="text-white">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
-                                    <table className="table text-white">
-                                        <thead>
-                                            <tr>
-                                                <th>Description</th>
-                                                <th>Is Completed</th>
-                                                <th>Target Date</th>
-                                                <th>Update</th>
-                                                <th>Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                // script that for each todo, map it and display id, desc, done, targetDate, and buttons
-                                                this.state.todos.map(
-                                                    todo =>
-                                                        <tr key={todo.id}>
-                                                            <td>{todo.description}</td>
-                                                            <td>{todo.done.toString()}</td>
-                                                            <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
-                                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
-                                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
-                                                        </tr>
-                                                )
-                                            }
-                                        </tbody>
-                                    </table>
-                                    <div className = "row"><button className = "btn btn-success" onClick={() => this.addTodoClicked()}>Add</button></div>
-                                </div>
-                            </Container>
-                        </Col>
-                        <Col></Col>
-                    </Row>
-            
+
+            <div style={{ backgroundImage: "url(https://motionarray.imgix.net/preview-133720-7DNFEig4mX-high_0000.jpg"
+            ,backgroundPosition: 'center'
+            ,backgroundSize: 'cover'
+            ,backgroundRepeat: 'no-repeat'
+            ,width: '100%'
+            ,height: '100%'
+            }}>
+                <Row>
+                    <Col></Col>
+                    <Col xs={6}>
+                        <Container>
+                            <Placeholder xs={12} bg="transparent" />
+                            <h1 className="text-dark">MY LIST</h1>
+                            <Placeholder xs={12} bg="transparent"  />
+                            <div className="text-dark">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
+                                <table className="table text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Is Completed</th>
+                                            <th>Target Date</th>
+                                            <th>Update</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            // script that for each todo, map it and display id, desc, done, targetDate, and buttons
+                                            this.state.todos.map(
+                                                todo =>
+                                                    <tr key={todo.id}>
+                                                        <td>{todo.description}</td>
+                                                        <td>{todo.done.toString()}</td>
+                                                        <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
+                                                        <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
+                                                        <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
+                                                    </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </table>
+                                <div className="row"><button className="btn btn-success" onClick={() => this.addTodoClicked()}>Add</button></div>
+                            </div>
+                        </Container>
+                    </Col>
+                    <Col></Col>
+                </Row>
+
             </div>
         )
     }

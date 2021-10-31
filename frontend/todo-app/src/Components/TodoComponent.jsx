@@ -99,8 +99,8 @@ class TodoComponent extends Component {
                 <Col>
                 <Container>
                     <Row>
-                <h1 className="text-white">Todo</h1>
-                <div className="container text-white">
+                <h1 className="text-dark">Todo</h1>
+                <div className="container text-dark ">
                     <Formik
                         initialValues={{ description, targetDate }}
                         onSubmit={this.onSubmit}

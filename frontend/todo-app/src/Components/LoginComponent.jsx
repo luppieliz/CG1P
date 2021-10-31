@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
+import Placeholder from 'react-bootstrap/Placeholder'
 
 // Log In
 class LoginComponent extends Component {
@@ -15,8 +16,8 @@ class LoginComponent extends Component {
 
         // State - contains the email, password, and hasLoginFailed boolean fields.
         this.state = {
-            email: '',
-            password: '',
+            email: 'admin@gmail.com',
+            password: 'goodpassword',
             hasLoginFailed: false, // boolean 1
         }
 
@@ -57,11 +58,26 @@ class LoginComponent extends Component {
 
             // In JavaScript, BOOLEAN && SHOW X means IF BOOLEAN, THEN SHOW X
             // If login is failed (reflected in state), display alert.
-            <Container>
+            <div style={{ backgroundImage: "url(https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/yellow-gradient-background_MypJi3wd_thumb.jpg"
+            ,backgroundPosition: 'center'
+            ,backgroundSize: 'cover'
+            ,backgroundRepeat: 'no-repeat'
+            ,width: '100vw'
+            ,height: '100vh'
+            }}>
+            <Container >
+                
+    
+
                 <Row>
                     <Col></Col>
                     <Col>
-                        <h1 className="text-warning" style={{ padding: '100px' }}>COVby</h1>
+                        <Placeholder xs={12} bg="transparent" />
+                        <h1 className="text-dark" >Buddy-19</h1>
+                        <Placeholder xs={12} bg="transparent" />
+                        <h1 className="text-dark" >Login :)</h1>
+                        <Placeholder xs={12} bg="transparent" />
+                        <Placeholder xs={12} bg="transparent" />
                     </Col>
                     <Col></Col>
                 </Row>
@@ -73,7 +89,7 @@ class LoginComponent extends Component {
 
                     <Col className="text-black text-left">
 
-                        <Card border="warning" style={{ width: '35rem', height: '20rem', borderWidth: '5px' }}>
+                        <Card border="warning" style={{ width: '35rem', height: '17rem', borderWidth: '5px' }}>
                             <Card.Body>
                                 <div className="form-group ">
                                     <label>Email</label>
@@ -83,7 +99,9 @@ class LoginComponent extends Component {
                                     <label>Password</label>
                                     <input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleChange} />
                                 </div>
+                                <Placeholder xs={12} bg="transparent" />
                                 <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
+                                <Placeholder xs={12} bg="transparent" />
                                 <p className="forgot-password text-center"><a href="#placeholder">Forgot password?</a> or new to the app? <Link className="new user text-right" to="/signup">Sign up!</Link></p>
                                 {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
                             </Card.Body>
@@ -91,6 +109,7 @@ class LoginComponent extends Component {
                     </Col>
                 </Row>
             </Container>
+            </div>
         )
     }
 }
