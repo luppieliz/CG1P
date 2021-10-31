@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL } from '../../Constants';
+import { API_URL } from '../Constants';
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 

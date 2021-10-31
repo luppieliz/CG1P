@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import routing features
 import { Link } from 'react-router-dom'
-import HelloWorldService from '../../api/todo/HelloWorldService'
+import HelloWorldService from '../api/todo/HelloWorldService'
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
 import Placeholder from 'react-bootstrap/Placeholder';
