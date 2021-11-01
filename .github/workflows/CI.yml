@@ -8,7 +8,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file backend/todo/pom.xml
+#    - name: Build with Maven
+#      run: mvn -B package --file backend/todo/pom.xml
     - name: Run Tests
       run: mvn -B test --file backend/todo/pom.xml
