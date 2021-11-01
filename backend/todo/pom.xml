@@ -15,15 +15,9 @@
 	<description>Todo Application from in28Minutes Udemy</description>
 	<properties>
 		<java.version>11</java.version>
-		<properties>
-			<sonar.organization>luppieliz</sonar.organization>
-			<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		</properties>
+		<sonar.organization>luppieliz</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
-	<properties>
-  <sonar.organization>luppieliz</sonar.organization>
-  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-</properties>
 	<dependencies>
 <!--		<dependency>-->
 <!--			<groupId>io.jsonwebtoken</groupId>-->
