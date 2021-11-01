@@ -2,6 +2,7 @@ package com.app.todo.todo;
 
 import com.app.todo.todo.ToDo;
 import com.app.todo.user.User;
+import com.app.todo.user.UserNotFoundException;
 import com.app.todo.user.UserRepository;
 import com.app.todo.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +70,10 @@ public class ToDoServiceImpl {
     }
 
     public ToDo addToDo(String username, ToDo newToDo) {
-        // return userRepository.findByEmail(username).map(user -> {
-        //     newToDo.setUser(user);
-        //     return toDoRepository.save(newToDo);
-        // }).orElseThrow(() -> new UserNotFoundException(username));
-        return null;
+         return userRepository.findByEmail(username).map(user -> {
+             newToDo.setUser(user);
+             return toDoRepository.save(newToDo);
+         }).orElseThrow(() -> new UserNotFoundException(username));
+//        return null;
     }
 }

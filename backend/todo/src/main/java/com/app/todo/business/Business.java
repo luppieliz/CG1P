@@ -58,4 +58,15 @@ public class Business {
         this.name = name;
         this.industry = industry;
     }
+
+    public Business (@JsonProperty("UEN") String UEN) {
+        this.UEN = UEN;
+    }
+
+    public Business(Long id, String UEN, String name, Industry industry) {
+        this.id = id;
+        this.UEN = UEN;
+        this.name = name;
+        this.industry = industry;
+    }
 }
