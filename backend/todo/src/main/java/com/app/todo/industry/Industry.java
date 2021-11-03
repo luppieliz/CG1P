@@ -42,4 +42,9 @@ public class Industry {
     public Industry(String name) { // all args constructor
         this.name = name;
     }
+
+    public Industry(Long id, String name) { // all args constructor
+        this.id = id;
+        this.name = name;
+    }
 }

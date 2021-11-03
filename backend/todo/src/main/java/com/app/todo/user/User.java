@@ -85,6 +85,15 @@ public class User implements UserDetails {
         this.business = business;
     }
 
+    public User(Long id, String email, String name, String password, String authority, Business business) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.authority = authority;
+        this.business = business;
+    }
+
     /*
      * Return a collection of authorities granted to the user.
      */
