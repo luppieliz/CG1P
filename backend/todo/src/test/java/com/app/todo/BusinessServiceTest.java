@@ -49,9 +49,9 @@ public class BusinessServiceTest {
     }
 
     @Test
-    void getBusinessWithId_InvalidBusinessId_ReturnNull() {
+    void getBusinessWithId_InvalidBusinessId_ReturnBusinessNotFoundException() {
         Industry industry = new Industry("Arts and Culture");
-        Business business = new Business(1L,"asd789fhgj", "Singapore Museum", industry);
+        Business business = new Business(1L, "asd789fhgj", "Singapore Museum", industry);
         businessService.addBusiness(business);
         Long testBusinessId = 2L;
 
@@ -82,7 +82,7 @@ public class BusinessServiceTest {
     }
 
     @Test
-    void getBusinessWithUEN_InvalidBusinessUEN_ReturnNull() {
+    void getBusinessWithUEN_InvalidBusinessUEN_ReturnBusinessNotFoundException() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
         businessService.addBusiness(business);
