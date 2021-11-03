@@ -2,8 +2,10 @@
 export const API_URL = "http://localhost:8080"
 
 // Session items
-export const SESSION_EMAIL = "authenticatedUser"
 export const SESSION_TOKEN = "userToken"
+export const SESSION_USER_ID = "userId"
+export const SESSION_USER_NAME = "userName"
+export const SESSION_INTERCEPTOR = "interceptor"
 
 // JPA API URL, use this for fetching resources. 
 // Using the API URL above for the same purpose will result in triggering the hardcoded service!

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL, SESSION_EMAIL, SESSION_TOKEN } from '../Constants'
+import { API_URL, SESSION_INTERCEPTOR, SESSION_TOKEN, SESSION_USER_ID } from '../Constants'
 
 // Service for keeping track of currently authenticated user
 // Also facilitates retrieval of currently logged in email
@@ -7,22 +7,16 @@ class AuthenticationService {
 
     // Log out
     logout() {
-        sessionStorage.removeItem(SESSION_EMAIL)
+        axios.interceptors.request.eject(sessionStorage.getItem(SESSION_INTERCEPTOR))
+        sessionStorage.clear()
     }
 
     // Check if user is logged in
     isUserLoggedIn() {
-        let user = sessionStorage.getItem(SESSION_EMAIL)
-        console.log('logged in: %s', user)
-        if (user === null) return false
+        let userId = sessionStorage.getItem(SESSION_USER_ID)
+        console.log('logged in: %s', userId)
+        if (userId === null) return false
         return true
-    }
-
-    // Retrieve Current Email
-    getLoggedInEmail() {
-        let user = sessionStorage.getItem(SESSION_EMAIL)
-        if (user === null) return ''
-        return user
     }
 
     // CODE FOR BASIC AUTH
@@ -38,9 +32,8 @@ class AuthenticationService {
         return token
     }
 
-    registerSuccessfulLoginForBasicAuth(email, password) {
-        sessionStorage.setItem(SESSION_EMAIL, email)
-        this.createBasicAuthToken(email, password)
+    registerSuccessfulLoginForBasicAuth(email) {
+        return axios.get(`${API_URL}/user/email/${email}`)
     }
 
     // BELOW CODE IS SPECIFICALLY FOR JWT AUTH

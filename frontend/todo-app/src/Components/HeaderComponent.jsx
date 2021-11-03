@@ -44,6 +44,7 @@ class HeaderComponent extends Component {
 
     render() {
         const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+        console.log('isloggedin triggered from header')
         return (
             <header>
                 <Navbar bg="dark" expand={false} >

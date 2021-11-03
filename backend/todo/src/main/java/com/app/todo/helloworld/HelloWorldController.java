@@ -8,18 +8,8 @@ import org.springframework.web.bind.annotation.*;
 // Controller - Handle HTTP Requests
 public class HelloWorldController {
 
-    @GetMapping(path = "/hello-world")
-    public String helloWorld() {
-        return "Hello World!";
-    }
-
-    @GetMapping(path = "/hello-world-bean")
-    public HelloWorldBean helloWorldBean() {
-        return new HelloWorldBean("Hello World!");
-    }
-
-    @GetMapping(path = "/hello-world/path-variable/{email}")
-    public HelloWorldBean helloWorldPathVariable(@PathVariable String email) {
-        return new HelloWorldBean(String.format("Hello World, %s", email));
+    @GetMapping(path = "/hello-world/{userName}")
+    public HelloWorldBean helloWorld(@PathVariable String userName) {
+        return new HelloWorldBean(String.format("Hello World, %s", userName));
     }
 }

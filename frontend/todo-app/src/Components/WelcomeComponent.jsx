@@ -8,6 +8,7 @@ import Placeholder from 'react-bootstrap/Placeholder';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { SESSION_USER_ID, SESSION_USER_NAME } from '../Constants';
 
 
 // Welcome landing page, that links to the Todos page.
@@ -19,6 +20,8 @@ class WelcomeComponent extends Component {
         this.handleError = this.handleError.bind(this);
 
         this.state = {
+            userId: sessionStorage.getItem(SESSION_USER_ID),
+            userName: sessionStorage.getItem(SESSION_USER_NAME),
             welcomeMessage: '',
             errorMessage: ''
         }
@@ -38,7 +41,7 @@ class WelcomeComponent extends Component {
 
                 <Container >
                     <Placeholder xs={12} bg="transparent" />
-                    <h1 className="text-dark">Welcome Home {this.props.match.params.name}</h1>
+                    <h1 className="text-dark">Welcome Home {this.state.userName}</h1>
                     <Placeholder xs={12} bg="transparent" />
                     <Card bg={variant.toLowerCase()} className="text-center">
                         <Card.Body>
@@ -125,14 +128,7 @@ class WelcomeComponent extends Component {
     }
 
     retrieveWelcomeMessage() {
-
-        // HelloWorldService.executeHelloWorldService()
-        //     .then(response => this.handleSuccessfulResponse(response));
-
-        // HelloWorldService.executeHelloWorldBeanService()
-        //     .then(response => this.handleSuccessfulResponse(response));
-
-        HelloWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)
+        HelloWorldService.executeHelloWorldService(this.state.userName)
             .then(response => this.handleSuccessfulResponse(response))
             .catch(error => this.handleError(error));
 
