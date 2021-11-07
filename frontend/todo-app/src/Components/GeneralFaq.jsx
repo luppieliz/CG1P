@@ -18,7 +18,7 @@ class GeneralFaq extends Component {
     render() {
         return (
             <div style={{
-                backgroundImage: "url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?size=626&ext=jpg"
+                backgroundImage: "url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/tp238-background-02-kpqoqkmv.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=e21bfaf4d628ae4ed0eca694d5a45c75"
                 , backgroundPosition: 'center'
                 , backgroundSize: 'cover'
                 , backgroundRepeat: 'no-repeat'

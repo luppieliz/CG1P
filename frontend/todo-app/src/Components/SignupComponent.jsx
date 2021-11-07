@@ -109,8 +109,7 @@ class SignupComponent extends Component {
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
+
                             <h0 className="text-white">Buddy - 19</h0>
                             <Placeholder xs={12} bg="transparent" />
                             <h1 className="text-primary">Signup - Employee</h1>
