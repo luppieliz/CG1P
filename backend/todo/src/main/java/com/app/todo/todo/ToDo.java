@@ -1,27 +1,38 @@
 package com.app.todo.todo;
 
-import com.app.todo.user.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.app.todo.user.User;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+
 @Entity
+@Table
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
-@Table
 public class ToDo {
+
     @ApiModelProperty(notes = "The database generated todo ID")
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "todo_id")
+    private Long id;
 
     @ApiModelProperty(notes = "Owner of a todo")
     @ManyToOne
@@ -31,67 +42,18 @@ public class ToDo {
     @ApiModelProperty(notes = "A todo's description")
     @NotNull(message = "Description should not be null")
     @Size(min = 5, message = "Description should be at least 5 characters long")
+    @Column(name = "description")
     private String description;
 
     @ApiModelProperty(notes = "The date a todo is created")
+    @Column(name = "created_date")
     private Date createdDate = new Date();
 
     @ApiModelProperty(notes = "State of a todo's completion")
+    @Column(name = "is_done")
     private Boolean isDone = false;
 
-    public ToDo() {
-
-    }
-
-    public ToDo(@JsonProperty("description") String description) {
+    public ToDo(String description) {
         this.description = description;
-    }
-
-    public ToDo(Long id, User user, String description, Date createdDate, Boolean isDone) {
-        this.id = id;
-        this.user = user;
-        this.description = description;
-        this.createdDate = createdDate;
-        this.isDone = isDone;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Boolean getDone() {
-        return isDone;
-    }
-
-    public void setDone(Boolean done) {
-        isDone = done;
     }
 }

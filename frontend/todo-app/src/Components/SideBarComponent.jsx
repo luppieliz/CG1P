@@ -1,16 +1,16 @@
-import React, { Component,setState} from 'react'
+import React, { Component } from 'react'
 
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 
 //for todo
 import TodoDataService from '../api/TodoDataService';
-import AuthenticationService from '../api/AuthenticationService.js'
 import moment from 'moment'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { SESSION_USER_ID } from '../Constants';
 // import Modal from 'react-bootstrap/Modal'
 
 class SideBarComponent extends Component {
@@ -18,23 +18,25 @@ class SideBarComponent extends Component {
     constructor(props) {
 
         super(props);
+
+        this.state = {
+            userId: sessionStorage.getItem(SESSION_USER_ID),
+            showSidebar: false,
+            showModal: false,
+            todos: [],
+            message: null
+        }
+        
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
         // this.handleShow = this.handleShowModal.bind(this);
         // this.handleClose = this.handleCloseModal.bind(this);
 
+        this.refreshTodos = this.refreshTodos.bind(this);
+        this.addTodoClicked = this.addTodoClicked.bind(this);
         this.updateTodoClicked = this.updateTodoClicked.bind(this);
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this);
-        this.addTodoClicked = this.addTodoClicked.bind(this);
-        this.refreshTodos = this.refreshTodos.bind(this);
-
-        this.state = {
-            showSidebar: false,
-            showModal: false,
-            todos: [],
-            message: null
-        }
     }
 
     componentDidMount() {
@@ -60,36 +62,28 @@ class SideBarComponent extends Component {
     // }
 
     refreshTodos() {
-        let username = AuthenticationService.getLoggedInEmail();
-        TodoDataService.retrieveAllTodos(username)
-            .then(
-                response => {
-                    this.setState({ todos: response.data })
-                    // console.log(response)
-                }
-            )
+        TodoDataService.retrieveAllTodos(this.state.userId)
+            .then(response => this.setState({ todos: response.data }))
     }
 
-    deleteTodoClicked(todoId) {
-        let username = AuthenticationService.getLoggedInEmail();
-        TodoDataService.deleteTodo(username, todoId)
-            .then(
-                response => {
-                    this.setState({ message: `Delete of todo ${todoId} was successful` });
-                    this.refreshTodos();
-                }
-            )
-    }
-
-    updateTodoClicked(todoId) {
-        this.props.history.push(`/todos/${todoId}`);
-    }
-
+    // handler for when add todo is clicked
     addTodoClicked() {
-        this.props.history.push(`/todos/-1`);
+        this.props.history.push(`/todos/-1`)
     }
 
+    // handler for when update todo is clicked
+    updateTodoClicked(todoId) {
+        this.props.history.push(`/todos/${todoId}`)
+    }
 
+    // handler for when delete todo is clicked
+    deleteTodoClicked(todoId) {
+        TodoDataService.deleteTodo(this.state.userId, todoId)
+            .then(() => {
+                this.setState({ message: `Delete of todo ${todoId} was successful` })
+                this.refreshTodos()
+            })
+    }
 
     render() {
         return (
@@ -105,7 +99,7 @@ class SideBarComponent extends Component {
                         <Offcanvas.Body className="text-dark">
                             <Row>
                                 <Col>
-                                
+
                                     <Card className="text-dark">
                                         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                         <Card.Body>
@@ -127,16 +121,16 @@ class SideBarComponent extends Component {
                                             </thead>
                                             <tbody>
                                                 {
-                                                // script that for each todo, map it and display id, desc, done, targetDate, and buttons
-                                                this.state.todos.map(
-                                                    todo =>
-                                                        <tr key={todo.id}>
-                                                            <td>{todo.description}</td>
-                                                            <td>{todo.done.toString()}</td>
-                                                            <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
-                                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
-                                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
-                                                        </tr>
+                                                    // script that for each todo, map it and display id, desc, done, targetDate, and buttons
+                                                    this.state.todos.map(
+                                                        todo =>
+                                                            <tr key={todo.id}>
+                                                                <td>{todo.description}</td>
+                                                                <td>{todo.isDone.toString()}</td>
+                                                                <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
+                                                                <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
+                                                                <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
+                                                            </tr>
                                                     )
                                                 }
                                             </tbody>
