@@ -140,15 +140,13 @@ class OwnerSignupComponent extends Component {
                         <Col>
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
+
                             <h0 className="text-white">Buddy-19</h0>
                             <Placeholder xs={12} bg="transparent" />
                             <h1 className="text-success">Signup - Business Owner</h1>
                             <Placeholder xs={12} bg="transparent" />
                             <div className="container text-dark">
-                              <Card border="success" style={{ width: '35rem', height: '31rem', borderWidth: '5px' }}>
+                              <Card border="success" style={{ width: '35rem', height: '31rem', borderWidth: '5px'}}>
                               <Card.Body>
                                 <Formik
                                     initialValues={{ name, email, password, businessUEN, businessName, industry }}

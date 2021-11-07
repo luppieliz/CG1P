@@ -45,14 +45,7 @@ class ProfileComponent extends Component {
     render() {
         return (
             <>
-            <div style={{
-                backgroundImage: "url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?size=626&ext=jpg"
-                , backgroundPosition: 'center'
-                , backgroundSize: 'cover'
-                , backgroundRepeat: 'no-repeat'
-                , width: '100%'
-                , height: '48rem'
-            }}>
+            <div>
                 <Container>
                 <Placeholder xs={12} bg="transparent"  />
                 <h1 className="text-dark">Profile Page</h1>
@@ -72,7 +65,7 @@ class ProfileComponent extends Component {
                         </Col>
 
                         <Col>
-                            <Form>
+                            <Form className="text-dark">
                                 <Row className="mb-3">
                                     <Form.Group as={Col} controlId="formGridEmail">
                                         <Form.Label>Email</Form.Label>
