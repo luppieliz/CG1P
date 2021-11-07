@@ -11,8 +11,9 @@ import org.springframework.context.annotation.Configuration;
 public class ScraperConfig {
     @PostConstruct
     void postConstruct() {
+        String path = System.getProperty("user.dir");
         // Remove .exe if using Mac
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", path + "\\src\\main\\resources\\chromedriver.exe");
     }
 
     @Bean
