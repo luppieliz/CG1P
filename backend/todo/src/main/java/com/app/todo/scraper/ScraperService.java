@@ -33,9 +33,9 @@ public class ScraperService {
     }
 
     /**
-     * Find all the sources of info-graphics
+     * Find all the sources of info-graphics.
      * @param faqURL
-     * @return A list of scrapped links for the info-graphics
+     * @return A list of scrapped links for the info-graphics.
      */
     public List<String> scrapeFAQ(final String faqURL) {
         List<String> scrappedSrc = new ArrayList<>();
@@ -58,7 +58,7 @@ public class ScraperService {
     }
 
     /**
-     * Find all the related tags for a given article
+     * Find all the related tags for a given article.
      * @param articleURL
      */
     public List<String> scrapeArticleForTags(final String articleURL) {

@@ -21,10 +21,10 @@ public class NewsAPIService {
     }
 
     /**
-     * Retrieve response from NewsAPI
+     * Retrieve response from NewsAPI.
      * @param countryCode
      * @param query
-     * @return A NewsAPIResponse from the API call
+     * @return A NewsAPIResponse from the API call.
      * @throws IOException
      * @throws InterruptedException
      */
@@ -39,9 +39,9 @@ public class NewsAPIService {
     }
 
     /**
-     * Parsing into NewsDTO array from a NewsAPIResponse
+     * Parsing into NewsDTO array from a NewsAPIResponse.
      * @param newsAPIResponse
-     * @return An array of NewsDTO to be parsed into news objects
+     * @return An array of NewsDTO to be parsed into news objects.
      */
     public NewsDTO[] getNewsDTOArr(NewsAPIResponse newsAPIResponse) {
         return new Gson().fromJson(newsAPIResponse.getArticles(), NewsDTO[].class);

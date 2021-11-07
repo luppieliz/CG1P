@@ -17,18 +17,40 @@ public class UserService {
         this.encoder = encoder;
     }
 
+    /**
+     * Get all registered users.
+     * @return A list of registered users.
+     */
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Get a specific user with a given userID.
+     * @param userId
+     * @return A registered user with a given userID. If it is already existed, throw an UserNotFoundException.
+     * @throws UserNotFoundException
+     */
     public User getUser(Long userId) throws UserNotFoundException {
         return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
+    /**
+     * Get a specific user with a given email.
+     * @param email
+     * @return A registered user with a given email. If it is already existed, throw an UserNotFoundException.
+     * @throws UserNotFoundException
+     */
     public User getUser(String email) throws UserNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
     }
 
+    /**
+     * Add a new User.
+     * @param user
+     * @return A newly registered user. If it is already existed, throw an UserNotFoundException.
+     * @throws UserAlreadyRegisteredException
+     */
     public User addUser(User user) throws UserAlreadyRegisteredException {
         String email = user.getEmail();
 

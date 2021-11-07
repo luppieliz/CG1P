@@ -18,8 +18,8 @@ public class MeasureService {
     }
 
     /**
-     * Get measures sources from a website
-     * @param measureURL: url of the website containing all the required measures
+     * Get measures sources from a website.
+     * @param measureURL: url of the website containing all the required measures.
      * @return
      */
     public List<String> getMeasures(final String measureURL) {
@@ -28,8 +28,8 @@ public class MeasureService {
     }
 
     /**
-     * Get tag list for a news article
-     * @param newsURL: url of the news article
+     * Get tag list for a news article.
+     * @param newsURL: url of the news article.
      */
     public List<String> getTag(final String newsURL) {
         return scraperService.scrapeArticleForTags(newsURL);

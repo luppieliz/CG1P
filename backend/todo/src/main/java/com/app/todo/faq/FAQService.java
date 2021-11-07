@@ -37,30 +37,50 @@ public class FAQService {
         businessMap.put("Delivery", Arrays.asList(delivery));
     }
 
-    public FAQ addFAQ(String URL) {
+    /**
+     * Add a new FAQ to database
+     * @param faqURL
+     * @return a newly added FAQ with a known language and a known industry.
+     */
+    public FAQ addFAQ(final String faqURL) {
         FAQ newFAQ = new FAQ();
-        newFAQ.setURL(URL);
+        newFAQ.setURL(faqURL);
+        newFAQ.setLanguage(findLanguage(faqURL));
+        newFAQ.setIndustry(findIndustry(faqURL));
+        return faqRepository.save(newFAQ);
+    }
 
+    /**
+     * Find the language of a given FAQ
+     * @param faqURL
+     * @return A string language if key word can be found.
+     */
+    public String findLanguage(final String faqURL) {
         for (String key : languageMap.keySet()) {
             List<String> values = languageMap.get(key);
             for (String value : values) {
-                if (URL.contains(value)) {
-                    newFAQ.setLanguage(key);
-                    break;
+                if (faqURL.contains(value)) {
+                    return key;
                 }
             }
         }
+        return null;
+    }
 
+    /**
+     * Find the industry of a given FAQ
+     * @param faqURL
+     * @return A string industry if key word can be found.
+     */
+    public String findIndustry(final String faqURL) {
         for (String key : businessMap.keySet()) {
             List<String> values = businessMap.get(key);
             for (String value : values) {
-                if (URL.contains(value)) {
-                    newFAQ.setIndustry(key);
-                    break;
+                if (faqURL.contains(value)) {
+                    return key;
                 }
             }
         }
-
-        return faqRepository.save(newFAQ);
+        return null;
     }
 }

@@ -14,18 +14,40 @@ public class BusinessService {
         this.businessRepository = businessRepository;
     }
 
+    /**
+     * Get all the registered businesses.
+     * @return A list of all the registered businesses.
+     */
     public List<Business> getAllBusinesses() {
         return businessRepository.findAll();
     }
 
+    /**
+     * Get a specific business with a given businessID.
+     * @param businessId
+     * @return A specific business with a given businessID. If it cannot be found, throws BusinessNotFoundException.
+     * @throws BusinessNotFoundException
+     */
     public Business getBusiness(Long businessId) throws BusinessNotFoundException {
         return businessRepository.findById(businessId).orElseThrow(() -> new BusinessNotFoundException(businessId));
     }
 
+    /**
+     * Get a specific business with a given UEN.
+     * @param UEN
+     * @return A specific business with a given UEN. If it cannot be found, throws BusinessNotFoundException.
+     * @throws BusinessNotFoundException
+     */
     public Business getBusiness(String UEN) throws BusinessNotFoundException {
         return businessRepository.findByUEN(UEN).orElseThrow(() -> new BusinessNotFoundException(UEN));
     }
 
+    /**
+     * Add a new business
+     * @param business
+     * @return A newly registered business. If it is already existed, throws BusinessAlreadyRegisteredException.
+     * @throws BusinessAlreadyRegisteredException
+     */
     public Business addBusiness(Business business) throws BusinessAlreadyRegisteredException {
         String UEN = business.getUEN();
 

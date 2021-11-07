@@ -25,26 +25,26 @@ public class NewsService {
     }
 
     /**
-     * Add newly retrieved news article to database
+     * Add newly retrieved news article to database.
      * @param newNews
-     * @return All newly retrieved news article
+     * @return All newly retrieved news article.
      */
     public News addNews(News newNews) {
         return newsRepository.save(newNews);
     }
 
     /**
-     * Retrieve all articles
-     * @return A list of all stored articles
+     * Retrieve all articles.
+     * @return A list of all stored articles.
      */
     public List<News> getAllNews() {
         return newsRepository.findAll();
     }
 
     /**
-     * Parse all news articles from API call and store them into database
+     * Parse all news articles from API call and store them into database.
      * @param newsFromAPI
-     * @return: A list of newly retrieved articles
+     * @return: A list of newly retrieved articles.
      * @throws ParseException
      */
     public List<News> getNewsFromAPI(final NewsDTO[] newsFromAPI) throws ParseException {
@@ -74,9 +74,9 @@ public class NewsService {
     }
 
     /**
-     * Retrieve all news articles from a given date
+     * Retrieve all news articles from a given date.
      * @param dateFrom
-     * @return A list of news articles whose published dates start from the requested date
+     * @return A list of news articles whose published dates start from the requested date.
      * @throws ParseException
      */
     public List<News> getAllNewsFromDate(final String dateFrom) throws ParseException {
@@ -98,9 +98,9 @@ public class NewsService {
     }
 
     /**
-     * Combine a list of tags into a string
+     * Combine a list of tags into a string.
      * @param tagList
-     * @return A string of tags
+     * @return A string of tags.
      */
     public String getStringTag(final List<String> tagList) {
         String tempStringTag = "";
@@ -116,9 +116,9 @@ public class NewsService {
     }
 
     /**
-     * Craft a text message given a list of news articles
+     * Craft a text message given a list of news articles.
      * @param newsList
-     * @return A phone message created that indexed all the news articles
+     * @return A phone message created that indexed all the news articles.
      */
     public String getTextMessage(final List<News> newsList) {
         String message = "Check out the latest COVID news:\n";
@@ -132,9 +132,9 @@ public class NewsService {
     }
 
     /**
-     * Format a Date
+     * Format a Date.
      * @param date
-     * @return A string date in a standard format
+     * @return A string date in a standard format.
      * @throws ParseException
      */
     public String getFormattedDate(String date) throws ParseException {
