@@ -1,4 +1,4 @@
-package com.app.todo.scrapper;
+package com.app.todo.scraper;
 
 import javax.annotation.PostConstruct;
 
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ScrapperConfig {
+public class ScraperConfig {
     @PostConstruct
     void postConstruct() {
         // Remove .exe if using Mac

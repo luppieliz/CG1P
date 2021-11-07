@@ -29,12 +29,12 @@ It will automatically launch lo
 ### Configure
 Inside 
 ```
-CG1P/backend/todo/src/main/java/com/app/todo/scrapper/ScrapperConfig
+CG1P/backend/todo/src/main/java/com/app/todo/scraper/ScraperConfig
 ```
 
 There is this line
 ```
-System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/java/com/app/todo/scrapper/chromedriver.exe");
+System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/java/com/app/todo/scraper/chromedriver.exe");
 ```
 
 For Windows: Leave it as ```'chromedriver.exe'```<br>

@@ -1,4 +1,4 @@
-package com.app.todo.scrapper;
+package com.app.todo.scraper;
 
 //import com.app.todo.newsfunnel.Tag;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.*;
 
 @Service
 //@AllArgsConstructor
-public class ScrapperService {
+public class ScraperService {
 
     private final ChromeDriver driver;
     private static Map<String, List<String>> tagMap = new HashMap<>();
@@ -29,7 +29,7 @@ public class ScrapperService {
     }
 
     @Autowired
-    public ScrapperService(ChromeDriver driver) {
+    public ScraperService(ChromeDriver driver) {
         this.driver = driver;
     }
 
