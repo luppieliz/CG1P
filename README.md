@@ -1,39 +1,32 @@
-## Hi guys just a note<br> 
-I followed a course from udemy to get to this point (i believed i sent it to the tele grp)
-if not here's the link if you guys wna watch it to understand how i got to this point
-[link](https://www.udemy.com/share/101Wxy3@nc9eKxC5TKjPCHvYfq_EDELAEoRGgHDyofSt_cuLW3mEZmsEwebh0z3PPorBmobO6A==/) alternatively if yall dw to buy the course yall can just use my acc to watch!
-but I rushed it so i don't understand every single thing
-but I believe its enough for what we want to do :D, if not we'll just pick it up along the way;)
+# Required Software
 
-## Dependencies/required tools
-
+### Dependencies/Tools
 * Node v8+ for npm
-* Visual Studio Code - Latest Version
 * Java 8+
-* Eclipse - Oxygen+ - (Embedded Maven From Eclipse) (i didn't use eclipse i just use VSC for both spring and react)
+* Visual Studio Code
 
-## Debugging and course tools
-[link to main page where i referenced the project from!](https://github.com/in28minutes/full-stack-with-react-and-spring-boot)
+### Optional IDE for Java
+* Eclipse - Oxygen+ - (Embedded Maven From Eclipse)
+* IntelliJ 
 
-# HOW TO RUN
-if you notice there are two main files frontend and restful-web-services 
-# Frontend 
-Navigate to /frontend/todo-app then run:
-### `npm start`
+# Running the Frontend
 
-if it doesn't work try (in that order)
- <br> `npm cache clean --force`
- <br>`npm rebuild`
- <br>`npm install`
-then run 
+### Configure
+Go to /frontend/todo-app/package.json and check under "Scripts"
+FOR MAC        "start": "PORT=4200 react-scripts start",
+FOR WINDOWS    "start": "set PORT=4200 && react-scripts start",
+
+### Run
+Navigate back to /frontend/todo-app then run:
+`npm install`
 `npm start`
 
-it should auto pop up, if it doesn't go to
+It will automatically launch lo
 *localhost:4200*
 
-# Backend
+# Running the Backend
 
-### Web Scraper config for Windows vs. Mac
+### Configure
 Inside 
 ```
 CG1P/backend/todo/src/main/java/com/app/todo/scrapper/ScrapperConfig
@@ -47,26 +40,19 @@ System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/java/com/ap
 For Windows: Leave it as ```'chromedriver.exe'```<br>
 For Mac: Delete the ```'.exe'``` it should just be ```'chromedriver'```
 
+If using IntelliJ -> remove the `backend/todo/` at the start.
 
-<br><br>
-to run, navigate to 
+### Run
 ```
 restful-web-services/src/com/myapp/rest/webservices/restfulwebservices/RestfulWebServicesApplication.java
 ```
-### RestfulWebServicesApplication.java
-when u get here, right click and *run java*
-make sure you're using cmd , (bash doesn't work as confirmed by minh hahah)
-if its sucessful you should see a giant SPRING word.
+In VSCode / IntelliJ, just "Run Application / Run Java"
 
-## Check out the db 
-After running the SPRING<br>
-go to localhost:8080/h2-console
-you'll see some login page 
+# Database
+After running SPRING
+Go to localhost:8080/h2-console
 
 ![image](https://user-images.githubusercontent.com/69102738/130642725-31a43a69-2dc9-4a07-b2f9-77ba636b25ff.png)
 
-kinda like that ^ make sure the JDBC URL: is exactly like that or it won't work 
- ### jdbc:h2:mem:testdb
- 
-
-
+Ensure JDBC config is same as above and URL is
+`jdbc:h2:mem:testdb`
