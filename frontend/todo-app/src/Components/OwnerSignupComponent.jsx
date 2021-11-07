@@ -13,10 +13,14 @@ import ReactNotification, { store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import { Link } from 'react-router-dom'
 
+
+import GLOBE from 'vanta/dist/vanta.net.min'
+
 class OwnerSignupComponent extends Component {
 
     constructor(props) {
         super(props)
+        this.vantaRef = React.createRef()
 
         this.state = {
             name: 'aaaa',
@@ -38,6 +42,22 @@ class OwnerSignupComponent extends Component {
                 this.setState({ industryList: response.data })
             }
         );
+        this.vantaEffect = GLOBE({
+            el: this.vantaRef.current,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.0,
+            minWidth: 200.0,
+            scale: 1.0,
+            scaleMobile: 1.0,
+            color: 0x777777,
+            color2: 0xFFFFFF,
+            backgroundColor: 0x000000
+        })
+    }
+    componentWillUnmount() {
+        if (this.vantaEffect) this.vantaEffect.destroy()
     }
 
     onSubmit(values) {
@@ -112,20 +132,20 @@ class OwnerSignupComponent extends Component {
         let { name, email, password, businessUEN, businessName, industry } = this.state
 
         return (
-             <div style={{ backgroundImage: "url(https://image.freepik.com/free-vector/green-tones-gradient-background_52683-29042.jpg"
-            ,backgroundPosition: 'center'
-            ,backgroundSize: 'cover'
-            ,backgroundRepeat: 'no-repeat'
-            ,width: '100vw'
-            ,height: '100vh'
-            }}>
+            <div style={{ height: "92vh", width: "100%" }} ref={this.vantaRef}>
                 <ReactNotification />
                 <Container>
                     <Row>
                         <Col></Col>
                         <Col>
                             <Placeholder xs={12} bg="transparent" />
-                            <h1 className="text-dark">Signup - Business Owner</h1>
+                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
+                            <h0 className="text-white">Buddy-19</h0>
+                            <Placeholder xs={12} bg="transparent" />
+                            <h1 className="text-success">Signup - Business Owner</h1>
                             <Placeholder xs={12} bg="transparent" />
                             <div className="container text-dark">
                               <Card border="success" style={{ width: '35rem', height: '31rem', borderWidth: '5px' }}>

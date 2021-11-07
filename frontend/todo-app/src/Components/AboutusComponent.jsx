@@ -24,6 +24,10 @@ class AboutusComponent extends Component {
                 <Container>
                 <Placeholder xs={12} bg="transparent"  />
                 <h1  className="text-dark" >About Us!</h1>
+                <h3 class="text-white ">Buddy-19 serves as both a
+            one-stop information hub and a companion tool, providing services for business owners to better understand and manage
+            the measures they have to take in the face of the pandemic.
+            </h3>
                 <Placeholder xs={12} bg="transparent" />
                     <Row>
                         <Card className="text-dark card h-150" style={{ width: '13rem' }}>
