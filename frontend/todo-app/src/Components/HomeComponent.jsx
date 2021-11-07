@@ -42,8 +42,7 @@ class HomeComponent extends React.Component {
       <Placeholder xs={12} bg="transparent" />
       <Placeholder xs={12} bg="transparent" />
       <Placeholder xs={12} bg="transparent" />
-      <Placeholder xs={12} bg="transparent" />
-      <Placeholder xs={12} bg="transparent" />
+  
       
         <Row style={{ padding:'100px'}}><h1 className="text-white"> Welcome to </h1><h0 className="text-warning "> Buddy-19</h0></Row>
 

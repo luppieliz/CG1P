@@ -29,15 +29,9 @@ class WelcomeComponent extends Component {
 
     render() {
         return [
-            'Dark',
+            'white',
         ].map((variant, idx) => (
-            <div style={{ backgroundImage: "url(https://cdn.shopify.com/s/files/1/2118/5289/products/EnvyLoops_Interconnected_V1_-_Glow-4K0_3840x.jpg?v=1527308804"
-            ,backgroundPosition: 'center'
-            ,backgroundSize: 'cover'
-            ,backgroundRepeat: 'no-repeat'
-            ,width: '100vw'
-            ,height: '100%'
-            }}>
+            <div>
 
                 <Container >
                     <Placeholder xs={12} bg="transparent" />
@@ -46,29 +40,30 @@ class WelcomeComponent extends Component {
                     <Card bg={variant.toLowerCase()} className="text-center">
                         <Card.Body>
                             <Card.Title>
-                                <h2 className="container text-white">
+                                <h2 className="container text-dark">
                                     Click<button onClick={this.retrieveWelcomeMessage} className="btn btn-success">Here</button>
                                     here to get your inspirational quote of the day     </h2>
                             </Card.Title>
                             <Card.Text>
-                                <h3 className="container text-white">
+                                <h3 className="container text-dark">
                                     {this.state.welcomeMessage}
                                 </h3>
-                                <div className="container text-white">
+                                <div className="container text-dark">
                                     {this.state.errorMessage}
                                 </div>
                             </Card.Text>
                         </Card.Body>
                     </Card>
                     <Placeholder xs={12} bg="transparent" />
-                    <h2 className="text-dark">My Dashboard</h2>
+                    <Card ><h2 className="text-dark">My Dashboard</h2></Card>
+                    
                     <Placeholder xs={12} bg="transparent" />
                     <Row>
                         <Col >
                             <Card className="card h-100" bg={variant.toLowerCase()} >
                                 <Card.Body>
                                     <Card.Title className="text-danger">Employee Management</Card.Title>
-                                    <Card.Text>
+                                    <Card.Text className="text-dark">
                                         employee 123 has updated her status
                                     </Card.Text>
                                 </Card.Body>
@@ -78,7 +73,7 @@ class WelcomeComponent extends Component {
                             <Card className="card h-100" bg={variant.toLowerCase()} >
                                 <Card.Body>
                                     <Card.Title className="text-warning">Todos</Card.Title>
-                                    <Card.Text>
+                                    <Card.Text className="text-dark">
                                         you have 5 undone task!
                                     </Card.Text>
                                 </Card.Body>
@@ -90,7 +85,7 @@ class WelcomeComponent extends Component {
                             <Card className="card h-100 mb-2" bg={variant.toLowerCase()}>
                                 <Card.Body>
                                     <Card.Title className="text-success">Today's Top News!</Card.Title>
-                                    <Card.Text>
+                                    <Card.Text className="text-dark">
                                         BERRAKING NEWS COVID CASES HIGH AF!!
                                     </Card.Text>
                                 </Card.Body>
@@ -102,7 +97,7 @@ class WelcomeComponent extends Component {
                             <Card className="card h-100" bg={variant.toLowerCase()}>
                                 <Card.Body>
                                     <Card.Title className="text-primary">Need Help?</Card.Title>
-                                    <Card.Text>
+                                    <Card.Text className="text-dark">
                                         Top Faqs today
                                     </Card.Text>
                                 </Card.Body>

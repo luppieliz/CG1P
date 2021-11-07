@@ -175,14 +175,7 @@ class NewsFeedComponent extends Component {
 
         //==========Final render==========//
         return (
-            <div style={{
-                backgroundImage: "url(https://cdn.shopify.com/s/files/1/2118/5289/products/EnvyLoops_Interconnected_V3_-_Glow-4K000_3840x.jpg?v=1527308804"
-                , backgroundPosition: 'center'
-                , backgroundSize: 'cover'
-                , backgroundRepeat: 'no-repeat'
-                , width: '100%'
-                , height: '100%'
-            }}>
+            <div>
                 <Placeholder xs={12} bg="transparent" />
                 <h1 className="text-dark " >News</h1>
                 <Placeholder xs={12} bg="transparent" />
