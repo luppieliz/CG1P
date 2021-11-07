@@ -9,11 +9,15 @@ import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
 import { SESSION_USER_ID, SESSION_USER_NAME } from '../Constants.js'
 
+import GLOBE from 'vanta/dist/vanta.net.min'
+
 // Log In
 class LoginComponent extends Component {
 
     constructor(props) {
         super(props)
+        this.vantaRef = React.createRef()
+
 
         // State - contains the email, password, and hasLoginFailed boolean fields.
         this.state = {
@@ -24,6 +28,24 @@ class LoginComponent extends Component {
 
         this.handleChange = this.handleChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
+    }
+    componentDidMount() {
+        this.vantaEffect = GLOBE({
+            el: this.vantaRef.current,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.0,
+            minWidth: 200.0,
+            scale: 1.0,
+            scaleMobile: 1.0,
+            color: 0x777777,
+            color2: 0xFFFFFF,
+            backgroundColor: 0x000000
+        })
+    }
+    componentWillUnmount() {
+        if (this.vantaEffect) this.vantaEffect.destroy()
     }
 
     // handle change in a field (manual way)
@@ -62,37 +84,28 @@ class LoginComponent extends Component {
     render() {
         return (
 
+
             // In JavaScript, BOOLEAN && SHOW X means IF BOOLEAN, THEN SHOW X
             // If login is failed (reflected in state), display alert.
-            <div style={{
-                backgroundImage: "url(https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/yellow-gradient-background_MypJi3wd_thumb.jpg"
-                , backgroundPosition: 'center'
-                , backgroundSize: 'cover'
-                , backgroundRepeat: 'no-repeat'
-                , width: '100vw'
-                , height: '100vh'
-            }}>
+            <div style={{ height: "92vh", width: "100%" }} ref={this.vantaRef}>
                 <Container >
                     <Row>
-                        <Col></Col>
                         <Col>
                             <Placeholder xs={12} bg="transparent" />
-                            <h1 className="text-dark" >Buddy-19</h1>
                             <Placeholder xs={12} bg="transparent" />
-                            <h1 className="text-dark" >Login :)</h1>
+                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
+                            <h0 className="text-white" >Buddy-19</h0>
+                            <Placeholder xs={12} bg="transparent" />
+                            <h1 className="text-warning" >Login :)</h1>
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
                         </Col>
-                        <Col></Col>
                     </Row>
-
                     <Row>
-                        <Col >
-                            <Image style={{ width: '35rem' }} src="https://images.unsplash.com/photo-1603357465999-241beecc2629?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1232&q=80" rounded fluid />
-                        </Col>
-
+                        <Col></Col>
                         <Col className="text-black text-left">
-
                             <Card border="warning" style={{ width: '35rem', height: '17rem', borderWidth: '5px' }}>
                                 <Card.Body>
                                     <div className="form-group ">
@@ -111,6 +124,7 @@ class LoginComponent extends Component {
                                 </Card.Body>
                             </Card>
                         </Col>
+                        <Col></Col>
                     </Row>
                 </Container>
             </div>

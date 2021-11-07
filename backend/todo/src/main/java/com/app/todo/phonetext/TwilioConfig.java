@@ -3,6 +3,7 @@ package com.app.todo.phonetext;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -10,9 +11,14 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @Getter
 public class TwilioConfig {
-    private final String accountSID = "AC5284a3699423deebf5c5a38b12658777";
-    private final String authToken = "3b1c13c4212513788eeaff1f9d7cac12";
-    private final String phoneNumber ="+13235534957";
+    @Value("${twilio.accountSID}")
+    private String accountSID;
+
+    @Value("${twilio.authToken}")
+    private String authToken;
+
+    @Value("${twilio.phoneNumber}")
+    private String phoneNumber;
 
     public String getAccountSID() {
         return accountSID;

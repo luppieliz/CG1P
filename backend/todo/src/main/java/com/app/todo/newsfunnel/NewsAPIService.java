@@ -20,16 +20,30 @@ public class NewsAPIService {
         this.newsAPIConfig = newsAPIConfig;
     }
 
+    /**
+     * Retrieve response from NewsAPI
+     * @param countryCode
+     * @param query
+     * @return A NewsAPIResponse from the API call
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public NewsAPIResponse getAPIResponse(String countryCode, String query) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(newsAPIConfig.getAPIQuery(countryCode, query)))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-
-        Gson gson = new Gson();
         NewsAPIResponse newsResponse = new Gson().fromJson(response.body(), NewsAPIResponse.class);
         return newsResponse;
+    }
+
+    /**
+     * Parsing into NewsDTO array from a NewsAPIResponse
+     * @param newsAPIResponse
+     * @return An array of NewsDTO to be parsed into news objects
+     */
+    public NewsDTO[] getNewsDTOArr(NewsAPIResponse newsAPIResponse) {
+        return new Gson().fromJson(newsAPIResponse.getArticles(), NewsDTO[].class);
     }
 }
