@@ -11,6 +11,7 @@ import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
 import ReactNotification, { store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import GLOBE from 'vanta/dist/vanta.net.min'
 
 
 class SignupComponent extends Component {
@@ -24,11 +25,30 @@ class SignupComponent extends Component {
             businessUEN: 'aaaa',
             business: {},
         }
+        this.vantaRef = React.createRef()
 
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this);
 
     }
+    componentDidMount() {
+        this.vantaEffect = GLOBE({
+          el: this.vantaRef.current,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          scale: 1.0,
+          scaleMobile: 1.0,
+          color: 0x777777,
+          color2: 0xFFFFFF,
+          backgroundColor: 0x000000
+        })
+      }
+      componentWillUnmount() {
+        if (this.vantaEffect) this.vantaEffect.destroy()
+      }
 
     onSubmit(values) {
 
@@ -80,20 +100,20 @@ class SignupComponent extends Component {
     render() {
         let { name, email, password, businessUEN } = this.state
         return (
-            <div style={{ backgroundImage: "url(data:image/jpeg;base64,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"
-            ,backgroundPosition: 'center'
-            ,backgroundSize: 'cover'
-            ,backgroundRepeat: 'no-repeat'
-            ,width: '100vw'
-            ,height: '100vh'
-            }}>
+            <div style={{ height: "92vh", width: "100%"}}  ref={this.vantaRef}>
                 <ReactNotification />
                 <Container>
                     <Row>
                         <Col></Col>
                         <Col>
                             <Placeholder xs={12} bg="transparent" />
-                            <h1 className="text-dark">Signup - Employee</h1>
+                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
+                            <h0 className="text-white">Buddy - 19</h0>
+                            <Placeholder xs={12} bg="transparent" />
+                            <h1 className="text-primary">Signup - Employee</h1>
                             <Placeholder xs={12} bg="transparent" />
                             <Card border="primary" style={{ width: '35rem', height: '27rem', borderWidth: '5px' }}>
                                 <Card.Body>
