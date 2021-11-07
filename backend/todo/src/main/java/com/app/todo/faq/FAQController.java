@@ -13,7 +13,6 @@ public class FAQController {
     private ScrapperService scrapperService;
     private FAQService faqService;
 
-
     @Autowired
     public FAQController(ScrapperService scrapperService, FAQService faqService) {
         this.scrapperService = scrapperService;

@@ -1,8 +1,6 @@
 package com.app.todo.scrapper;
 
 //import com.app.todo.newsfunnel.Tag;
-import lombok.AllArgsConstructor;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +56,7 @@ public class ScrapperService {
 
         for (WebElement element:tagList) {
             String paraContent = element.getText();
-            for (String key:tagMap.keySet()) {
+            for (String key : tagMap.keySet()) {
                 List<String> values = tagMap.get(key);
                 for (String value : values) {
                     if (paraContent.contains(value)) {
@@ -71,7 +69,6 @@ public class ScrapperService {
                 }
             }
         }
-
 
 //        driver.quit();
     }
