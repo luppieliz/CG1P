@@ -22,15 +22,14 @@ public class MeasureController {
 
     @ApiOperation(value = "Scrape for measures")
     @GetMapping(path="/industryMeasures",produces = "application/json")
-    public List<String> getMeasure(String URL) {
-        List<String> sourcesLink = measureService.getMeasures(URL);
-        sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
+    public List<String> getMeasure(String measureURL) {
+        List<String> sourcesLink = measureService.getMeasures(measureURL);
         return sourcesLink;
     }
 
     @ApiOperation(value = "Scrape for article tag")
     @GetMapping(path="/newsTag",produces = "application/json")
-    public void getTag(String newsURL, List<String> tag) {
-        measureService.getTag(newsURL, tag);
+    public List<String> getTag(final String newsURL) {
+        return measureService.getTag(newsURL);
     }
 }

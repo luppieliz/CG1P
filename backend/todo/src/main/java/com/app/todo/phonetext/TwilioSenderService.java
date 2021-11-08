@@ -16,12 +16,19 @@ public class TwilioSenderService implements SenderService {
 
     private final TwilioConfig twilioConfig;
     private final static Logger LOGGER = LoggerFactory.getLogger(TwilioSenderService.class);
+    final String SG_PHONE_CODE = "+65";
+    final int NO_DIGITS = 8;
+
 
     @Autowired
     public TwilioSenderService(TwilioConfig twilioConfig) {
         this.twilioConfig = twilioConfig;
     }
 
+    /**
+     * Send an SMS with a given SMS request.
+     * @param smsRequest
+     */
     @Override
     public void sendSms(SmsRequest smsRequest) {
         if (isPhoneNumberValid(smsRequest.getDestPhoneNumber())) {
@@ -38,6 +45,10 @@ public class TwilioSenderService implements SenderService {
         }
     }
 
+    /**
+     * Send an MMS with a given MMS request.
+     * @param MmsRequest
+     */
     public void sendMms(MmsRequest MmsRequest) {
         if (isPhoneNumberValid(MmsRequest.getDestPhoneNumber())) {
             Message message = Message.creator(
@@ -53,7 +64,36 @@ public class TwilioSenderService implements SenderService {
         }
     }
 
+    /**
+     * Validate whether a phone number is a valid SG phone number.
+     * @param destPhoneNumber
+     * @return True if a phone number contains "+65" and has a total of 8 digits.
+     */
     private boolean isPhoneNumberValid(String destPhoneNumber) {
+
+        if (!destPhoneNumber.contains(SG_PHONE_CODE)) {
+            return false;
+        }
+
+        int strIdx = destPhoneNumber.indexOf(SG_PHONE_CODE) + 3;
+        int totalDigits = 0;
+
+        for (int i = strIdx; i < destPhoneNumber.length(); i++) {
+            if(Character.isSpaceChar(destPhoneNumber.charAt(i))) {
+                continue;
+            }
+
+            if (Character.isDigit(destPhoneNumber.charAt(i))) {
+                totalDigits += 1;
+            } else {
+                return false;
+            }
+        }
+
+        if (totalDigits != NO_DIGITS) {
+            return false;
+        }
+
         return true;
     }
 }

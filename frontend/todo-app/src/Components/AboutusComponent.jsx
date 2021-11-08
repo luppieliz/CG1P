@@ -14,16 +14,21 @@ class AboutusComponent extends Component {
         return (
             <>
             <div style={{
-                backgroundImage: "url(https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?size=626&ext=jpg"
+                backgroundImage: "url(https://image.freepik.com/free-vector/white-faded-gradient-background-vector-with-orange-border_53876-125752.jpg"
                 , backgroundPosition: 'center'
                 , backgroundSize: 'cover'
                 , backgroundRepeat: 'no-repeat'
                 , width: '100%'
-                , height: '48rem'
+                , height: '66rem'
             }}>
                 <Container>
                 <Placeholder xs={12} bg="transparent"  />
                 <h1  className="text-dark" >About Us!</h1>
+                <Placeholder xs={12} bg="transparent"  />
+                <h3 class="text-dark ">Buddy-19 serves as both a
+            one-stop information hub and a companion tool, providing services for business owners to better understand and manage
+            the measures they have to take in the face of the pandemic.
+            </h3>
                 <Placeholder xs={12} bg="transparent" />
                     <Row>
                         <Card className="text-dark card h-150" style={{ width: '13rem' }}>

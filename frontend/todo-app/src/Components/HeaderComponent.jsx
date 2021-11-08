@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import moment from 'moment'
+
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -17,6 +17,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
+
+import { AiOutlineMenu } from "@react-icons/all-files/ai/AiOutlineMenu";
 
 
 // Header with navigation features as a navbar. Shows different things based on whether user is logged in.
@@ -50,9 +52,7 @@ class HeaderComponent extends Component {
                 <Navbar bg="dark" expand={false} >
                     <Container fluid>
                         <Navbar.Brand className="text-light" href="/"><h4>Buddy-19</h4></Navbar.Brand>
-
-                        <Button variant="primary" onClick={this.handleShow}>MENU</Button>
-
+                        <Button variant="dark" onClick={this.handleShow}><AiOutlineMenu /></Button>
                         <Offcanvas show={this.state.showSidebar} onHide={this.handleClose}>
                             <Offcanvas.Header closeButton>
                                 <Offcanvas.Title className="text-dark">Menu</Offcanvas.Title>

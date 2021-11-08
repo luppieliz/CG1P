@@ -27,6 +27,7 @@ public class EmailService {
 
     /**
      *
+     * Send a simple templated email.
      * @param to
      * @param subject
      * @param bodyText
@@ -41,6 +42,7 @@ public class EmailService {
 
     /**
      *
+     * Send a templated email with an attachment.
      * @param email
      * @param template
      * @throws MessagingException
