@@ -25,6 +25,12 @@ public class EmailService {
         this.templateEngine = templateEngine;
     }
 
+    /**
+     *
+     * @param to
+     * @param subject
+     * @param bodyText
+     */
     public void sendSimpleEmail(String to, String subject, String bodyText) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
@@ -33,6 +39,12 @@ public class EmailService {
         emailSender.send(message);
     }
 
+    /**
+     *
+     * @param email
+     * @param template
+     * @throws MessagingException
+     */
     public void sendEmailWithHTMLAttachment(Email email, String template) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
 

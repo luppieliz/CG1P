@@ -12,7 +12,7 @@ public class ScrapperConfig {
     @PostConstruct
     void postConstruct() {
         // Remove .exe if using Mac
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
     }
 
     @Bean

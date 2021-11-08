@@ -8,6 +8,16 @@ class UserDataService {
                 //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
         );
     }
+    retrieveUser(id) {
+        return axios.get(`${API_URL}/user/${id}`
+                //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
+            );
+    }
+    updateUser(user) {
+        return axios.put(`${API_URL}/user`, user
+                //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
+        );
+    }
 
 }
 

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 // import routing features
 import { Link } from 'react-router-dom'
 import HelloWorldService from '../api/HelloWorldService'
+import UserDataService from '../api/UserDataService'
+
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
 import Placeholder from 'react-bootstrap/Placeholder';
@@ -18,16 +20,27 @@ class WelcomeComponent extends Component {
         this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);
         this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this);
         this.handleError = this.handleError.bind(this);
+        this.retrieveHealthStatus = this.retrieveHealthStatus.bind(this);
+        this.toggleCovidStatus = this.toggleCovidStatus.bind(this);
+        this.toggleShnStatus = this.toggleShnStatus.bind(this);
 
         this.state = {
             userId: sessionStorage.getItem(SESSION_USER_ID),
             userName: sessionStorage.getItem(SESSION_USER_NAME),
             welcomeMessage: '',
-            errorMessage: ''
+            errorMessage: '',
+            shnStatus: false,
+            covidStatus: false
         }
     }
 
+    componentDidMount() {
+        this.retrieveHealthStatus()
+    }
+
     render() {
+
+
         return [
             'Dark',
         ].map((variant, idx) => (
@@ -47,8 +60,27 @@ class WelcomeComponent extends Component {
                         <Card.Body>
                             <Card.Title>
                                 <h2 className="container text-white">
+                                    My COVID status!</h2>
+                            </Card.Title>
+                            <Card.Text>
+                                <h3 className="container text-white">
+                                    Am I on SHN (Stay-Home Notice): {this.state.shnStatus ? 'Yes' : 'No'}
+                                    <button onClick={this.toggleShnStatus} className="btn btn-success">Toggle This</button>
+                                </h3>
+                                <h3 className="container text-white">
+                                    Am I feeling the COVID: {this.state.covidStatus ? 'Yes' : 'No'}
+                                    <button onClick={this.toggleCovidStatus} className="btn btn-success">Toggle This</button>
+                                </h3>
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    
+                    <Card bg={variant.toLowerCase()} className="text-center">
+                        <Card.Body>
+                            <Card.Title>
+                                <h2 className="container text-white">
                                     Click<button onClick={this.retrieveWelcomeMessage} className="btn btn-success">Here</button>
-                                    here to get your inspirational quote of the day     </h2>
+                                     to get your inspirational quote of the day     </h2>
                             </Card.Title>
                             <Card.Text>
                                 <h3 className="container text-white">
@@ -60,6 +92,7 @@ class WelcomeComponent extends Component {
                             </Card.Text>
                         </Card.Body>
                     </Card>
+
                     <Placeholder xs={12} bg="transparent" />
                     <h2 className="text-dark">My Dashboard</h2>
                     <Placeholder xs={12} bg="transparent" />
@@ -131,7 +164,49 @@ class WelcomeComponent extends Component {
         HelloWorldService.executeHelloWorldService(this.state.userName)
             .then(response => this.handleSuccessfulResponse(response))
             .catch(error => this.handleError(error));
+    }
 
+    retrieveHealthStatus() {
+        UserDataService.retrieveUser(this.state.userId).then(response => {
+            this.setState({
+                shnStatus: response.data.shnStatus,
+                covidStatus: response.data.covidStatus
+            })
+        })
+    }
+
+    toggleCovidStatus() {
+        UserDataService.retrieveUser(this.state.userId).then(response => {
+            let user = {
+                id: response.data.id,
+                email: response.data.email,
+                name: response.data.name,
+                password: response.data.password,
+                shnStatus: response.data.shnStatus,
+                covidStatus: !(response.data.covidStatus),
+                authority: response.data.authority,
+                business: response.data.business
+            }
+            UserDataService.updateUser(user);
+        })
+        this.setState({covidStatus: !this.state.covidStatus})
+    }
+
+    toggleShnStatus() {
+        UserDataService.retrieveUser(this.state.userId).then(response => {
+            let user = {
+                id: response.data.id,
+                email: response.data.email,
+                name: response.data.name,
+                password: response.data.password,
+                shnStatus: !(response.data.shnStatus),
+                covidStatus: response.data.covidStatus,
+                authority: response.data.authority,
+                business: response.data.business
+            }
+            UserDataService.updateUser(user);
+        })
+        this.setState({shnStatus: !this.state.shnStatus})
     }
 
     handleSuccessfulResponse(response) {

@@ -64,6 +64,14 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @NotNull(message = "SHN status should not be null")
+    @Column(name = "shn_status")
+    private Boolean shnStatus;
+
+    @NotNull(message = "Covid status should not be null")
+    @Column(name = "covid_status")
+    private Boolean covidStatus;
+
     @NotNull(message = "Authority should not be null")
     // We define three roles/authorities: ROLE_ADMIN, ROLE_BUSINESSOWNER, ROLE_EMPLOYEE
     @Column(name = "authority")
@@ -81,6 +89,18 @@ public class User implements UserDetails {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.shnStatus = false;
+        this.covidStatus = false;
+        this.authority = authority;
+        this.business = business;
+    }
+
+    public User(String email, String name, String password, Boolean shnStatus, Boolean covidStatus, String authority, Business business) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.shnStatus = shnStatus;
+        this.covidStatus = covidStatus;
         this.authority = authority;
         this.business = business;
     }
@@ -90,6 +110,8 @@ public class User implements UserDetails {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.shnStatus = false;
+        this.covidStatus = false;
         this.authority = authority;
         this.business = business;
     }

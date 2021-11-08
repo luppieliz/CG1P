@@ -40,5 +40,20 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User updateUser(User updatedUser) throws UserNotFoundException {
+//        String email = updatedUser.getEmail();
+//
+//        if (!userRepository.existsByEmail(email)) {
+//            throw new UserNotFoundException(email);
+//        }
+
+        User user = getUser(updatedUser.getId());
+
+        user.setCovidStatus(updatedUser.getCovidStatus());
+        user.setShnStatus(updatedUser.getShnStatus());
+
+        return userRepository.save(user);
+    }
+
     // TODO: Implement other user services
 }

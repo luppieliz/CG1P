@@ -59,6 +59,8 @@ class OwnerSignupComponent extends Component {
                             email: values.email,
                             name: values.name,
                             password: values.password,
+                            shnStatus: false,
+                            covidStatus: false,
                             authority: "ROLE_BUSINESSOWNER",
                             business: response2.data
                         }

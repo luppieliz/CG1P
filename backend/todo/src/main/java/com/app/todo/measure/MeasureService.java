@@ -18,8 +18,7 @@ public class MeasureService {
     }
 
     public List<String> getMeasures(String URL) {
-        List<String> sourcesList = scrapperService.scrapeFAQ(URL);
-        return sourcesList;
+        return scrapperService.scrapeFAQ(URL);
     }
 
     public void getTag(String newsURL, List<String> tag) {

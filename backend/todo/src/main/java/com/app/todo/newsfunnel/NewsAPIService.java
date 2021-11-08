@@ -28,7 +28,6 @@ public class NewsAPIService {
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
 
-        Gson gson = new Gson();
         NewsAPIResponse newsResponse = new Gson().fromJson(response.body(), NewsAPIResponse.class);
         return newsResponse;
     }

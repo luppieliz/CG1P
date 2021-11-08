@@ -36,7 +36,6 @@ public class NewsController {
                         @PathVariable(value="query") String query) throws IOException, InterruptedException {
         NewsAPIResponse newsResponse = apiService.getAPIResponse(countryCode,query);
 
-        Gson gson = new Gson();
         NewsDTO[] news = new Gson().fromJson(newsResponse.getArticles(), NewsDTO[].class);
 
         List<News> resultNews = new ArrayList<>();

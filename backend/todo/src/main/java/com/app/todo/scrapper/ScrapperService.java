@@ -51,7 +51,6 @@ public class ScrapperService {
     }
 
     public void scrapeArticle(String articleURL, List<String> tag) {
-        List<String> scrappedSrc = new ArrayList<>();
         driver.get(articleURL);
 
         final List<WebElement> tagList = driver.findElementsByTagName("p");
