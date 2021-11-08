@@ -16,6 +16,9 @@ import { SESSION_USER_ID } from '../Constants';
 import { GrAdd } from "@react-icons/all-files/gr/GrAdd";
 import { FaTrashAlt } from "@react-icons/all-files/fa/FaTrashAlt";
 import { GrUpdate } from "@react-icons/all-files/gr/GrUpdate";
+import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+
 
 class SideBarComponent extends Component {
 
@@ -66,13 +69,17 @@ class SideBarComponent extends Component {
     // }
 
     refreshTodos() {
+        console.log(this.props)
         TodoDataService.retrieveAllTodos(this.state.userId)
             .then(response => this.setState({ todos: response.data }))
     }
 
     // handler for when add todo is clicked
     addTodoClicked() {
+        
+        console.log(this.props)
         this.props.history.push(`/todos/-1`)
+
     }
 
     // handler for when update todo is clicked

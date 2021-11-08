@@ -31,9 +31,9 @@ class TodoComponent extends Component {
     componentDidMount() {
 
         // if -1 (create), do not try to load todo as it is empty
-        // if (this.state.id === "-1") {
-        //     return
-        // }
+        if (this.state.id === "-1") {
+            return
+        }
 
         TodoDataService.retrieveTodo(this.state.userId, this.state.id)
             .then(response => this.setState({
@@ -56,11 +56,11 @@ class TodoComponent extends Component {
         if (this.state.id == -1) {
             console.log("id=1")
             TodoDataService.createTodo(this.state.userId, todo)
-                .then(() => this.props.history.push("/todos"))
+                .then(() => this.props.history.push("/welcome"))
             // else state (todo id) is not -1, means todo exists, means update todo
         } else {
             TodoDataService.updateTodo(this.state.userId, this.state.id, todo)
-                .then(() => this.props.history.push("/todos"))
+                .then(() => this.props.history.push("/welcome"))
         }
     }
 
