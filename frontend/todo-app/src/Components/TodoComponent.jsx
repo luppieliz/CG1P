@@ -31,9 +31,9 @@ class TodoComponent extends Component {
     componentDidMount() {
 
         // if -1 (create), do not try to load todo as it is empty
-        if (this.state.id === "-1") {
-            return
-        }
+        // if (this.state.id === "-1") {
+        //     return
+        // }
 
         TodoDataService.retrieveTodo(this.state.userId, this.state.id)
             .then(response => this.setState({

@@ -13,6 +13,10 @@ import Col from 'react-bootstrap/Col'
 import { SESSION_USER_ID } from '../Constants';
 // import Modal from 'react-bootstrap/Modal'
 
+import { GrAdd } from "@react-icons/all-files/gr/GrAdd";
+import { FaTrashAlt } from "@react-icons/all-files/fa/FaTrashAlt";
+import { GrUpdate } from "@react-icons/all-files/gr/GrUpdate";
+
 class SideBarComponent extends Component {
 
     constructor(props) {
@@ -94,7 +98,7 @@ class SideBarComponent extends Component {
                     </Button>
                     <Offcanvas show={this.state.showSidebar} onHide={this.handleClose}>
                         <Offcanvas.Header closeButton>
-                            <Offcanvas.Title className="text-dark">My Tasks</Offcanvas.Title>
+                            <Offcanvas.Title className="text-dark">Checklist</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body className="text-dark">
                             <Row>
@@ -104,7 +108,7 @@ class SideBarComponent extends Component {
                                         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                         <Card.Body>
                                             <Card.Text>
-                                                <h1>Todos</h1>
+                                            <iframe src="https://free.timeanddate.com/clock/i81r8hlp/n236/tlsg/fn6/fs20/fcfff/tc000/ftb/bacfff/pa8/tt0/tw1/th2/ta1/tb4" frameborder="0" width="333" height="68"></iframe>
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -128,14 +132,14 @@ class SideBarComponent extends Component {
                                                                 <td>{todo.description}</td>
                                                                 <td>{todo.isDone.toString()}</td>
                                                                 <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
-                                                                <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
-                                                                <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
+                                                                <td><button className="btn btn-warning" onClick={() => this.updateTodoClicked(todo.id)}><GrUpdate/></button></td>
+                                                                <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}><FaTrashAlt/></button></td>
                                                             </tr>
                                                     )
                                                 }
                                             </tbody>
                                         </table>
-                                        <div className="row"><button className="btn btn-success" onClick={() => this.addTodoClicked()}>Add</button></div>
+                                        <div className="d-grid gap-2"><button className="btn btn-success" onClick={() => this.addTodoClicked()}><GrAdd/></button></div>
                                     </div>
                                 </Col>
                             </Row>

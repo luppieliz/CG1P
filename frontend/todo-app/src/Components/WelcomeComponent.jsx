@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 // import routing features
-import { Link } from 'react-router-dom'
 import HelloWorldService from '../api/HelloWorldService'
 import UserDataService from '../api/UserDataService'
 
 import Card from 'react-bootstrap/Card';
-import Carousel from 'react-bootstrap/Carousel';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { SESSION_USER_ID, SESSION_USER_NAME } from '../Constants';
+
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
+import ListTodosComponent from "./ListTodosComponent";
+import SideBarComponent from "./SideBarComponent";
+
+
 
 
 // Welcome landing page, that links to the Todos page.
@@ -24,76 +30,59 @@ class WelcomeComponent extends Component {
         this.toggleCovidStatus = this.toggleCovidStatus.bind(this);
         this.toggleShnStatus = this.toggleShnStatus.bind(this);
 
+        this.handleShow = this.handleShowModal.bind(this);
+        this.handleClose = this.handleCloseModal.bind(this);
+
         this.state = {
             userId: sessionStorage.getItem(SESSION_USER_ID),
             userName: sessionStorage.getItem(SESSION_USER_NAME),
             welcomeMessage: '',
             errorMessage: '',
             shnStatus: false,
-            covidStatus: false
+            covidStatus: false,
+            show : "false",
+            setShow : "false"
         }
     }
 
     componentDidMount() {
         this.retrieveHealthStatus()
+        this.setState({ showModal: false });
+        
+    }
+
+    handleCloseModal() { //MODAL 
+        this.setState({ showModal: false });
+    }
+
+    handleShowModal() { //MODAL
+        this.setState({ showModal: true });
     }
 
     render() {
-
 
         return [
             'white',
         ].map((variant, idx) => (
             <div>
+                <Placeholder xs={12} bg="transparent" />
+                <h1 className="text-dark">Welcome Home {this.state.userName}</h1>
+                <Placeholder xs={12} bg="transparent" />
 
                 <Container >
-                    <Placeholder xs={12} bg="transparent" />
-                    <h1 className="text-dark">Welcome Home {this.state.userName}</h1>
-                    <Placeholder xs={12} bg="transparent" />
-                    <Card bg={variant.toLowerCase()} className="text-center">
-                        <Card.Body>
-                            <Card.Title>
-                                <h2 className="container text-white">
-                                    My COVID status!</h2>
-                            </Card.Title>
-                            <Card.Text>
-                                <h3 className="container text-white">
-                                    Am I on SHN (Stay-Home Notice): {this.state.shnStatus ? 'Yes' : 'No'}
-                                    <button onClick={this.toggleShnStatus} className="btn btn-success">Toggle This</button>
-                                </h3>
-                                <h3 className="container text-white">
-                                    Am I feeling the COVID: {this.state.covidStatus ? 'Yes' : 'No'}
-                                    <button onClick={this.toggleCovidStatus} className="btn btn-success">Toggle This</button>
-                                </h3>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                    
-                    <Card bg={variant.toLowerCase()} className="text-center">
-                        <Card.Body>
-                            <Card.Title>
-                                <h2 className="container text-white">
-                                    Click<button onClick={this.retrieveWelcomeMessage} className="btn btn-success">Here</button>
-                                     to get your inspirational quote of the day     </h2>
-                            </Card.Title>
-                            <Card.Text>
-                                <h3 className="container text-dark">
-                                    {this.state.welcomeMessage}
-                                </h3>
-                                <div className="container text-dark">
-                                    {this.state.errorMessage}
-                                </div>
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-
-                    <Placeholder xs={12} bg="transparent" />
-                    <Card ><h2 className="text-dark">My Dashboard</h2></Card>
-                    
-                    <Placeholder xs={12} bg="transparent" />
                     <Row>
-                        <Col >
-                            <Card className="card h-100" bg={variant.toLowerCase()} >
+                        <Col>
+                            <Card>
+                                <h2 className="text-dark">Checklist</h2>
+                            </Card>
+                            <Card>
+                                <SideBarComponent />
+                            </Card>
+                        </Col>
+                        <Col xs={5}>
+                            <Card ><h2 className="text-dark">Announcements</h2></Card>
+
+                            <Card className="card" bg={variant.toLowerCase()} >
                                 <Card.Body>
                                     <Card.Title className="text-danger">Employee Management</Card.Title>
                                     <Card.Text className="text-dark">
@@ -101,53 +90,74 @@ class WelcomeComponent extends Component {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
-                        </Col>
-                        <Col>
-                            <Card className="card h-100" bg={variant.toLowerCase()} >
+
+
+                            <Card className="card" bg={variant.toLowerCase()} >
                                 <Card.Body>
                                     <Card.Title className="text-warning">Todos</Card.Title>
                                     <Card.Text className="text-dark">
                                         you have 5 undone task!
                                     </Card.Text>
                                 </Card.Body>
-
-
                             </Card>
+
                         </Col>
                         <Col>
-                            <Card className="card h-100 mb-2" bg={variant.toLowerCase()}>
+                            <Card bg={variant.toLowerCase()} className="text-center">
                                 <Card.Body>
-                                    <Card.Title className="text-success">Today's Top News!</Card.Title>
-                                    <Card.Text className="text-dark">
-                                        BERRAKING NEWS COVID CASES HIGH AF!!
+                                    <Card.Title>
+                                        <strong><h2 className="text-dark">
+                                            My COVID Status</h2></strong>
+                                    </Card.Title>
+                                    <Card.Text>
+                                        <h5 className="text-dark">
+                                            <Card.Header>Am I on Stay-Home Notice : {this.state.shnStatus ? 'Yes' : 'No'}</Card.Header>
+                                            <FormControlLabel onClick={this.toggleShnStatus} control={<Switch color="warning" />} label="" />
+
+
+                                        </h5>
+                                        <h5 className="text-dark">
+                                            <Card.Header>Am I feeling the COVID : {this.state.covidStatus ? 'Yes' : 'No'}</Card.Header>
+                                            <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
+                                        </h5>
+
                                     </Card.Text>
                                 </Card.Body>
-
-
                             </Card>
-                        </Col>
-                        <Col>
-                            <Card className="card h-100" bg={variant.toLowerCase()}>
+                            <Placeholder xs={12} bg="transparent" />
+                            <Card bg={variant.toLowerCase()} className="text-center">
                                 <Card.Body>
-                                    <Card.Title className="text-primary">Need Help?</Card.Title>
-                                    <Card.Text className="text-dark">
-                                        Top Faqs today
+                                    <Card.Title>
+                                        <h3 className="container text-dark">
+                                            Get your inspirational quote of the day</h3>
+                                        <div className="d-grid gap-2">
+                                            <button size="lg" onClick={this.retrieveWelcomeMessage} className="btn btn-success" >Here</button>
+                                        </div>
+                                    </Card.Title>
+                                    <Card.Text>
+                                        <h4 className="container text-dark">
+                                            {this.state.welcomeMessage}
+                                        </h4>
+                                        <div className="container text-dark">
+                                            {this.state.errorMessage}
+                                        </div>
                                     </Card.Text>
                                 </Card.Body>
-
-
                             </Card>
                         </Col>
                     </Row>
-                    <Placeholder xs={12} bg="transparent" />
-                    <Card>
-                        <iframe className="text-light" height="600px" width="100%;" src="https://infographics.channelnewsasia.com/covid-19/sgcovid19chart.html?type=embed&amp;channel=cna"></iframe>
-                    </Card>
-                    <Placeholder xs={12} bg="transparent" />
-                    <Card>
-                        <iframe width="100%" height="600" scrolling="no" src="https://infographics.channelnewsasia.com/covid-19/asia-covid-19-daily-cases.html?type=embed&amp;channel=cna" ></iframe>
-                        {/* <iframe src="https://public.domo.com/cards/bWxVg" width="50%" height="600" marginheight="0" marginwidth="0" frameborder="0"></iframe> */}
-                    </Card>
+                   
+                    <Row>
+                        <Placeholder xs={12} bg="transparent" />
+                        <Card>
+                            <iframe className="text-light" height="600px" width="100%;" src="https://infographics.channelnewsasia.com/covid-19/sgcovid19chart.html?type=embed&amp;channel=cna"></iframe>
+                        </Card>
+                        <Placeholder xs={12} bg="transparent" />
+                        <Card>
+                            <iframe width="100%" height="600" scrolling="no" src="https://infographics.channelnewsasia.com/covid-19/asia-covid-19-daily-cases.html?type=embed&amp;channel=cna" ></iframe>
+                            {/* <iframe src="https://public.domo.com/cards/bWxVg" width="50%" height="600" marginheight="0" marginwidth="0" frameborder="0"></iframe> */}
+                        </Card>
+                    </Row>
                 </Container>
             </div>
 
@@ -184,7 +194,7 @@ class WelcomeComponent extends Component {
             }
             UserDataService.updateUser(user);
         })
-        this.setState({covidStatus: !this.state.covidStatus})
+        this.setState({ covidStatus: !this.state.covidStatus })
     }
 
     toggleShnStatus() {
@@ -201,7 +211,7 @@ class WelcomeComponent extends Component {
             }
             UserDataService.updateUser(user);
         })
-        this.setState({shnStatus: !this.state.shnStatus})
+        this.setState({ shnStatus: !this.state.shnStatus })
     }
 
     handleSuccessfulResponse(response) {
