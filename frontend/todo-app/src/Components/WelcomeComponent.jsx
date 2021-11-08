@@ -57,11 +57,11 @@ class WelcomeComponent extends Component {
                                     My COVID status!</h2>
                             </Card.Title>
                             <Card.Text>
-                                <h3 className="container text-white">
+                                <h3 className="container text-black">
                                     Am I on SHN (Stay-Home Notice): {this.state.shnStatus ? 'Yes' : 'No'}
                                     <button onClick={this.toggleShnStatus} className="btn btn-success">Toggle This</button>
                                 </h3>
-                                <h3 className="container text-white">
+                                <h3 className="container text-black">
                                     Am I feeling the COVID: {this.state.covidStatus ? 'Yes' : 'No'}
                                     <button onClick={this.toggleCovidStatus} className="btn btn-success">Toggle This</button>
                                 </h3>
@@ -72,7 +72,7 @@ class WelcomeComponent extends Component {
                     <Card bg={variant.toLowerCase()} className="text-center">
                         <Card.Body>
                             <Card.Title>
-                                <h2 className="container text-white">
+                                <h2 className="container text-black">
                                     Click<button onClick={this.retrieveWelcomeMessage} className="btn btn-success">Here</button>
                                      to get your inspirational quote of the day     </h2>
                             </Card.Title>

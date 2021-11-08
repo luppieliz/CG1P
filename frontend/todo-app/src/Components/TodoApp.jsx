@@ -23,6 +23,7 @@ import Faqcomponent from './GeneralFaq'
 import NewsFeedComponent from "./NewsFeedComponent";
 import ListTodosComponent from "./ListTodosComponent";
 import SideBarComponent from "./SideBarComponent";
+import EmployeeManagementComponent from './EmployeeManagementComponent'
 
 
 class TodoApp extends Component {
@@ -50,6 +51,8 @@ class TodoApp extends Component {
                         <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
                         <AuthenticatedRoute path="/mylist" component={SideBarComponent} />
                         <AuthenticatedRoute path="/profile" component={ProfileComponent} />
+
+                        <AuthenticatedRoute path="/employee-management" component={EmployeeManagementComponent} />
 
                         <Route path="/signup" component={SignupComponent}/>
                         <Route path="/signupbusiness" component={OwnerSignupComponent}/>
