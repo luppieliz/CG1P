@@ -65,15 +65,15 @@ class HeaderComponent extends Component {
                                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                             <Card.Text className="text-dark" >
                                                 <h4>{isUserLoggedIn && <Link className="nav-link" to="/welcome/admin">Home</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/todos">Dashboard</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/mylist">mylist</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/profile">Profile</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
-                                                </h4>
+                                                {isUserLoggedIn && <Link className="nav-link" to="/todos">Dashboard</Link>}
+                                                {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
+                                                    {/* {isUserLoggedIn && <Link className="nav-link" to="/mylist">mylist</Link>} */}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/profile">Profile</Link>}
+                                                {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
+                                                {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}</h4>
+                                               
                                             </Card.Text>
                                         </Card>
                                         <Placeholder xs={12} bg="white" className="bg-black" />

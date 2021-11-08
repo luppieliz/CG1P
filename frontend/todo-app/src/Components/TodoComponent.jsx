@@ -56,11 +56,11 @@ class TodoComponent extends Component {
         if (this.state.id == -1) {
             console.log("id=1")
             TodoDataService.createTodo(this.state.userId, todo)
-                .then(() => this.props.history.push("/todos"))
+                .then(() => this.props.history.push("/welcome"))
             // else state (todo id) is not -1, means todo exists, means update todo
         } else {
             TodoDataService.updateTodo(this.state.userId, this.state.id, todo)
-                .then(() => this.props.history.push("/todos"))
+                .then(() => this.props.history.push("/welcome"))
         }
     }
 
