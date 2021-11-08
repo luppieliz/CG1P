@@ -56,7 +56,7 @@ public class UserService {
      * @return List of users with the given business ID.
      * @throws UserNotFoundException
      */
-    public List<User> getUsersByBusiness(long businessId) throws BusinessNotFoundException {
+    public List<User> getUsersByBusiness(Long businessId) throws BusinessNotFoundException {
         Business business = businessService.getBusiness(businessId);
         return userRepository.findByBusiness(business);
     }

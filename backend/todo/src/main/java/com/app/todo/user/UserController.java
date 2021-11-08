@@ -30,12 +30,12 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
-    public User getUser(@PathVariable long userId) {
+    public User getUser(@PathVariable Long userId) {
         return userService.getUser(userId);
     }
 
     @GetMapping("/user/business/{businessId}")
-    public List<User> getUsersByBusiness(@PathVariable long businessId) {
+    public List<User> getUsersByBusiness(@PathVariable Long businessId) {
         return userService.getUsersByBusiness(businessId);
     }
 

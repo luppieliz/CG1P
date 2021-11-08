@@ -26,7 +26,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class ToDo {
+public class Todo {
 
     @ApiModelProperty(notes = "The database generated todo ID")
     @Id
@@ -53,7 +53,7 @@ public class ToDo {
     @Column(name = "is_done")
     private Boolean isDone = false;
 
-    public ToDo(String description) {
+    public Todo(String description) {
         this.description = description;
     }
 }

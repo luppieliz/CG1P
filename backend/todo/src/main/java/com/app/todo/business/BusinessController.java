@@ -28,7 +28,7 @@ public class BusinessController {
     }
 
     @GetMapping("/business/{businessId}")
-    public Business getBusiness(@PathVariable long businessId) {
+    public Business getBusiness(@PathVariable Long businessId) {
         return businessService.getBusiness(businessId);
     }
 
