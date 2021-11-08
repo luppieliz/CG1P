@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.app.todo.business.Business;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,11 @@ public class UserController {
     @GetMapping("/user/{userId}")
     public User getUser(@PathVariable long userId) {
         return userService.getUser(userId);
+    }
+
+    @GetMapping("/user/business/{businessId}")
+    public List<User> getUsersByBusiness(@PathVariable long businessId) {
+        return userService.getUsersByBusiness(businessId);
     }
 
     @GetMapping("/user/email/{email}")

@@ -1,5 +1,8 @@
 package com.app.todo.user;
 
+import com.app.todo.business.Business;
+import com.app.todo.business.BusinessNotFoundException;
+import com.app.todo.business.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,11 +13,13 @@ import java.util.List;
 public class UserService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder encoder;
+    private BusinessService businessService;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder, BusinessService businessService) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.businessService = businessService;
     }
 
     /**
@@ -43,6 +48,17 @@ public class UserService {
      */
     public User getUser(String email) throws UserNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+    }
+
+    /**
+     * Get list of users with a given Business ID.
+     * @param businessId
+     * @return List of users with the given business ID.
+     * @throws UserNotFoundException
+     */
+    public List<User> getUsersByBusiness(long businessId) throws BusinessNotFoundException {
+        Business business = businessService.getBusiness(businessId);
+        return userRepository.findByBusiness(business);
     }
 
     /**

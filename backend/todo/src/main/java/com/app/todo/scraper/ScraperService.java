@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class ScraperService {
 
     private final ChromeDriver driver;
     private static Map<String, Set<String>> tagMap = new HashMap<>();
-
+    private static Map<String, String> keywordMap = new HashMap<>(); //<keyword, tag>
     static {
         String[] fnb = new String[] {"restaurants", "F&B, f&b"};
         tagMap.put("F&B", new HashSet<String>(Arrays.asList(fnb)));
@@ -25,7 +27,22 @@ public class ScraperService {
 
         String[] retail = new String[] {"stores", "retail", "shopping"};
         tagMap.put("Retail", new HashSet<>(Arrays.asList(retail)));
+
+        //new implementation
+        for (String keyword : fnb) {
+            keywordMap.put(keyword, "F&B");
+        }
+        for (String keyword : tourism) {
+            keywordMap.put(keyword, "Tourism");
+        }
+        for (String keyword : healthcare) {
+            keywordMap.put(keyword, "Healthcare");
+        }
+        for (String keyword : retail) {
+            keywordMap.put(keyword, "Retail");
+        }
     }
+
 
     @Autowired
     public ScraperService(ChromeDriver driver) {
@@ -66,22 +83,31 @@ public class ScraperService {
         Set<String> tempTagSet = new HashSet<>();
 
         final List<WebElement> tagList = driver.findElementsByTagName("p");
+        /* new scraping
+        * collect all words into a string, then split into a string array
+        * convert all p elements into a map of word frequencies O(n): number of words
+        *       check if keyword list has entries in word frequencies list m number of keywords at O(1) each
+        * complexity: n^2
+         */
 
-        // Searching through the article's content to find suitable tags
+        //process all the paragraphs into a list of strings of lowercase words without punctuation
+        String allText = "";
         for (WebElement element:tagList) {
-            String paraContent = element.getText();
+            String text = element.getText().replaceAll("\\p{Punct}", "").toLowerCase();
+            allText += " " + text;
+        }
+        String [] words = allText.split(" ");
 
-            for (String keyTag : tagMap.keySet()) {
-                Set<String> tagWords = tagMap.get(keyTag);
+        //count all the words into a word freq map
+        Map<String, Long> frequencyMap = Arrays.stream(words)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-                for (String value : tagWords) {
-                    if (paraContent.contains(value)) {
-                        tempTagSet.add(keyTag);
-                    }
-                }
+        //compare words with keyword map
+        for (String keyword : keywordMap.keySet()) {
+            if (frequencyMap.containsKey(keyword)) {
+                tempTagSet.add(keyword);
             }
         }
-
         return new ArrayList<>(tempTagSet);
     }
 }
