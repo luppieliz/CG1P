@@ -177,7 +177,7 @@ class NewsFeedComponent extends Component {
         return (
             <div>
                 <Placeholder xs={12} bg="transparent" />
-                <h1 className="text-dark " >News</h1>
+                <h1  className="text-dark cg1p-header" >News</h1>
                 <Placeholder xs={12} bg="transparent" />
                 <Container>
                     <Row>
@@ -198,7 +198,7 @@ class NewsFeedComponent extends Component {
                         {newsFeedColumn}
 
                     </Row>
-
+                    <Placeholder xs={12} bg="transparent" />
                 </Container>
             </div>
         )
