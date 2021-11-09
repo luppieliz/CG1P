@@ -2,6 +2,7 @@ package com.app.todo.email;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ public class EmailController {
 
     private EmailService emailService;
 
+    @Value("${spring.mail.username}")
+    private String hostEmail;
     @Autowired
     public EmailController(EmailService emailService) {
         this.emailService = emailService;
@@ -26,7 +29,7 @@ public class EmailController {
     @PostMapping(produces = "application/json")
     public void sendEmailWithHTMLTemplate(@RequestBody EmailPost emailPost) throws MessagingException {
         Email email = new Email();
-        email.setFrom("c1gp.email.service@gmail.com");
+        email.setFrom(hostEmail);
         email.setMailTo(emailPost.getEmailTo());
         email.setSubject(emailPost.getSubject());
 
