@@ -108,10 +108,12 @@ class WelcomeComponent extends Component {
             'white',
         ].map((variant, idx) => (
             <div style={{
-                
+
             }}>
                 <Placeholder xs={12} bg="transparent" />
-                <h1 className="text-dark">Welcome Home {this.state.userName}</h1>
+                <Placeholder xs={12} bg="transparent" />
+                <h1 className="cg1p-header">Welcome Home, {this.state.userName}</h1>
+                <Placeholder xs={12} bg="transparent" />
                 <Placeholder xs={12} bg="transparent" />
 
                 <Container>
@@ -119,10 +121,9 @@ class WelcomeComponent extends Component {
                         <Col>
                             <Card>
                                 <Container>
-                                <Row>
-                                    <Button variant="transparent" onClick={this.handleShow}>
-                                        <h2 className="text-dark">Checklist</h2>
-                                    </Button></Row>
+                                <Button variant="outline-dark" size = "lg" onClick={this.handleShow}>
+                                    Checklist
+                                </Button>
                                     <Offcanvas show={this.state.showSidebar} onHide={this.handleClose}>
                                         <Offcanvas.Header closeButton>
                                             <Offcanvas.Title className="text-dark">Checklist</Offcanvas.Title>
@@ -174,99 +175,95 @@ class WelcomeComponent extends Component {
                                     </Offcanvas>
                                 </Container>
                             </Card>
+                            <Placeholder xs={12} bg="transparent" />
+
                             <Card>
-                            <iframe width="300px" height="350px" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/99334c54-479f-472d-a6f5-fe38d2f9b1aa/view/c5b1cfad-f0c8-43e8-9bce-ea541923e9e7" frameBorder="0"> </iframe>
+                                <iframe width="300px" height="350px" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/99334c54-479f-472d-a6f5-fe38d2f9b1aa/view/c5b1cfad-f0c8-43e8-9bce-ea541923e9e7" frameBorder="0"> </iframe>
                             </Card>
                         </Col>
                         <Col xs={5}>
-                            <Card ><h2 className="text-dark">Announcements</h2></Card>
+                            <Card ><h2 className="cg1p-header">Announcements</h2></Card>
+                            <Placeholder xs={12} bg="transparent" />
+
                             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
                                 <Tab eventKey="Dining" title="Dining">
-                                    <Card className = "text-dark">
+                                    <Card className="text-dark">
                                         <Card.Text>
-                                        First, we will allow up to five fully vaccinated persons
-                                         from the same household to dine-in together at food and beverage 
-                                         (F&B) establishments that are able to administer comprehensive VDS checks. 
+                                            First, we will allow up to five fully vaccinated persons
+                                            from the same household to dine-in together at food and beverage
+                                            (F&B) establishments that are able to administer comprehensive VDS checks.
                                         </Card.Text>
                                     </Card>
                                 </Tab>
                                 <Tab eventKey="vaccine" title="Vaccine">
-                                <Card className = "text-dark">
+                                    <Card className="text-dark">
                                         <Card.Text>
-                                        Progress in vaccination and boosters has contributed immensely to the tempering of COVID-19 cases.
-                                         However, those who are not fully vaccinated continue to disproportionately 
-                                         make up the bulk of severe and ICU cases, and impose a strain on our healthcare system
-                                         . There remains a need to protect them. Vaccination-Differentiated Safe Management Measures 
-                                         (VDS) will therefore remain a crucial prong of our re-opening strategy in the coming weeks.
+                                            Progress in vaccination and boosters has contributed immensely to the tempering of COVID-19 cases.
+                                            However, those who are not fully vaccinated continue to disproportionately
+                                            make up the bulk of severe and ICU cases, and impose a strain on our healthcare system
+                                            . There remains a need to protect them. Vaccination-Differentiated Safe Management Measures
+                                            (VDS) will therefore remain a crucial prong of our re-opening strategy in the coming weeks.
                                         </Card.Text>
                                     </Card>
                                 </Tab>
                                 <Tab eventKey="travel" title="Travel">
-                                <Card className = "text-dark">
+                                    <Card className="text-dark">
                                         <Card.Text>
-                                        Finally, our experience to date with the Vaccinated Travel Lanes (VTLs) 
-                                        has shown that we can open up air travel in a safe way. 
-                                        We will further simplify travel protocols to safely and seamlessly 
-                                        reconnect with the rest of the world.
+                                            Finally, our experience to date with the Vaccinated Travel Lanes (VTLs)
+                                            has shown that we can open up air travel in a safe way.
+                                            We will further simplify travel protocols to safely and seamlessly
+                                            reconnect with the rest of the world.
                                         </Card.Text>
                                     </Card>
                                 </Tab>
                                 <Tab eventKey="healthcare" title="Healthcare">
-                                <Card className = "text-dark">
+                                    <Card className="text-dark">
                                         <Card.Text>
-                                        Daily case numbers have stabilised for around three weeks now.
-                                         While cases have remained at more than 3,000 a day on average,
-                                          close to 99% of cases continue to have mild or no symptoms and 
-                                          the vast majority are able to recover well at home.
-                                           The proportion of patients who require oxygen supplementation 
-                                           has held steady at 0.8% of our total cases, and those who require 
-                                           ICU care at 0.3%, in the past 28 days. 
-                                           The number of cases in the ICU remains high but stable
-                                            at around 140 cases, who occupy 70% of our current ICU bed capacity. 
-                                            We have been actively expanding the capacity of COVID-19 Treatment Facilities 
-                                            (CTFs) and Community Isolation Facilities (CIFs) over the past few weeks to take in 
-                                            COVID-19 patients who do not require acute care in hospitals. 
+                                            Daily case numbers have stabilised for around three weeks now.
+                                            While cases have remained at more than 3,000 a day on average,
+                                            close to 99% of cases continue to have mild or no symptoms and
+                                            the vast majority are able to recover well at home.
+                                            The proportion of patients who require oxygen supplementation
+                                            has held steady at 0.8% of our total cases, and those who require
+                                            ICU care at 0.3%, in the past 28 days.
+                                            The number of cases in the ICU remains high but stable
+                                            at around 140 cases, who occupy 70% of our current ICU bed capacity.
+                                            We have been actively expanding the capacity of COVID-19 Treatment Facilities
+                                            (CTFs) and Community Isolation Facilities (CIFs) over the past few weeks to take in
+                                            COVID-19 patients who do not require acute care in hospitals.
                                         </Card.Text>
                                     </Card>
                                 </Tab>
-                                <Tab eventKey="Chilren" title="Children">
-                                <Card className = "text-dark">
-                                        <Card.Text>
-                                        The Expert Committee on COVID-19 Vaccination (EC19V) has
-                                         noted that the Pfizer BioNTech/ Comirnaty vaccine has been 
-                                         approved by the US for use in those aged 5 to 11 years.
-                                          EC19V is assessing the extension of vaccination to children 
-                                          aged 5 to 11 years in Singapore. This will confer on them 
-                                          protection against infection and severe illness, and bette
-                                          r enable the resumption of a richer educational experience 
-                                          for our school children in 2022. 
-                                        </Card.Text>
-                                    </Card>
-                                </Tab>
+                                
                                 <Tab eventKey="Work" title="Work">
-                                <Card className = "text-dark">
+                                    <Card className="text-dark">
                                         <Card.Text>
-                                        From 1 January 2022, employers must ensure that unvaccinated
-                                         employees do not return to the workplace.
-                                         1 These individuals are at a higher risk of 
-                                         falling seriously ill from COVID-19 infection and 
-                                         putting a strain on our healthcare capacity.
-                                          Please refer to the Updated Advisory on COVID-19 
-                                          Vaccination at the Workplace for more details on 
-                                          work arrangements for unvaccinated employees.
+                                            From 1 January 2022, employers must ensure that unvaccinated
+                                            employees do not return to the workplace.
+                                            1 These individuals are at a higher risk of
+                                            falling seriously ill from COVID-19 infection and
+                                            putting a strain on our healthcare capacity.
+                                            Please refer to the Updated Advisory on COVID-19
+                                            Vaccination at the Workplace for more details on
+                                            work arrangements for unvaccinated employees.
                                         </Card.Text>
                                     </Card>
                                 </Tab>
                             </Tabs>
 
+                            <Placeholder xs={12} bg="transparent" />
+
+
                             <Card className="card" bg={variant.toLowerCase()} >
                                 <Card.Body>
-                                <Card.Title className="text-danger">Employee Management</Card.Title>
+                                    <Card.Title className="text-danger">Employee Management</Card.Title>
                                     <Card.Text className="text-dark">
                                         employee 123 has updated her status
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
+
+                            <Placeholder xs={12} bg="transparent" />
 
 
                             <Card className="card" bg={variant.toLowerCase()} >
@@ -283,7 +280,7 @@ class WelcomeComponent extends Component {
                             <Card bg={variant.toLowerCase()} className="text-center">
                                 <Card.Body>
                                     <Card.Title>
-                                        <strong><h2 className="text-dark">
+                                        <strong><h2 className="cg1p-header">
                                             My COVID Status</h2></strong>
                                     </Card.Title>
                                     <Card.Text>
@@ -305,10 +302,10 @@ class WelcomeComponent extends Component {
                             <Card bg={variant.toLowerCase()} className="text-center">
                                 <Card.Body>
                                     <Card.Title>
-                                        <h3 className="container text-dark">
-                                            Get your inspirational quote of the day</h3>
+                                        <h2 className="container text-dark">
+                                            Get Inspired</h2>
                                         <div className="d-grid gap-2">
-                                            <button size="lg" onClick={this.retrieveWelcomeMessage} className="btn btn-success" >Here</button>
+                                            <Button size="lg" onClick={this.retrieveWelcomeMessage} variant="outline-dark" >Here</Button>
                                         </div>
                                     </Card.Title>
                                     <Card.Text>
@@ -327,30 +324,30 @@ class WelcomeComponent extends Component {
 
 
                     <Row>
-                            <Placeholder xs={12} bg="transparent" />
-                            <Card className="text-dark">
-                                <h2>Latest Covid-19 Cases updates</h2>
-                            </Card>
-                            <Placeholder xs={12} bg="transparent" />
-                            <Card>
-                                <iframe className="text-light" height="600px" width="100%;" src="https://infographics.channelnewsasia.com/covid-19/sgcovid19chart.html?type=embed&amp;channel=cna"></iframe>
-                            </Card>
-                            <Placeholder xs={12} bg="transparent" />
-                            <Card>
-                                <iframe width="100%" height="600" scrolling="no" src="https://infographics.channelnewsasia.com/covid-19/asia-covid-19-daily-cases.html?type=embed&amp;channel=cna" ></iframe>
-                                {/* <iframe src="https://public.domo.com/cards/bWxVg" width="50%" height="600" marginheight="0" marginwidth="0" frameborder="0"></iframe> */}
-                            </Card>
+                        <Placeholder xs={12} bg="transparent" />
+                        <Card className="text-dark">
+                            <h2>Latest Covid-19 Cases updates</h2>
+                        </Card>
+                        <Placeholder xs={12} bg="transparent" />
+                        <Card>
+                            <iframe className="text-light" height="600px" width="100%;" src="https://infographics.channelnewsasia.com/covid-19/sgcovid19chart.html?type=embed&amp;channel=cna"></iframe>
+                        </Card>
+                        <Placeholder xs={12} bg="transparent" />
+                        <Card>
+                            <iframe width="100%" height="600" scrolling="no" src="https://infographics.channelnewsasia.com/covid-19/asia-covid-19-daily-cases.html?type=embed&amp;channel=cna" ></iframe>
+                            {/* <iframe src="https://public.domo.com/cards/bWxVg" width="50%" height="600" marginheight="0" marginwidth="0" frameborder="0"></iframe> */}
+                        </Card>
                     </Row>
 
                     <Row>
                         <Placeholder xs={12} bg="transparent" />
-                            <Card className="text-dark">
-                                <h2>Plan your next business Trip</h2>
-                                
-                            </Card>
-                            <Placeholder xs={12} bg="transparent" />
-                            <iframe className="text-light" height="800px" width="100%;" scrolling="no" src="https://www.farecompare.com/maps/SIN-"></iframe>
-                            <Placeholder xs={12} bg="transparent" />
+                        <Card className="text-dark">
+                            <h2>Plan your next business Trip</h2>
+
+                        </Card>
+                        <Placeholder xs={12} bg="transparent" />
+                        <iframe className="text-light" height="800px" width="100%;" scrolling="no" src="https://www.farecompare.com/maps/SIN-"></iframe>
+                        <Placeholder xs={12} bg="transparent" />
                     </Row>
                 </Container>
             </div>

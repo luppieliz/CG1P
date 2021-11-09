@@ -51,8 +51,8 @@ class HeaderComponent extends Component {
             <header>
                 <Navbar bg="dark" expand={false} >
                     <Container fluid>
-                        <Navbar.Brand className="text-light" href="/"><h4>Buddy-19</h4></Navbar.Brand>
-                        <Button variant="dark" onClick={this.handleShow}><AiOutlineMenu /></Button>
+                        <Navbar.Brand className="cg1p-logo" href="/"><h4>Buddy-19</h4></Navbar.Brand>
+                        <Button variant="light" onClick={this.handleShow}><AiOutlineMenu /></Button>
                         <Offcanvas show={this.state.showSidebar} onHide={this.handleClose}>
                             <Offcanvas.Header closeButton>
                                 <Offcanvas.Title className="text-dark">Menu</Offcanvas.Title>
@@ -65,37 +65,24 @@ class HeaderComponent extends Component {
                                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                             <Card.Text className="text-dark" >
                                                 <h4>{isUserLoggedIn && <Link className="nav-link" to="/welcome/admin">Home</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/todos">Dashboard</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/emp">Dashboard</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                     {/* {isUserLoggedIn && <Link className="nav-link" to="/mylist">mylist</Link>} */}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/profile">Profile</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}</h4>
-                                               
-                                            </Card.Text>
-                                        </Card>
-                                        <Placeholder xs={12} bg="white" className="bg-black" />
-                                        <Card className="text-dark">
-                                            {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                                            <Card.Text className="text-dark" >
-                                                <h4>
-                                                    <NavDropdown
-                                                        id="nav-dropdown-dark-example"
-                                                        title="Questions"
-                                                        menuVariant="dark"
-                                                    >
-                                                        {!isUserLoggedIn && <NavDropdown.Item ><Link className="nav-link" to="/faq">FAQ</Link></NavDropdown.Item>}
-                                                        {isUserLoggedIn && <NavDropdown.Item ><Link className="nav-link" to="/faq">FAQ</Link></NavDropdown.Item>}
-                                                        {!isUserLoggedIn && <NavDropdown.Item ><Link className="nav-link" to="/aboutus">About Us</Link></NavDropdown.Item>}
-                                                        {isUserLoggedIn && <NavDropdown.Item ><Link className="nav-link" to="/aboutus">About Us</Link></NavDropdown.Item>}
-                                                        {!isUserLoggedIn && <NavDropdown.Item ><Link className="nav-link" to="/contactus">Contact Us</Link></NavDropdown.Item>}
-                                                        {isUserLoggedIn && <NavDropdown.Item ><Link className="nav-link" to="/contactus">Contact Us</Link></NavDropdown.Item>}
-                                                    </NavDropdown>
+                                                {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
+                                                {!isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
+                                                {!isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
+                                                {!isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
                                                 </h4>
                                             </Card.Text>
                                         </Card>
+                                        <Placeholder xs={12} bg="white" className="bg-black" />
                                     </Col>
                                 </Row>
                             </Offcanvas.Body>

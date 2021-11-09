@@ -52,7 +52,7 @@ class TodoApp extends Component {
                         <AuthenticatedRoute path="/mylist" component={SideBarComponent} />
                         <AuthenticatedRoute path="/profile" component={ProfileComponent} />
 
-                        <AuthenticatedRoute path="/employee-management" component={EmployeeManagementComponent} />
+                        <AuthenticatedRoute path="/emp" component={EmployeeManagementComponent} />
 
                         <Route path="/signup" component={SignupComponent}/>
                         <Route path="/signupbusiness" component={OwnerSignupComponent}/>
