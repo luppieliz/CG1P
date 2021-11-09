@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ToDoServiceImpl {
-    private ToDoRepository todoRepository;
+public class TodoServiceImpl {
+    private TodoRepository todoRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public ToDoServiceImpl(ToDoRepository todoRepository, UserRepository userRepository) {
+    public TodoServiceImpl(TodoRepository todoRepository, UserRepository userRepository) {
         this.todoRepository = todoRepository;
         this.userRepository = userRepository;
     }
@@ -23,18 +23,18 @@ public class ToDoServiceImpl {
      * @param userId
      * @return A list of to-dos of a user with a given userID
      */
-    public List<ToDo> getTodosByUserId(Long userId) {
+    public List<Todo> getTodosByUserId(Long userId) {
         return todoRepository.findByUserId(userId);
     }
 
     /**
      * Get a specific to-do with a given todoID
      * @param todoId
-     * @return A to-do with a given todoID. If a to-do is not found, throw an ToDoNotFoundException.
-     * @throws ToDoNotFoundException
+     * @return A to-do with a given todoID. If a to-do is not found, throw an TodoNotFoundException.
+     * @throws TodoNotFoundException
      */
-    public ToDo getTodo(Long todoId) throws ToDoNotFoundException {
-        return todoRepository.findById(todoId).orElseThrow(() -> new ToDoNotFoundException(todoId));
+    public Todo getTodo(Long todoId) throws TodoNotFoundException {
+        return todoRepository.findById(todoId).orElseThrow(() -> new TodoNotFoundException(todoId));
     }
 
     /**
@@ -42,8 +42,9 @@ public class ToDoServiceImpl {
      * @param userId
      * @param newTodo
      * @return A newly added to-do by a user with a given userID. If a user is not found, throw an UserNotFoundException.
+     * @throws UserNotFoundException
      */
-    public ToDo addTodo(Long userId, ToDo newTodo) {
+    public Todo addTodo(Long userId, Todo newTodo) throws UserNotFoundException {
         return userRepository.findById(userId).map(foundUser -> {
             newTodo.setUser(foundUser);
             return todoRepository.save(newTodo);
@@ -54,13 +55,13 @@ public class ToDoServiceImpl {
      * Update a specific to-do with a given todoID.
      * @param todoId
      * @param newTodo
-     * @throws ToDoNotFoundException
+     * @throws TodoNotFoundException
      */
-    public void updateTodo(Long todoId, ToDo newTodo) throws ToDoNotFoundException {
+    public void updateTodo(Long todoId, Todo newTodo) throws TodoNotFoundException {
         todoRepository.findById(todoId).map(foundTodo -> {
             foundTodo.setDescription(newTodo.getDescription());
             return todoRepository.save(foundTodo);
-        }).orElseThrow(() -> new ToDoNotFoundException(todoId));
+        }).orElseThrow(() -> new TodoNotFoundException(todoId));
     }
 
     /**

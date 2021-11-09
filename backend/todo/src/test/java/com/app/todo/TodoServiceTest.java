@@ -1,9 +1,9 @@
 package com.app.todo;
 
 import com.app.todo.business.Business;
-import com.app.todo.todo.ToDo;
-import com.app.todo.todo.ToDoRepository;
-import com.app.todo.todo.ToDoServiceImpl;
+import com.app.todo.todo.Todo;
+import com.app.todo.todo.TodoRepository;
+import com.app.todo.todo.TodoServiceImpl;
 import com.app.todo.user.User;
 import com.app.todo.user.UserRepository;
 import com.app.todo.user.UserService;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class TodoServiceTest {
 
     @Mock
-    private ToDoRepository toDoRepository;
+    private TodoRepository todoRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -34,27 +34,27 @@ public class TodoServiceTest {
     private BCryptPasswordEncoder encoder;
 
     @InjectMocks
-    private ToDoServiceImpl toDoService;
+    private TodoServiceImpl todoService;
 
     @InjectMocks
     private UserService userService;
 
 
     @Test
-    void addTodo_NewToDo_ReturnSavedTodo() {
+    void addTodo_NewTodo_ReturnSavedTodo() {
         // User user = new User("alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER", new Business("fda"));
         // userService.addUser(user);
 
-        // ToDo todo = new ToDo("Submit Vaccination Status");
+        // Todo todo = new Todo("Submit Vaccination Status");
 
         // when(userRepository.findByEmail(any(String.class))).thenReturn(Optional.of(user));
-        // when(toDoRepository.save(any (ToDo.class))).thenReturn(todo);
+        // when(todoRepository.save(any (Todo.class))).thenReturn(todo);
 
-        // ToDo savedTodo = toDoService.addToDo(user.getEmail(),todo);
+        // Todo savedTodo = todoService.addTodo(user.getEmail(),todo);
         // assertNotNull(savedTodo);
 
         // verify(userRepository).findByEmail(user.getEmail());
-        // verify(toDoRepository).save(todo);
+        // verify(todoRepository).save(todo);
 
     }
 

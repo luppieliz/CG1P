@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 
-                    // for ToDoController
+                    // for TodoController
                     .antMatchers(HttpMethod.GET, "/**/todos", "/**/todos/**").authenticated()
                     .antMatchers(HttpMethod.DELETE, "/**/todos/**").authenticated()
                     .antMatchers(HttpMethod.PUT, "/**/todos/**").authenticated()

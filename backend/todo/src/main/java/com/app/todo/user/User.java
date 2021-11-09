@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.app.todo.business.Business;
-import com.app.todo.todo.ToDo;
+import com.app.todo.todo.Todo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -83,7 +83,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @OneToMany(mappedBy= "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ToDo> toDos;
+    private List<Todo> todos;
 
     public User(String email, String name, String password, String authority, Business business) {
         this.email = email;
