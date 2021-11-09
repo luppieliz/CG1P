@@ -26,7 +26,7 @@ public class TwilioSenderService implements SenderService {
     }
 
     /**
-     * Send an SMS with a given SMS request.
+     * Send an SMS with a given SMS request. Throw IllegalArgumentException if phone number is invalid.
      * @param smsRequest
      */
     @Override
@@ -46,7 +46,7 @@ public class TwilioSenderService implements SenderService {
     }
 
     /**
-     * Send an MMS with a given MMS request.
+     * Send an MMS with a given MMS request. Throw IllegalArgumentException if phone number is invalid.
      * @param MmsRequest
      */
     public void sendMms(MmsRequest MmsRequest) {
@@ -69,12 +69,13 @@ public class TwilioSenderService implements SenderService {
      * @param destPhoneNumber
      * @return True if a phone number contains "+65" and has a total of 8 digits.
      */
-    private boolean isPhoneNumberValid(String destPhoneNumber) {
+    private boolean isPhoneNumberValid(final String destPhoneNumber) {
 
         if (!destPhoneNumber.contains(SG_PHONE_CODE)) {
             return false;
         }
 
+        // Start after +65
         int strIdx = destPhoneNumber.indexOf(SG_PHONE_CODE) + 3;
         int totalDigits = 0;
 

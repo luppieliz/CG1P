@@ -20,6 +20,7 @@ public class EmailController {
 
     @Value("${spring.mail.username}")
     private String hostEmail;
+
     @Autowired
     public EmailController(EmailService emailService) {
         this.emailService = emailService;

@@ -3,10 +3,7 @@ package com.app.todo.faq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class FAQService {
@@ -35,6 +32,19 @@ public class FAQService {
 
         String[] delivery = new String[] {"delivery"};
         businessMap.put("Delivery", Arrays.asList(delivery));
+    }
+
+    /**
+     * Return a list of FAQs from the scrapped sources and store into database
+     * @param scrappedSrc
+     * @return A list of FAQs
+     */
+    public List<FAQ> retrieveAllFAQ(final List<String> scrappedSrc) {
+        List<FAQ> faqList = new ArrayList<>();
+        for (String src : scrappedSrc) {
+            faqList.add(addFAQ(src));
+        }
+        return faqList;
     }
 
     /**

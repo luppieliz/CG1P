@@ -10,10 +10,37 @@ import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
 import Accordion from 'react-bootstrap/Accordion'
+import FaqDataService from '../api/FaqDataService';
+
 
 // Footer
 
 class GeneralFaq extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+             faq: [],
+             faqDisplay: [],
+             isEmpty: false,
+             tagsSelected: {},
+             options: []
+        }
+    }
+
+    getFAQ() {
+        FaqDataService.retrieveAllFAQ()
+        .then(
+        response => {
+            this.state.isEmpty = response.data.length === 0;
+            this.setState({ faq: response.data })
+            this.setState({ faqDisplay: response.data })
+//             console.log("retrieval made");
+            console.log(response);
+//             this.generateTaglist();
+            }
+        )
+    }
 
     render() {
         return (
@@ -52,7 +79,6 @@ class GeneralFaq extends Component {
                 {/* the questions */}
                 <Container>
                     <Row>
-
                         <Col>
                             <Accordion>
                                 <Accordion.Item eventKey="0">
@@ -82,8 +108,6 @@ class GeneralFaq extends Component {
                         <Col></Col>
                     </Row>
                 </Container>
-
-
             </div>
         )
     }
