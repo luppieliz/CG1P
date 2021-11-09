@@ -91,6 +91,15 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+h5.cg1p-header {
+  padding-left:34px;
+  padding-right:30px;
+  padding-top:20px;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  font-weight: 200;
+}
+
 h1.cg1p-header {
   color: #000;
   font-size: 50px;
@@ -104,6 +113,7 @@ h2.cg1p-header {
 }
 
 .cg1p-p {
+
 
 }
 
@@ -720,7 +730,6 @@ progress {
 
 .col {
   flex: 1 0 0%;
-  padding: 0;
 }
 
 .row-cols-auto > * {
@@ -2224,8 +2233,7 @@ progress {
 .form-control {
   display: block;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -2238,7 +2246,6 @@ progress {
   appearance: none;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  align-items: left;
 }
 @media (prefers-reduced-motion: reduce) {
   .form-control {
@@ -4538,11 +4545,10 @@ textarea.form-control-lg {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 0px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.5em;
   padding: 20px;
   text-align: left;
-  align-items: left;
 }
 .card > hr {
   margin-right: 0;
@@ -4574,7 +4580,6 @@ textarea.form-control-lg {
 
 .card-title {
   margin-bottom: 0.5rem;
-  text-align: left;
 }
 
 .card-subtitle {
@@ -4595,7 +4600,6 @@ textarea.form-control-lg {
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  text-align: left;
 }
 .card-header:first-child {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
