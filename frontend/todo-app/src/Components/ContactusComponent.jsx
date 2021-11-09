@@ -14,17 +14,10 @@ class ContactusComponent extends Component {
     render() {
         return (
             <>
-            <div style={{
-                backgroundImage: "url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/tp238-background-08.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=868534c5494233cc9ddb0dedb74b5fc8"
-                , backgroundPosition: 'center'
-                , backgroundSize: 'cover'
-                , backgroundRepeat: 'no-repeat'
-                , width: '100%'
-                , height: '66rem'
-            }}>
+            <div>
                 <Container>
                     <Placeholder xs={12} bg="transparent"/>
-                    <h1  className="text-dark" >Contact Us</h1>
+                    <h1  className="text-dark cg1p-header" >Contact Us</h1>
                     <Placeholder xs={12} bg="transparent"  />
                     <Placeholder xs={12} bg="transparent" />
                     <Image src="https://media.istockphoto.com/photos/young-bearded-businessman-sitting-on-desk-and-posing-picture-id1322913815?k=20&m=1322913815&s=612x612&w=0&h=vDJxUO2lrV1YtG2VoM9IGcZnPJNJ4cvGzAOhaY76A2Y=" roundedCircle />
@@ -44,6 +37,7 @@ class ContactusComponent extends Component {
                         </div>
                         </Form>
                 </Container>
+                <Placeholder xs={12} bg="transparent"/>
                 </div>
             </>
         )

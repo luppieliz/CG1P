@@ -30,17 +30,10 @@ class EmployeeManagementComponent extends Component {
     render() {
         return (
             <>
-            <div style={{
-                backgroundImage: "url(https://image.freepik.com/free-vector/white-faded-gradient-background-vector-with-orange-border_53876-125752.jpg"
-                , backgroundPosition: 'center'
-                , backgroundSize: 'cover'
-                , backgroundRepeat: 'no-repeat'
-                , width: '100%'
-                , height: '66rem'
-            }}>
+            <div >
                 <Container>
                 <Placeholder xs={12} bg="transparent"  />
-                <h1  className="text-dark" >Your Employees</h1>
+                <h1  className="text-dark cg1p-header" >Your Employees</h1>
                 <Placeholder xs={12} bg="transparent"  />
                 <h3 class="text-dark ">Employees and COVID/SHN Status</h3>
                 </Container>
@@ -71,6 +64,10 @@ class EmployeeManagementComponent extends Component {
                         </tbody>
                     </table>
                 </Container>
+                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent"  />
                 </div>
             </>
         )

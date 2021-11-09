@@ -69,16 +69,16 @@ class HeaderComponent extends Component {
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                     {/* {isUserLoggedIn && <Link className="nav-link" to="/mylist">mylist</Link>} */}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/profile">Profile</Link>}
+                                                {/* {isUserLoggedIn && <Link className="nav-link" to="/profile">Profile</Link>} */}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
                                                 </h4>
                                             </Card.Text>
                                         </Card>

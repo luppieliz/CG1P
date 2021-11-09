@@ -13,6 +13,8 @@ import Accordion from 'react-bootstrap/Accordion'
 import FaqDataService from '../api/FaqDataService';
 
 
+
+
 // Footer
 
 class GeneralFaq extends Component {
@@ -20,42 +22,36 @@ class GeneralFaq extends Component {
         super(props)
 
         this.state = {
-             faq: [],
-             faqDisplay: [],
-             isEmpty: false,
-             tagsSelected: {},
-             options: []
+            faq: [],
+            faqDisplay: [],
+            isEmpty: false,
+            tagsSelected: {},
+            options: []
         }
     }
 
     getFAQ() {
         FaqDataService.retrieveAllFAQ()
-        .then(
-        response => {
-            this.state.isEmpty = response.data.length === 0;
-            this.setState({ faq: response.data })
-            this.setState({ faqDisplay: response.data })
-//             console.log("retrieval made");
-            console.log(response);
-//             this.generateTaglist();
-            }
-        )
+            .then(
+                response => {
+                    this.state.isEmpty = response.data.length === 0;
+                    this.setState({ faq: response.data })
+                    this.setState({ faqDisplay: response.data })
+                    //             console.log("retrieval made");
+                    console.log(response);
+                    //             this.generateTaglist();
+                }
+            )
     }
 
     render() {
         return (
-            <div style={{
-                backgroundImage: "url(https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/tp238-background-02-kpqoqkmv.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=e21bfaf4d628ae4ed0eca694d5a45c75"
-                , backgroundPosition: 'center'
-                , backgroundSize: 'cover'
-                , backgroundRepeat: 'no-repeat'
-                , width: '100%'
-                , height: '48rem'
-            }}>
-                <Placeholder xs={12} bg="transparent"  />
-                <h1 className="text-dark ">FAQ</h1>
-                <Placeholder xs={12} bg="transparent"  />
-                <Placeholder xs={12} bg="transparent"  />
+            <div >
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <h1 className="cg1p-header">FAQ {this.state.userName}</h1>
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
                 <Row>
                     <Col></Col>
                     <Col xs={5}>
@@ -71,42 +67,68 @@ class GeneralFaq extends Component {
                     </Col>
                     <Col></Col>
                 </Row>
-                <Placeholder xs={12} bg="transparent"  />
-                <Placeholder xs={12} bg="transparent"  />
-                <Placeholder xs={12} bg="transparent"  />
-                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
 
                 {/* the questions */}
                 <Container>
                     <Row>
-                        <Col>
-                            <Accordion>
-                                <Accordion.Item eventKey="0">
-                                    <Accordion.Header>Do i need to declare my onsite manpower details?</Accordion.Header>
-                                    <Accordion.Body className="text-black bg-white">
-                                        You are required to declare your onsite manpower if you received an email
-                                        notifying you to submit your onsite manpower details, or if there is a
-                                        “MPSubmit” reference number in your company dashboard after you have logged into GoBusiness.
-                                        For companies in the Construction, Process and, Marine and Offshore Sectors
-                                        Companies in the above sectors will not receive an email notification to submit manpower details but should still continue
-                                        to submit their manpower details for the reference numbers they see in the system that are available to them.
-                                        These companies are required to submit more information including NRIC/Fin numbers and premises/location
-                                        details in their manpower declaration. These companies will not have an “MPSubmit” reference number.
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                                <Accordion.Item eventKey="1">
-                                    <Accordion.Header>Why is it necessary for me to declare my onsite manpower details?</Accordion.Header>
-                                    <Accordion.Body className="text-white bg-black " >
-                                        As announced under the Stablisation Period on 24 Sep 2021, work-from-home will be the
-                                        default at workplaces and employers must ensure that employees who are able to work from
-                                        home do so. The onsite manpower declaration will help us in tracking and guide our decisions moving forward.
-                                        We seek your assistance in adhering to this and appreciate your contributions in the national fight against COVID-19.
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion>
-                        </Col>
-                        <Col></Col>
+
+                        <Accordion>
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>Do i need to declare my onsite manpower details?</Accordion.Header>
+                                <Accordion.Body className="text-black bg-white">
+                                    <Row>
+                                        <Col>You are required to declare your onsite manpower if you received an email
+                                            notifying you to submit your onsite manpower details, or if there is a
+                                            “MPSubmit” reference number in your company dashboard after you have logged into GoBusiness.
+                                            For companies in the Construction, Process and, Marine and Offshore Sectors
+                                            Companies in the above sectors will not receive an email notification to submit manpower details but should still continue
+                                            to submit their manpower details for the reference numbers they see in the system that are available to them.
+                                            These companies are required to submit more information including NRIC/Fin numbers and premises/location
+                                            details in their manpower declaration. These companies will not have an “MPSubmit” reference number.</Col>
+                                        <Col> <Image src="https://static6.depositphotos.com/1131998/649/v/600/depositphotos_6490192-stock-illustration-smile-face.jpg" fluid /></Col>
+                                    </Row>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                            <Accordion.Item eventKey="1">
+                                <Accordion.Header>Why is it necessary for me to declare my onsite manpower details?</Accordion.Header>
+                                <Accordion.Body className="text-black bg-white " >
+                                    <Row>
+                                        <Col>You are required to declare your onsite manpower if you received an email
+                                            notifying you to submit your onsite manpower details, or if there is a
+                                            “MPSubmit” reference number in your company dashboard after you have logged into GoBusiness.
+                                            For companies in the Construction, Process and, Marine and Offshore Sectors
+                                            Companies in the above sectors will not receive an email notification to submit manpower details but should still continue
+                                            to submit their manpower details for the reference numbers they see in the system that are available to them.
+                                            These companies are required to submit more information including NRIC/Fin numbers and premises/location
+                                            details in their manpower declaration. These companies will not have an “MPSubmit” reference number.</Col>
+                                        <Col> <Image src="https://static6.depositphotos.com/1131998/649/v/600/depositphotos_6490192-stock-illustration-smile-face.jpg" fluid /></Col>
+                                    </Row>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+
+
                     </Row>
+                    <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
                 </Container>
             </div>
         )
