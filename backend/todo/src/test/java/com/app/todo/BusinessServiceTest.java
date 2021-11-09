@@ -28,11 +28,21 @@ public class BusinessServiceTest {
 
     @Test
     void getAllBusinesses_ReturnAllBusinesses() {
-        when(businesses.findAll()).thenReturn(new ArrayList<Business>());
+        Industry industry = new Industry("Arts and Culture");
+        Business testBusiness1 = new Business("asd789fhgj", "Singapore Museum", industry);
+        Business testBusiness2 = new Business("asd799fhgj", "SMU Museum", industry);
 
+        businesses.save(testBusiness1);
+        businesses.save(testBusiness2);
+        List<Business> businessList = new ArrayList<>();
+        businessList.add(testBusiness1);
+        businessList.add(testBusiness2);
+
+        when(businesses.findAll()).thenReturn(businessList);
         List<Business> allBusinesses = businessService.getAllBusinesses();
 
         assertNotNull(allBusinesses);
+        assertEquals(2,allBusinesses.size());
         verify(businesses).findAll();
     }
 
@@ -40,7 +50,7 @@ public class BusinessServiceTest {
     void getBusinessWithId_ValidBusinessId_ReturnBusiness() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        when(businesses.findById(business.getId())).thenReturn(Optional.of(business)); // findbyid returns business?
+        when(businesses.findById(business.getId())).thenReturn(Optional.of(business));
 
         Business theBusiness = businessService.getBusiness(business.getId());
 
