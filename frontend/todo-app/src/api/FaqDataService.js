@@ -5,7 +5,6 @@ class FaqDataService {
     retrieveAllFAQ() {
         return axios.get(`${API_URL}/faq/scrape/${SCRAPPED_SOURCE}`);
     }
-
 }
 
 export default new FaqDataService()

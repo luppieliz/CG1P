@@ -143,12 +143,12 @@ class OwnerSignupComponent extends Component {
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
 
-                            <h0 className="text-white">Buddy-19</h0>
+                            <h0 className="cg1p-header">Buddy-19</h0>
                             <Placeholder xs={12} bg="transparent" />
-                            <h1 className="text-success">Signup - Business Owner</h1>
+                            <h1 className="cg1p-header" style={{color: "white"}}>Business Signup</h1>
                             <Placeholder xs={12} bg="transparent" />
                             <div className="container text-dark">
-                              <Card border="success" style={{ width: '35rem', height: '31rem', borderWidth: '5px'}}>
+                              <Card>
                               <Card.Body>
                                 <Formik
                                     initialValues={{ name, email, password, businessUEN, businessName, industry }}
@@ -199,8 +199,8 @@ class OwnerSignupComponent extends Component {
                                                     </Field>
                                                 </fieldset>
                                                 <Placeholder xs={12} bg="transparent" />
-                                                <button className="btn btn-success" type="submit" >Sign Up</button>
-                                                <Link style={{ padding: '10px' }} className="new user text-left" to="/signup"><Button variant="dark">Register as an Employee</Button></Link>
+                                                <Button variant="outline-dark" type="submit" >Sign Up</Button>
+                                                <Link style={{ padding: '10px' }} className="new user text-left" to="/signup"><Button variant="outline-dark">Register as Employee</Button></Link>
                                             </Form>
                                         )
                                     }

@@ -112,11 +112,11 @@ class SignupComponent extends Component {
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
 
-                            <h0 className="text-white">Buddy - 19</h0>
+                            <h0 className="cg1p-header">Buddy - 19</h0>
                             <Placeholder xs={12} bg="transparent" />
-                            <h1 className="text-primary">Signup - Employee</h1>
+                            <h1 className="cg1p-header" style={{color: "white"}}>Employee Signup</h1>
                             <Placeholder xs={12} bg="transparent" />
-                            <Card border="primary" style={{ width: '35rem', height: '27rem', borderWidth: '5px' }}>
+                            <Card className="dark">
                                 <Card.Body>
                                     <div className="container text-dark">
 
@@ -151,10 +151,10 @@ class SignupComponent extends Component {
                                                             <label>Your Business UEN</label>
                                                             <Field className="form-control" type="text" placeholder="Enter Business UEN" name="businessUEN"></Field>
                                                         </fieldset>
-                                                        <Placeholder xs={12} bg="white" />
-                                                        <button className="btn btn-success" type="submit" >Sign Up</button>
-                                                        <p className="forgot-password text-center">Already registered? <a href="/login">Sign In</a></p>
-                                                        <Link style={{ padding: '10px' }} className="new user text-left" to="/signupbusiness"><Button variant="dark">Register as a Business Owner</Button></Link>
+                                                        <Button variant="outline-dark" type="submit" >Sign Up</Button>
+                                                        <Link style={{ padding: '10px' }} className="new user text-left" to="/signupbusiness"><Button variant="outline-dark">Register as Owner</Button></Link>
+                                                        <p className="forgot-password text-left">Already registered? <a href="/login">Sign In</a></p>
+
                                                     </Form>
                                                 )
                                             }

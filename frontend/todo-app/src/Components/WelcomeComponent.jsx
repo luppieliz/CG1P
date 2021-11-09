@@ -121,9 +121,9 @@ class WelcomeComponent extends Component {
                         <Col>
                             <Card>
                                 <Container>
-                                <Button variant="outline-dark" size = "lg" onClick={this.handleShow}>
-                                    Checklist
-                                </Button>
+                                    <Button variant="outline-dark" size="lg" onClick={this.handleShow}>
+                                        Checklist
+                                    </Button>
                                     <Offcanvas show={this.state.showSidebar} onHide={this.handleClose}>
                                         <Offcanvas.Header closeButton>
                                             <Offcanvas.Title className="text-dark">Checklist</Offcanvas.Title>
@@ -184,6 +184,7 @@ class WelcomeComponent extends Component {
                         <Col xs={5}>
                             <Card ><h2 className="cg1p-header">Announcements</h2></Card>
                             <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent" />
 
                             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
                                 <Tab eventKey="Dining" title="Dining">
@@ -234,7 +235,7 @@ class WelcomeComponent extends Component {
                                         </Card.Text>
                                     </Card>
                                 </Tab>
-                                
+
                                 <Tab eventKey="Work" title="Work">
                                     <Card className="text-dark">
                                         <Card.Text>
@@ -280,18 +281,20 @@ class WelcomeComponent extends Component {
                             <Card bg={variant.toLowerCase()} className="text-center">
                                 <Card.Body>
                                     <Card.Title>
-                                        <strong><h2 className="cg1p-header">
-                                            My COVID Status</h2></strong>
+                                        <h2 className="cg1p-header">
+                                            My COVID Status</h2>
                                     </Card.Title>
                                     <Card.Text>
                                         <h5 className="text-dark">
-                                            <Card.Header>Am I on Stay-Home Notice : {this.state.shnStatus ? 'Yes' : 'No'}</Card.Header>
-                                            <FormControlLabel onClick={this.toggleShnStatus} control={<Switch color="warning" />} label="" />
+                                            <Card.Header>SHN Status: {this.state.shnStatus ? 'Yes' : 'No'}
 
+                                            </Card.Header>
+                                            <FormControlLabel onClick={this.toggleShnStatus} control={<Switch color="warning" />} label=""
+                                            />
 
                                         </h5>
                                         <h5 className="text-dark">
-                                            <Card.Header>Am I feeling the COVID : {this.state.covidStatus ? 'Yes' : 'No'}</Card.Header>
+                                            <Card.Header>COVID Positive: {this.state.covidStatus ? 'Yes' : 'No'}</Card.Header>
                                             <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
                                         </h5>
 
