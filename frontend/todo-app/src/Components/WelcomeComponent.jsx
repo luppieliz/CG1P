@@ -102,16 +102,19 @@ class WelcomeComponent extends Component {
 
 
     render() {
+
         let { description, targetDate } = this.state
         return [
             'white',
         ].map((variant, idx) => (
-            <div>
+            <div style={{
+                
+            }}>
                 <Placeholder xs={12} bg="transparent" />
                 <h1 className="text-dark">Welcome Home {this.state.userName}</h1>
                 <Placeholder xs={12} bg="transparent" />
 
-                <Container >
+                <Container>
                     <Row>
                         <Col>
                             <Card>
