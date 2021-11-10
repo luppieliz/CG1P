@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 
 import java.net.URI;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
                 "spring.mail.properties.mail.smtp.starttls.enable=true"
         }
 )
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class EmailIntegrationTest {
 
     @LocalServerPort
@@ -45,19 +47,19 @@ public class EmailIntegrationTest {
     private EmailService emailService;
 
 
-    @Test
-    public void sendEmailWithHTMLTemplate_Success() throws Exception {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "to");
-        map.put("message", "hi");
-        EmailPost emailPost = new EmailPost("to", "hi", "test@gmail.com", "This is an email subject");
-
-        URI uri = new URI(baseUrl + port + "/api/v1/emailSender");
-
-        ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
-
-        assertEquals(200, result.getStatusCode().value());
-    }
+//    @Test
+//    public void sendEmailWithHTMLTemplate_Success() throws Exception {
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("name", "to");
+//        map.put("message", "hi");
+//        EmailPost emailPost = new EmailPost("to", "hi", "test@gmail.com", "This is an email subject");
+//
+//        URI uri = new URI(baseUrl + port + "/api/v1/emailSender");
+//
+//        ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
+//
+//        assertEquals(200, result.getStatusCode().value());
+//    }
 
     @Test
     public void sendEmailWithHTMLTemplateZeroLengthSubject_Unsuccessful() throws Exception {

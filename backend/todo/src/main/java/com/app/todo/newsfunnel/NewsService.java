@@ -1,10 +1,12 @@
 package com.app.todo.newsfunnel;
 
 import com.app.todo.measure.MeasureService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +32,9 @@ public class NewsService {
      * @return All newly retrieved news article.
      */
     public News addNews(News newNews) {
+        if (newsRepository.existsByTitle(newNews.getTitle())) {
+            throw new NewsAlreadyRetrievedException(newNews.getTitle());
+        }
         return newsRepository.save(newNews);
     }
 
@@ -85,12 +90,18 @@ public class NewsService {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(STANDARD_DATE_FORMAT);
         ZonedDateTime zdt = ZonedDateTime.parse(dateFrom);
         LocalDateTime ldtFrom = zdt.toLocalDateTime();
-        ldtFrom = LocalDateTime.parse(ldtFrom.format(dateFormat));
+        String ldtString = ldtFrom.format(dateFormat);
+        LocalDate ldFrom = LocalDate.parse(ldtString, dateFormat);
+
         List<News> newsList = newsRepository.findAll();
 
         for (News news : newsList) {
-            LocalDateTime comparedDate = LocalDateTime.parse(news.getPublishedDate(),dateFormat);
-            if (comparedDate.compareTo(ldtFrom) >= 0) {
+            zdt = ZonedDateTime.parse(news.getPublishedDate());
+            LocalDateTime ldtNews = zdt.toLocalDateTime();
+            ldtString = ldtNews.format(dateFormat);
+            LocalDate comparedDate = LocalDate.parse(ldtString, dateFormat);
+
+            if (comparedDate.compareTo(ldFrom) >= 0) {
                 resultNewsList.add(news);
             }
         }
