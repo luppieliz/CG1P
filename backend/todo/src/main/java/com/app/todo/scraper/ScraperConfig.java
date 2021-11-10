@@ -17,8 +17,8 @@ public class ScraperConfig {
 //        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
         // For local IDE
-         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
-        // System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
+//         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
+         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
 
         chromeOptions.addArguments("--headless");
         return new ChromeDriver(chromeOptions);
