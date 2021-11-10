@@ -1,6 +1,7 @@
 package com.app.todo.industry;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -28,7 +29,7 @@ public class IndustryController {
     }
 
     @GetMapping("/industry/{industryId}")
-    public Industry getIndustry(@PathVariable Long industryId) {
+    public Industry getIndustry(@PathVariable UUID industryId) {
         return industryService.getIndustry(industryId);
     }
 

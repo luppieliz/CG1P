@@ -1,5 +1,7 @@
 package com.app.todo.business;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class BusinessNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public BusinessNotFoundException(Long businessId) {
+    public BusinessNotFoundException(UUID businessId) {
         super("Business with ID: " + businessId + " is not registered!");
     }
 

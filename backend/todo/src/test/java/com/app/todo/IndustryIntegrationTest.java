@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.net.URLEncoder;
+import java.util.UUID;
 
 import com.app.todo.industry.Industry;
 import com.app.todo.industry.IndustryRepository;
@@ -54,7 +55,7 @@ public class IndustryIntegrationTest {
     @Test
     public void getIndustryWithId_ValidIndustryId_Success() throws Exception {
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
-        Long id = industry.getId();
+        UUID id = industry.getId();
         URI uri = new URI(baseUrl + port + "/industry/" + id);
 
         ResponseEntity<Industry> result = restTemplate.getForEntity(uri, Industry.class);
@@ -65,8 +66,8 @@ public class IndustryIntegrationTest {
 
     @Test
     public void getIndustryWithId_InvalidIndustryId_Failure() throws Exception {
-        Industry industry = industryRepository.save(new Industry(1L, "Arts and Culture"));
-        Long id = 2L;
+        Industry industry = industryRepository.save(new Industry(UUID.randomUUID(), "Arts and Culture"));
+        UUID id = UUID.randomUUID();
         URI uri = new URI(baseUrl + port + "/industry/" + id);
 
         ResponseEntity<Industry> result = restTemplate.getForEntity(uri, Industry.class);
@@ -76,7 +77,7 @@ public class IndustryIntegrationTest {
 
     @Test
     public void getIndustryWithName_ValidIndustryName_Success() throws Exception {
-        Industry industry = industryRepository.save(new Industry(1L, "Arts"));
+        Industry industry = industryRepository.save(new Industry(UUID.randomUUID(), "Arts"));
 
         String name = URLEncoder.encode(industry.getName(), "UTF-8").replace("+", "%20");
         URI uri = new URI(baseUrl + port + "/industry/name/" + name);
@@ -103,7 +104,7 @@ public class IndustryIntegrationTest {
     @Test
     public void addIndustry_Success() throws Exception {
         URI uri = new URI(baseUrl + port + "/industry");
-        Industry industry = new Industry(1L, "Arts and Culture", null);
+        Industry industry = new Industry(UUID.randomUUID(), "Arts and Culture", null);
 
         ResponseEntity<Industry> result = restTemplate.postForEntity(uri, industry, Industry.class);
 

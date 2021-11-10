@@ -1,6 +1,7 @@
 package com.app.todo.business;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -28,7 +29,7 @@ public class BusinessController {
     }
 
     @GetMapping("/business/{businessId}")
-    public Business getBusiness(@PathVariable Long businessId) {
+    public Business getBusiness(@PathVariable UUID businessId) {
         return businessService.getBusiness(businessId);
     }
 
