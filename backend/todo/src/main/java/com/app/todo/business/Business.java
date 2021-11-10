@@ -1,12 +1,12 @@
 package com.app.todo.business;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,6 +19,9 @@ import com.app.todo.industry.Industry;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.*;
 
 @Entity
@@ -32,9 +35,10 @@ import lombok.*;
 public class Business {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "business_id")
-    private Long id;
+    private UUID id;
 
     // TODO: Add proper UEN validation
     @NotNull(message = "UEN should not be null")
@@ -63,7 +67,7 @@ public class Business {
         this.UEN = UEN;
     }
 
-    public Business(Long id, String UEN, String name, Industry industry) {
+    public Business(UUID id, String UEN, String name, Industry industry) {
         this.id = id;
         this.UEN = UEN;
         this.name = name;

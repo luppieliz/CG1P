@@ -10,6 +10,7 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class BusinessServiceTest {
-    
+
     @Mock
     private BusinessRepository businessRepository;
 
@@ -40,7 +41,7 @@ public class BusinessServiceTest {
         List<Business> allBusinesses = businessService.getAllBusinesses();
 
         assertNotNull(allBusinesses);
-        assertEquals(2,allBusinesses.size());
+        assertEquals(2, allBusinesses.size());
         verify(businessRepository).findAll();
     }
 
@@ -48,7 +49,8 @@ public class BusinessServiceTest {
     void getBusinessWithId_ValidBusinessId_ReturnBusiness() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        when(businessRepository.findById(business.getId())).thenReturn(Optional.of(business)); // findbyid returns business?
+        when(businessRepository.findById(business.getId())).thenReturn(Optional.of(business)); // findbyid returns
+                                                                                               // business?
 
         Business theBusiness = businessService.getBusiness(business.getId());
 
@@ -59,8 +61,9 @@ public class BusinessServiceTest {
     @Test
     void getBusinessWithId_InvalidBusinessId_ReturnBusinessNotFoundException() {
         Industry industry = new Industry("Arts and Culture");
-        Business business = businessRepository.save(new Business(1L, "asd789fhgj", "Singapore Museum", industry));
-        Long testBusinessId = 2L;
+        Business business = businessRepository
+                .save(new Business(UUID.randomUUID(), "asd789fhgj", "Singapore Museum", industry));
+        UUID testBusinessId = UUID.randomUUID();
 
         when(businessRepository.findById(testBusinessId)).thenReturn(Optional.ofNullable(null));
 
@@ -80,7 +83,8 @@ public class BusinessServiceTest {
     void getBusinessWithUEN_ValidBusinessUEN_ReturnBusiness() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        when(businessRepository.findByUEN(business.getUEN())).thenReturn(Optional.of(business)); // findbyid returns business?
+        when(businessRepository.findByUEN(business.getUEN())).thenReturn(Optional.of(business)); // findbyid returns
+                                                                                                 // business?
 
         Business theBusiness = businessService.getBusiness(business.getUEN());
 
@@ -143,7 +147,6 @@ public class BusinessServiceTest {
 
         assertEquals(BusinessAlreadyRegisteredException.class, exception.getClass());
         verify(businessRepository, atLeast(2)).existsByUEN(business.getUEN());
-
 
     }
 }

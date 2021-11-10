@@ -1,6 +1,7 @@
 package com.app.todo.industry;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class IndustryService {
      * @return An industry with a given industryID. If it is already existed, throw an IndustryAlreadyExistsException.
      * @throws IndustryNotFoundException
      */
-    public Industry getIndustry(Long industryId) throws IndustryNotFoundException {
+    public Industry getIndustry(UUID industryId) throws IndustryNotFoundException {
         return industryRepository.findById(industryId).orElseThrow(() -> new IndustryNotFoundException(industryId));
     }
 

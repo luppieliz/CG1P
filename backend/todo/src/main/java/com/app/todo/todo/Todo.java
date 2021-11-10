@@ -2,11 +2,11 @@ package com.app.todo.todo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,7 +19,10 @@ import javax.validation.constraints.Size;
 
 import com.app.todo.user.User;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.*;
 
 @Entity
@@ -34,9 +37,10 @@ public class Todo {
 
     @ApiModelProperty(notes = "The database generated todo ID")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "todo_id")
-    private Long id;
+    private UUID id;
 
     @ApiModelProperty(notes = "Owner of a todo")
     @ManyToOne
@@ -60,7 +64,7 @@ public class Todo {
     @ApiModelProperty(notes = "Target users' IDs for a todo")
     @NotNull(message = "Target users should not be null")
     @Transient
-    private List<Long> createdForIds;
+    private List<UUID> createdForIds;
 
     @ApiModelProperty(notes = "Target users for a todo")
     @ManyToMany
@@ -69,7 +73,7 @@ public class Todo {
         inverseJoinColumns = @JoinColumn(name = "created_for", nullable = false))
     private List<User> createdFor;
 
-    public Todo(String description, Date targetDate, List<Long> createdForIds) {
+    public Todo(String description, Date targetDate, List<UUID> createdForIds) {
         this.description = description;
         this.targetDate = targetDate;
         this.createdForIds = createdForIds;

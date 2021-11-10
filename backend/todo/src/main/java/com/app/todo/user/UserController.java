@@ -1,6 +1,7 @@
 package com.app.todo.user;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -29,12 +30,12 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
-    public User getUser(@PathVariable Long userId) {
+    public User getUser(@PathVariable UUID userId) {
         return userService.getUser(userId);
     }
 
     @GetMapping("/user/business/{businessId}")
-    public List<User> getUsersByBusiness(@PathVariable Long businessId) {
+    public List<User> getUsersByBusiness(@PathVariable UUID businessId) {
         return userService.getUsersByBusiness(businessId);
     }
 

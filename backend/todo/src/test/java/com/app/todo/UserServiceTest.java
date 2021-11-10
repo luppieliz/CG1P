@@ -7,6 +7,7 @@ import com.app.todo.industry.Industry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -62,11 +63,11 @@ public class UserServiceTest {
     void getUserWithId_InvalidUserId_ReturnUserNotFoundException() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        User user = new User(1L, "admin@abc.com", "admin", encoder.encode("goodpassword"), "ROLE_ADMIN", business);
+        User user = new User(UUID.randomUUID(), "admin@abc.com", "admin", encoder.encode("goodpassword"), "ROLE_ADMIN", business);
         userService.addUser(user);
-        Long testUserId = 2L;
+        UUID testUserId = UUID.randomUUID();
 
-        when(users.findById(any(Long.class))).thenReturn(Optional.ofNullable(null));
+        when(users.findById(any(UUID.class))).thenReturn(Optional.ofNullable(null));
 
         Throwable exception = null;
 

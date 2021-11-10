@@ -1,5 +1,7 @@
 package com.app.todo.industry;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class IndustryNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public IndustryNotFoundException(Long industryId) {
+    public IndustryNotFoundException(UUID industryId) {
         super("Industry with ID: " + industryId + " is not found!");
     }
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BusinessService {
@@ -28,7 +29,7 @@ public class BusinessService {
      * @return A specific business with a given businessID. If it cannot be found, throws BusinessNotFoundException.
      * @throws BusinessNotFoundException
      */
-    public Business getBusiness(Long businessId) throws BusinessNotFoundException {
+    public Business getBusiness(UUID businessId) throws BusinessNotFoundException {
         return businessRepository.findById(businessId).orElseThrow(() -> new BusinessNotFoundException(businessId));
     }
 

@@ -1,5 +1,7 @@
 package com.app.todo.user;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UserNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public UserNotFoundException(Long userId) {
+    public UserNotFoundException(UUID userId) {
         super("User with ID: " + userId + " is not registered!");
     }
 
