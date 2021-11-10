@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FAQRepository extends JpaRepository<FAQ, Long> {
 
+    boolean existsByURL(String URL);
 }

@@ -27,23 +27,22 @@ class ListTodosComponent extends Component {
             message: null,
             showSidebar: false
         }
+
         this.refreshTodos = this.refreshTodos.bind(this)
         this.addTodoClicked = this.addTodoClicked.bind(this)
         this.updateTodoClicked = this.updateTodoClicked.bind(this)
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
-
-
     }
+
     // bring todos from axios get into current state for display, after initial render has been triggered.
     componentDidMount() {
         this.refreshTodos()
         this.setState({ showSidebar: false });
     }
 
-
     // same as above, but for subsequent refreshes
     refreshTodos() {
-        TodoDataService.retrieveAllTodos(this.state.userId)
+        TodoDataService.retrieveCreatedTodos(this.state.userId)
             .then(response => this.setState({ todos: response.data }))
     }
 
@@ -72,15 +71,19 @@ class ListTodosComponent extends Component {
         return (
             <div>
                 <Container>
+                <Placeholder xs={12} bg="transparent"  />
                     <Row>
                         <Col>
-                        <h1 className ="text-dark">TO DO LIST</h1>
+                        <h1 className ="text-dark cg1p-header">Employee Tasks</h1>
+                        <Placeholder xs={12} bg="transparent"  />
+                        <h3 class="text-dark ">Keeping track of all employee tasks assigned</h3>
+                        <Placeholder xs={12} bg="transparent"  />
                             <div className="text-dark">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                                 <table className="table text-dark">
                                     <thead>
                                         <tr>
                                             <th>Task</th>
-                                            <th>Done?</th>
+                                            <th>Created</th>
                                             <th>Due</th>
                                             <th>Update</th>
                                             <th>Delete</th>
@@ -93,7 +96,7 @@ class ListTodosComponent extends Component {
                                                 todo =>
                                                     <tr key={todo.id}>
                                                         <td>{todo.description}</td>
-                                                        <td>{todo.isDone.toString()}</td>
+                                                        <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
                                                         <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
                                                         <td><button className="btn btn-warning" onClick={() => this.updateTodoClicked(todo.id)}><GrUpdate /></button></td>
                                                         <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}><FaTrashAlt /></button></td>
@@ -107,17 +110,8 @@ class ListTodosComponent extends Component {
                         </Col>
                     </Row>
 
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
+                    <Placeholder xs={12} bg="transparent" style={{ paddingBottom: "50vh" }} />
+                    
 
 
                 </Container>

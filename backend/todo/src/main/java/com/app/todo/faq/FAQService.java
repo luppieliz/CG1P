@@ -1,5 +1,6 @@
 package com.app.todo.faq;
 
+import com.app.todo.newsfunnel.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,28 +36,44 @@ public class FAQService {
     }
 
     /**
-     * Return a list of FAQs from the scrapped sources and store into database
+     * Return a list of FAQs from the scrapped sources and store into database. Throw FAQAlreadyExistedException if an FAQ has already existed.
      * @param scrappedSrc
      * @return A list of FAQs
      */
     public List<FAQ> retrieveAllFAQ(final List<String> scrappedSrc) {
         List<FAQ> faqList = new ArrayList<>();
         for (String src : scrappedSrc) {
-            faqList.add(addFAQ(src));
+            if (faqRepository.existsByURL(src)) {
+                throw new FAQAlreadyExistedException(src);
+            }
+
+            FAQ newFAQ = new FAQ(src);
+            faqList.add(addFAQ(newFAQ));
         }
         return faqList;
     }
 
     /**
+     * Delete all FAQ from database, then return a list of FAQs from the scrapped sources and store into database. Throw FAQAlreadyExistedException if an FAQ has already existed.
+     * @param scrappedSrc
+     * @return A list of FAQs
+     */
+    public List<FAQ> updateFAQ(final List<String> scrappedSrc) {
+        //clear existing FAQ
+        faqRepository.deleteAll();
+        //re-scrape all FAQ
+        return retrieveAllFAQ(scrappedSrc);
+    }
+
+    /**
      * Add a new FAQ to database
-     * @param faqURL
+     * @param newFAQ
      * @return a newly added FAQ with a known language and a known industry.
      */
-    public FAQ addFAQ(final String faqURL) {
-        FAQ newFAQ = new FAQ();
-        newFAQ.setURL(faqURL);
-        newFAQ.setLanguage(findLanguage(faqURL));
-        newFAQ.setIndustry(findIndustry(faqURL));
+    public FAQ addFAQ(final FAQ newFAQ) {
+        newFAQ.setURL(newFAQ.getURL());
+        newFAQ.setLanguage(findLanguage(newFAQ.getURL()));
+        newFAQ.setIndustry(findIndustry(newFAQ.getURL()));
         return faqRepository.save(newFAQ);
     }
 
@@ -92,5 +109,9 @@ public class FAQService {
             }
         }
         return null;
+    }
+
+    public List<FAQ> getAllFAQ() {
+        return faqRepository.findAll();
     }
 }

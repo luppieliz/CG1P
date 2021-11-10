@@ -53,6 +53,10 @@ public class Todo {
     @Column(name = "created_date")
     private Date createdDate = new Date();
 
+    @ApiModelProperty(notes = "The target date for a todo")
+    @Column(name = "target_date")
+    private Date targetDate;
+
     @ApiModelProperty(notes = "Target users' IDs for a todo")
     @NotNull(message = "Target users should not be null")
     @Transient
@@ -65,12 +69,9 @@ public class Todo {
         inverseJoinColumns = @JoinColumn(name = "created_for", nullable = false))
     private List<User> createdFor;
 
-    @ApiModelProperty(notes = "State of a todo's completion")
-    @Column(name = "is_done")
-    private Boolean isDone = false;
-
-    public Todo(String description, List<Long> createdForIds) {
+    public Todo(String description, Date targetDate, List<Long> createdForIds) {
         this.description = description;
+        this.targetDate = targetDate;
         this.createdForIds = createdForIds;
     }
 }

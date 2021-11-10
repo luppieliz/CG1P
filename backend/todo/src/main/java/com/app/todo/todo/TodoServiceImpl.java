@@ -21,12 +21,21 @@ public class TodoServiceImpl {
     }
 
     /**
-     * Get a specific user's to-do list
+     * Get a business owner's created to-dos
      * @param userId
      * @return A list of to-dos of a user with a given userID
      */
-    public List<Todo> getTodosByUserId(Long userId) {
-        return todoRepository.findByCreatedById(userId);
+    public List<Todo> getCreatedTodos(Long userId) {
+        return todoRepository.findByCreatedBy_Id(userId);
+    }
+
+    /**
+     * Get an employee's assigned to-dos
+     * @param userId
+     * @return A list of to-dos of a user with a given userID
+     */
+    public List<Todo> getAssignedTodos(Long userId) {
+        return todoRepository.findByCreatedFor_Id(userId);
     }
 
     /**
@@ -68,6 +77,7 @@ public class TodoServiceImpl {
         List<User> assignedUsers = userService.getAllUsersById(assignedIds);
 
         foundTodo.setDescription(newTodo.getDescription());
+        foundTodo.setTargetDate(newTodo.getTargetDate());
         foundTodo.setCreatedForIds(assignedIds);
         foundTodo.setCreatedFor(assignedUsers);
 

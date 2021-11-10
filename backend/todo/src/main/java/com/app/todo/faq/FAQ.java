@@ -1,5 +1,6 @@
 package com.app.todo.faq;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 public class FAQ {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +22,18 @@ public class FAQ {
     private String language;
 
     public FAQ() {}
+
+    public FAQ(String URL) {
+        this.URL = URL;
+    }
+
+    @Override
+    public String toString() {
+        return "FAQ{" +
+                "Id=" + Id +
+                ", URL='" + URL + '\'' +
+                ", industry='" + industry + '\'' +
+                ", language='" + language + '\'' +
+                '}';
+    }
 }
