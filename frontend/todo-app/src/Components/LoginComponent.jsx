@@ -102,7 +102,7 @@ class LoginComponent extends Component {
                             <Placeholder xs={12} bg="transparent" />
                             <h0 className="cg1p-header" >Buddy-19</h0>
                             <Placeholder xs={12} bg="transparent" />
-                            <h1 className="cg1p-header" style={{color:"#ffffff"}}>Login!</h1>
+                            <h1 className="cg1p-header" style={{color:"#ffffff"}}>Log In</h1>
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
                         </Col>
