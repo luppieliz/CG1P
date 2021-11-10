@@ -68,7 +68,7 @@ class ListTodosComponent extends Component {
 
     // jsx render for entire table
     render() {
-        let { description, targetDate } = this.state
+
         return (
             <div>
                 <Container>
@@ -118,6 +118,7 @@ class ListTodosComponent extends Component {
                     <Placeholder xs={12} bg="transparent" />
                     <Placeholder xs={12} bg="transparent" />
                     <Placeholder xs={12} bg="transparent" />
+
 
                 </Container>
             </div>

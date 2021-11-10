@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -82,8 +83,12 @@ public class User implements UserDetails {
     private Business business;
 
     @JsonIgnore
-    @OneToMany(mappedBy= "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Todo> todos;
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Todo> createdTodos;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "createdFor", cascade = CascadeType.ALL)
+    private List<Todo> assignedTodos;
 
     public User(String email, String name, String password, String authority, Business business) {
         this.email = email;
@@ -95,7 +100,8 @@ public class User implements UserDetails {
         this.business = business;
     }
 
-    public User(String email, String name, String password, Boolean shnStatus, Boolean covidStatus, String authority, Business business) {
+    public User(String email, String name, String password, Boolean shnStatus, Boolean covidStatus, String authority,
+            Business business) {
         this.email = email;
         this.name = name;
         this.password = password;
