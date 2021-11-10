@@ -125,6 +125,5 @@ public class ScraperService {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         chromeOptions.addArguments("--headless");
         return new ChromeDriver(chromeOptions);
-
     }
 }
