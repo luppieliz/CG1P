@@ -46,8 +46,9 @@ public class IndustryServiceTest {
 
     @Test
     void getIndustryWithId_ValidIndustryId_ReturnIndustry() {
-        Industry industry = new Industry("Arts and Culture");
-        when(industryRepository.findById(industry.getId())).thenReturn(Optional.of(industry)); // findbyid returns business?
+        UUID testUUID = UUID.randomUUID();
+        Industry industry = new Industry(testUUID, "Arts and Culture");
+        when(industryRepository.findById(any(UUID.class))).thenReturn(Optional.of(industry)); // findbyid returns business?
 
         Industry foundIndustry = industryService.getIndustry(industry.getId());
 

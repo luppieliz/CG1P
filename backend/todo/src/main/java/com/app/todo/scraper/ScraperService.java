@@ -123,11 +123,8 @@ public class ScraperService {
     ChromeDriver setDriver() {
 
         final ChromeOptions chromeOptions = new ChromeOptions();
-<<<<<<< HEAD
-        System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
 
-//        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-=======
+
         // For CI
         // System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
@@ -140,7 +137,6 @@ public class ScraperService {
 //         System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
 
         // For both local and Deploy
->>>>>>> 468d27b38666eaf8b0ea0308b2b52eb0b18f8a78
         chromeOptions.addArguments("--headless");
 
         // For Deploy ONLY

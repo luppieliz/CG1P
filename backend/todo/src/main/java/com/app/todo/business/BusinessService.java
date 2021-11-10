@@ -56,6 +56,7 @@ public class BusinessService {
             throw new BusinessAlreadyRegisteredException(UEN);
         }
 
+
         return businessRepository.save(business);
     }
 

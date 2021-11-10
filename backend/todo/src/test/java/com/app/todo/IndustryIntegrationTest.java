@@ -56,6 +56,7 @@ public class IndustryIntegrationTest {
     public void getIndustryWithId_ValidIndustryId_Success() throws Exception {
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
         UUID id = industry.getId();
+
         URI uri = new URI(baseUrl + port + "/industry/" + id);
 
         ResponseEntity<Industry> result = restTemplate.getForEntity(uri, Industry.class);
@@ -104,12 +105,11 @@ public class IndustryIntegrationTest {
     @Test
     public void addIndustry_Success() throws Exception {
         URI uri = new URI(baseUrl + port + "/industry");
-        Industry industry = new Industry(UUID.randomUUID(), "Arts and Culture", null);
-
+        Industry industry = new Industry("Arts and Culture", null);
         ResponseEntity<Industry> result = restTemplate.postForEntity(uri, industry, Industry.class);
 
         assertEquals(200, result.getStatusCode().value());
-        assertEquals(industry.getId(), result.getBody().getId());
+        assertEquals(industry.getName(), result.getBody().getName());
     }
 
     @Test

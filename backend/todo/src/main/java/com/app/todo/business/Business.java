@@ -73,4 +73,15 @@ public class Business {
         this.name = name;
         this.industry = industry;
     }
+
+    @Override
+    public String toString() {
+        return "Business{" +
+                "id=" + id +
+                ", UEN='" + UEN + '\'' +
+                ", name='" + name + '\'' +
+                ", industry=" + industry +
+                ", users=" + users +
+                '}';
+    }
 }

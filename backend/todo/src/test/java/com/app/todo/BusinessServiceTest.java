@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.app.todo.industry.IndustryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,9 @@ public class BusinessServiceTest {
 
     @InjectMocks
     private BusinessService businessService;
+
+    @Mock
+    private IndustryRepository industryRepository;
 
     @Test
     void getAllBusinesses_ReturnAllBusinesses() {
@@ -47,15 +51,17 @@ public class BusinessServiceTest {
 
     @Test
     void getBusinessWithId_ValidBusinessId_ReturnBusiness() {
-        Industry industry = new Industry("Arts and Culture");
-        Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        when(businessRepository.findById(business.getId())).thenReturn(Optional.of(business)); // findbyid returns
-                                                                                               // business?
+        Industry industry = industryRepository.save(new Industry("Arts and Culture"));
 
-        Business theBusiness = businessService.getBusiness(business.getId());
+        UUID testUUID = UUID.randomUUID();
+        Business business = new Business(testUUID, "asd789fhgj", "Singapore Museum", industry);
+
+        when(businessRepository.findById(any(UUID.class))).thenReturn(Optional.of(business));
+
+        Business theBusiness = businessService.getBusiness(testUUID);
 
         assertNotNull(theBusiness);
-        verify(businessRepository).findById(business.getId());
+        verify(businessRepository).findById(testUUID);
     }
 
     @Test

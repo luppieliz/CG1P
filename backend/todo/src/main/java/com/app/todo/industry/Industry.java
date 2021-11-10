@@ -51,4 +51,9 @@ public class Industry {
         this.id = id;
         this.name = name;
     }
+
+    public Industry(String name, List<Business> businesses) {
+        this.name = name;
+        this.businesses = businesses;
+    }
 }
