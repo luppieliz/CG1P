@@ -80,7 +80,6 @@ class ListTodosComponent extends Component {
                                     <thead>
                                         <tr>
                                             <th>Task</th>
-                                            <th>Done?</th>
                                             <th>Due</th>
                                             <th>Update</th>
                                             <th>Delete</th>
@@ -93,7 +92,6 @@ class ListTodosComponent extends Component {
                                                 todo =>
                                                     <tr key={todo.id}>
                                                         <td>{todo.description}</td>
-                                                        <td>{todo.isDone.toString()}</td>
                                                         <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
                                                         <td><button className="btn btn-warning" onClick={() => this.updateTodoClicked(todo.id)}><GrUpdate /></button></td>
                                                         <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}><FaTrashAlt /></button></td>
