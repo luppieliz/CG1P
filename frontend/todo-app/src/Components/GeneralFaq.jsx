@@ -80,42 +80,31 @@ class GeneralFaq extends Component {
             <div >
                 <Placeholder xs={12} bg="transparent" />
                 <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
                 <h1 className="cg1p-header">FAQ {this.state.userName}</h1>
-                {Array.from(this.state.faqDisplay, (_, idx) => (
-                    <Col>
-                        <Card bg={'dark'}>
-                            <Card.Img variant="top" src={this.state.faqDisplay[idx].url} />
-                            <Card.Body>
-                                <Card.Title>
-                                    <Card.Link href={this.state.faqDisplay[idx].url}>
-                                        {this.state.faqDisplay[idx].industry}
-                                    </Card.Link>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
                 <Placeholder xs={12} bg="transparent" />
                 <Placeholder xs={12} bg="transparent" />
-                <Row>
-                    <Col></Col>
-                    <Col xs={5}>
-                        <Form className="d-flex">
-                            <FormControl
-                                type="search"
-                                placeholder="Search"
-                                className="mr-2"
-                                aria-label="Search"
-                            />
-                            <Button src="" variant="outline-success">Search</Button>
-                        </Form>
-                    </Col>
-                    <Col></Col>
-                </Row>
+                <Container>
+                    <Row style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                        <Col xs={5}>
+                            <Form className="d-flex">
+                                <FormControl
+                                    type="search"
+                                    placeholder="Search"
+                                    className="mr-2"
+                                    aria-label="Search"
+                                />
+                                <Button src="" variant="outline-dark" style={{marginLeft: "1vw", marginBottom:"1vh"}}>Search</Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
                 <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
+
 
                 {/* the questions */}
                 <Container>
@@ -158,8 +147,27 @@ class GeneralFaq extends Component {
 
 
                     </Row>
-                    <Placeholder xs={12} bg="transparent" style={{ paddingBottom: "50vh" }} />
+                    <Placeholder xs={12} bg="transparent" style={{ paddingBottom: "5vh" }} />
                 </Container>
+
+                <Row xl={3} style={{ paddingLeft:"5vw", paddingRight:"5vw"}}>
+                    {Array.from(this.state.faqDisplay, (_, idx) => (
+                        <Col>
+                            <Card>
+                                <Card.Img variant="top" src={this.state.faqDisplay[idx].url} />
+                                <Card.Body>
+                                    <Card.Title>
+                                        <Card.Link href={this.state.faqDisplay[idx].url}>
+                                            {this.state.faqDisplay[idx].industry}
+                                        </Card.Link>
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+                <Placeholder xs={12} bg="transparent" style={{ paddingBottom: "5vh" }} />
+
             </div>
         )
     }

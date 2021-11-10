@@ -139,10 +139,10 @@ class NewsFeedComponent extends Component {
             </Card>;
         } else {
             //iterate through all this.state.news items and display them in card form
-            newsFeedColumn = <Row xs={1} md={1} className="g-4">
+            newsFeedColumn = <Row xs={1} md={1} className="g-4" style={{padding: "0"}}>
                 {Array.from(this.state.newsDisplay, (_, idx) => (
                     <Col>
-                        <Card bg={'dark'}>
+                        <Card bg={'light'} text={'dark'} style={{padding:"0"}}>
                             {/*<Card.Img variant="top" src="holder.js/100px160" />*/}
                             <Card.Body>
                                 <Card.Title>
@@ -177,13 +177,16 @@ class NewsFeedComponent extends Component {
 
         //==========Final render==========//
         return (
-            <div>
+            <div>         
+                <Placeholder xs={12} bg="transparent" />
                 <Placeholder xs={12} bg="transparent" />
                 <h1  className="text-dark cg1p-header" >News</h1>
                 <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent" />
+
                 <Container>
                     <Row>
-                        <Col xs={9}  style={{padding: "0"}}>
+                        <Col style={{padding: "0"}}>
                             {dropdown}
                         </Col>
                         <Col style={{padding: "0"}}>
@@ -195,7 +198,9 @@ class NewsFeedComponent extends Component {
                         </Col>
                     </Row>
                     <Placeholder xs={12} bg="transparent" />
+                    </Container>
 
+                    <Container>
                     <Row>
                         {/*news column*/}
                         {/*see newsFeedColumn definition for more information*/}
