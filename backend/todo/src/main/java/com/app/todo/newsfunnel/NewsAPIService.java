@@ -41,6 +41,29 @@ public class NewsAPIService {
     }
 
     /**
+     * Retrieve response from NewsAPI, requires sources (comma seprated root domains, eg: "domain.com,another.sg"), query, date to retrieve from (format: yyyy-mm-dd)
+     * @param sources
+     * @param query
+     * @param fromDate
+     * @return A NewsAPIResponse from the API call.
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public NewsAPIResponse getAPIResponsev2(String sources, String query, String fromDate) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(newsAPIConfig.getAPIQueryv2(sources, query, fromDate)))
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        System.out.println("start timer...");
+        long time = System.currentTimeMillis();
+        NewsAPIResponse newsResponse = new Gson().fromJson(response.body(), NewsAPIResponse.class);
+        System.out.println("time taken: " + (System.currentTimeMillis() - time));
+        return newsResponse;
+    }
+
+    /**
      * Parsing into NewsDTO array from a NewsAPIResponse.
      * @param newsAPIResponse
      * @return An array of NewsDTO to be parsed into news objects.
