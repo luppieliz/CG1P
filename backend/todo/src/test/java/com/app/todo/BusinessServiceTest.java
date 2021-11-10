@@ -55,6 +55,7 @@ public class BusinessServiceTest {
         Business theBusiness = businessService.getBusiness(business.getId());
 
         assertNotNull(theBusiness);
+        assertEquals(theBusiness.getId(), business.getId());
         verify(businesses).findById(business.getId());
     }
 
@@ -65,7 +66,7 @@ public class BusinessServiceTest {
         businessService.addBusiness(business);
         Long testBusinessId = 2L;
 
-        when(businesses.findById(any(Long.class))).thenReturn(Optional.ofNullable(null));
+        when(businesses.findById(testBusinessId)).thenReturn(Optional.ofNullable(null));
 
         Throwable exception = null;
 
@@ -88,6 +89,7 @@ public class BusinessServiceTest {
         Business theBusiness = businessService.getBusiness(business.getUEN());
 
         assertNotNull(theBusiness);
+        assertEquals(business.getUEN(), theBusiness.getUEN());
         verify(businesses).findByUEN(business.getUEN());
     }
 
@@ -98,7 +100,7 @@ public class BusinessServiceTest {
         businessService.addBusiness(business);
         String testBusinessUEN = "asd788fhgj";
 
-        when(businesses.findByUEN(any(String.class))).thenReturn(Optional.ofNullable(null));
+        when(businesses.findByUEN(testBusinessUEN)).thenReturn(Optional.ofNullable(null));
 
         Throwable exception = null;
 
@@ -133,7 +135,7 @@ public class BusinessServiceTest {
         businessService.addBusiness(business);
         Business newBusiness = new Business("asd789fhgj", "Singapore Museum", industry);
 
-        when(businesses.existsByUEN(any(String.class))).thenReturn(true);
+        when(businesses.existsByUEN(business.getUEN())).thenReturn(true);
 
         Throwable exception = null;
 
