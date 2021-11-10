@@ -26,7 +26,6 @@ class TodoComponent extends Component {
             userId: sessionStorage.getItem(SESSION_USER_ID),
             id: this.props.match.params.id,
             description: '',
-            isDone:false,
             listItems: [],
             selectedValues: [],
             employees: []
@@ -60,13 +59,11 @@ class TodoComponent extends Component {
         TodoDataService.retrieveTodo(this.state.userId, this.state.id)
             .then(response => this.setState({
                 description: response.data.description,
-                isDone: response.data.isDone
-
                 selectedValues: response.data.createdFor.map(employee => ({
                     name: employee.name + '  (' + employee.email + ')',
                     value: employee.id
                 })),
-                employees: response.data.createdFor.map(employee => 
+                employees: response.data.createdFor.map(employee =>
                     employee.id
                 )
             }))
@@ -91,7 +88,6 @@ class TodoComponent extends Component {
     onSubmit(values) {
         let todo = {
             description: values.description,
-            isDone: values.isDone
             createdForIds: this.state.employees
         }
 
@@ -100,11 +96,11 @@ class TodoComponent extends Component {
         // if state (todo id) is -1, means todo does not exist yet, means create todo
         if (this.state.id == -1) {
             TodoDataService.createTodo(this.state.userId, todo)
-                .then(() => this.props.history.push("/welcome"))
+                .then(() => this.props.history.push("/todos"))
             // else state (todo id) is not -1, means todo exists, means update todo
         } else {
             TodoDataService.updateTodo(this.state.userId, this.state.id, todo)
-                .then(() => this.props.history.push("/welcome"))
+                .then(() => this.props.history.push("/todos"))
         }
     }
 
@@ -168,11 +164,10 @@ class TodoComponent extends Component {
                                                         hidePlaceholder
                                                     />
                                                 </fieldset>
-
                                                 <h5 className="text-dark">
-                                            <Card.Header>Task Done: {this.state.isDone ? 'Yes' : 'No'}</Card.Header>
-                                            <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
-                                        </h5>
+                                                    <Card.Header>Task Done: {this.state.isDone ? 'Yes' : 'No'}</Card.Header>
+                                                    <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
+                                                </h5>
                                                 <button className="btn btn-success" type="submit" >Save</button>
                                             </Form>
                                         )
