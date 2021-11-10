@@ -13,17 +13,10 @@ class AboutusComponent extends Component {
     render() {
         return (
             <>
-            <div style={{
-                backgroundImage: "url(https://image.freepik.com/free-vector/white-faded-gradient-background-vector-with-orange-border_53876-125752.jpg"
-                , backgroundPosition: 'center'
-                , backgroundSize: 'cover'
-                , backgroundRepeat: 'no-repeat'
-                , width: '100%'
-                , height: '66rem'
-            }}>
+            <div>
                 <Container>
                 <Placeholder xs={12} bg="transparent"  />
-                <h1  className="text-dark" >About Us!</h1>
+                <h1  className="text-dark cg1p-header" >About Us</h1>
                 <Placeholder xs={12} bg="transparent"  />
                 <h3 class="text-dark ">Buddy-19 serves as both a
             one-stop information hub and a companion tool, providing services for business owners to better understand and manage
@@ -85,6 +78,7 @@ class AboutusComponent extends Component {
                         </Card>
                     </Row>
                 </Container>
+                <Placeholder xs={12} bg="transparent"  />
                 </div>
             </>
         )

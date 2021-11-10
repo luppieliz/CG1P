@@ -6,6 +6,8 @@ import Container from "react-bootstrap/Container";
 import Placeholder from "react-bootstrap/Placeholder";
 import NewsDataService from '../api/NewsDataService';
 import Multiselect from 'multiselect-react-dropdown';
+import Button from 'react-bootstrap/Button'
+
 import '../newsfeed.css';
 
 class NewsFeedComponent extends Component {
@@ -177,29 +179,32 @@ class NewsFeedComponent extends Component {
         return (
             <div>
                 <Placeholder xs={12} bg="transparent" />
-                <h1 className="text-dark " >News</h1>
+                <h1  className="text-dark cg1p-header" >News</h1>
                 <Placeholder xs={12} bg="transparent" />
                 <Container>
                     <Row>
-                        <Col xs={8}>
+                        <Col xs={9}  style={{padding: "0"}}>
                             {dropdown}
                         </Col>
-                        <Col>
-                            <button className="btn btn-success" onClick={() => this.showFilteredClicked()}>Filter</button>
+                        <Col style={{padding: "0"}}>
+                            <Button variant="outline-dark" onClick={() => this.showFilteredClicked()}>Filter</Button>
                         </Col>
-                        <Col>
-                            <button className="btn btn-secondary" onClick={() => this.apiButtonClicked()}>Fetch News</button>
+                        <Col style={{padding: "0"}}>
+                            <Button variant="outline-dark" onClick={() => this.apiButtonClicked()}>Fetch News</Button>
                             {/*//todo: make buttons toggle colour when toggled*/}
                         </Col>
                     </Row>
+                    <Placeholder xs={12} bg="transparent" />
+
                     <Row>
                         {/*news column*/}
                         {/*see newsFeedColumn definition for more information*/}
                         {newsFeedColumn}
 
                     </Row>
-
+                    <Placeholder xs={12} bg="transparent" />
                 </Container>
+                <Placeholder xs={12} bg="transparent" style={{paddingBottom: "50vh"}}/>
             </div>
         )
     }

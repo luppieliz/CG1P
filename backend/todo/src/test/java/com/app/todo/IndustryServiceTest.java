@@ -23,30 +23,36 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class IndustryServiceTest {
 
     @Mock
-    private IndustryRepository industries;
+    private IndustryRepository industryRepository;
 
     @InjectMocks
     private IndustryService industryService;
 
     @Test
     void getAllIndustries_ReturnAllIndustries() {
-        when(industries.findAll()).thenReturn(new ArrayList<Industry>());
+        Industry industry = industryRepository.save(new Industry("Arts and Culture"));
+        List<Industry> industryList = new ArrayList<>();
+        industryList.add(industry);
+
+        when(industryRepository.findAll()).thenReturn(industryList);
 
         List<Industry> allIndustries = industryService.getAllIndustries();
 
         assertNotNull(allIndustries);
-        verify(industries).findAll();
+        assertEquals(industryList.size(), allIndustries.size());
+        verify(industryRepository).findAll();
     }
 
     @Test
     void getIndustryWithId_ValidIndustryId_ReturnIndustry() {
         Industry industry = new Industry("Arts and Culture");
-        when(industries.findById(industry.getId())).thenReturn(Optional.of(industry)); // findbyid returns business?
+        when(industryRepository.findById(industry.getId())).thenReturn(Optional.of(industry)); // findbyid returns business?
 
         Industry foundIndustry = industryService.getIndustry(industry.getId());
 
         assertNotNull(foundIndustry);
-        verify(industries).findById(industry.getId());
+        assertEquals(industry.getId(), foundIndustry.getId());
+        verify(industryRepository).findById(industry.getId());
     }
 
     @Test
@@ -55,7 +61,7 @@ public class IndustryServiceTest {
         industryService.addIndustry(industry);
         Long testIndustryId = 2L;
 
-        when(industries.findById(any(Long.class))).thenReturn(Optional.ofNullable(null));
+        when(industryRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(null));
 
         Throwable exception = null;
 
@@ -66,18 +72,19 @@ public class IndustryServiceTest {
         }
 
         assertEquals(IndustryNotFoundException.class, exception.getClass());
-        verify(industries).findById(testIndustryId);
+        verify(industryRepository).findById(testIndustryId);
     }
 
     @Test
     void getIndustryWithName_ValidIndustryName_ReturnIndustry() {
         Industry industry = new Industry("Arts and Culture");
-        when(industries.findByName(any(String.class))).thenReturn(Optional.of(industry)); // findbyid returns business?
+        when(industryRepository.findByName(any(String.class))).thenReturn(Optional.of(industry)); // findbyid returns business?
 
         Industry foundIndustry = industryService.getIndustry(industry.getName());
 
         assertNotNull(foundIndustry);
-        verify(industries).findByName(industry.getName());
+        assertEquals(industry.getName(), foundIndustry.getName());
+        verify(industryRepository).findByName(industry.getName());
     }
 
     @Test
@@ -86,7 +93,7 @@ public class IndustryServiceTest {
         industryService.addIndustry(industry);
         String testIndustryName = "Arts";
 
-        when(industries.findByName(any(String.class))).thenReturn(Optional.ofNullable(null));
+        when(industryRepository.findByName(any(String.class))).thenReturn(Optional.ofNullable(null));
 
         Throwable exception = null;
 
@@ -97,20 +104,20 @@ public class IndustryServiceTest {
         }
 
         assertEquals(IndustryNotFoundException.class, exception.getClass());
-        verify(industries).findByName(testIndustryName);
+        verify(industryRepository).findByName(testIndustryName);
     }
 
     @Test
     void addIndustry_NewIndustry_ReturnSavedIndustry() {
         Industry industry = new Industry("Arts and Culture");
-        when(industries.existsByName(any(String.class))).thenReturn(false);
-        when(industries.save(any(Industry.class))).thenReturn(industry);
+        when(industryRepository.existsByName(any(String.class))).thenReturn(false);
+        when(industryRepository.save(any(Industry.class))).thenReturn(industry);
 
         Industry savedIndustry = industryService.addIndustry(industry);
 
         assertNotNull(savedIndustry);
-        verify(industries).existsByName(industry.getName());
-        verify(industries).save(industry);
+        verify(industryRepository).existsByName(industry.getName());
+        verify(industryRepository).save(industry);
     }
 
     @Test
@@ -119,7 +126,7 @@ public class IndustryServiceTest {
         industryService.addIndustry(industry);
         Industry newIndustry = new Industry("Arts and Culture");
 
-        when(industries.existsByName(any(String.class))).thenReturn(true);
+        when(industryRepository.existsByName(any(String.class))).thenReturn(true);
 
         Throwable exception = null;
 
@@ -130,6 +137,6 @@ public class IndustryServiceTest {
         }
 
         assertEquals(IndustryAlreadyExistsException.class, exception.getClass());
-        verify(industries, atLeast(2)).existsByName(industry.getName());
+        verify(industryRepository, atLeast(2)).existsByName(industry.getName());
     }
 }
