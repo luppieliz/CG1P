@@ -64,20 +64,21 @@ class HeaderComponent extends Component {
                                         <Card className="text-dark">
                                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                             <Card.Text className="text-dark" >
-                                                <h4>{isUserLoggedIn && <Link className="nav-link" to="/welcome">Home</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/emp">Employee Updates</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/todos">Employee Tasks</Link>}
-                                                {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
-                                                {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
-                                                {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
-                                                {!isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
-                                                {!isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
-                                                {!isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
+                                                <h4>
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/welcome">Home</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/emp">Employee Updates</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/todos">Employee Tasks</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
                                                 </h4>
                                             </Card.Text>
                                         </Card>
