@@ -3,7 +3,7 @@ import { API_URL, SCRAPPED_SOURCE } from '../Constants';
 
 class FaqDataService {
     retrieveAllFAQ() {
-        return axios.get(`${API_URL}/faq/scrape/${SCRAPPED_SOURCE}`);
+        return axios.get(`${API_URL}/faq/retrieveFromDB`);
     }
 }
 

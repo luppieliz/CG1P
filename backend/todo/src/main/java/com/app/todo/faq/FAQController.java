@@ -22,7 +22,13 @@ public class FAQController {
 
     @GetMapping(path = "faq/scrape/{URL}")
     public List<FAQ> retrieveImage(@PathVariable(value = "URL") String URL) {
-        List<String> scrappedSrc = scraperService.scrapeFAQ(URL);
+        List<String> scrappedSrc = scraperService.scrapeFAQ(URL); //list of image urls
         return faqService.retrieveAllFAQ(scrappedSrc);
+    }
+
+
+    @GetMapping(path = "faq/retrieveFromDB")
+    public List<FAQ> retrieveFromDB() {
+        return faqService.getAllFAQ();
     }
 }
