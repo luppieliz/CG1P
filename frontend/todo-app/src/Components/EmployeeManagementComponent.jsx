@@ -1,13 +1,9 @@
-
 import Container from 'react-bootstrap/Container';
 import Placeholder from 'react-bootstrap/Placeholder';
 import React, { Component } from 'react';
 import UserDataService from '../api/UserDataService';
 import { SESSION_USER_BUSINESS } from '../Constants';
 import { SESSION_USER_ROLE } from '../Constants';
-
-
-
 
 class EmployeeManagementComponent extends Component {
 
@@ -29,7 +25,6 @@ class EmployeeManagementComponent extends Component {
 
         if (sessionStorage.getItem(SESSION_USER_ROLE) == "ROLE_EMPLOYEE") {
 
-            console.log("A")
             return (
                 <Container>
                     <Placeholder xs={12} bg="transparent" />
@@ -39,7 +34,6 @@ class EmployeeManagementComponent extends Component {
             )
 
         } else {
-            console.log("B")
 
 
             return (

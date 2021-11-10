@@ -10,17 +10,38 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ScraperConfig {
 
+
     @Bean
     public ChromeDriver driver() {
         final ChromeOptions chromeOptions = new ChromeOptions();
+
+
         // For CI
+<<<<<<< HEAD
 //        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
         // For local IDE
 //         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
+=======
+        // System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+
+        // For local IDE
+        // System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
+>>>>>>> 468d27b38666eaf8b0ea0308b2b52eb0b18f8a78
          System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
 
+        // For deployment
+//        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
+//        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+
+        // For both local and Deploy
         chromeOptions.addArguments("--headless");
+
+        // For Deploy ONLY
+        // chromeOptions.setBinary("/app/.apt/usr/bin/google-chrome");
+        // chromeOptions.addArguments("--enable-javascript");
+        // chromeOptions.addArguments("--disable-gpu");
+        // chromeOptions.addArguments("--no-sandbox");
         return new ChromeDriver(chromeOptions);
     }
 }
