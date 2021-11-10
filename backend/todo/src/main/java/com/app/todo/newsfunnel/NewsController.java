@@ -43,6 +43,16 @@ public class NewsController {
         return resultNews;
     }
 
+    @ApiOperation(value = "Get news from specific sources, from specific date, with query")
+    @GetMapping(path = "/{sources}/{query}/{fromDate}", produces = "application/json")
+    public List<News> getNewsv2(@PathVariable(value = "sources") String sources,
+                              @PathVariable(value="query") String query, @PathVariable(value="fromDate") String fromDate) throws IOException, InterruptedException, ParseException {
+        NewsAPIResponse newsResponse = newsAPIService.getAPIResponsev2(sources,query,fromDate);
+        NewsDTO[] newsDTOArr = newsAPIService.getNewsDTOArr(newsResponse);
+        List<News> resultNews = newsService.getNewsFromAPI(newsDTOArr);
+        return resultNews;
+    }
+
     @ApiOperation(value = "Get all news from database")
     @GetMapping(path = "/newsdb/all",  produces = "application/json")
     public List<News> getNewsFromDB() {
