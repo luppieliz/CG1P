@@ -51,7 +51,7 @@ class HeaderComponent extends Component {
             <header>
                 <Navbar bg="dark" expand={false} >
                     <Container fluid>
-                        <Navbar.Brand className="cg1p-logo" href="/"><h4>Buddy-19</h4></Navbar.Brand>
+                        <Navbar.Brand className="cg1p-logo" href="/Welcome"><h4>Buddy-19</h4></Navbar.Brand>
                         <Button variant="light" onClick={this.handleShow}><AiOutlineMenu /></Button>
                         <Offcanvas show={this.state.showSidebar} onHide={this.handleClose}>
                             <Offcanvas.Header closeButton>
@@ -65,11 +65,10 @@ class HeaderComponent extends Component {
                                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                             <Card.Text className="text-dark" >
                                                 <h4>{isUserLoggedIn && <Link className="nav-link" to="/welcome">Home</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/emp">Employee Management</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/emp">Employee Updates</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/todos">Employee Tasks</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
-                                                {/* {isUserLoggedIn && <Link className="nav-link" to="/mylist">mylist</Link>} */}
-                                                {/* {isUserLoggedIn && <Link className="nav-link" to="/profile">Profile</Link>} */}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}

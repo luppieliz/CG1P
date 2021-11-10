@@ -144,10 +144,8 @@ class WelcomeComponent extends Component {
                                                             <thead>
                                                                 <tr>
                                                                     <th>Task</th>
-                                                                    <th>Done?</th>
                                                                     <th>Date Created</th>
-                                                                    <th>Update</th>
-                                                                    <th>Delete</th>
+                                                                    <th>Target Date</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -157,16 +155,13 @@ class WelcomeComponent extends Component {
                                                                         todo =>
                                                                             <tr key={todo.id}>
                                                                                 <td>{todo.description}</td>
-                                                                                <td>{todo.isDone.toString()}</td>
                                                                                 <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
-                                                                                <td><button className="btn btn-warning" onClick={() => this.updateTodoClicked(todo.id)}><GrUpdate /></button></td>
-                                                                                <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}><FaTrashAlt /></button></td>
+                                                                                
                                                                             </tr>
                                                                     )
                                                                 }
                                                             </tbody>
                                                         </table>
-                                                        <div className="d-grid gap-2"><button className="btn btn-success" onClick={() => this.addTodoClicked()}><GrAdd /></button></div>
                                                     </div>
                                                 </Col>
                                             </Row>

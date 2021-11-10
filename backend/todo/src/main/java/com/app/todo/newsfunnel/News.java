@@ -32,4 +32,31 @@ public class News {
 
     public News() {}
 
+    public News(String title) {
+        this.title = title;
+    }
+
+    public News(String title, String publishedDate) {
+        this.title = title;
+        this.publishedDate = publishedDate;
+    }
+
+    public News(String URL, String title, String publishedDate) {
+        this.URL = URL;
+        this. title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "publisher='" + publisher + '\'' +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", URL='" + URL + '\'' +
+                ", publishedDate='" + publishedDate + '\'' +
+                ", content='" + content + '\'' +
+                ", tagList='" + tagList + '\'' +
+                '}';
+    }
 }

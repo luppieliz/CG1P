@@ -5,9 +5,15 @@ import TodoDataService from '../api/TodoDataService.js'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+
+import Card from 'react-bootstrap/Card'
+
 import { SESSION_USER_BUSINESS, SESSION_USER_ID } from '../Constants.js'
 import UserDataService from '../api/UserDataService.js'
 import Multiselect from 'multiselect-react-dropdown'
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 // Page to update or add a specific todo
 class TodoComponent extends Component {
@@ -23,6 +29,7 @@ class TodoComponent extends Component {
             listItems: [],
             selectedValues: [],
             employees: []
+
         }
 
         this.onSelect = this.onSelect.bind(this)
@@ -56,7 +63,7 @@ class TodoComponent extends Component {
                     name: employee.name + '  (' + employee.email + ')',
                     value: employee.id
                 })),
-                employees: response.data.createdFor.map(employee => 
+                employees: response.data.createdFor.map(employee =>
                     employee.id
                 )
             }))
@@ -89,11 +96,11 @@ class TodoComponent extends Component {
         // if state (todo id) is -1, means todo does not exist yet, means create todo
         if (this.state.id == -1) {
             TodoDataService.createTodo(this.state.userId, todo)
-                .then(() => this.props.history.push("/welcome"))
+                .then(() => this.props.history.push("/todos"))
             // else state (todo id) is not -1, means todo exists, means update todo
         } else {
             TodoDataService.updateTodo(this.state.userId, this.state.id, todo)
-                .then(() => this.props.history.push("/welcome"))
+                .then(() => this.props.history.push("/todos"))
         }
     }
 
@@ -110,6 +117,8 @@ class TodoComponent extends Component {
 
         return errors
     }
+
+
 
     render() {
         // rely on modern JS destructuring, can assign/retrieve together
@@ -155,6 +164,10 @@ class TodoComponent extends Component {
                                                         hidePlaceholder
                                                     />
                                                 </fieldset>
+                                                <h5 className="text-dark">
+                                                    <Card.Header>Task Done: {this.state.isDone ? 'Yes' : 'No'}</Card.Header>
+                                                    <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
+                                                </h5>
                                                 <button className="btn btn-success" type="submit" >Save</button>
                                             </Form>
                                         )
