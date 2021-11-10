@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
-import { SESSION_USER_ID, SESSION_USER_NAME } from '../Constants.js'
+import { SESSION_USER_BUSINESS, SESSION_USER_ID, SESSION_USER_NAME, SESSION_USER_ROLE } from '../Constants.js'
 
 import GLOBE from 'vanta/dist/vanta.net.min'
 
@@ -73,6 +73,8 @@ class LoginComponent extends Component {
                 console.log('Response: ', response.data)
                 sessionStorage.setItem(SESSION_USER_ID, response.data.id)
                 sessionStorage.setItem(SESSION_USER_NAME, response.data.name)
+                sessionStorage.setItem(SESSION_USER_BUSINESS, response.data.business.id)
+                sessionStorage.setItem(SESSION_USER_ROLE, response.data.authority)
 
                 this.props.history.push(`/welcome`)
             })
