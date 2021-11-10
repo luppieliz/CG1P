@@ -103,7 +103,6 @@ class WelcomeComponent extends Component {
 
     render() {
 
-        let { description, targetDate } = this.state
         return [
             'white',
         ].map((variant, idx) => (
@@ -146,20 +145,20 @@ class WelcomeComponent extends Component {
                                                                 <tr>
                                                                     <th>Task</th>
                                                                     <th>Done?</th>
-                                                                    <th>Due</th>
+                                                                    <th>Date Created</th>
                                                                     <th>Update</th>
                                                                     <th>Delete</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 {
-                                                                    // script that for each todo, map it and display id, desc, done, targetDate, and buttons
+                                                                    // script that for each todo, map it and display id, desc, done, createdDate, and buttons
                                                                     this.state.todos.map(
                                                                         todo =>
                                                                             <tr key={todo.id}>
                                                                                 <td>{todo.description}</td>
                                                                                 <td>{todo.isDone.toString()}</td>
-                                                                                <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
+                                                                                <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
                                                                                 <td><button className="btn btn-warning" onClick={() => this.updateTodoClicked(todo.id)}><GrUpdate /></button></td>
                                                                                 <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}><FaTrashAlt /></button></td>
                                                                             </tr>

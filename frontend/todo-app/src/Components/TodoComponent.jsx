@@ -5,7 +5,15 @@ import TodoDataService from '../api/TodoDataService.js'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { SESSION_USER_ID } from '../Constants.js'
+
+import Card from 'react-bootstrap/Card'
+
+import { SESSION_USER_BUSINESS, SESSION_USER_ID } from '../Constants.js'
+import UserDataService from '../api/UserDataService.js'
+import Multiselect from 'multiselect-react-dropdown'
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 // Page to update or add a specific todo
 class TodoComponent extends Component {
@@ -18,17 +26,31 @@ class TodoComponent extends Component {
             userId: sessionStorage.getItem(SESSION_USER_ID),
             id: this.props.match.params.id,
             description: '',
-            targetDate: moment(new Date()).format('YYYY-MM-DD')
+            isDone:false,
+            listItems: [],
+            selectedValues: [],
+            employees: []
 
         }
 
-        this.onSubmit = this.onSubmit.bind(this);
-        this.validate = this.validate.bind(this);
-
+        this.onSelect = this.onSelect.bind(this)
+        this.onRemove = this.onRemove.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+        this.validate = this.validate.bind(this)
     }
 
     // on load of page
     componentDidMount() {
+
+        UserDataService.retrieveUsersByBusiness(sessionStorage.getItem(SESSION_USER_BUSINESS))
+            .then(response => {
+                this.setState({
+                    listItems: response.data.map(employee => ({
+                        name: employee.name + '  (' + employee.email + ')',
+                        value: employee.id
+                    }))
+                })
+            })
 
         // if -1 (create), do not try to load todo as it is empty
         if (this.state.id === "-1") {
@@ -38,23 +60,45 @@ class TodoComponent extends Component {
         TodoDataService.retrieveTodo(this.state.userId, this.state.id)
             .then(response => this.setState({
                 description: response.data.description,
-                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
+                isDone: response.data.isDone
+
+                selectedValues: response.data.createdFor.map(employee => ({
+                    name: employee.name + '  (' + employee.email + ')',
+                    value: employee.id
+                })),
+                employees: response.data.createdFor.map(employee => 
+                    employee.id
+                )
             }))
+
+        console.log(this.state.employees)
+    }
+
+    // for employee dropdown
+    onSelect(selectedList, selectedItem) {
+        this.state.employees.push(selectedItem.value)
+        console.log(this.state.employees)
+    }
+
+    // for employee dropdown
+    onRemove(selectedList, removedItem) {
+        const index = this.state.employees.indexOf(removedItem.value)
+        this.state.employees.splice(index, 1)
+        console.log(this.state.employees)
     }
 
     // on Formik Submit
     onSubmit(values) {
         let todo = {
-            id: this.state.id,
             description: values.description,
-            targetDate: values.targetDate
+            isDone: values.isDone
+            createdForIds: this.state.employees
         }
 
-        console.log(this.state.id)
+        console.log(todo)
 
         // if state (todo id) is -1, means todo does not exist yet, means create todo
         if (this.state.id == -1) {
-            console.log("id=1")
             TodoDataService.createTodo(this.state.userId, todo)
                 .then(() => this.props.history.push("/welcome"))
             // else state (todo id) is not -1, means todo exists, means update todo
@@ -75,16 +119,14 @@ class TodoComponent extends Component {
             errors.description = "Enter at least 5 characters for description"
         }
 
-        if (!moment(values.targetDate).isValid()) {
-            errors.targetDate = "Enter a valid target Date"
-        }
-
         return errors
     }
 
+
+
     render() {
         // rely on modern JS destructuring, can assign/retrieve together
-        let { description, targetDate } = this.state
+        let { description } = this.state
 
         return (
             <div>
@@ -97,7 +139,7 @@ class TodoComponent extends Component {
                             <h1 className="text-dark">Todo</h1>
                             <div className="container text-dark ">
                                 <Formik
-                                    initialValues={{ description, targetDate }}
+                                    initialValues={{ description }}
                                     onSubmit={this.onSubmit}
                                     validateOnChange={false}
                                     validateOnBlur={false}
@@ -108,15 +150,29 @@ class TodoComponent extends Component {
                                         (props) => (
                                             <Form>
                                                 <ErrorMessage name="description" component="div" className="alert alert-warning "></ErrorMessage>
-                                                <ErrorMessage name="targetDate" component="div" className="alert alert-warning"></ErrorMessage>
                                                 <fieldset className="form-group">
                                                     <label >Description</label>
                                                     <Field className="form-control" type="text" name="description"></Field>
                                                 </fieldset>
                                                 <fieldset className="form-group">
-                                                    <label>Target Date</label>
-                                                    <Field className="form-control" type="date" name="targetDate"></Field>
+                                                    <label >Assign To</label>
+                                                    <Multiselect
+                                                        options={this.state.listItems}
+                                                        selectedValues={this.state.selectedValues}
+                                                        onSelect={this.onSelect}
+                                                        onRemove={this.onRemove}
+                                                        displayValue="name"
+                                                        showCheckbox
+                                                        closeOnSelect={false}
+                                                        placeholder="Select employees"
+                                                        hidePlaceholder
+                                                    />
                                                 </fieldset>
+
+                                                <h5 className="text-dark">
+                                            <Card.Header>Task Done: {this.state.isDone ? 'Yes' : 'No'}</Card.Header>
+                                            <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
+                                        </h5>
                                                 <button className="btn btn-success" type="submit" >Save</button>
                                             </Form>
                                         )
