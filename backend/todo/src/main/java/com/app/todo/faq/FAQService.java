@@ -54,6 +54,18 @@ public class FAQService {
     }
 
     /**
+     * Delete all FAQ from database, then return a list of FAQs from the scrapped sources and store into database. Throw FAQAlreadyExistedException if an FAQ has already existed.
+     * @param scrappedSrc
+     * @return A list of FAQs
+     */
+    public List<FAQ> updateFAQ(final List<String> scrappedSrc) {
+        //clear existing FAQ
+        faqRepository.deleteAll();
+        //re-scrape all FAQ
+        return retrieveAllFAQ(scrappedSrc);
+    }
+
+    /**
      * Add a new FAQ to database
      * @param newFAQ
      * @return a newly added FAQ with a known language and a known industry.
