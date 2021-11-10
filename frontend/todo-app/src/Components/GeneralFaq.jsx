@@ -36,12 +36,39 @@ class GeneralFaq extends Component {
                 response => {
                     this.state.isEmpty = response.data.length === 0;
                     this.setState({ faq: response.data })
-                    this.setState({ faqDisplay: response.data })
+                    // this.setState({ faqDisplay: response.data })
                     //             console.log("retrieval made");
-                    console.log(response);
+                    // console.log(response);
                     //             this.generateTaglist();
+                    // console.log(this.state.faq[0]);
+
+                    this.createUserDisplay();
                 }
             )
+    }
+
+    createUserDisplay() {
+        //get the logged in user's lamnguage and industry
+        let userIndustry = "F&B"; //todo: set based on the logged in user
+        let userLanguage = "English";
+        let output = [];
+        let idx = 0;
+        console.log(this.state.faq);
+        //traverse through the faq list to find matches
+        for (var faqCount in this.state.faq) {
+            let faqItem = this.state.faq[faqCount];
+            //if there is a match, add it to faqDisplay
+            // console.log(faqItem.language);
+            // console.log(faqItem.industry)
+            if (faqItem.language === userLanguage && faqItem.industry === userIndustry) {
+                output[idx] = faqItem;
+                idx++;
+            }
+        }
+        //set the final list
+        console.log(output);
+        this.setState({ faqDisplay: output })
+
     }
 
     componentDidMount() {
@@ -54,6 +81,20 @@ class GeneralFaq extends Component {
                 <Placeholder xs={12} bg="transparent" />
                 <Placeholder xs={12} bg="transparent" />
                 <h1 className="cg1p-header">FAQ {this.state.userName}</h1>
+                {Array.from(this.state.faqDisplay, (_, idx) => (
+                    <Col>
+                        <Card bg={'dark'}>
+                            <Card.Img variant="top" src={this.state.faqDisplay[idx].url} />
+                            <Card.Body>
+                                <Card.Title>
+                                    <Card.Link href={this.state.faqDisplay[idx].url}>
+                                        {this.state.faqDisplay[idx].industry}
+                                    </Card.Link>
+                                </Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
                 <Placeholder xs={12} bg="transparent" />
                 <Placeholder xs={12} bg="transparent" />
                 <Row>
