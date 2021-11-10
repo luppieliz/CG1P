@@ -64,8 +64,8 @@ class HeaderComponent extends Component {
                                         <Card className="text-dark">
                                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                             <Card.Text className="text-dark" >
-                                                <h4>{isUserLoggedIn && <Link className="nav-link" to="/welcome/admin">Home</Link>}
-                                                {isUserLoggedIn && <Link className="nav-link" to="/emp">Dashboard</Link>}
+                                                <h4>{isUserLoggedIn && <Link className="nav-link" to="/welcome">Home</Link>}
+                                                {isUserLoggedIn && <Link className="nav-link" to="/emp">Employee Management</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                     {/* {isUserLoggedIn && <Link className="nav-link" to="/mylist">mylist</Link>} */}

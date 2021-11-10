@@ -64,10 +64,7 @@ class EmployeeManagementComponent extends Component {
                         </tbody>
                     </table>
                 </Container>
-                <Placeholder xs={12} bg="transparent"  />
-                <Placeholder xs={12} bg="transparent"  />
-                <Placeholder xs={12} bg="transparent"  />
-                <Placeholder xs={12} bg="transparent"  />
+                <Placeholder xs={12} bg="transparent"  style={{paddingBottom:"50vh"}}/>
                 </div>
             </>
         )
