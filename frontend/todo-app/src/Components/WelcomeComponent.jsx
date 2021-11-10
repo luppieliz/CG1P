@@ -73,6 +73,7 @@ class WelcomeComponent extends Component {
 
     handleShow() { //sidebar
         this.setState({ showSidebar: true });
+        this.refreshTodos();
     }
 
     // same as above, but for subsequent refreshes

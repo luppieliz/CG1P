@@ -77,6 +77,7 @@ public class TodoServiceImpl {
         List<User> assignedUsers = userService.getAllUsersById(assignedIds);
 
         foundTodo.setDescription(newTodo.getDescription());
+        foundTodo.setTargetDate(newTodo.getTargetDate());
         foundTodo.setCreatedForIds(assignedIds);
         foundTodo.setCreatedFor(assignedUsers);
 
