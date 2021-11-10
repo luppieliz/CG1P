@@ -129,7 +129,7 @@ class TodoComponent extends Component {
 
     render() {
         // rely on modern JS destructuring, can assign/retrieve together
-        let { description } = this.state
+        let { description, targetDate } = this.state
 
         return (
             <div>
@@ -145,7 +145,7 @@ class TodoComponent extends Component {
                             <Placeholder xs={12} bg="transparent" />
                             <div className="container text-dark ">
                                 <Formik
-                                    initialValues={{ description }}
+                                    initialValues={{ description, targetDate }}
                                     onSubmit={this.onSubmit}
                                     validateOnChange={false}
                                     validateOnBlur={false}
@@ -174,6 +174,7 @@ class TodoComponent extends Component {
                                                         closeOnSelect={false}
                                                         placeholder="Select employees"
                                                         hidePlaceholder
+                                                        avoidHighlightFirstOption
                                                     />
                                                 </fieldset>
                                                 
@@ -213,4 +214,4 @@ class TodoComponent extends Component {
     }
 }
 
-export default TodoComponent;
+export default TodoComponent

@@ -3,8 +3,12 @@ import { API_URL } from '../Constants'
 
 // API to facilitate sending HTTP requests to the backend via the Axios dependency
 class TodoDataService {
-    retrieveAllTodos(userId) {
-        return axios.get(`${API_URL}/${userId}/todos`)
+    retrieveCreatedTodos(userId) {
+        return axios.get(`${API_URL}/${userId}/todos/created`)
+    }
+
+    retrieveAssignedTodos(userId) {
+        return axios.get(`${API_URL}/${userId}/todos/assigned`)
     }
 
     retrieveTodo(userId, id) {

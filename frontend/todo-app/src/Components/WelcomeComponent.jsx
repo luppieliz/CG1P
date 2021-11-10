@@ -77,7 +77,7 @@ class WelcomeComponent extends Component {
 
     // same as above, but for subsequent refreshes
     refreshTodos() {
-        TodoDataService.retrieveAllTodos(this.state.userId)
+        TodoDataService.retrieveAssignedTodos(this.state.userId)
             .then(response => this.setState({ todos: response.data }))
     }
 
@@ -156,7 +156,7 @@ class WelcomeComponent extends Component {
                                                                             <tr key={todo.id}>
                                                                                 <td>{todo.description}</td>
                                                                                 <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
-                                                                                
+                                                                                <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
                                                                             </tr>
                                                                     )
                                                                 }

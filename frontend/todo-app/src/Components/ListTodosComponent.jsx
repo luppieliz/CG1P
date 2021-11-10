@@ -27,23 +27,22 @@ class ListTodosComponent extends Component {
             message: null,
             showSidebar: false
         }
+
         this.refreshTodos = this.refreshTodos.bind(this)
         this.addTodoClicked = this.addTodoClicked.bind(this)
         this.updateTodoClicked = this.updateTodoClicked.bind(this)
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
-
-
     }
+
     // bring todos from axios get into current state for display, after initial render has been triggered.
     componentDidMount() {
         this.refreshTodos()
         this.setState({ showSidebar: false });
     }
 
-
     // same as above, but for subsequent refreshes
     refreshTodos() {
-        TodoDataService.retrieveAllTodos(this.state.userId)
+        TodoDataService.retrieveCreatedTodos(this.state.userId)
             .then(response => this.setState({ todos: response.data }))
     }
 
@@ -84,6 +83,7 @@ class ListTodosComponent extends Component {
                                     <thead>
                                         <tr>
                                             <th>Task</th>
+                                            <th>Created</th>
                                             <th>Due</th>
                                             <th>Update</th>
                                             <th>Delete</th>
@@ -96,6 +96,7 @@ class ListTodosComponent extends Component {
                                                 todo =>
                                                     <tr key={todo.id}>
                                                         <td>{todo.description}</td>
+                                                        <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
                                                         <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
                                                         <td><button className="btn btn-warning" onClick={() => this.updateTodoClicked(todo.id)}><GrUpdate /></button></td>
                                                         <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}><FaTrashAlt /></button></td>
