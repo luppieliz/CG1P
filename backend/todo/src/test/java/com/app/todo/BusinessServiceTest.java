@@ -21,7 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class BusinessServiceTest {
     
     @Mock
-    private BusinessRepository businesses;
+    private BusinessRepository businessRepository;
 
     @InjectMocks
     private BusinessService businessService;
@@ -29,44 +29,40 @@ public class BusinessServiceTest {
     @Test
     void getAllBusinesses_ReturnAllBusinesses() {
         Industry industry = new Industry("Arts and Culture");
-        Business testBusiness1 = new Business("asd789fhgj", "Singapore Museum", industry);
-        Business testBusiness2 = new Business("asd799fhgj", "SMU Museum", industry);
+        Business testBusiness1 = businessService.addBusiness(new Business("asd789fhgj", "Singapore Museum", industry));
+        Business testBusiness2 = businessService.addBusiness(new Business("asd799fhgj", "SMU Museum", industry));
 
-        businesses.save(testBusiness1);
-        businesses.save(testBusiness2);
         List<Business> businessList = new ArrayList<>();
         businessList.add(testBusiness1);
         businessList.add(testBusiness2);
 
-        when(businesses.findAll()).thenReturn(businessList);
+        when(businessRepository.findAll()).thenReturn(businessList);
         List<Business> allBusinesses = businessService.getAllBusinesses();
 
         assertNotNull(allBusinesses);
         assertEquals(2,allBusinesses.size());
-        verify(businesses).findAll();
+        verify(businessRepository).findAll();
     }
 
     @Test
     void getBusinessWithId_ValidBusinessId_ReturnBusiness() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        when(businesses.findById(business.getId())).thenReturn(Optional.of(business));
+        when(businessRepository.findById(business.getId())).thenReturn(Optional.of(business)); // findbyid returns business?
 
         Business theBusiness = businessService.getBusiness(business.getId());
 
         assertNotNull(theBusiness);
-        assertEquals(theBusiness.getId(), business.getId());
-        verify(businesses).findById(business.getId());
+        verify(businessRepository).findById(business.getId());
     }
 
     @Test
     void getBusinessWithId_InvalidBusinessId_ReturnBusinessNotFoundException() {
         Industry industry = new Industry("Arts and Culture");
-        Business business = new Business(1L, "asd789fhgj", "Singapore Museum", industry);
-        businessService.addBusiness(business);
+        Business business = businessRepository.save(new Business(1L, "asd789fhgj", "Singapore Museum", industry));
         Long testBusinessId = 2L;
 
-        when(businesses.findById(testBusinessId)).thenReturn(Optional.ofNullable(null));
+        when(businessRepository.findById(testBusinessId)).thenReturn(Optional.ofNullable(null));
 
         Throwable exception = null;
 
@@ -77,20 +73,20 @@ public class BusinessServiceTest {
         }
 
         assertEquals(BusinessNotFoundException.class, exception.getClass());
-        verify(businesses).findById(testBusinessId);
+        verify(businessRepository).findById(testBusinessId);
     }
 
     @Test
     void getBusinessWithUEN_ValidBusinessUEN_ReturnBusiness() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        when(businesses.findByUEN(business.getUEN())).thenReturn(Optional.of(business)); // findbyid returns business?
+        when(businessRepository.findByUEN(business.getUEN())).thenReturn(Optional.of(business)); // findbyid returns business?
 
         Business theBusiness = businessService.getBusiness(business.getUEN());
 
         assertNotNull(theBusiness);
         assertEquals(business.getUEN(), theBusiness.getUEN());
-        verify(businesses).findByUEN(business.getUEN());
+        verify(businessRepository).findByUEN(business.getUEN());
     }
 
     @Test
@@ -100,7 +96,7 @@ public class BusinessServiceTest {
         businessService.addBusiness(business);
         String testBusinessUEN = "asd788fhgj";
 
-        when(businesses.findByUEN(testBusinessUEN)).thenReturn(Optional.ofNullable(null));
+        when(businessRepository.findByUEN(testBusinessUEN)).thenReturn(Optional.ofNullable(null));
 
         Throwable exception = null;
 
@@ -111,21 +107,21 @@ public class BusinessServiceTest {
         }
 
         assertEquals(BusinessNotFoundException.class, exception.getClass());
-        verify(businesses).findByUEN(testBusinessUEN);
+        verify(businessRepository).findByUEN(testBusinessUEN);
     }
 
     @Test
     void addBusiness_NewBusiness_ReturnSavedBusiness() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd829fhgj", "Singapore Museum", industry);
-        when(businesses.existsByUEN(any(String.class))).thenReturn(false);
-        when(businesses.save(any(Business.class))).thenReturn(business);
+        when(businessRepository.existsByUEN(any(String.class))).thenReturn(false);
+        when(businessRepository.save(any(Business.class))).thenReturn(business);
 
         Business savedBusiness = businessService.addBusiness(business);
 
         assertNotNull(savedBusiness);
-        verify(businesses).existsByUEN(business.getUEN());
-        verify(businesses).save(business);
+        verify(businessRepository).existsByUEN(business.getUEN());
+        verify(businessRepository).save(business);
     }
 
     @Test
@@ -135,7 +131,7 @@ public class BusinessServiceTest {
         businessService.addBusiness(business);
         Business newBusiness = new Business("asd789fhgj", "Singapore Museum", industry);
 
-        when(businesses.existsByUEN(business.getUEN())).thenReturn(true);
+        when(businessRepository.existsByUEN(business.getUEN())).thenReturn(true);
 
         Throwable exception = null;
 
@@ -146,7 +142,7 @@ public class BusinessServiceTest {
         }
 
         assertEquals(BusinessAlreadyRegisteredException.class, exception.getClass());
-        verify(businesses, atLeast(2)).existsByUEN(business.getUEN());
+        verify(businessRepository, atLeast(2)).existsByUEN(business.getUEN());
 
 
     }
