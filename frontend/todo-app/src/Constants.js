@@ -8,7 +8,7 @@ export const SESSION_USER_NAME = "userName"
 export const SESSION_USER_BUSINESS = "userBusiness"
 export const SESSION_USER_ROLE = "userRole"
 export const SESSION_INTERCEPTOR = "interceptor"
-export const SCRAPPED_SOURCE = "https://www.enterprisesg.gov.sg/covid-19/safe-distance"
+export const SCRAPPED_SOURCE = "https://twww.enterprisesg.gov.sg/covid-19/safe-distance"
 
 // JPA API URL, use this for fetching resources. 
 // Using the API URL above for the same purpose will result in triggering the hardcoded service!

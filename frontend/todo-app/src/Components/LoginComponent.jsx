@@ -4,6 +4,8 @@ import { Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
+
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
@@ -98,9 +100,9 @@ class LoginComponent extends Component {
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
-                            <h0 className="text-white" >Buddy-19</h0>
+                            <h0 className="cg1p-header" >Buddy-19</h0>
                             <Placeholder xs={12} bg="transparent" />
-                            <h1 className="text-warning" >Login :)</h1>
+                            <h1 className="cg1p-header" style={{color:"#ffffff"}}>Login!</h1>
                             <Placeholder xs={12} bg="transparent" />
                             <Placeholder xs={12} bg="transparent" />
                         </Col>
@@ -108,7 +110,7 @@ class LoginComponent extends Component {
                     <Row>
                         <Col></Col>
                         <Col className="text-black text-left">
-                            <Card border="warning" style={{ width: '35rem', height: '17rem', borderWidth: '5px' }}>
+                            <Card>
                                 <Card.Body>
                                     <div className="form-group ">
                                         <label>Email</label>
@@ -119,7 +121,7 @@ class LoginComponent extends Component {
                                         <input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleChange} />
                                     </div>
                                     <Placeholder xs={12} bg="transparent" />
-                                    <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
+                                    <Button variant="outline-dark" onClick={this.loginClicked}>Login</Button>
                                     <Placeholder xs={12} bg="transparent" />
                                     <p className="forgot-password text-center"><a href="#placeholder">Forgot password?</a> or new to the app? <Link className="new user text-right" to="/signup">Sign up!</Link></p>
                                     {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}

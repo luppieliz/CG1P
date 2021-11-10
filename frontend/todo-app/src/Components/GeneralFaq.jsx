@@ -44,6 +44,10 @@ class GeneralFaq extends Component {
             )
     }
 
+    componentDidMount() {
+        this.getFAQ()
+    }
+
     render() {
         return (
             <div >
