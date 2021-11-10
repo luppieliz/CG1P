@@ -117,22 +117,7 @@ class GeneralFaq extends Component {
 
 
                     </Row>
-                    <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
+                    <Placeholder xs={12} bg="transparent" style={{ paddingBottom: "50vh" }} />
                 </Container>
             </div>
         )
