@@ -122,7 +122,9 @@ public class ScraperService {
 
     ChromeDriver setDriver() {
         final ChromeOptions chromeOptions = new ChromeOptions();
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
+
+//        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         chromeOptions.addArguments("--headless");
         return new ChromeDriver(chromeOptions);
     }
