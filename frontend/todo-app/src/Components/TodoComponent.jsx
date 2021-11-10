@@ -5,6 +5,7 @@ import TodoDataService from '../api/TodoDataService.js'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Placeholder from 'react-bootstrap/Placeholder'
 
 import Card from 'react-bootstrap/Card'
 
@@ -26,7 +27,7 @@ class TodoComponent extends Component {
             userId: sessionStorage.getItem(SESSION_USER_ID),
             id: this.props.match.params.id,
             description: '',
-            isDone:false,
+            targetDate: moment(new Date()).format('YYYY-MM-DD'),
             listItems: [],
             selectedValues: [],
             employees: []
@@ -60,13 +61,12 @@ class TodoComponent extends Component {
         TodoDataService.retrieveTodo(this.state.userId, this.state.id)
             .then(response => this.setState({
                 description: response.data.description,
-                isDone: response.data.isDone
-
+                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD'),
                 selectedValues: response.data.createdFor.map(employee => ({
                     name: employee.name + '  (' + employee.email + ')',
                     value: employee.id
                 })),
-                employees: response.data.createdFor.map(employee => 
+                employees: response.data.createdFor.map(employee =>
                     employee.id
                 )
             }))
@@ -91,7 +91,7 @@ class TodoComponent extends Component {
     onSubmit(values) {
         let todo = {
             description: values.description,
-            isDone: values.isDone
+            targetDate: values.targetDate,
             createdForIds: this.state.employees
         }
 
@@ -100,11 +100,11 @@ class TodoComponent extends Component {
         // if state (todo id) is -1, means todo does not exist yet, means create todo
         if (this.state.id == -1) {
             TodoDataService.createTodo(this.state.userId, todo)
-                .then(() => this.props.history.push("/welcome"))
+                .then(() => this.props.history.push("/todos"))
             // else state (todo id) is not -1, means todo exists, means update todo
         } else {
             TodoDataService.updateTodo(this.state.userId, this.state.id, todo)
-                .then(() => this.props.history.push("/welcome"))
+                .then(() => this.props.history.push("/todos"))
         }
     }
 
@@ -117,6 +117,9 @@ class TodoComponent extends Component {
             errors.description = "Enter a description"
         } else if (values.description.length < 5) {
             errors.description = "Enter at least 5 characters for description"
+        }
+        if (!moment(values.targetDate).isValid()) {
+            errors.targetDate = 'Enter a valid Target Date'
         }
 
         return errors
@@ -135,8 +138,11 @@ class TodoComponent extends Component {
                 <Col></Col>
                 <Col>
                     <Container>
+                    <Placeholder xs={12} bg="transparent" />
+                    <Placeholder xs={12} bg="transparent" />
                         <Row>
                             <h1 className="text-dark">Todo</h1>
+                            <Placeholder xs={12} bg="transparent" />
                             <div className="container text-dark ">
                                 <Formik
                                     initialValues={{ description }}
@@ -148,12 +154,14 @@ class TodoComponent extends Component {
                                 >
                                     {
                                         (props) => (
+                                            <h5>
                                             <Form>
                                                 <ErrorMessage name="description" component="div" className="alert alert-warning "></ErrorMessage>
                                                 <fieldset className="form-group">
                                                     <label >Description</label>
                                                     <Field className="form-control" type="text" name="description"></Field>
                                                 </fieldset>
+                                                <Placeholder xs={12} bg="transparent" />
                                                 <fieldset className="form-group">
                                                     <label >Assign To</label>
                                                     <Multiselect
@@ -168,16 +176,31 @@ class TodoComponent extends Component {
                                                         hidePlaceholder
                                                     />
                                                 </fieldset>
+                                                
+                                                <fieldset className="form-group">
+                                                    <label>Target Date</label>
+                                                    <Field className="form-control" type="date" name="targetDate" />
+                                                </fieldset>
 
-                                                <h5 className="text-dark">
-                                            <Card.Header>Task Done: {this.state.isDone ? 'Yes' : 'No'}</Card.Header>
-                                            <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
-                                        </h5>
+                                                <Placeholder xs={12} bg="transparent" />
                                                 <button className="btn btn-success" type="submit" >Save</button>
                                             </Form>
+                                            </h5>
                                         )
                                     }
                                 </Formik>
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent" />
+
                             </div>
                         </Row>
                     </Container>

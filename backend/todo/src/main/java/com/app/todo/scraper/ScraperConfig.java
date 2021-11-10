@@ -14,7 +14,7 @@ public class ScraperConfig {
     public ChromeDriver driver() {
         final ChromeOptions chromeOptions = new ChromeOptions();
         // For CI
-        System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe");
+//      System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
         // For local IDE
         // System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
