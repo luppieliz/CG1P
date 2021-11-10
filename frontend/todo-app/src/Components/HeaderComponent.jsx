@@ -68,7 +68,7 @@ class HeaderComponent extends Component {
                                                 {isUserLoggedIn && <Link className="nav-link" to="/emp">Employee Management</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                 {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
-                                                    {/* {isUserLoggedIn && <Link className="nav-link" to="/mylist">mylist</Link>} */}
+                                                {/* {isUserLoggedIn && <Link className="nav-link" to="/mylist">mylist</Link>} */}
                                                 {/* {isUserLoggedIn && <Link className="nav-link" to="/profile">Profile</Link>} */}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
                                                 {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
