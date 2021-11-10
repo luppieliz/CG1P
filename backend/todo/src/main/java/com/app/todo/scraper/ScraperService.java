@@ -2,6 +2,7 @@ package com.app.todo.scraper;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,13 @@ import java.util.stream.Collectors;
 @Service
 public class ScraperService {
 
-    private final ChromeDriver driver;
+    @Autowired
+    private ScraperConfig scraperConfig;
+
     private static Map<String, Set<String>> tagMap = new HashMap<>();
     private static Map<String, String> keywordMap = new HashMap<>(); //<keyword, tag>
     static {
-        String[] fnb = new String[] {"restaurants", "F&B, f&b"};
+        String[] fnb = new String[] {"restaurants", "F&B, f&b", "eating", "dining", "drinks"};
         tagMap.put("F&B", new HashSet<String>(Arrays.asList(fnb)));
 
         String[] tourism = new String[] {"tourists", "travel"};
@@ -44,10 +47,6 @@ public class ScraperService {
     }
 
 
-    @Autowired
-    public ScraperService(ChromeDriver driver) {
-        this.driver = driver;
-    }
 
     /**
      * Find all the sources of info-graphics.
@@ -57,6 +56,8 @@ public class ScraperService {
     public List<String> scrapeFAQ(final String faqURL) {
         List<String> scrappedSrc = new ArrayList<>();
         final String TOPIC_KEYWORD = "safe-distance";
+
+        ChromeDriver driver = setDriver();
 
         driver.get(faqURL);
 
@@ -79,6 +80,8 @@ public class ScraperService {
      * @param articleURL
      */
     public List<String> scrapeArticleForTags(final String articleURL) {
+        ChromeDriver driver = setDriver();
+
         driver.get(articleURL);
         Set<String> tempTagSet = new HashSet<>();
 
@@ -108,6 +111,20 @@ public class ScraperService {
                 tempTagSet.add(keyword);
             }
         }
-        return new ArrayList<>(tempTagSet);
+
+        List<String> resultTag = new ArrayList<>();
+        for (String keyword : tempTagSet) {
+            resultTag.add(keywordMap.get(keyword));
+        }
+
+        return resultTag;
+    }
+
+    ChromeDriver setDriver() {
+        final ChromeOptions chromeOptions = new ChromeOptions();
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        chromeOptions.addArguments("--headless");
+        return new ChromeDriver(chromeOptions);
+
     }
 }

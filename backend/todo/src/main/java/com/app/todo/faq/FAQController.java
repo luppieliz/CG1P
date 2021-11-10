@@ -3,6 +3,7 @@ package com.app.todo.faq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class FAQController {
         this.faqService = faqService;
     }
 
-    @GetMapping(path = "faq/scrape/{URL}")
-    public List<FAQ> retrieveImage(@PathVariable(value = "URL") String URL) {
+    @GetMapping(path = "/faq/scrape")
+    public List<FAQ> retrieveImage(@RequestParam String URL) {
         List<String> scrappedSrc = scraperService.scrapeFAQ(URL);
         return faqService.retrieveAllFAQ(scrappedSrc);
     }
