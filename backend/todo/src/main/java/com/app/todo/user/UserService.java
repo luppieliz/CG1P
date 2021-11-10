@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -35,7 +36,7 @@ public class UserService {
      * @param userIds
      * @return A list of registered users.
      */
-    public List<User> getAllUsersById(List<Long> userIds) {
+    public List<User> getAllUsersById(List<UUID> userIds) {
         return userRepository.findAllById(userIds);
     }
 
@@ -45,7 +46,7 @@ public class UserService {
      * @return A registered user with a given userID. If it is already existed, throw a UserNotFoundException.
      * @throws UserNotFoundException
      */
-    public User getUser(Long userId) throws UserNotFoundException {
+    public User getUser(UUID userId) throws UserNotFoundException {
         return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
@@ -65,7 +66,7 @@ public class UserService {
      * @return List of users with the given business ID.
      * @throws UserNotFoundException
      */
-    public List<User> getUsersByBusiness(Long businessId) throws BusinessNotFoundException {
+    public List<User> getUsersByBusiness(UUID businessId) throws BusinessNotFoundException {
         Business business = businessService.getBusiness(businessId);
         return userRepository.findByBusiness(business);
     }

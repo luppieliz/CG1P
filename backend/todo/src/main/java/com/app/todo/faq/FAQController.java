@@ -27,6 +27,12 @@ public class FAQController {
         return faqService.retrieveAllFAQ(scrappedSrc);
     }
 
+    @GetMapping(path = "/faq/update")
+    public List<FAQ> updateFAQ(@RequestParam String URL) {
+        List<String> scrappedSrc = scraperService.scrapeFAQ(URL);
+        return faqService.updateFAQ(scrappedSrc);
+    }
+
 
     @GetMapping(path = "faq/retrieveFromDB")
     public List<FAQ> retrieveFromDB() {

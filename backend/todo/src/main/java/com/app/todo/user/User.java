@@ -3,12 +3,12 @@ package com.app.todo.user;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -23,6 +23,8 @@ import com.app.todo.business.Business;
 import com.app.todo.todo.Todo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,9 +49,10 @@ public class User implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "user_id")
-    private Long id;
+    private UUID id;
 
     @NotNull(message = "Email should not be null")
     @Email(message = "Email should be valid")
@@ -111,7 +114,7 @@ public class User implements UserDetails {
         this.business = business;
     }
 
-    public User(Long id, String email, String name, String password, String authority, Business business) {
+    public User(UUID id, String email, String name, String password, String authority, Business business) {
         this.id = id;
         this.email = email;
         this.name = name;

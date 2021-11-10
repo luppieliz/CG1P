@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TodoServiceImpl {
@@ -25,7 +26,7 @@ public class TodoServiceImpl {
      * @param userId
      * @return A list of to-dos of a user with a given userID
      */
-    public List<Todo> getCreatedTodos(Long userId) {
+    public List<Todo> getCreatedTodos(UUID userId) {
         return todoRepository.findByCreatedBy_Id(userId);
     }
 
@@ -34,7 +35,7 @@ public class TodoServiceImpl {
      * @param userId
      * @return A list of to-dos of a user with a given userID
      */
-    public List<Todo> getAssignedTodos(Long userId) {
+    public List<Todo> getAssignedTodos(UUID userId) {
         return todoRepository.findByCreatedFor_Id(userId);
     }
 
@@ -44,7 +45,7 @@ public class TodoServiceImpl {
      * @return A to-do with a given todoID. If a to-do is not found, throw a TodoNotFoundException.
      * @throws TodoNotFoundException
      */
-    public Todo getTodo(Long todoId) throws TodoNotFoundException {
+    public Todo getTodo(UUID todoId) throws TodoNotFoundException {
         return todoRepository.findById(todoId).orElseThrow(() -> new TodoNotFoundException(todoId));
     }
 
@@ -55,7 +56,7 @@ public class TodoServiceImpl {
      * @return A newly added to-do by a user with a given userID. If a user is not found, throw a UserNotFoundException.
      * @throws UserNotFoundException
      */
-    public Todo addTodo(Long userId, Todo newTodo) throws UserNotFoundException {
+    public Todo addTodo(UUID userId, Todo newTodo) throws UserNotFoundException {
         User owner = userService.getUser(userId);
         List<User> assignedUsers = userService.getAllUsersById(newTodo.getCreatedForIds());
 
@@ -71,9 +72,9 @@ public class TodoServiceImpl {
      * @param newTodo
      * @throws TodoNotFoundException
      */
-    public void updateTodo(Long todoId, Todo newTodo) throws TodoNotFoundException {
+    public void updateTodo(UUID todoId, Todo newTodo) throws TodoNotFoundException {
         Todo foundTodo = getTodo(todoId);
-        List<Long> assignedIds = newTodo.getCreatedForIds();
+        List<UUID> assignedIds = newTodo.getCreatedForIds();
         List<User> assignedUsers = userService.getAllUsersById(assignedIds);
 
         foundTodo.setDescription(newTodo.getDescription());
@@ -88,7 +89,7 @@ public class TodoServiceImpl {
      * Delete a specific to-do with a given todoID.
      * @param todoId
      */
-    public void deleteTodo(Long todoId) {
+    public void deleteTodo(UUID todoId) {
         todoRepository.deleteById(todoId);
     }
 }

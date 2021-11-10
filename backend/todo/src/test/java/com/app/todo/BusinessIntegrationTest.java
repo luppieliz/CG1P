@@ -3,6 +3,7 @@ package com.app.todo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
+import java.util.UUID;
 
 import com.app.todo.business.Business;
 import com.app.todo.industry.Industry;
@@ -33,9 +34,10 @@ public class BusinessIntegrationTest {
 
     @Autowired
     /**
-     * Use TestRestTemplate for testing a real instance of your application as an external actor.
-     * TestRestTemplate is just a convenient subclass of RestTemplate that is suitable for integration tests.
-     * It is fault tolerant, and optionally can carry Basic authentication headers.
+     * Use TestRestTemplate for testing a real instance of your application as an
+     * external actor. TestRestTemplate is just a convenient subclass of
+     * RestTemplate that is suitable for integration tests. It is fault tolerant,
+     * and optionally can carry Basic authentication headers.
      */
     private TestRestTemplate restTemplate;
 
@@ -76,7 +78,7 @@ public class BusinessIntegrationTest {
     public void getBusinessWithId_ValidBusinessId_Success() throws Exception {
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
-        Long id = business.getId();
+        UUID id = business.getId();
         URI uri = new URI(baseUrl + port + "/business/" + id);
 
         ResponseEntity<Business> result = restTemplate.getForEntity(uri, Business.class);
@@ -89,8 +91,9 @@ public class BusinessIntegrationTest {
     @Test
     public void getBusinessWithId_InvalidBusinessId_Failure() throws Exception {
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
-        Business business = businessRepository.save(new Business(1L, "asd789fhgj", "Singapore Museum", industry));
-        Long id = 2L;
+        Business business = businessRepository
+                .save(new Business(UUID.randomUUID(), "asd789fhgj", "Singapore Museum", industry));
+        UUID id = UUID.randomUUID();
         URI uri = new URI(baseUrl + port + "/business/" + id);
 
         ResponseEntity<Business> result = restTemplate.getForEntity(uri, Business.class);
@@ -129,7 +132,8 @@ public class BusinessIntegrationTest {
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
         final String userRawPassword = "goodpassword";
-        User user = userRepository.save(new User("admin@abc.com", "admin", encoder.encode(userRawPassword), "ROLE_ADMIN", business));
+        User user = userRepository
+                .save(new User("admin@abc.com", "admin", encoder.encode(userRawPassword), "ROLE_ADMIN", business));
 
         Business testBusiness = new Business("asd788fhgj", "SMU Museum", industry);
 
@@ -146,7 +150,8 @@ public class BusinessIntegrationTest {
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
         final String userRawPassword = "goodpassword";
-        User user = userRepository.save(new User("admin@abc.com", "admin", encoder.encode(userRawPassword), "ROLE_ADMIN", business));
+        User user = userRepository
+                .save(new User("admin@abc.com", "admin", encoder.encode(userRawPassword), "ROLE_ADMIN", business));
 
         ResponseEntity<Business> result = restTemplate.withBasicAuth(user.getEmail(), userRawPassword)
                 .postForEntity(uri, business, Business.class);

@@ -5,6 +5,7 @@ import com.app.todo.industry.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -57,11 +58,11 @@ public class IndustryServiceTest {
 
     @Test
     void getIndustryWithId_InvalidIndustryId_ReturnIndustryNotFoundException() {
-        Industry industry = new Industry(1L, "Arts and Culture");
+        Industry industry = new Industry(UUID.randomUUID(), "Arts and Culture");
         industryService.addIndustry(industry);
-        Long testIndustryId = 2L;
+        UUID testIndustryId = UUID.randomUUID();
 
-        when(industryRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(null));
+        when(industryRepository.findById(any(UUID.class))).thenReturn(Optional.ofNullable(null));
 
         Throwable exception = null;
 
