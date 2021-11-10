@@ -5,7 +5,12 @@ import TodoDataService from '../api/TodoDataService.js'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+
 import { SESSION_USER_ID } from '../Constants.js'
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 // Page to update or add a specific todo
 class TodoComponent extends Component {
@@ -18,6 +23,7 @@ class TodoComponent extends Component {
             userId: sessionStorage.getItem(SESSION_USER_ID),
             id: this.props.match.params.id,
             description: '',
+            isDone:false,
             targetDate: moment(new Date()).format('YYYY-MM-DD')
 
         }
@@ -38,7 +44,8 @@ class TodoComponent extends Component {
         TodoDataService.retrieveTodo(this.state.userId, this.state.id)
             .then(response => this.setState({
                 description: response.data.description,
-                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
+                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD'),
+                isDone: response.data.isDone
             }))
     }
 
@@ -47,7 +54,8 @@ class TodoComponent extends Component {
         let todo = {
             id: this.state.id,
             description: values.description,
-            targetDate: values.targetDate
+            targetDate: values.targetDate,
+            isDone: values.isDone
         }
 
         console.log(this.state.id)
@@ -81,6 +89,8 @@ class TodoComponent extends Component {
 
         return errors
     }
+
+
 
     render() {
         // rely on modern JS destructuring, can assign/retrieve together
@@ -117,6 +127,11 @@ class TodoComponent extends Component {
                                                     <label>Target Date</label>
                                                     <Field className="form-control" type="date" name="targetDate"></Field>
                                                 </fieldset>
+
+                                                <h5 className="text-dark">
+                                            <Card.Header>Task Done: {this.state.isDone ? 'Yes' : 'No'}</Card.Header>
+                                            <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
+                                        </h5>
                                                 <button className="btn btn-success" type="submit" >Save</button>
                                             </Form>
                                         )
