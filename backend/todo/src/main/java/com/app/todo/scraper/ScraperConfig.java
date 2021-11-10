@@ -17,17 +17,11 @@ public class ScraperConfig {
 
 
         // For CI
-<<<<<<< HEAD
 //        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
         // For local IDE
-//         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
-=======
-        // System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-
-        // For local IDE
         // System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
->>>>>>> 468d27b38666eaf8b0ea0308b2b52eb0b18f8a78
+
          System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
 
         // For deployment
