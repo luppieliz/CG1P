@@ -47,7 +47,7 @@ public class NewsService {
     }
 
     /**
-     * Parse all news articles from API call and store them into database.
+     * Parse all news articles from API call and store them into database. Skips over duplicates
      * @param newsFromAPI
      * @return: A list of newly retrieved articles.
      * @throws ParseException
@@ -56,6 +56,13 @@ public class NewsService {
         List<News> resultNews = new ArrayList<>();
 
         for (NewsDTO newsDTO : newsFromAPI) {
+            //check if news item is already in the repo
+            if (newsRepository.existsByURL(newsDTO.getUrl())) {
+                System.out.println("Article already in repo! URL: " + newsDTO.getUrl());
+                continue;
+            }
+
+
             News singleNews = new News();
             singleNews.setPublisher(newsDTO.getSource().get("name"));
             singleNews.setAuthor(newsDTO.getAuthor());

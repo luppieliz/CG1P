@@ -50,6 +50,7 @@ public class NewsAPIService {
      * @throws InterruptedException
      */
     public NewsAPIResponse getAPIResponsev2(String sources, String query, String fromDate) throws IOException, InterruptedException {
+        System.out.println("Attempting request from: " + newsAPIConfig.getAPIQueryv2(sources, query, fromDate));
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(newsAPIConfig.getAPIQueryv2(sources, query, fromDate)))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
