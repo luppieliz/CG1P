@@ -1,5 +1,6 @@
 package com.app.todo.faq;
 
+import com.app.todo.newsfunnel.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,5 +97,9 @@ public class FAQService {
             }
         }
         return null;
+    }
+
+    public List<FAQ> getAllFAQ() {
+        return faqRepository.findAll();
     }
 }
