@@ -69,10 +69,6 @@ public class Todo {
         inverseJoinColumns = @JoinColumn(name = "created_for", nullable = false))
     private List<User> createdFor;
 
-    @ApiModelProperty(notes = "State of a todo's completion")
-    @Column(name = "is_done")
-    private Boolean isDone = false;
-
     public Todo(String description, Date targetDate, List<Long> createdForIds) {
         this.description = description;
         this.targetDate = targetDate;
