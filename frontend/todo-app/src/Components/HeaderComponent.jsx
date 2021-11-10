@@ -19,6 +19,7 @@ import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
 
 import { AiOutlineMenu } from "@react-icons/all-files/ai/AiOutlineMenu";
+import { SESSION_USER_ROLE } from '../Constants';
 
 
 // Header with navigation features as a navbar. Shows different things based on whether user is logged in.
@@ -47,6 +48,13 @@ class HeaderComponent extends Component {
     render() {
         const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
         console.log('isloggedin triggered from header')
+
+        let isEmployee = false;
+
+        if (sessionStorage.getItem(SESSION_USER_ROLE) == "ROLE_EMPLOYEE") {
+            isEmployee = true;
+        } 
+
         return (
             <header>
                 <Navbar bg="dark" expand={false} >
@@ -66,8 +74,8 @@ class HeaderComponent extends Component {
                                             <Card.Text className="text-dark" >
                                                 <h4>
                                                     {isUserLoggedIn && <Link className="nav-link" to="/welcome">Home</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/emp">Employee Updates</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/todos">Employee Tasks</Link>}
+                                                    {isUserLoggedIn && !isEmployee && <Link className="nav-link" to="/emp">Employee Updates</Link>}
+                                                    {isUserLoggedIn && !isEmployee && <Link className="nav-link" to="/todos">Employee Tasks</Link>}
                                                     {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                     {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
                                                     {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
