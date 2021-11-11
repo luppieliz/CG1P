@@ -30,7 +30,7 @@ public class NotificationService {
     }
 
     public void sendEmailNotification(List<News> newsList, List<User> userList) {
-        String emailBody = "";
+        String emailBody = "Here are some articles for you to check out!\n";
 
         //generate email body
         for(News news : newsList) {
@@ -39,7 +39,7 @@ public class NotificationService {
 
         //send email
         for (User user : userList) {
-            emailService.sendSimpleEmail(user.getEmail(), "New news updates from Buddy-19!", emailBody);
+            emailService.sendSimpleEmail(user.getEmail(), "News updates from Buddy-19!", emailBody);
         }
 
     }

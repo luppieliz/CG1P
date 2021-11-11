@@ -107,7 +107,11 @@ public class NewsService {
             singleNews.setTagList(stringTag);
 
             resultNews.add(singleNews);
-            addNews(singleNews);
+            try {
+                addNews(singleNews);
+            } catch(NewsAlreadyRetrievedException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         notificationService.sendWrapper(resultNews);
