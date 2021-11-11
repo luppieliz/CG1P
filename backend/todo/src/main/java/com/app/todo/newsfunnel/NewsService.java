@@ -86,6 +86,7 @@ public class NewsService {
             singleNews.setURL(newsDTO.getUrl());
             singleNews.setPublishedDate(getFormattedDate(newsDTO.getPublishedAt()));
             singleNews.setContent(newsDTO.getContent());
+            singleNews.setUrlToImage(newsDTO.getUrlToImage());
 
             // Get tags for an article
 //            List<String> tagList = measureService.getTag(newsDTO.getUrl());
@@ -138,6 +139,9 @@ public class NewsService {
      * @return A string of tags.
      */
     public String getStringTag(final List<String> tagList) {
+        if (tagList == null) {
+            return "";
+        }
         String tempStringTag = "";
 
         for (int i = 0; i < tagList.size() - 1; i++) {
