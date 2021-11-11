@@ -19,7 +19,7 @@ public class NewsService {
 
     private NewsRepository newsRepository;
     private MeasureService measureService;
-    final String STANDARD_DATE_FORMAT = "yyyy-MM-dd";
+    final String STANDARD_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Autowired
     public NewsService(NewsRepository newsRepository, MeasureService measureService) {
@@ -59,7 +59,10 @@ public class NewsService {
         for (NewsDTO newsDTO : newsFromAPI) {
             //check if news item is already in the repo
             if (!newsRepository.existsByURL(newsDTO.getUrl())) {
-                urlList.add(newsDTO.getUrl());
+                //filter out non-singapore articles
+                if(newsDTO.getUrl().contains("/singapore")) {
+                    urlList.add(newsDTO.getUrl());
+                }
             }
         }
 

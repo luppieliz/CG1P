@@ -79,6 +79,7 @@ public class ScraperService {
 
     /**
      * Find all the related tags for a given article.
+     * @deprecated use scrapeMultipleArticlesForTags instead
      * @param articleURL
      */
     public List<String> scrapeArticleForTags(final String articleURL) {
