@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,21 +24,25 @@ public class IndustryController {
         this.industryService = industrySerivce;
     }
 
+    @ApiOperation(value = "Retrieve all the industries stored in database", response = Iterable.class)
     @GetMapping("/industry") 
     public List<Industry> getAllIndustries() {
         return industryService.getAllIndustries();
     }
 
+    @ApiOperation(value = "Retrieve a specific industry given an industry ID", response = Industry.class)
     @GetMapping("/industry/{industryId}")
     public Industry getIndustry(@PathVariable UUID industryId) {
         return industryService.getIndustry(industryId);
     }
 
+    @ApiOperation(value = "Retrieve a specific industry given an industry name", response = Industry.class)
     @GetMapping("/industry/name/{industryName}")
     public Industry getIndustry(@PathVariable String industryName) {
         return industryService.getIndustry(industryName);
     }
 
+    @ApiOperation(value = "Create a new industry and store into database", response = Industry.class)
     @PostMapping("/industry")
     public Industry addIndustry(@Valid @RequestBody Industry industry) {
         return industryService.addIndustry(industry);
