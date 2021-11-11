@@ -1,5 +1,6 @@
 package com.app.todo.scraper;
 
+import com.app.todo.industry.Industry;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -195,10 +196,10 @@ public class ScraperService {
 
 
         // For CI
-//         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
 
         // For local IDE
-         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
+//         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
 //        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
 
         // For deployment

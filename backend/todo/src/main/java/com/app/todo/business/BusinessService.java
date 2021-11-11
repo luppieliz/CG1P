@@ -60,6 +60,10 @@ public class BusinessService {
         return businessRepository.save(business);
     }
 
+    public List<Business> getAllBusinessByIndustryName(String industryName) {
+        return businessRepository.findByIndustry_Name(industryName);
+    }
+
     // TODO: Implement other business services
 
     // public Business deleteBusiness(Long businessId) {

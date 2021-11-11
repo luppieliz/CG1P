@@ -65,7 +65,6 @@ class WelcomeComponent extends Component {
         this.retrieveHealthStatus()
         this.refreshTodos()
         this.setState({ showSidebar: false });
-        NewsDataService.triggerNewsApi();
     }
 
     handleClose() { //sidebar

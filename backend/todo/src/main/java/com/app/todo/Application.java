@@ -29,24 +29,23 @@ public class Application {
 	public static void main(String[] args) throws IOException, InterruptedException, ParseException {
 		ApplicationContext ctx = SpringApplication.run(Application.class, args);
 
-		//Startup tasks
-		ScheduledTasks scheduledTasks = ctx.getBean(ScheduledTasks.class);
-		scheduledTasks.getNewsOnSchedule();
-		scheduledTasks.getFAQUpdatesOnSchedule();
+
 
 		IndustryService industries = ctx.getBean(IndustryService.class);
 		System.out.println("[Add industry]: " + industries.addIndustry(
 				new Industry("Healthcare")).getName());
 		System.out.println("[Add industry]: " + industries.addIndustry(
-				new Industry("Arts and Culture")).getName());
+				new Industry("F&B")).getName());
 		System.out.println("[Add industry]: " + industries.addIndustry(
-				new Industry("Food and Beverage")).getName());
+				new Industry("Tourism")).getName());
+		System.out.println("[Add industry]: " + industries.addIndustry(
+				new Industry("Retail")).getName());
 
 		BusinessService businesses = ctx.getBean(BusinessService.class);
-		Industry industry = industries.getIndustry("Arts and Culture");
+		Industry industry = industries.getIndustry("Tourism");
 		System.out.println("[Add Business]: " + businesses.addBusiness(
 				new Business("abcde77777", "singapore museum", industry)).getName());
-		industry = industries.getIndustry("Food and Beverage");
+		industry = industries.getIndustry("F&B");
 		System.out.println("[Add Business]: " + businesses.addBusiness(
 				new Business("dfgjj90", "macdonalds", industry)).getName());
 
@@ -56,6 +55,8 @@ public class Application {
 				new User("admin@gmail.com", "admin", "goodpassword", "ROLE_ADMIN", business)).getUsername());
 		System.out.println("[Add user]: " + users.addUser(
 				new User("alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER", business)).getUsername());
+		System.out.println("[Add user]: " + users.addUser(
+				new User("kornflakesgoh@gmail.com", "Marcus", "password0", "ROLE_EMPLOYEE", business)).getUsername());
 		business = businesses.getBusiness("dfgjj90");
 		System.out.println("[Add user]: " + users.addUser(
 				new User("ben@gmail.com", "Ben", "password2", "ROLE_EMPLOYEE", business)).getUsername());
@@ -75,5 +76,10 @@ public class Application {
 		for (DailyResponse dailyResponse: objList) {
 			System.out.println(dailyResponse);
 		}
+
+		//Startup tasks
+		ScheduledTasks scheduledTasks = ctx.getBean(ScheduledTasks.class);
+		scheduledTasks.getNewsOnSchedule();
+		scheduledTasks.getFAQUpdatesOnSchedule();
 	}
 }
