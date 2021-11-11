@@ -59,8 +59,8 @@ class HeaderComponent extends Component {
             <header>
                 <Navbar bg="dark" expand={false} >
                     <Container fluid>
-                        <Navbar.Brand className="cg1p-logo" href="/Welcome"><h4>Buddy-19</h4></Navbar.Brand>
                         <Button variant="light" onClick={this.handleShow}><AiOutlineMenu /></Button>
+                        <Navbar.Brand className="cg1p-logo" href="/Welcome"><h4>Buddy-19</h4></Navbar.Brand>
                         <Offcanvas show={this.state.showSidebar} onHide={this.handleClose}>
                             <Offcanvas.Header closeButton>
                                 <Offcanvas.Title className="text-dark">Menu</Offcanvas.Title>

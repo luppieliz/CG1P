@@ -20,38 +20,40 @@ class AuthenticationService {
     }
 
     // CODE FOR BASIC AUTH
-    executeBasicAuthenticationService(email, password) {
-        return axios.get(`${API_URL}/basicauth`,
-            { headers: { authorization: this.createBasicAuthToken(email, password) } })
+    // executeBasicAuthenticationService(email, password) {
+    //     return axios.get(`${API_URL}/basicauth`,
+    //         { headers: { authorization: this.createBasicAuthToken(email, password) } })
+    // }
+
+    // createBasicAuthToken(email, password) {
+    //     let token = 'Basic ' + window.btoa(email + ':' + password)
+    //     sessionStorage.setItem(SESSION_TOKEN, token)
+    //     console.log('token: %s', token)
+    //     return token
+    // }
+
+    // registerSuccessfulLoginForBasicAuth(email) {
+    //     return axios.get(`${API_URL}/user/email/${email}`)
+    // }
+
+    // BELOW CODE IS SPECIFICALLY FOR JWT AUTH
+
+    /*
+        execute authentication
+    */
+
+    executeJwtAuthenticationService(username, password) {
+        return axios.post(`${API_URL}/authenticate`, {
+            username,
+            password
+        })
     }
 
-    createBasicAuthToken(email, password) {
-        let token = 'Basic ' + window.btoa(email + ':' + password)
-        sessionStorage.setItem(SESSION_TOKEN, token)
-        console.log('token: %s', token)
-        return token
-    }
-
-    registerSuccessfulLoginForBasicAuth(email) {
+    registerSuccessfulLoginForJwt(email) {
         return axios.get(`${API_URL}/user/email/${email}`)
     }
 
-    // BELOW CODE IS SPECIFICALLY FOR JWT AUTH
-    //    executeJwtAuthenticationService(username, password) {
-    //        return axios.post(`${API_URL}/authenticate`, {
-    //            username,
-    //            password
-    //        })
-    //    }
-    //
-    //    registerSuccessfulLoginForJwt(username, token) {
-    //        sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-    //        this.setupAxiosInterceptors(this.createJWTToken(token))
-    //    }
-    //
-    //    createJWTToken(token) {
-    //        return 'Bearer ' + token
-    //    }
+
 }
 
 export default new AuthenticationService()
