@@ -55,7 +55,7 @@ public class NewsController {
 
     @ApiOperation(value = "Get all news from database")
     @GetMapping(path = "/newsdb/all",  produces = "application/json")
-    public List<News> getNewsFromDB() {
+    public List<News> getNewsFromDB() throws ParseException {
         return newsService.getAllNews();
     }
 
@@ -67,7 +67,7 @@ public class NewsController {
 
     @ApiOperation(value = "Send SMS of new news retrieved")
     @PostMapping(path = "/{phone_number}", produces = "application/json")
-    public void notifyNews(@PathVariable(value="phone_number") String phoneNo ) {
+    public void notifyNews(@PathVariable(value="phone_number") String phoneNo ) throws ParseException {
         List<News> currentNews = newsService.getAllNews();
         String message = newsService.getTextMessage(currentNews);
         senderService.sendSms(new SmsRequest(phoneNo,message));

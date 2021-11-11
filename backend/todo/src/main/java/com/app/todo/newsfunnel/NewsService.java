@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class NewsService {
@@ -40,11 +39,18 @@ public class NewsService {
     }
 
     /**
-     * Retrieve all articles.
+     * Retrieve all articles, sorts by date
      * @return A list of all stored articles.
      */
-    public List<News> getAllNews() {
-        return newsRepository.findAll();
+    public List<News> getAllNews() throws ParseException {
+        List<News> allNews = newsRepository.findAll();
+        Map<Date, News> newsMap = new TreeMap<>();
+        for (News news : allNews) {
+            Date date= new SimpleDateFormat(STANDARD_DATE_FORMAT).parse(news.getPublishedDate());
+            newsMap.put(date, news);
+        }
+
+        return new ArrayList<>(newsMap.values());
     }
 
     /**
@@ -86,6 +92,7 @@ public class NewsService {
             singleNews.setURL(newsDTO.getUrl());
             singleNews.setPublishedDate(getFormattedDate(newsDTO.getPublishedAt()));
             singleNews.setContent(newsDTO.getContent());
+            singleNews.setUrlToImage(newsDTO.getUrlToImage());
 
             // Get tags for an article
 //            List<String> tagList = measureService.getTag(newsDTO.getUrl());
@@ -138,6 +145,9 @@ public class NewsService {
      * @return A string of tags.
      */
     public String getStringTag(final List<String> tagList) {
+        if (tagList == null) {
+            return "";
+        }
         String tempStringTag = "";
 
         for (int i = 0; i < tagList.size() - 1; i++) {

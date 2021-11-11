@@ -26,6 +26,9 @@ public class News {
     private String publishedDate;
 
     @Length(max=50000000)
+    private String urlToImage;
+
+    @Length(max=50000000)
     private String content;
 
     private String tagList;
@@ -54,6 +57,7 @@ public class News {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", URL='" + URL + '\'' +
+                ", urlToImage='" + urlToImage + '\'' +
                 ", publishedDate='" + publishedDate + '\'' +
                 ", content='" + content + '\'' +
                 ", tagList='" + tagList + '\'' +

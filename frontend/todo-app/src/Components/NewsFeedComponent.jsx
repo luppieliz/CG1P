@@ -130,11 +130,11 @@ class NewsFeedComponent extends Component {
             </Card>;
         } else {
             //iterate through all this.state.news items and display them in card form
-            newsFeedColumn = <Row xs={1} md={1} className="g-4" style={{padding: "0"}}>
+            newsFeedColumn = <Row xs={1} md={2} className="g-4" style={{padding: "0"}}>
                 {Array.from(this.state.newsDisplay, (_, idx) => (
                     <Col>
                         <Card bg={'light'} text={'dark'} style={{padding:"0"}}>
-                            {/*<Card.Img variant="top" src="holder.js/100px160" />*/}
+                            <Card.Img variant="top" src={this.processTags(this.state.newsDisplay[idx].urlToImage)} />
                             <Card.Body>
                                 <Card.Title>
                                     <Card.Link href={this.state.newsDisplay[idx].url}>
@@ -146,7 +146,7 @@ class NewsFeedComponent extends Component {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <small className="text-muted">{this.processTags(this.state.newsDisplay[idx].tagList)} | {this.state.newsDisplay[idx].publishedDate}</small>
+                                <small className="text-muted">{this.processTags(this.state.newsDisplay[idx].tagList)} | {this.state.newsDisplay[idx].publishedDate} | </small>
                             </Card.Footer>
                         </Card>
                     </Col>
