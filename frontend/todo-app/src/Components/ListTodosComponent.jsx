@@ -74,9 +74,12 @@ class ListTodosComponent extends Component {
                 <Placeholder xs={12} bg="transparent"  />
                     <Row>
                         <Col>
+                        <Placeholder xs={12} bg="transparent"  />
                         <h1 className ="text-dark cg1p-header">Employee Tasks</h1>
                         <Placeholder xs={12} bg="transparent"  />
+                        <Placeholder xs={12} bg="transparent"  />
                         <h3 class="text-dark ">Keeping track of all employee tasks assigned</h3>
+                        <Placeholder xs={12} bg="transparent"  />
                         <Placeholder xs={12} bg="transparent"  />
                             <div className="text-dark">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                                 <table className="table text-dark">
@@ -105,7 +108,7 @@ class ListTodosComponent extends Component {
                                         }
                                     </tbody>
                                 </table>
-                                <div className="d-grid gap-2"><button className="btn btn-success" onClick={() => this.addTodoClicked()}><GrAdd /></button></div>
+                                <div className="d-grid gap-2"><Button variant="outline-dark" onClick={() => this.addTodoClicked()}><GrAdd /></Button></div>
                             </div>
                         </Col>
                     </Row>

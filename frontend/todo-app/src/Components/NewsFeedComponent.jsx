@@ -70,15 +70,6 @@ class NewsFeedComponent extends Component {
     }
 
     //function to call the api to push news into database DEV ONLY
-    apiButtonClicked() {
-        NewsDataService.triggerNewsApi()
-            .then(
-                response => {
-                    console.log("triggered api, storing to database");
-                    console.log(response);
-                }
-            )
-    }
 
     //function to process the tags and display at the bottom of the card
     processTags(tagString) {
@@ -155,7 +146,7 @@ class NewsFeedComponent extends Component {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <small className="text-muted">{this.processTags(this.state.newsDisplay[idx].tagList)}</small>
+                                <small className="text-muted">{this.processTags(this.state.newsDisplay[idx].tagList)} | {this.state.newsDisplay[idx].publishedDate}</small>
                             </Card.Footer>
                         </Card>
                     </Col>
@@ -186,15 +177,11 @@ class NewsFeedComponent extends Component {
 
                 <Container>
                     <Row>
-                        <Col style={{padding: "0"}}>
+                        <Col xs={11} style={{padding: "0"}}>
                             {dropdown}
                         </Col>
                         <Col style={{padding: "0"}}>
                             <Button variant="outline-dark" onClick={() => this.showFilteredClicked()}>Filter</Button>
-                        </Col>
-                        <Col style={{padding: "0"}}>
-                            <Button variant="outline-dark" onClick={() => this.apiButtonClicked()}>Fetch News</Button>
-                            {/*//todo: make buttons toggle colour when toggled*/}
                         </Col>
                     </Row>
                     <Placeholder xs={12} bg="transparent" />
@@ -205,7 +192,6 @@ class NewsFeedComponent extends Component {
                         {/*news column*/}
                         {/*see newsFeedColumn definition for more information*/}
                         {newsFeedColumn}
-
                     </Row>
                     <Placeholder xs={12} bg="transparent" />
                 </Container>

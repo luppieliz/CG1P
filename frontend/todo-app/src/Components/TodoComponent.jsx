@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Placeholder from 'react-bootstrap/Placeholder'
+import Button from 'react-bootstrap/Button'
 
 import Card from 'react-bootstrap/Card'
 
@@ -184,7 +185,7 @@ class TodoComponent extends Component {
                                                 </fieldset>
 
                                                 <Placeholder xs={12} bg="transparent" />
-                                                <button className="btn btn-success" type="submit" >Save</button>
+                                                <Button variant="outline-dark" type="submit" >Save</Button>
                                             </Form>
                                             </h5>
                                         )

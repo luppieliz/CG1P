@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import HelloWorldService from '../api/HelloWorldService'
 import UserDataService from '../api/UserDataService'
 import TodoDataService from '../api/TodoDataService'
+import NewsDataService from '../api/NewsDataService'
 
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
@@ -64,7 +65,7 @@ class WelcomeComponent extends Component {
         this.retrieveHealthStatus()
         this.refreshTodos()
         this.setState({ showSidebar: false });
-
+        NewsDataService.triggerNewsApi();
     }
 
     handleClose() { //sidebar
@@ -281,11 +282,8 @@ class WelcomeComponent extends Component {
                                     </Card.Title>
                                     <Card.Text>
                                         <h5 className="text-dark">
-                                            <Card.Header>SHN Status: {this.state.shnStatus ? 'Yes' : 'No'}
-
-                                            </Card.Header>
-                                            <FormControlLabel onClick={this.toggleShnStatus} control={<Switch color="warning" />} label=""
-                                            />
+                                            <Card.Header>SHN Status: {this.state.shnStatus ? 'Yes' : 'No'}</Card.Header>
+                                            <FormControlLabel onClick={this.toggleShnStatus} control={<Switch color="warning" />} label=""/>
 
                                         </h5>
                                         <h5 className="text-dark">
