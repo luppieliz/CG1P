@@ -245,7 +245,6 @@ public class UserIntegrationTest {
         ResponseEntity<User> result = restTemplate.withBasicAuth(user1.getEmail(), userRawPassword)
                 .exchange(uri, HttpMethod.PUT, new HttpEntity<>(newUser), User.class);
 
-
         assertEquals(404, result.getStatusCode().value());
     }
 }
