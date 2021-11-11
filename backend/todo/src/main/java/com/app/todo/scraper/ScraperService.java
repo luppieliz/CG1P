@@ -58,6 +58,7 @@ public class ScraperService {
         final String TOPIC_KEYWORD = "safe-distance";
 
         ChromeDriver driver = setDriver();
+        System.out.println("Started driver to scrape for FAQ");
 
         driver.get(faqURL);
 
@@ -72,6 +73,7 @@ public class ScraperService {
             }
         }
 
+        driver.quit();
         return scrappedSrc;
     }
 
@@ -81,6 +83,7 @@ public class ScraperService {
      */
     public List<String> scrapeArticleForTags(final String articleURL) {
         ChromeDriver driver = setDriver();
+        System.out.println("Started driver to scrape for single news");
 
         driver.get(articleURL);
         Set<String> tempTagSet = new HashSet<>();
@@ -117,7 +120,62 @@ public class ScraperService {
             resultTag.add(keywordMap.get(keyword));
         }
 
+        driver.quit();
         return resultTag;
+    }
+
+    /**
+     * Find all the related tags for a list of given articles, returns a map of article URLs and list of tags.
+     * @param articleURLList
+     */
+    public Map<String, List<String>> scrapeMultipleArticlesForTags(final List<String> articleURLList) {
+        ChromeDriver driver = setDriver();
+        System.out.println("Started driver to scrape for multiple news");
+        Set<String> tempTagSet = new HashSet<>();
+        Map<String, List<String>> urlTagMap = new HashMap<>();
+//        WebDriverWait wait = new WebDriverWait(driver,30);
+
+        for (String articleURL : articleURLList) {
+            System.out.println("Scraping tags for " + articleURL);
+            driver.get(articleURL);
+//            wait.until(ExpectedConditions.visibilityOfAllElements())
+            final List<WebElement> tagList = driver.findElementsByTagName("p");
+            /* new scraping
+             * collect all words into a string, then split into a string array
+             * convert all p elements into a map of word frequencies O(n): number of words
+             *       check if keyword list has entries in word frequencies list m number of keywords at O(1) each
+             * complexity: n^2
+             */
+
+            //process all the paragraphs into a list of strings of lowercase words without punctuation
+            String allText = "";
+            for (WebElement element:tagList) {
+                String text = element.getText().replaceAll("\\p{Punct}", "").toLowerCase();
+                allText += " " + text;
+            }
+            String [] words = allText.split(" ");
+
+            //count all the words into a word freq map
+            Map<String, Long> frequencyMap = Arrays.stream(words)
+                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+            //compare words with keyword map
+            for (String keyword : keywordMap.keySet()) {
+                if (frequencyMap.containsKey(keyword)) {
+                    tempTagSet.add(keyword);
+                }
+            }
+
+            List<String> resultTag = new ArrayList<>();
+            for (String keyword : tempTagSet) {
+                resultTag.add(keywordMap.get(keyword));
+            }
+
+            urlTagMap.put(articleURL, resultTag);
+
+        }
+        driver.quit();
+        return urlTagMap;
     }
 
     ChromeDriver setDriver() {
