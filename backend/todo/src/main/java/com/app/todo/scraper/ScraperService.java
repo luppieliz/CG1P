@@ -1,5 +1,6 @@
 package com.app.todo.scraper;
 
+import com.app.todo.industry.Industry;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;

@@ -72,5 +72,4 @@ public class NewsController {
         String message = newsService.getTextMessage(currentNews);
         senderService.sendSms(new SmsRequest(phoneNo,message));
     }
-
 }
