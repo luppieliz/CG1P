@@ -82,11 +82,6 @@ public class TodoIntegrationTest {
         UUID ownerId = postResultOwner.getBody().getId();
         UUID employeeId = postResultEmployee.getBody().getId();
 
-        // System.out.println("-----------TESTING---------");
-        // System.out.println("userid: " + ownerId);
-        // System.out.println(postResultOwner.getBody());
-        // System.out.println("-----------TESTING---------");
-
         Date targetDate = Date.valueOf(LocalDate.now());
         List<UUID> createdForIds = new ArrayList<UUID>();
         createdForIds.add(employeeId);
@@ -107,32 +102,7 @@ public class TodoIntegrationTest {
 
         assertEquals(200, result.getStatusCode().value());
         assertEquals(1, todos.length);
-        // assertEquals(todo.getId(), result.getBody()[0].getId());
     }
-
-
-    // @Test
-    // public void getTodosByUserId_InvalidUserId_Failure() throws Exception{ // 404
-    //     Industry industry = industryRepository.save(new Industry("Arts and Culture"));
-    //     Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
-    //     final String userRawPassword = "password1";
-    //     User user = userRepository.save(new User("alice@gmail.com", "Alice", encoder.encode(userRawPassword), "ROLE_BUSINESSOWNER", business));
-    //     user.setId(UUID.randomUUID());
-    //     Calendar calendar = new GregorianCalendar(2021, 12, 12);
-    //     Date targetDate = calendar.getTime();
-    //     List<UUID> createdForIds = new ArrayList<UUID>();
-    //     createdForIds.add(user.getId());
-    //     Todo todo = todoRepository.save(new Todo("Submit Vaccination Status", targetDate, createdForIds));
-    //     todo.setId(UUID.randomUUID());
-    //     UUID testTodoId = UUID.randomUUID(); // will it be the same? 
-        
-    //     URI uri = new URI(baseUrl + port + "/" + testTodoId + "/todos/created");
-
-    //     ResponseEntity<Todo> result = restTemplate.withBasicAuth(user.getEmail(), userRawPassword)
-    //                                 .getForEntity(uri, Todo.class);
-
-    //     assertEquals(404, result.getStatusCode().value());
-    // }
 
     @Test
     public void getAssignedTodoByUserId_ValidUserId_Success() throws Exception { // HttpMessageConversionException:Granted Authority
@@ -168,26 +138,6 @@ public class TodoIntegrationTest {
         assertEquals(200, result.getStatusCode().value());
         assertEquals(1, todos.length);
     }
-
-//     @Test
-//     public void getTodoByTodoId_InvalidTodoId_Failure() throws Exception { // passed
-//         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
-//         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
-//         final String userRawPassword = "password1";
-//         User user = userRepository.save(new User(1L, "alice@gmail.com", "Alice", encoder.encode(userRawPassword), "ROLE_ADMIN", business));
-//         Todo todo = new Todo("Submit Vaccination Status");
-//         todo.setId(1L);
-//         todo.setUser(user);
-//         todoRepository.save(todo);
-//         Long testTodoId = 2L;
-        
-//         URI uri = new URI(baseUrl + port + "/" + user.getId() + "/todos/" + testTodoId);
-
-//         ResponseEntity<Todo> result = restTemplate.withBasicAuth(user.getEmail(), userRawPassword)
-//                                     .getForEntity(uri, Todo.class);
-
-//         assertEquals(404, result.getStatusCode().value());
-//     }
 
     @Test
     public void getTodoByTodoId_ValidTodoId_Success() throws Exception {
@@ -346,5 +296,4 @@ public class TodoIntegrationTest {
         assertEquals(204, result.getStatusCode().value());
         assertEquals(Optional.empty(), todoRepository.findById(todoId));
     }
-
 }
