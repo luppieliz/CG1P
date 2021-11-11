@@ -1,5 +1,6 @@
 package com.app.todo;
 
+import com.app.todo.business.BusinessService;
 import com.app.todo.user.*;
 import com.app.todo.business.Business;
 import com.app.todo.industry.Industry;
@@ -33,16 +34,27 @@ public class UserServiceTest {
     @Mock
     private BCryptPasswordEncoder encoder;
 
+    @Mock
+    private BusinessService businessService;
+
     @InjectMocks
     private UserService userService;
 
     @Test
     void getAllUsers_ReturnAllUsers() {
-        when(users.findAll()).thenReturn(new ArrayList<User>());
+        Industry industry = new Industry("Arts and Culture");
+        Business business = new Business("asd789fhgj", "Singapore Museum", industry);
+        UUID userID = UUID.randomUUID();
+        User user = new User(userID,"admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
+        List<User> userList = new ArrayList<>();
+        userList.add(user);
+
+        when(users.findAll()).thenReturn(userList);
 
         List<User> allUsers = userService.getAllUsers();
 
         assertNotNull(allUsers);
+        assertEquals(userList.size(), allUsers.size());
         verify(users).findAll();
     }
 
@@ -50,7 +62,8 @@ public class UserServiceTest {
     void getUserWithId_ValidUserId_ReturnUser() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        User user = new User("admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
+        UUID userID = UUID.randomUUID();
+        User user = new User(userID,"admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
         when(users.findById(user.getId())).thenReturn(Optional.of(user));
 
         User foundUser = userService.getUser(user.getId());
@@ -136,20 +149,36 @@ public class UserServiceTest {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
         User user = new User("admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
-        userService.addUser(user);
-        User newUser = new User("admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
 
         when(users.existsByEmail(any(String.class))).thenReturn(true);
 
         Throwable exception = null;
 
         try {
-            User savedUser = userService.addUser(newUser);
+            User savedUser = userService.addUser(user);
         } catch (Throwable ex) {
             exception = ex;
         }
 
         assertEquals(UserAlreadyRegisteredException.class, exception.getClass());
-        verify(users, atLeast(2)).existsByEmail(user.getEmail());
+        verify(users, atLeast(1)).existsByEmail(user.getEmail());
+    }
+
+    @Test
+    void getUsersByBusiness_ValidBusinessId_ReturnUserList() {
+        Industry industry = new Industry("Arts and Culture");
+        UUID businessID = UUID.randomUUID();
+        Business business = new Business(businessID, "asd789fhgj", "Singapore Museum", industry);
+        User user = new User("admin@abc.com", "admin", encoder.encode("goodpassword"), "ROLE_ADMIN", business);
+        List<User> userList = new ArrayList<>();
+        userList.add(user);
+
+        when(businessService.getBusiness(any(UUID.class))).thenReturn(business);
+        when(users.findByBusiness(business)).thenReturn(userList);
+
+        List<User> foundUsers = userService.getUsersByBusiness(business.getId());
+
+        assertNotNull(foundUsers);
+        verify(users).findByBusiness(business);
     }
 }

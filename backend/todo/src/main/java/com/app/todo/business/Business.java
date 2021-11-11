@@ -20,6 +20,10 @@ import com.app.todo.industry.Industry;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
+import com.fasterxml.jackson.databind.ser.std.UUIDSerializer;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.*;
@@ -57,7 +61,7 @@ public class Business {
     @OneToMany(mappedBy = "business", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
-    public Business(@JsonProperty("UEN") String UEN, String name, Industry industry) { // @JsonProperty("industry_id") int industryId) {
+    public Business(String UEN, String name, Industry industry) { // @JsonProperty("industry_id") int industryId) {
         this.UEN = UEN;
         this.name = name;
         this.industry = industry;

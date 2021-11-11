@@ -25,6 +25,9 @@ import com.app.todo.todo.Todo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
+import com.fasterxml.jackson.databind.ser.std.UUIDSerializer;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -52,6 +55,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @JsonDeserialize(using= UUIDDeserializer.class)
     @Column(name = "user_id")
     private UUID id;
 
