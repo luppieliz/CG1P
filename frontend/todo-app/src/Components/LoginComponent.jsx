@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
-import { SESSION_USER_BUSINESS, SESSION_USER_ID, SESSION_USER_NAME, SESSION_USER_ROLE } from '../Constants.js'
+import { SESSION_USER_BUSINESS, SESSION_USER_ID, SESSION_USER_NAME, SESSION_USER_ROLE, SESSION_TOKEN } from '../Constants.js'
 
 import GLOBE from 'vanta/dist/vanta.net.min'
 
@@ -65,10 +65,12 @@ class LoginComponent extends Component {
     // If successful, use authenticationService to register the log in ad redirect to the welcone page for that user
     // Else, set login failed to true to display alert
     loginClicked() {
-        AuthenticationService.executeBasicAuthenticationService(this.state.email, this.state.password)
-            .then(() => {
+        AuthenticationService.executeJwtAuthenticationService(this.state.email, this.state.password)
+            .then((response) => {
+                let JWTtoken = 'Bearer ' + response.data.token
+                sessionStorage.setItem(SESSION_TOKEN, JWTtoken)
                 console.log('Login phase 1 complete')
-                return AuthenticationService.registerSuccessfulLoginForBasicAuth(this.state.email)
+                return AuthenticationService.registerSuccessfulLoginForJwt(this.state.email)
             })
             .then(response => {
                 console.log('Login phase 2 complete')
