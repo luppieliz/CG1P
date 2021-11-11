@@ -1,7 +1,5 @@
 package com.app.todo.scraper;
 
-import javax.annotation.PostConstruct;
-
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.context.annotation.Bean;
@@ -17,11 +15,11 @@ public class ScraperConfig {
 
 
         // For CI
-//        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
         // For local IDE
         // System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
-         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
+//         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
 
 
         // For deployment

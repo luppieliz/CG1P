@@ -13,7 +13,7 @@ class NewsDataService {
 
     triggerNewsApi() {
     // return axios.get(`${API_URL}/newsapi/sg/covid`);
-        return axios.get(`${API_URL}/newsapi/channelnewsasia.com,straitstimes.com/covid+singapore/2021-11-07`);
+        return axios.get(`${API_URL}/newsapi/channelnewsasia.com,straitstimes.com/covid+singapore/2021-11-40`);
 }
 }
 

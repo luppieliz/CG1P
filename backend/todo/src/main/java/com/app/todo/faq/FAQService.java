@@ -43,12 +43,14 @@ public class FAQService {
     public List<FAQ> retrieveAllFAQ(final List<String> scrappedSrc) {
         List<FAQ> faqList = new ArrayList<>();
         for (String src : scrappedSrc) {
-            if (faqRepository.existsByURL(src)) {
-                throw new FAQAlreadyExistedException(src);
+//            if (!faqRepository.existsByURL(src)) {
+//                throw new FAQAlreadyExistedException(src);
+//            }
+            if (!faqRepository.existsByURL(src)) {
+                FAQ newFAQ = new FAQ(src);
+                faqList.add(addFAQ(newFAQ));
             }
 
-            FAQ newFAQ = new FAQ(src);
-            faqList.add(addFAQ(newFAQ));
         }
         return faqList;
     }

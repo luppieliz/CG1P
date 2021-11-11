@@ -46,6 +46,23 @@ public class EmailService {
         message.setText(bodyText);
         emailSender.send(message);
     }
+    /**
+     * Send a simple templated email to multiple recepients. Throw IllegalArgumentException if missing address or email subject.
+     * @param to
+     * @param subject
+     * @param bodyText
+     */
+    public void sendSimpleEmail(String[] to, String subject, String bodyText) {
+        if (!checkValidToAdd(to) || !checkValidSubject(subject)) {
+            throw new IllegalArgumentException("Missing to address or missing email subject");
+        }
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(bodyText);
+        emailSender.send(message);
+    }
 
     /**
      *
@@ -83,6 +100,18 @@ public class EmailService {
     public boolean checkValidToAdd(String to) {
         if (to == null || to.length() == 0 || !to.contains("@")) {
             return false;
+        }
+        return true;
+    }
+
+    public boolean checkValidToAdd(String[] to) {
+        if (to == null || to.length == 0) {
+            return false;
+        }
+        for (String recipient : to) {
+            if (!recipient.contains("@")) {
+                return false;
+            }
         }
         return true;
     }

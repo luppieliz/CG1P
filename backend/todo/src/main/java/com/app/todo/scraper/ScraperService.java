@@ -1,5 +1,6 @@
 package com.app.todo.scraper;
 
+import com.app.todo.industry.Industry;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -68,11 +69,31 @@ public class ScraperService {
 
         // Find all the sources of safe-distance info-graphics
         for (WebElement element:tagList) {
-            String src = element.getAttribute("src").toString();
+            String src = element.getAttribute("src");
             if (src.contains(TOPIC_KEYWORD)) {
                 scrappedSrc.add(src);
             }
         }
+
+        // Find links with tag "a"
+        final List<WebElement> linksList = driver.findElementsByTagName("a");
+
+        // Find all the sources of safe-distance info-graphics
+        for (WebElement element:linksList) {
+//            System.out.println(element.getText() + "|" + element.getAttribute("href"));
+            try {
+                String url = element.getAttribute("href");
+                if (url.contains("safe-distance") && url.contains("png")) {
+                    String src = element.getAttribute("href");
+                    if (src.contains(TOPIC_KEYWORD)) {
+                        scrappedSrc.add(src);
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("No url");
+            }
+        }
+
 
         driver.quit();
         return scrappedSrc;
@@ -195,11 +216,11 @@ public class ScraperService {
 
 
         // For CI
-//         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
 
         // For local IDE
-         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
-//        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
+//         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
+//         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
 
         // For deployment
 //         System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");

@@ -33,7 +33,7 @@ class ContactusComponent extends Component {
                             <Form.Control as="textarea" rows={3} />
                         </Form.Group>
                         <div className="d-grid gap-2">
-                        <Button variant="primary" type="submit" size="lg"><FiSend /></Button>
+                        <Button variant="outline-dark" type="submit" size="lg"><FiSend /></Button>
                         </div>
                         </Form>
                 </Container>

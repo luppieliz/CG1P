@@ -1,6 +1,7 @@
 package com.app.todo.newsfunnel;
 
 import com.app.todo.measure.MeasureService;
+import com.app.todo.notifier.NotificationService;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,14 @@ public class NewsService {
 
     private NewsRepository newsRepository;
     private MeasureService measureService;
+    private NotificationService notificationService;
     final String STANDARD_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Autowired
-    public NewsService(NewsRepository newsRepository, MeasureService measureService) {
+    public NewsService(NewsRepository newsRepository, MeasureService measureService, NotificationService notificationService) {
         this.newsRepository = newsRepository;
         this.measureService = measureService;
+        this.notificationService = notificationService;
     }
 
     /**
@@ -44,7 +47,7 @@ public class NewsService {
      */
     public List<News> getAllNews() throws ParseException {
         List<News> allNews = newsRepository.findAll();
-        Map<Date, News> newsMap = new TreeMap<>();
+        Map<Date, News> newsMap = new TreeMap<>(Collections.reverseOrder());
         for (News news : allNews) {
             Date date= new SimpleDateFormat(STANDARD_DATE_FORMAT).parse(news.getPublishedDate());
             newsMap.put(date, news);
@@ -104,8 +107,14 @@ public class NewsService {
             singleNews.setTagList(stringTag);
 
             resultNews.add(singleNews);
-            addNews(singleNews);
+            try {
+                addNews(singleNews);
+            } catch(NewsAlreadyRetrievedException e) {
+                System.out.println(e.getMessage());
+            }
         }
+
+        notificationService.sendWrapper(resultNews);
         return resultNews;
     }
 

@@ -60,7 +60,6 @@ public class UserIntegrationTest {
         User newUser = new User("admin@gmail", "admin", "goodpassword",  "ROLE_ADMIN" ,business);
 
         ResponseEntity<User> result = restTemplate.postForEntity(uri, newUser, User.class);
-
         assertEquals(200, result.getStatusCodeValue());
     }
 
@@ -244,7 +243,6 @@ public class UserIntegrationTest {
 
         ResponseEntity<User> result = restTemplate.withBasicAuth(user1.getEmail(), userRawPassword)
                 .exchange(uri, HttpMethod.PUT, new HttpEntity<>(newUser), User.class);
-
 
         assertEquals(404, result.getStatusCode().value());
     }
