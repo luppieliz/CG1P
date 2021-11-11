@@ -47,9 +47,10 @@ public class NewsService {
      */
     public List<News> getAllNews() throws ParseException {
         List<News> allNews = newsRepository.findAll();
-        Map<Date, News> newsMap = new TreeMap<>(Collections.reverseOrder());
+        Map<LocalDate, News> newsMap = new TreeMap<>(Collections.reverseOrder());
         for (News news : allNews) {
-            Date date= new SimpleDateFormat(STANDARD_DATE_FORMAT).parse(news.getPublishedDate());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(STANDARD_DATE_FORMAT);
+            LocalDate date = LocalDate.parse(news.getPublishedDate(), formatter);
             newsMap.put(date, news);
         }
 

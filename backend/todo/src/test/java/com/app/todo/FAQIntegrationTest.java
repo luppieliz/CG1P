@@ -43,6 +43,5 @@ public class FAQIntegrationTest {
         ResponseEntity<FAQ[]> result = restTemplate.getForEntity(uri, FAQ[].class);
 
         assertEquals(200, result.getStatusCode().value());
-
     }
 }
