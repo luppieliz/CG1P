@@ -12,13 +12,14 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NewsService {
 
     private NewsRepository newsRepository;
     private MeasureService measureService;
-    final String STANDARD_DATE_FORMAT = "yyyy-MM-dd";
+    final String STANDARD_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Autowired
     public NewsService(NewsRepository newsRepository, MeasureService measureService) {
@@ -53,8 +54,22 @@ public class NewsService {
      * @throws ParseException
      */
     public List<News> getNewsFromAPI(final NewsDTO[] newsFromAPI) throws ParseException {
-        List<News> resultNews = new ArrayList<>();
+        //get a list of URLS that are not duplicated
+        List<String> urlList = new ArrayList<>();
+        for (NewsDTO newsDTO : newsFromAPI) {
+            //check if news item is already in the repo
+            if (!newsRepository.existsByURL(newsDTO.getUrl())) {
+                //filter out non-singapore articles
+                if(newsDTO.getUrl().contains("/singapore")) {
+                    urlList.add(newsDTO.getUrl());
+                }
+            }
+        }
 
+        //get a map of all tags for each URL
+        Map<String,List<String>> tagMap = measureService.getTagMap(urlList);
+
+        List<News> resultNews = new ArrayList<>();
         for (NewsDTO newsDTO : newsFromAPI) {
             //check if news item is already in the repo
             if (newsRepository.existsByURL(newsDTO.getUrl())) {
@@ -73,7 +88,9 @@ public class NewsService {
             singleNews.setContent(newsDTO.getContent());
 
             // Get tags for an article
-            List<String> tagList = measureService.getTag(newsDTO.getUrl());
+//            List<String> tagList = measureService.getTag(newsDTO.getUrl());
+            List<String> tagList = tagMap.get(newsDTO.getUrl());
+            System.out.println("successfully got tags for " + newsDTO.getUrl());
 
             // Convert tag list to string tag
             String stringTag = getStringTag(tagList);

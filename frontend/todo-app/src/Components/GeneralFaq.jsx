@@ -11,6 +11,8 @@ import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
 import Accordion from 'react-bootstrap/Accordion'
 import FaqDataService from '../api/FaqDataService';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 
 
@@ -21,13 +23,17 @@ class GeneralFaq extends Component {
     constructor(props) {
         super(props)
 
+        this.toggleLanguage = this.toggleLanguage.bind(this);
+
         this.state = {
             faq: [],
             faqDisplay: [],
             isEmpty: false,
             tagsSelected: {},
-            options: []
+            options: [],
+            userLanguage: true,
         }
+
     }
 
     getFAQ() {
@@ -50,7 +56,7 @@ class GeneralFaq extends Component {
     createUserDisplay() {
         //get the logged in user's lamnguage and industry
         let userIndustry = "F&B"; //todo: set based on the logged in user
-        let userLanguage = "English";
+        let userLanguage = this.state.userLanguage ? "English" : "Chinese"
         let output = [];
         let idx = 0;
         console.log(this.state.faq);
@@ -71,11 +77,19 @@ class GeneralFaq extends Component {
 
     }
 
+    toggleLanguage() {
+        this.setState({
+            userLanguage: !this.state.userLanguage
+        })
+        this.getFAQ()
+    }
+
     componentDidMount() {
         this.getFAQ()
     }
 
     render() {
+        
         return (
             <div >
                 <Placeholder xs={12} bg="transparent" />
@@ -84,73 +98,32 @@ class GeneralFaq extends Component {
                 <h1 className="cg1p-header">FAQ {this.state.userName}</h1>
                 <Placeholder xs={12} bg="transparent" />
                 <Placeholder xs={12} bg="transparent" />
-                <Container>
-                    <Row style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }}>
-                        <Col xs={5}>
-                            <Form className="d-flex">
-                                <FormControl
-                                    type="search"
-                                    placeholder="Search"
-                                    className="mr-2"
-                                    aria-label="Search"
-                                />
-                                <Button src="" variant="outline-dark" style={{marginLeft: "1vw", marginBottom:"1vh"}}>Search</Button>
-                            </Form>
-                        </Col>
-                    </Row>
-                </Container>
+
+                <Row style={{ paddingLeft: "5vw", paddingRight: "5vw" }}>
+                    <Col>
+                        <Card className="text-center">
+                            <Card.Body>
+                                <Card.Title>
+                                    {/* <h2 className="cg1p-header">
+                                        My Language</h2> */}
+                                </Card.Title>
+                                <Card.Text>
+                                    <h5 className="text-dark">
+                                        <Card.Header>Language : {this.state.userLanguage ? 'English' : 'Chinese'}
+                                        </Card.Header>
+                                        <FormControlLabel onClick={this.toggleLanguage} control={<Switch color="warning" />} label=""
+                                        />
+                                    </h5>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+
+                <Placeholder xs={12} bg="transparent" />
                 <Placeholder xs={12} bg="transparent" />
 
-
-                {/* the questions */}
-                <Container>
-                    <Row>
-
-                        <Accordion>
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>Do i need to declare my onsite manpower details?</Accordion.Header>
-                                <Accordion.Body className="text-black bg-white">
-                                    <Row>
-                                        <Col>You are required to declare your onsite manpower if you received an email
-                                            notifying you to submit your onsite manpower details, or if there is a
-                                            “MPSubmit” reference number in your company dashboard after you have logged into GoBusiness.
-                                            For companies in the Construction, Process and, Marine and Offshore Sectors
-                                            Companies in the above sectors will not receive an email notification to submit manpower details but should still continue
-                                            to submit their manpower details for the reference numbers they see in the system that are available to them.
-                                            These companies are required to submit more information including NRIC/Fin numbers and premises/location
-                                            details in their manpower declaration. These companies will not have an “MPSubmit” reference number.</Col>
-                                        <Col> <Image src="https://static6.depositphotos.com/1131998/649/v/600/depositphotos_6490192-stock-illustration-smile-face.jpg" fluid /></Col>
-                                    </Row>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>Why is it necessary for me to declare my onsite manpower details?</Accordion.Header>
-                                <Accordion.Body className="text-black bg-white " >
-                                    <Row>
-                                        <Col>You are required to declare your onsite manpower if you received an email
-                                            notifying you to submit your onsite manpower details, or if there is a
-                                            “MPSubmit” reference number in your company dashboard after you have logged into GoBusiness.
-                                            For companies in the Construction, Process and, Marine and Offshore Sectors
-                                            Companies in the above sectors will not receive an email notification to submit manpower details but should still continue
-                                            to submit their manpower details for the reference numbers they see in the system that are available to them.
-                                            These companies are required to submit more information including NRIC/Fin numbers and premises/location
-                                            details in their manpower declaration. These companies will not have an “MPSubmit” reference number.</Col>
-                                        <Col> <Image src="https://static6.depositphotos.com/1131998/649/v/600/depositphotos_6490192-stock-illustration-smile-face.jpg" fluid /></Col>
-                                    </Row>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
-
-
-                    </Row>
-                    <Placeholder xs={12} bg="transparent" style={{ paddingBottom: "5vh" }} />
-                </Container>
-
-                <Row xl={3} style={{ paddingLeft:"5vw", paddingRight:"5vw"}}>
+                <Row xl={3} style={{ paddingLeft: "5vw", paddingRight: "5vw" }}>
                     {Array.from(this.state.faqDisplay, (_, idx) => (
                         <Col>
                             <Card>

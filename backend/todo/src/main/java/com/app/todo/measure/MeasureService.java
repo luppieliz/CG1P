@@ -1,6 +1,7 @@
 package com.app.todo.measure;
 
 import java.util.List;
+import java.util.Map;
 
 import com.app.todo.scraper.*;
 
@@ -20,18 +21,25 @@ public class MeasureService {
     /**
      * Get measures sources from a website.
      * @param measureURL: url of the website containing all the required measures.
-     * @return
+     * @return list of measure urls
      */
     public List<String> getMeasures(final String measureURL) {
-        List<String> sourcesList = scraperService.scrapeFAQ(measureURL);
-        return sourcesList;
+        return scraperService.scrapeFAQ(measureURL);
     }
 
     /**
-     * Get tag list for a news article.
+     * Get tag list for a single news article.
      * @param newsURL: url of the news article.
      */
     public List<String> getTag(final String newsURL) {
         return scraperService.scrapeArticleForTags(newsURL);
+    }
+
+    /**
+     * Get tag list for a multiple news articles.
+     * @param newsURLList: list of urls of news articles.
+     */
+    public Map<String,List<String>> getTagMap(final List<String> newsURLList) {
+        return scraperService.scrapeMultipleArticlesForTags(newsURLList);
     }
 }

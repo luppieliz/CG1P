@@ -1,9 +1,7 @@
 package com.app.todo;
 
 import com.app.todo.covid.DailyResponse;
-import com.app.todo.faq.FAQController;
-import com.app.todo.faq.FAQService;
-import com.app.todo.measure.MeasureService;
+import com.app.todo.scheduler.ScheduledTasks;
 import com.app.todo.user.User;
 import com.app.todo.user.UserService;
 import com.app.todo.industry.Industry;
@@ -12,26 +10,17 @@ import com.app.todo.business.Business;
 import com.app.todo.business.BusinessService;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 @SpringBootApplication
 @EnableScheduling
@@ -40,14 +29,10 @@ public class Application {
 	public static void main(String[] args) throws IOException, InterruptedException, ParseException {
 		ApplicationContext ctx = SpringApplication.run(Application.class, args);
 
-		MeasureService testService = ctx.getBean(MeasureService.class);
-//		testService.getTag();
-		String testURL = "https://www.enterprisesg.gov.sg/covid-19/safe-distance";
-		List<String> sourcesLink = testService.getMeasures(testURL);
-		sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
-
-		FAQController testFAQController = ctx.getBean(FAQController.class);
-		testFAQController.retrieveImage(testURL);
+		//Startup tasks
+		ScheduledTasks scheduledTasks = ctx.getBean(ScheduledTasks.class);
+		scheduledTasks.getNewsOnSchedule();
+		scheduledTasks.getFAQUpdatesOnSchedule();
 
 		IndustryService industries = ctx.getBean(IndustryService.class);
 		System.out.println("[Add industry]: " + industries.addIndustry(

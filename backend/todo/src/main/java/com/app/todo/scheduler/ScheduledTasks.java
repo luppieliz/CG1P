@@ -45,7 +45,7 @@ public class ScheduledTasks {
     @Scheduled(cron = "${scheduled.newsRefreshCron}")
     public void getNewsOnSchedule() throws IOException, ParseException, InterruptedException {
         log.info("Fetching hourly news at {}", dateFormat.format(new Date()));
-        String fromDate = dateFormatDate.format(new Date());
+        String fromDate = dateFormatDate.format(new Date(System.currentTimeMillis() - 86400 * 1000));
         newsController.getNewsv2(newsSources, newsQuery, fromDate);
     }
 

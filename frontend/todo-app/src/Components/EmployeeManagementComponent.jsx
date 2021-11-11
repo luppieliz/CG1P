@@ -15,6 +15,7 @@ class EmployeeManagementComponent extends Component {
     }
 
     componentDidMount() {
+        console.log(sessionStorage.getItem(SESSION_USER_BUSINESS))
         UserDataService.retrieveUsersByBusiness(sessionStorage.getItem(SESSION_USER_BUSINESS))
             .then(response => {
                 this.setState({ employees: response.data })
@@ -78,8 +79,6 @@ class EmployeeManagementComponent extends Component {
             )
         }
     }
-
-
 }
 
 export default EmployeeManagementComponent;
