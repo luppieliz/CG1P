@@ -78,4 +78,25 @@ public class Todo {
         this.targetDate = targetDate;
         this.createdForIds = createdForIds;
     }
+
+    public Todo(UUID id ,String description, Date targetDate, List<UUID> createdForIds) {
+        this.id = id;
+        this.description = description;
+        this.targetDate = targetDate;
+        this.createdForIds = createdForIds;
+    }
+
+    public Todo(User createdBy, Date createdDate, String description) {
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.description = description;
+    }
+
+    public Todo(User createdBy, Date createdDate, String description, List<UUID> createdForIDs) {
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.description = description;
+        this.createdForIds = createdForIDs;
+    }
+
 }
