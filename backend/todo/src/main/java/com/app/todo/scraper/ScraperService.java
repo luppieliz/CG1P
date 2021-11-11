@@ -16,34 +16,35 @@ public class ScraperService {
     @Autowired
     private ScraperConfig scraperConfig;
 
-    private static Map<String, Set<String>> tagMap = new HashMap<>();
+//    private static Map<String, Set<String>> tagMap = new HashMap<>();
     private static Map<String, String> keywordMap = new HashMap<>(); //<keyword, tag>
     static {
-        String[] fnb = new String[] {"restaurants", "F&B, f&b", "eating", "dining", "drinks"};
-        tagMap.put("F&B", new HashSet<String>(Arrays.asList(fnb)));
+//        String[] fnb = new String[] {"restaurants", "F&B, ", "eating", "dining", "drinks"};
+//        tagMap.put("F&B", new HashSet<String>(Arrays.asList(fnb)));
+//
+//        String[] tourism = new String[] {"tourists", "travel"};
+//        tagMap.put("Tourism", new HashSet<String>(Arrays.asList(tourism)));
+//
+//        String[] healthcare = new String[] {"hospital"};
+//        tagMap.put("Healthcare", new HashSet<String>(Arrays.asList(healthcare)));
+//
+//        String[] retail = new String[] {"stores", "retail", "shopping"};
+//        tagMap.put("Retail", new HashSet<>(Arrays.asList(retail)));
 
-        String[] tourism = new String[] {"tourists", "travel"};
-        tagMap.put("Tourism", new HashSet<String>(Arrays.asList(tourism)));
-
-        String[] healthcare = new String[] {"hospital"};
-        tagMap.put("Healthcare", new HashSet<String>(Arrays.asList(healthcare)));
-
-        String[] retail = new String[] {"stores", "retail", "shopping"};
-        tagMap.put("Retail", new HashSet<>(Arrays.asList(retail)));
-
-        //new implementation
-        for (String keyword : fnb) {
-            keywordMap.put(keyword, "F&B");
-        }
-        for (String keyword : tourism) {
-            keywordMap.put(keyword, "Tourism");
-        }
-        for (String keyword : healthcare) {
-            keywordMap.put(keyword, "Healthcare");
-        }
-        for (String keyword : retail) {
-            keywordMap.put(keyword, "Retail");
-        }
+        //put (keyword, tag)
+        keywordMap.put("restaurants", "F&B");
+        keywordMap.put("F&B", "F&B");
+        keywordMap.put("eating", "F&B");
+        keywordMap.put("dining", "F&B");
+        keywordMap.put("drinks", "F&B");
+        keywordMap.put("tourists", "Tourism");
+        keywordMap.put("travel", "Tourism");
+        keywordMap.put("corridor", "Tourism");
+        keywordMap.put("vtl", "Tourism");
+        keywordMap.put("hospital", "Healthcare");
+        keywordMap.put("stores", "Retail");
+        keywordMap.put("retail", "Retail");
+        keywordMap.put("shopping", "Retail");
     }
 
 
@@ -132,14 +133,12 @@ public class ScraperService {
     public Map<String, List<String>> scrapeMultipleArticlesForTags(final List<String> articleURLList) {
         ChromeDriver driver = setDriver();
         System.out.println("Started driver to scrape for multiple news");
-        Set<String> tempTagSet = new HashSet<>();
+
         Map<String, List<String>> urlTagMap = new HashMap<>();
-//        WebDriverWait wait = new WebDriverWait(driver,30);
 
         for (String articleURL : articleURLList) {
             System.out.println("Scraping tags for " + articleURL);
             driver.get(articleURL);
-//            wait.until(ExpectedConditions.visibilityOfAllElements())
             final List<WebElement> tagList = driver.findElementsByTagName("p");
             /* new scraping
              * collect all words into a string, then split into a string array
@@ -160,17 +159,8 @@ public class ScraperService {
             Map<String, Long> frequencyMap = Arrays.stream(words)
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-            //compare words with keyword map
-            for (String keyword : keywordMap.keySet()) {
-                if (frequencyMap.containsKey(keyword)) {
-                    tempTagSet.add(keyword);
-                }
-            }
-
-            List<String> resultTag = new ArrayList<>();
-            for (String keyword : tempTagSet) {
-                resultTag.add(keywordMap.get(keyword));
-            }
+            //Get the tags from the frequency map
+            List<String> resultTag = getTags(frequencyMap);
 
             urlTagMap.put(articleURL, resultTag);
 
@@ -179,16 +169,36 @@ public class ScraperService {
         return urlTagMap;
     }
 
+    private List<String> getTags(Map<String, Long> frequencyMap) {
+        Set<String> tempTagSet = new HashSet<>();
+        List<String> outputList = new ArrayList<>();
+        //compare words with keyword map
+        for (String keyword : keywordMap.keySet()) {
+            if (frequencyMap.containsKey(keyword)) {
+                //does not matter if tag is duplicated
+                tempTagSet.add(keyword);
+            }
+        }
+
+        System.out.println("temptagset: " + tempTagSet.toString());
+        for (String keyword : tempTagSet) {
+            if (!outputList.contains(keywordMap.get(keyword))) {
+                outputList.add(keywordMap.get(keyword));
+            }
+        }
+        return outputList;
+    }
+
     ChromeDriver setDriver() {
 
         final ChromeOptions chromeOptions = new ChromeOptions();
 
 
         // For CI
-         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+//         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
 
         // For local IDE
-        // System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
+         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
 //        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
 
         // For deployment
