@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class NewsService {
@@ -40,11 +39,18 @@ public class NewsService {
     }
 
     /**
-     * Retrieve all articles.
+     * Retrieve all articles, sorts by date
      * @return A list of all stored articles.
      */
-    public List<News> getAllNews() {
-        return newsRepository.findAll();
+    public List<News> getAllNews() throws ParseException {
+        List<News> allNews = newsRepository.findAll();
+        Map<Date, News> newsMap = new TreeMap<>();
+        for (News news : allNews) {
+            Date date= new SimpleDateFormat(STANDARD_DATE_FORMAT).parse(news.getPublishedDate());
+            newsMap.put(date, news);
+        }
+
+        return new ArrayList<>(newsMap.values());
     }
 
     /**
