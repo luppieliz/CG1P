@@ -29,7 +29,11 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class TodoIntegrationTest {
@@ -58,14 +62,22 @@ public class TodoIntegrationTest {
     @Autowired
     private IndustryRepository industryRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder encoder;
-
     @AfterEach
     void tearDown() {
         todoRepository.deleteAll();
         userRepository.deleteAll();
     }
+
+    private HttpHeaders getHeaders() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		return headers;
+    }
+    
+    private String getBody(final User user) throws JsonProcessingException {
+		return new ObjectMapper().writeValueAsString(user);
+	}
 
     @Test
     public void getCreatedTodosByUserId_ValidUserId_Success() throws Exception { // restclient -> HttpMessageNotReadableException
@@ -78,7 +90,6 @@ public class TodoIntegrationTest {
 
         ResponseEntity<User> postResultOwner = restTemplate.postForEntity(uri, owner, User.class);
         ResponseEntity<User> postResultEmployee = restTemplate.postForEntity(uri, employee, User.class);
-
         UUID ownerId = postResultOwner.getBody().getId();
         UUID employeeId = postResultEmployee.getBody().getId();
 
@@ -88,20 +99,34 @@ public class TodoIntegrationTest {
 
         Todo todo = new Todo("Submit Vaccination Status", targetDate, createdForIds);
         todo.setCreatedBy(owner);
+
+        // authentication
+        String authenticationBody = getBody(owner);
+        HttpHeaders authenticationHeaders = getHeaders();
+		HttpEntity<String> authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
         
+        String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
+
+        // Authenticate User and get JWT
+        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+
+        String token = "Bearer " + authenticationResponse.getBody().getToken();
+        HttpHeaders headers = getHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
+        HttpEntity<Todo> jwtEntityPost = new HttpEntity<Todo>(todo, headers);
+        
+        // Use Token to post Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Void> postResultTodo = restTemplate.withBasicAuth(owner.getEmail(), userRawPassword)
-                                            .postForEntity(uri, todo, Void.class);
+        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
 
-
+        // Use Token to get Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");
-        ResponseEntity<Todo[]> result = restTemplate.withBasicAuth(owner.getEmail(), userRawPassword)
-                                        .getForEntity(uri, Todo[].class);
-        Todo[] todos = result.getBody();
+        ResponseEntity<Todo[]> getResultTodoList = restTemplate.exchange(uri, HttpMethod.GET, jwtEntity, Todo[].class);
+        Todo[] result = getResultTodoList.getBody();
 
-
-        assertEquals(200, result.getStatusCode().value());
-        assertEquals(1, todos.length);
+        assertEquals(200, getResultTodoList.getStatusCode().value());
+        assertEquals(true, (todo.getDescription()).equals(result[0].getDescription())); // can only check by desc since original id not avail
     }
 
     @Test
@@ -115,28 +140,54 @@ public class TodoIntegrationTest {
 
         ResponseEntity<User> postResultOwner = restTemplate.postForEntity(uri, owner, User.class);
         ResponseEntity<User> postResultEmployee = restTemplate.postForEntity(uri, employee, User.class);
-
         UUID ownerId = postResultOwner.getBody().getId();
         UUID employeeId = postResultEmployee.getBody().getId();
-        
+
         Date targetDate = Date.valueOf(LocalDate.now());
         List<UUID> createdForIds = new ArrayList<UUID>();
         createdForIds.add(employeeId);
 
         Todo todo = new Todo("Submit Vaccination Status", targetDate, createdForIds);
         todo.setCreatedBy(owner);
+
+        // authentication for owner to post
+        String authenticationBody = getBody(owner);
+        HttpHeaders authenticationHeaders = getHeaders();
+		HttpEntity<String> authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
         
+        String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
+
+        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+
+        String token = "Bearer " + authenticationResponse.getBody().getToken();
+        HttpHeaders headers = getHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<Todo> jwtEntityOwner = new HttpEntity<Todo>(todo, headers);
+        
+        // authentication for employee to get
+        authenticationBody = getBody(employee);
+        authenticationHeaders = getHeaders();
+        authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
+
+        authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+
+        token = "Bearer " + authenticationResponse.getBody().getToken();
+        headers = getHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<String> jwtEntityEmployee = new HttpEntity<String>(headers);
+
+        // Use Token to post Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Void> postResultTodo = restTemplate.withBasicAuth(owner.getEmail(), userRawPassword)
-                                            .postForEntity(uri, todo, Void.class);
+        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityOwner, Todo.class);
+        assertEquals(201, postResultTodo.getStatusCode().value());
 
+        // Use Token to get Response
         uri = new URI(baseUrl + port + "/" + employeeId + "/todos/assigned");
-        ResponseEntity<Todo[]> result = restTemplate.withBasicAuth(employee.getEmail(), userRawPassword)
-                                        .getForEntity(uri, Todo[].class);
-        Todo[] todos = result.getBody();
+        ResponseEntity<Todo[]> getResultTodoList = restTemplate.exchange(uri, HttpMethod.GET, jwtEntityEmployee, Todo[].class);
+        Todo[] result = getResultTodoList.getBody();
 
-        assertEquals(200, result.getStatusCode().value());
-        assertEquals(1, todos.length);
+        assertEquals(200, getResultTodoList.getStatusCode().value());
+        assertEquals(true, (todo.getDescription()).equals(result[0].getDescription())); // can only check by desc since original id not avail
     }
 
     @Test
@@ -150,33 +201,46 @@ public class TodoIntegrationTest {
 
         ResponseEntity<User> postResultOwner = restTemplate.postForEntity(uri, owner, User.class);
         ResponseEntity<User> postResultEmployee = restTemplate.postForEntity(uri, employee, User.class);
-
         UUID ownerId = postResultOwner.getBody().getId();
         UUID employeeId = postResultEmployee.getBody().getId();
-        
+
         Date targetDate = Date.valueOf(LocalDate.now());
         List<UUID> createdForIds = new ArrayList<UUID>();
         createdForIds.add(employeeId);
 
         Todo todo = new Todo("Submit Vaccination Status", targetDate, createdForIds);
         todo.setCreatedBy(owner);
+
+        // authentication
+        String authenticationBody = getBody(owner);
+        HttpHeaders authenticationHeaders = getHeaders();
+		HttpEntity<String> authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
         
+        String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
+
+        // Authenticate User and get JWT
+        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+
+        String token = "Bearer " + authenticationResponse.getBody().getToken();
+        HttpHeaders headers = getHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
+        HttpEntity<Todo> jwtEntityPost = new HttpEntity<Todo>(todo, headers);
+        
+        // Use Token to post Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Void> postResultTodo = restTemplate.withBasicAuth(owner.getEmail(), userRawPassword)
-                                            .postForEntity(uri, todo, Void.class);
+        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
 
-        uri = new URI(baseUrl + port + "/" + employeeId + "/todos/assigned");
-        ResponseEntity<Todo[]> getResultTodoList = restTemplate.withBasicAuth(employee.getEmail(), userRawPassword)
-                                        .getForEntity(uri, Todo[].class);
-        Todo[] todos = getResultTodoList.getBody();
-        UUID todoId = todos[0].getId();
+        // Use Token to get Response
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");
+        ResponseEntity<Todo[]> getResultTodoList = restTemplate.exchange(uri, HttpMethod.GET, jwtEntity, Todo[].class);
+        Todo[] todoList = getResultTodoList.getBody();
+        UUID todoId = todoList[0].getId();
 
-        uri = new URI(baseUrl + port + "/" + employeeId + "/todos/" + todoId);
-        ResponseEntity<Todo> result = restTemplate.withBasicAuth(employee.getEmail(), userRawPassword)
-                                        .getForEntity(uri, Todo.class);
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos/" + todoId);
+        ResponseEntity<Todo> result = restTemplate.exchange(uri, HttpMethod.GET, jwtEntity, Todo.class);
 
         assertEquals(200, result.getStatusCode().value());
-        assertEquals(1, todos.length);
         assertEquals(todoId, result.getBody().getId());
     }
 
@@ -191,28 +255,43 @@ public class TodoIntegrationTest {
 
         ResponseEntity<User> postResultOwner = restTemplate.postForEntity(uri, owner, User.class);
         ResponseEntity<User> postResultEmployee = restTemplate.postForEntity(uri, employee, User.class);
-
         UUID ownerId = postResultOwner.getBody().getId();
         UUID employeeId = postResultEmployee.getBody().getId();
-        
+
         Date targetDate = Date.valueOf(LocalDate.now());
         List<UUID> createdForIds = new ArrayList<UUID>();
         createdForIds.add(employeeId);
 
         Todo todo = new Todo("Submit Vaccination Status", targetDate, createdForIds);
         todo.setCreatedBy(owner);
-        
-        uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Void> postResultTodo = restTemplate.withBasicAuth(owner.getEmail(), userRawPassword)
-                                            .postForEntity(uri, todo, Void.class);
 
-        uri = new URI(baseUrl + port + "/" + employeeId + "/todos/assigned");
-        ResponseEntity<Todo[]> result = restTemplate.withBasicAuth(employee.getEmail(), userRawPassword)
-                                        .getForEntity(uri, Todo[].class);
-        Todo[] todos = result.getBody();
+        // authentication
+        String authenticationBody = getBody(owner);
+        HttpHeaders authenticationHeaders = getHeaders();
+		HttpEntity<String> authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
+        
+        String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
+
+        // Authenticate User and get JWT
+        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+
+        String token = "Bearer " + authenticationResponse.getBody().getToken();
+        HttpHeaders headers = getHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
+        HttpEntity<Todo> jwtEntityPost = new HttpEntity<Todo>(todo, headers);
+        
+        // Use Token to post Response
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
+        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
+
+        // Use Token to get Response
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");
+        ResponseEntity<Todo[]> getResultTodoList = restTemplate.exchange(uri, HttpMethod.GET, jwtEntity, Todo[].class);
+        Todo[] todoList = getResultTodoList.getBody();
 
         assertEquals(201, postResultTodo.getStatusCode().value());
-        assertEquals(1, todos.length);
+        assertEquals(1, todoList.length);
     }
 
     @Test
@@ -226,32 +305,47 @@ public class TodoIntegrationTest {
 
         ResponseEntity<User> postResultOwner = restTemplate.postForEntity(uri, owner, User.class);
         ResponseEntity<User> postResultEmployee = restTemplate.postForEntity(uri, employee, User.class);
-
         UUID ownerId = postResultOwner.getBody().getId();
         UUID employeeId = postResultEmployee.getBody().getId();
-        
+
         Date targetDate = Date.valueOf(LocalDate.now());
         List<UUID> createdForIds = new ArrayList<UUID>();
         createdForIds.add(employeeId);
 
         Todo todo = new Todo("Submit Vaccination Status", targetDate, createdForIds);
         todo.setCreatedBy(owner);
-        
-        uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Void> postResultTodo = restTemplate.withBasicAuth(owner.getEmail(), userRawPassword)
-                                            .postForEntity(uri, todo, Void.class);
 
-        uri = new URI(baseUrl + port + "/" + employeeId + "/todos/assigned");
-        ResponseEntity<Todo[]> getResultTodoList = restTemplate.withBasicAuth(employee.getEmail(), userRawPassword)
-                                        .getForEntity(uri, Todo[].class);
-        Todo[] todos = getResultTodoList.getBody();
-        UUID todoId = todos[0].getId();
+        // authentication
+        String authenticationBody = getBody(owner);
+        HttpHeaders authenticationHeaders = getHeaders();
+		HttpEntity<String> authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
+        
+        String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
+
+        // Authenticate User and get JWT
+        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+
+        String token = "Bearer " + authenticationResponse.getBody().getToken();
+        HttpHeaders headers = getHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
+        HttpEntity<Todo> jwtEntityPost = new HttpEntity<Todo>(todo, headers);
+        
+        // Use Token to post Response
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
+        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
+
+        // Use Token to get Response
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");
+        ResponseEntity<Todo[]> getResultTodoList = restTemplate.exchange(uri, HttpMethod.GET, jwtEntity, Todo[].class);
+        Todo[] result = getResultTodoList.getBody();
+        UUID todoId = result[0].getId();
 
         Todo newTodo = new Todo("Submit Vaccination Form", targetDate, createdForIds);
+        jwtEntityPost = new HttpEntity<Todo>(newTodo, headers);
 
-        uri = new URI(baseUrl + port + "/" + employeeId + "/todos/" + todoId);
-        ResponseEntity<Todo> putResultTodo = restTemplate.withBasicAuth(employee.getEmail(), userRawPassword)
-                                        .exchange(uri, HttpMethod.PUT, new HttpEntity<>(newTodo), Todo.class);
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos/" + todoId);
+        ResponseEntity<Todo> putResultTodo = restTemplate.exchange(uri, HttpMethod.PUT, jwtEntityPost, Todo.class);
 
         assertEquals(200, putResultTodo.getStatusCode().value());
         assertEquals(newTodo.getDescription(), putResultTodo.getBody().getDescription());
@@ -268,32 +362,47 @@ public class TodoIntegrationTest {
 
         ResponseEntity<User> postResultOwner = restTemplate.postForEntity(uri, owner, User.class);
         ResponseEntity<User> postResultEmployee = restTemplate.postForEntity(uri, employee, User.class);
-
         UUID ownerId = postResultOwner.getBody().getId();
         UUID employeeId = postResultEmployee.getBody().getId();
-        
+
         Date targetDate = Date.valueOf(LocalDate.now());
         List<UUID> createdForIds = new ArrayList<UUID>();
         createdForIds.add(employeeId);
 
         Todo todo = new Todo("Submit Vaccination Status", targetDate, createdForIds);
         todo.setCreatedBy(owner);
+
+        // authentication
+        String authenticationBody = getBody(owner);
+        HttpHeaders authenticationHeaders = getHeaders();
+		HttpEntity<String> authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
         
+        String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
+
+        // Authenticate User and get JWT
+        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+
+        String token = "Bearer " + authenticationResponse.getBody().getToken();
+        HttpHeaders headers = getHeaders();
+        headers.set("Authorization", token);
+        HttpEntity<String> jwtEntity = new HttpEntity<String>(headers);
+        HttpEntity<Todo> jwtEntityPost = new HttpEntity<Todo>(todo, headers);
+        
+        // Use Token to post Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Void> postResultTodo = restTemplate.withBasicAuth(owner.getEmail(), userRawPassword)
-                                            .postForEntity(uri, todo, Void.class);
+        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
 
-        uri = new URI(baseUrl + port + "/" + employeeId + "/todos/assigned");
-        ResponseEntity<Todo[]> getResultTodoList = restTemplate.withBasicAuth(employee.getEmail(), userRawPassword)
-                                        .getForEntity(uri, Todo[].class);
-        Todo[] todos = getResultTodoList.getBody();
-        UUID todoId = todos[0].getId();
+        // Use Token to get Response
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");
+        ResponseEntity<Todo[]> getResultTodoList = restTemplate.exchange(uri, HttpMethod.GET, jwtEntity, Todo[].class);
+        Todo[] result = getResultTodoList.getBody();
+        UUID todoId = result[0].getId();
 
-        uri = new URI(baseUrl + port + "/" + employeeId + "/todos/" + todoId);
-        ResponseEntity<Void> result = restTemplate.withBasicAuth(employee.getEmail(), userRawPassword)
-                                        .exchange(uri, HttpMethod.DELETE, null, Void.class);
+        HttpEntity<Todo> jwtEntityDelete = new HttpEntity<Todo>(null, headers);
+        uri = new URI(baseUrl + port + "/" + ownerId + "/todos/" + todoId);
+        ResponseEntity<Void> deleteResultTodo = restTemplate.exchange(uri, HttpMethod.DELETE, jwtEntityDelete, Void.class);
 
-        assertEquals(204, result.getStatusCode().value());
+        assertEquals(204, deleteResultTodo.getStatusCode().value());
         assertEquals(Optional.empty(), todoRepository.findById(todoId));
     }
 }
