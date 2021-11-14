@@ -43,6 +43,7 @@ public class TodoController {
 
     private void validateUser(UUID authenticatedUserId, UUID targetUserId) throws UserNotAuthenticatedException {
         if (!authenticatedUserId.equals(targetUserId)) {
+            System.out.println("Failed!");
             throw new UserNotAuthenticatedException();
         }
     }

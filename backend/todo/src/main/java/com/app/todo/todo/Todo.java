@@ -29,7 +29,6 @@ import lombok.*;
 @Table
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -99,4 +98,16 @@ public class Todo {
         this.createdForIds = createdForIDs;
     }
 
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "id=" + id +
+                ", createdBy=" + createdBy +
+                ", description='" + description + '\'' +
+                ", createdDate=" + createdDate +
+                ", targetDate=" + targetDate +
+                ", createdForIds=" + createdForIds +
+                ", createdFor=" + createdFor +
+                '}';
+    }
 }

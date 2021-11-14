@@ -65,13 +65,6 @@ public class NewsController {
         return newsService.getAllNewsFromDate(dateFrom);
     }
 
-    @ApiOperation(value = "Send SMS of new news retrieved")
-    @PostMapping(path = "/{phone_number}", produces = "application/json")
-    public void notifyNews(@PathVariable(value="phone_number") String phoneNo ) throws ParseException {
-        List<News> currentNews = newsService.getAllNews();
-        String message = newsService.getTextMessage(currentNews);
-        senderService.sendSms(new SmsRequest(phoneNo,message));
-    }
 
     @ApiOperation(value = "Demo email sender")
     @PostMapping(path = "/demoEmail", produces = "application/json")

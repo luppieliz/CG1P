@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import Card from 'react-bootstrap/Card'
+import Card from 'react-bootstrap/Card';
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Placeholder from "react-bootstrap/Placeholder";
 import NewsDataService from '../api/NewsDataService';
 import Multiselect from 'multiselect-react-dropdown';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
 
 import '../newsfeed.css';
+import { SESSION_USER_BUSINESS_INDUSTRY } from "../Constants";
 
 class NewsFeedComponent extends Component {
 
@@ -20,7 +21,8 @@ class NewsFeedComponent extends Component {
             newsDisplay: [],
             isEmpty: false,
             tagsSelected: {},
-            options: []
+            options: [],
+            selectedValues: []
         }
     }
 
@@ -36,11 +38,18 @@ class NewsFeedComponent extends Component {
             .then(
                 response => {
                     this.state.isEmpty = response.data.length === 0;
-                    this.setState({ news: response.data })
-                    this.setState({ newsDisplay: response.data })
-                    // console.log("retrieveall made");
-                    console.log(response);
+                    this.setState({ news: response.data });
+                    this.setState({ newsDisplay: response.data });
                     this.generateTaglist();
+
+                    var industry = sessionStorage.getItem(SESSION_USER_BUSINESS_INDUSTRY);
+                    this.setState({ selectedValues: [{
+                        value: industry
+                    }]});
+                    this.setState({ tagsSelected: {
+                        [industry]: true
+                    }}, 
+                    this.showFilteredClicked);
                 }
             )
     }
@@ -159,7 +168,7 @@ class NewsFeedComponent extends Component {
         //https://www.npmjs.com/package/multiselect-react-dropdown for more options //consider grouping?
         let dropdown = <Multiselect
             options={this.state.options} // Options to display in the dropdown
-            selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+            selectedValues={this.state.selectedValues} // Preselected value to persist in dropdown
             onSelect={this.onSelect} // Function will trigger on select event
             onRemove={this.onRemove} // Function will trigger on remove event
             displayValue="value" // Property name to display in the dropdown options

@@ -32,7 +32,7 @@ public class SenderIntegrationTest {
     TwilioSenderService senderService;
 
     @Test
-    void sendSMS_Sucess() throws URISyntaxException {
+    void sendSMS_Success() throws URISyntaxException {
         SmsRequest testSMSRequest = new SmsRequest("+65 8742 9618", "testMsg");
         URI uri = new URI(baseUrl + port + "/api/v1/sender/sms");
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, testSMSRequest ,Void.class);
@@ -40,7 +40,7 @@ public class SenderIntegrationTest {
     }
 
     @Test
-    void sendSMS_Unsucessful() throws URISyntaxException {
+    void sendSMS_Unsuccessful() throws URISyntaxException {
         SmsRequest testSMSRequest = new SmsRequest("8742 9618", "testMsg");
         URI uri = new URI(baseUrl + port + "/api/v1/sender/sms");
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, testSMSRequest ,Void.class);
@@ -48,7 +48,7 @@ public class SenderIntegrationTest {
     }
 
     @Test
-    void sendMMS_Sucess() throws URISyntaxException {
+    void sendMMS_Success() throws URISyntaxException {
         MmsRequest testMMSRequest = new MmsRequest("+65 8742 9618", "testMsg", "https://picsum.photos/200");
         URI uri = new URI(baseUrl + port + "/api/v1/sender/mms");
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, testMMSRequest ,Void.class);
@@ -56,7 +56,7 @@ public class SenderIntegrationTest {
     }
 
     @Test
-    void sendMMS_Unsucessful() throws URISyntaxException {
+    void sendMMS_Unsuccessful() throws URISyntaxException {
         MmsRequest testMMSRequest = new MmsRequest("+65 8742 9618", "testMsg", null);
         URI uri = new URI(baseUrl + port + "/api/v1/sender/mms");
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, testMMSRequest ,Void.class);

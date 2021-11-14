@@ -47,9 +47,10 @@ public class NewsService {
      */
     public List<News> getAllNews() throws ParseException {
         List<News> allNews = newsRepository.findAll();
-        Map<Date, News> newsMap = new TreeMap<>(Collections.reverseOrder());
+        Map<LocalDate, News> newsMap = new TreeMap<>(Collections.reverseOrder());
         for (News news : allNews) {
-            Date date= new SimpleDateFormat(STANDARD_DATE_FORMAT).parse(news.getPublishedDate());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(STANDARD_DATE_FORMAT);
+            LocalDate date = LocalDate.parse(news.getPublishedDate(), formatter);
             newsMap.put(date, news);
         }
 
@@ -167,22 +168,6 @@ public class NewsService {
         }
 
         return tempStringTag;
-    }
-
-    /**
-     * Craft a text message given a list of news articles.
-     * @param newsList
-     * @return A phone message created that indexed all the news articles.
-     */
-    public String getTextMessage(final List<News> newsList) {
-        String message = "Check out the latest COVID news:\n";
-        int idx = 1;
-
-        for (News news: newsList) {
-            message += idx + ". " + news.getURL() + "\n";
-            idx++;
-        }
-        return message;
     }
 
     /**

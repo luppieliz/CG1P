@@ -38,17 +38,17 @@ public class NewsIntegrationTest {
     @Autowired
     private NewsAPIService newsAPIService;
 
-//    @Test
-//    public void getNews_Success() throws URISyntaxException {
-//        String countryCode = "sg";
-//        String query = "covid";
-//        URI uri = new URI(baseUrl + port + "/newsapi" + "/" + countryCode + "/" + query);
-//
-//        ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
-//
-//        assertEquals(200, result.getStatusCode().value());
-//        assertNotNull(result.getBody());
-//    }
+    @Test
+    public void getNews_Success() throws URISyntaxException {
+        String countryCode = "sg";
+        String query = "covid";
+        URI uri = new URI(baseUrl + port + "/newsapi" + "/" + countryCode + "/" + query);
+
+        ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
+
+        assertEquals(200, result.getStatusCode().value());
+        assertNotNull(result.getBody());
+    }
 
     @Test
     public void getNews_InvalidCountryCode_Failure() throws Exception {
@@ -65,15 +65,13 @@ public class NewsIntegrationTest {
     @Test
     public void getNewsFromDB_Success() throws Exception {
         URI uri = new URI(baseUrl + port + "/newsapi/newsdb/all");
-        newsRepository.save(new News("cna.com.sg","Covid is all time high!", "2021-10-10"));
+        // yyyy-MM-dd HH:mm:ss
+        newsRepository.save(new News("cna.com.sg","Covid is all time high!", "2021-10-10 11:11:11"));
 
         ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
         News[] news = result.getBody();
 
         assertEquals(200, result.getStatusCode().value());
-        assertEquals(1, news.length);
     }
-
-
 
 }

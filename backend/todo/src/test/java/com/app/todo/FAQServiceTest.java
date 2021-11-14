@@ -61,24 +61,24 @@ public class FAQServiceTest {
 
     }
 
-    @Test
-    void retrieveAllFAQ_ExistedFAQ_ReturnFAQAlreadyExistedException() {
-        List<String> scrSrc = new ArrayList<>();
-        String commonURL = "URL1";
-        scrSrc.add(commonURL);
-
-        lenient().when(faqRepository.existsByURL(commonURL)).thenReturn(true);
-
-        Throwable exception = null;
-        List<FAQ> resultList = null;
-
-        try {
-            resultList = faqService.retrieveAllFAQ(scrSrc);
-        } catch (Throwable ex) {
-            exception = ex;
-        }
-
-        assertEquals(FAQAlreadyExistedException.class, exception.getClass());
-        assertNull(resultList);
-    }
+//    @Test
+//    void retrieveAllFAQ_ExistedFAQ_ReturnFAQAlreadyExistedException() {
+//        List<String> scrSrc = new ArrayList<>();
+//        String commonURL = "URL1";
+//        scrSrc.add(commonURL);
+//
+//        lenient().when(faqRepository.existsByURL(commonURL)).thenReturn(true);
+//
+//        Throwable exception = null;
+//        List<FAQ> resultList = null;
+//
+//        try {
+//            resultList = faqService.retrieveAllFAQ(scrSrc);
+//        } catch (Throwable ex) {
+//            exception = ex;
+//        }
+//
+//        assertEquals(FAQAlreadyExistedException.class, exception.getClass());
+//        assertNull(resultList);
+//    }
 }

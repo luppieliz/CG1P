@@ -47,6 +47,7 @@ public class News {
     public News(String URL, String title, String publishedDate) {
         this.URL = URL;
         this. title = title;
+        this.publishedDate = publishedDate;
     }
 
     @Override

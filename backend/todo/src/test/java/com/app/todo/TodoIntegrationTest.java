@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.URI;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import com.app.todo.todo.TodoRepository;
 import com.app.todo.todo.Todo;
@@ -43,11 +40,6 @@ public class TodoIntegrationTest {
     private final String baseUrl = "http://localhost:";
 
     @Autowired
-    /**
-     * Use TestRestTemplate for testing a real instance of your application as an external actor.
-     * TestRestTemplate is just a convenient subclass of RestTemplate that is suitable for integration tests.
-     * It is fault tolerant, and optionally can carry Basic authentication headers.
-     */
     private TestRestTemplate restTemplate;
 
     @Autowired

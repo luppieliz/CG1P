@@ -17,21 +17,8 @@ public class ScraperService {
     @Autowired
     private ScraperConfig scraperConfig;
 
-//    private static Map<String, Set<String>> tagMap = new HashMap<>();
     private static Map<String, String> keywordMap = new HashMap<>(); //<keyword, tag>
     static {
-//        String[] fnb = new String[] {"restaurants", "F&B, ", "eating", "dining", "drinks"};
-//        tagMap.put("F&B", new HashSet<String>(Arrays.asList(fnb)));
-//
-//        String[] tourism = new String[] {"tourists", "travel"};
-//        tagMap.put("Tourism", new HashSet<String>(Arrays.asList(tourism)));
-//
-//        String[] healthcare = new String[] {"hospital"};
-//        tagMap.put("Healthcare", new HashSet<String>(Arrays.asList(healthcare)));
-//
-//        String[] retail = new String[] {"stores", "retail", "shopping"};
-//        tagMap.put("Retail", new HashSet<>(Arrays.asList(retail)));
-
         //put (keyword, tag)
         keywordMap.put("restaurants", "F&B");
         keywordMap.put("F&B", "F&B");
@@ -80,10 +67,9 @@ public class ScraperService {
 
         // Find all the sources of safe-distance info-graphics
         for (WebElement element:linksList) {
-//            System.out.println(element.getText() + "|" + element.getAttribute("href"));
             try {
                 String url = element.getAttribute("href");
-                if (url.contains("safe-distance") && url.contains("png")) {
+                if (url.contains(TOPIC_KEYWORD) && url.contains("png")) {
                     String src = element.getAttribute("href");
                     if (src.contains(TOPIC_KEYWORD)) {
                         scrappedSrc.add(src);
@@ -93,7 +79,6 @@ public class ScraperService {
                 System.out.println("No url");
             }
         }
-
 
         driver.quit();
         return scrappedSrc;
@@ -214,17 +199,17 @@ public class ScraperService {
 
         final ChromeOptions chromeOptions = new ChromeOptions();
 
-
         // For CI
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
-        // For local IDE
+        // For local IDE, local testing
 //         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows
-//         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
+//        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
+//        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe"); // Windows
 
         // For deployment
-//         System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
-//         System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+        // System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
+        // System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
 
         // For both local and Deploy
         chromeOptions.addArguments("--headless");

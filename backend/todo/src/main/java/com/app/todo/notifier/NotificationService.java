@@ -5,12 +5,18 @@ import com.app.todo.business.BusinessService;
 import com.app.todo.email.EmailService;
 import com.app.todo.industry.Industry;
 import com.app.todo.newsfunnel.News;
+import com.app.todo.phonetext.SmsRequest;
+import com.app.todo.phonetext.TwilioSenderService;
 import com.app.todo.user.User;
 import com.app.todo.user.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +27,7 @@ public class NotificationService {
     private EmailService emailService;
     private UserService userService;
     private BusinessService businessService;
+    private TwilioSenderService senderService;
 
     @Autowired
     public NotificationService(EmailService emailService, UserService userService, BusinessService businessService) {
@@ -29,6 +36,11 @@ public class NotificationService {
         this.businessService = businessService;
     }
 
+    /**
+     * Send newly updated news to all user via email
+     * @param newsList
+     * @param userList
+     */
     public void sendEmailNotification(List<News> newsList, List<User> userList) {
         String emailBody = "Here are some articles for you to check out!\n";
 
@@ -44,10 +56,23 @@ public class NotificationService {
 
     }
 
+    /**
+     * Send newly updated news to all users via text
+     * @param newsList
+     * @param userList
+     */
     public void sendTextNotification(List<News> newsList, List<User> userList) {
-        //todo
+        String message = getTextMessage(newsList);
+
+        for (User user : userList) {
+            senderService.sendSms(new SmsRequest(user.getPhone(), message));
+        }
     }
 
+    /**
+     * Send email and text of articles according to user's registered industry
+     * @param newsList
+     */
     public void sendWrapper(List<News> newsList) {
         Map<String, List<News>> industryNewsMap = new HashMap<>();
 
@@ -69,5 +94,21 @@ public class NotificationService {
             sendEmailNotification(industryNewsMap.get(industry), userList);
             sendTextNotification(industryNewsMap.get(industry), userList);
         }
+    }
+
+    /**
+     * Craft a text message given a list of news articles.
+     * @param newsList
+     * @return A phone message created that indexed all the news articles.
+     */
+    public String getTextMessage(final List<News> newsList) {
+        String message = "Check out the latest COVID news:\n";
+        int idx = 1;
+
+        for (News news: newsList) {
+            message += idx + ". " + news.getURL() + "\n";
+            idx++;
+        }
+        return message;
     }
 }

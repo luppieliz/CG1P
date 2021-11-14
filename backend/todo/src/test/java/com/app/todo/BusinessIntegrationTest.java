@@ -33,12 +33,6 @@ public class BusinessIntegrationTest {
     private final String baseUrl = "http://localhost:";
 
     @Autowired
-    /**
-     * Use TestRestTemplate for testing a real instance of your application as an
-     * external actor. TestRestTemplate is just a convenient subclass of
-     * RestTemplate that is suitable for integration tests. It is fault tolerant,
-     * and optionally can carry Basic authentication headers.
-     */
     private TestRestTemplate restTemplate;
 
     @Autowired
@@ -153,8 +147,7 @@ public class BusinessIntegrationTest {
         User user = userRepository
                 .save(new User("admin@abc.com", "admin", encoder.encode(userRawPassword), "ROLE_ADMIN", business));
 
-        ResponseEntity<Business> result = restTemplate.withBasicAuth(user.getEmail(), userRawPassword)
-                .postForEntity(uri, business, Business.class);
+        ResponseEntity<Business> result = restTemplate.postForEntity(uri, business, Business.class);
 
         assertEquals(404, result.getStatusCode().value());
     }

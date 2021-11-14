@@ -29,11 +29,6 @@ public class IndustryIntegrationTest {
     private final String baseUrl = "http://localhost:";
 
     @Autowired
-    /**
-     * Use TestRestTemplate for testing a real instance of your application as an external actor.
-     * TestRestTemplate is just a convenient subclass of RestTemplate that is suitable for integration tests.
-     * It is fault tolerant, and optionally can carry Basic authentication headers.
-     */
     private TestRestTemplate restTemplate;
 
     @Autowired
