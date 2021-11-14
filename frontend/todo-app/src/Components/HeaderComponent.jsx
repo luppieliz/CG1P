@@ -73,19 +73,19 @@ class HeaderComponent extends Component {
                                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                             <Card.Text className="text-dark" >
                                                 <h4>
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/welcome">Home</Link>}
-                                                    {isUserLoggedIn && !isEmployee && <Link className="nav-link" to="/emp">Employee Updates</Link>}
-                                                    {isUserLoggedIn && !isEmployee && <Link className="nav-link" to="/todos">Employee Tasks</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/news">News</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/login">Login</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/signup">SignUp</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/faq">FAQ</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/aboutus">About Us</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/contactus">Contact Us</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/welcome" onClick={this.handleClose}>Home</Link>}
+                                                    {isUserLoggedIn && !isEmployee && <Link className="nav-link" to="/emp" onClick={this.handleClose}>Employee Updates</Link>}
+                                                    {isUserLoggedIn && !isEmployee && <Link className="nav-link" to="/todos" onClick={this.handleClose}>Employee Tasks</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/login" onClick={this.handleClose}>Login</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/signup" onClick={this.handleClose}>Sign Up</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/news" onClick={this.handleClose}>News</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/news" onClick={this.handleClose}>News</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/faq" onClick={this.handleClose}>FAQ</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/faq" onClick={this.handleClose}>FAQ</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/aboutus" onClick={this.handleClose}>About Us</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/aboutus" onClick={this.handleClose}>About Us</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/contactus" onClick={this.handleClose}>Contact Us</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/contactus" onClick={this.handleClose}>Contact Us</Link>}
                                                     {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
                                                 </h4>
                                             </Card.Text>

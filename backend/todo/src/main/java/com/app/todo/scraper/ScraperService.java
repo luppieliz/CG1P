@@ -69,11 +69,31 @@ public class ScraperService {
 
         // Find all the sources of safe-distance info-graphics
         for (WebElement element:tagList) {
-            String src = element.getAttribute("src").toString();
+            String src = element.getAttribute("src");
             if (src.contains(TOPIC_KEYWORD)) {
                 scrappedSrc.add(src);
             }
         }
+
+        // Find links with tag "a"
+        final List<WebElement> linksList = driver.findElementsByTagName("a");
+
+        // Find all the sources of safe-distance info-graphics
+        for (WebElement element:linksList) {
+//            System.out.println(element.getText() + "|" + element.getAttribute("href"));
+            try {
+                String url = element.getAttribute("href");
+                if (url.contains("safe-distance") && url.contains("png")) {
+                    String src = element.getAttribute("href");
+                    if (src.contains(TOPIC_KEYWORD)) {
+                        scrappedSrc.add(src);
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("No url");
+            }
+        }
+
 
         driver.quit();
         return scrappedSrc;
@@ -194,7 +214,6 @@ public class ScraperService {
 
         final ChromeOptions chromeOptions = new ChromeOptions();
 
-
         // For CI
 //         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
@@ -203,10 +222,9 @@ public class ScraperService {
 //        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver"); // Mac
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe"); // Windows
 
-
         // For deployment
-//         System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
-//         System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+        // System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
+        // System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
 
         // For both local and Deploy
         chromeOptions.addArguments("--headless");

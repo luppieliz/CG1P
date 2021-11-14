@@ -54,8 +54,8 @@ public class ScheduledTasks {
         log.info("Fetching FAQ updates at {}", dateFormat.format(new Date()));
         try {
             String testURL = "https://www.enterprisesg.gov.sg/covid-19/safe-distance";
-            List<String> sourcesLink = measureService.getMeasures(testURL);
-            sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
+//            List<String> sourcesLink = measureService.getMeasures(testURL);
+//            sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
 
             faqController.updateFAQ(testURL);
         } catch(Exception e) {
