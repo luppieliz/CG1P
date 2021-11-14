@@ -23,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         properties = {
                 "spring.mail.host=smtp.gmail.com",
                 "spring.mail.port=587",
-                "spring.mail.username=c1gp.email.service@gmail.com",
-                "spring.mail.password=Cs203group!",
+                "spring.mail.username=cs203g3t1@gmail.com",
+                "spring.mail.password=kdfdpivevdllmbbi",
                 "spring.mail.properties.mail.smtp.auth=true",
                 "spring.mail.properties.mail.smtp.starttls.enable=true"
         }
@@ -47,19 +47,19 @@ public class EmailIntegrationTest {
     private EmailService emailService;
 
 
-//    @Test
-//    public void sendEmailWithHTMLTemplate_Success() throws Exception {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("name", "to");
-//        map.put("message", "hi");
-//        EmailPost emailPost = new EmailPost("to", "hi", "test@gmail.com", "This is an email subject");
-//
-//        URI uri = new URI(baseUrl + port + "/api/v1/emailSender");
-//
-//        ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
-//
-//        assertEquals(200, result.getStatusCode().value());
-//    }
+    @Test
+    public void sendEmailWithHTMLTemplate_Success() throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "to");
+        map.put("message", "hi");
+        EmailPost emailPost = new EmailPost("to", "hi", "test@gmail.com", "This is an email subject");
+
+        URI uri = new URI(baseUrl + port + "/api/v1/emailSender");
+
+        ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
+
+        assertEquals(200, result.getStatusCode().value());
+    }
 
     @Test
     public void sendEmailWithHTMLTemplateZeroLengthSubject_Unsuccessful() throws Exception {

@@ -1,5 +1,7 @@
 package com.app.todo.jwt.resource;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 public class  JwtTokenRequest implements Serializable {
@@ -15,7 +17,7 @@ public class  JwtTokenRequest implements Serializable {
         super();
     }
 
-    public JwtTokenRequest(String username, String password) {
+    public JwtTokenRequest(@JsonProperty("username") String username, @JsonProperty("password") String password) {
         this.setUsername(username);
         this.setPassword(password);
     }

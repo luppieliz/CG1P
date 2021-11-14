@@ -40,8 +40,6 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(jwtInMemoryUserDetailsService)
                 .passwordEncoder(passwordEncoderBean());
-
-
     }
 
     @Bean
@@ -58,10 +56,11 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .cors().and()
                 .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
+                .authorizeRequests().antMatchers("/authenticate").permitAll()
 
                 // for TodoController
                 .antMatchers(HttpMethod.GET, "/**/todos", "/**/todos/**").authenticated()
@@ -86,8 +85,8 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
 
                 .and()
-                .csrf().disable()
                 .formLogin().disable();
+
         httpSecurity
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 

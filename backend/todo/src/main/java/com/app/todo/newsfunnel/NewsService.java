@@ -171,22 +171,6 @@ public class NewsService {
     }
 
     /**
-     * Craft a text message given a list of news articles.
-     * @param newsList
-     * @return A phone message created that indexed all the news articles.
-     */
-    public String getTextMessage(final List<News> newsList) {
-        String message = "Check out the latest COVID news:\n";
-        int idx = 1;
-
-        for (News news: newsList) {
-            message += idx + ". " + news.getURL() + "\n";
-            idx++;
-        }
-        return message;
-    }
-
-    /**
      * Format a Date.
      * @param date
      * @return A string date in a standard format.

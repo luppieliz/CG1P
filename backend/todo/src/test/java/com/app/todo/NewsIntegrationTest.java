@@ -38,17 +38,17 @@ public class NewsIntegrationTest {
     @Autowired
     private NewsAPIService newsAPIService;
 
-//    @Test
-//    public void getNews_Success() throws URISyntaxException {
-//        String countryCode = "sg";
-//        String query = "covid";
-//        URI uri = new URI(baseUrl + port + "/newsapi" + "/" + countryCode + "/" + query);
-//
-//        ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
-//
-//        assertEquals(200, result.getStatusCode().value());
-//        assertNotNull(result.getBody());
-//    }
+    @Test
+    public void getNews_Success() throws URISyntaxException {
+        String countryCode = "sg";
+        String query = "covid";
+        URI uri = new URI(baseUrl + port + "/newsapi" + "/" + countryCode + "/" + query);
+
+        ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
+
+        assertEquals(200, result.getStatusCode().value());
+        assertNotNull(result.getBody());
+    }
 
     @Test
     public void getNews_InvalidCountryCode_Failure() throws Exception {
@@ -73,7 +73,5 @@ public class NewsIntegrationTest {
 
         assertEquals(200, result.getStatusCode().value());
     }
-
-
 
 }

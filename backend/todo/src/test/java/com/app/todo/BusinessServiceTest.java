@@ -89,8 +89,7 @@ public class BusinessServiceTest {
     void getBusinessWithUEN_ValidBusinessUEN_ReturnBusiness() {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-        when(businessRepository.findByUEN(business.getUEN())).thenReturn(Optional.of(business)); // findbyid returns
-                                                                                                 // business?
+        when(businessRepository.findByUEN(business.getUEN())).thenReturn(Optional.of(business));
 
         Business theBusiness = businessService.getBusiness(business.getUEN());
 

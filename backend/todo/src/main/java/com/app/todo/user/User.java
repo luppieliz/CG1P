@@ -64,6 +64,9 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "phone")
+    private String phone;
+
     @NotNull(message = "Name should not be null")
     @Column(name = "name")
     private String name;
@@ -97,6 +100,16 @@ public class User implements UserDetails {
     @JsonIgnore
     @ManyToMany(mappedBy = "createdFor", cascade = CascadeType.ALL)
     private List<Todo> assignedTodos;
+
+    public User(String phone, String email, String name, String password, Boolean shnStatus, Boolean covidStatus, String authority) {
+        this.phone = phone;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.shnStatus = shnStatus;
+        this.covidStatus = covidStatus;
+        this.authority = authority;
+    }
 
     public User(String email, String name, String password, String authority, Business business) {
         this.email = email;
