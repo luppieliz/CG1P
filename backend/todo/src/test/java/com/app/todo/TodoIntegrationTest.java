@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
+import com.app.todo.jwt.resource.JwtTokenResponse;
 import com.app.todo.todo.TodoRepository;
 import com.app.todo.todo.Todo;
 import com.app.todo.user.UserRepository;
@@ -31,8 +32,10 @@ import org.springframework.http.MediaType;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.test.annotation.DirtiesContext;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class TodoIntegrationTest {
     @LocalServerPort
     private int port;
@@ -100,7 +103,7 @@ public class TodoIntegrationTest {
         String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
 
         // Authenticate User and get JWT
-        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+        ResponseEntity<JwtTokenResponse> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, JwtTokenResponse.class);
 
         String token = "Bearer " + authenticationResponse.getBody().getToken();
         HttpHeaders headers = getHeaders();
@@ -149,7 +152,7 @@ public class TodoIntegrationTest {
         
         String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
 
-        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+        ResponseEntity<JwtTokenResponse> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, JwtTokenResponse.class);
 
         String token = "Bearer " + authenticationResponse.getBody().getToken();
         HttpHeaders headers = getHeaders();
@@ -161,7 +164,7 @@ public class TodoIntegrationTest {
         authenticationHeaders = getHeaders();
         authenticationEntity = new HttpEntity<String>(authenticationBody, authenticationHeaders);
 
-        authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+        authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, JwtTokenResponse.class);
 
         token = "Bearer " + authenticationResponse.getBody().getToken();
         headers = getHeaders();
@@ -211,7 +214,7 @@ public class TodoIntegrationTest {
         String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
 
         // Authenticate User and get JWT
-        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+        ResponseEntity<JwtTokenResponse> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, JwtTokenResponse.class);
 
         String token = "Bearer " + authenticationResponse.getBody().getToken();
         HttpHeaders headers = getHeaders();
@@ -265,7 +268,7 @@ public class TodoIntegrationTest {
         String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
 
         // Authenticate User and get JWT
-        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+        ResponseEntity<JwtTokenResponse> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, JwtTokenResponse.class);
 
         String token = "Bearer " + authenticationResponse.getBody().getToken();
         HttpHeaders headers = getHeaders();
@@ -315,7 +318,7 @@ public class TodoIntegrationTest {
         String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
 
         // Authenticate User and get JWT
-        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+        ResponseEntity<JwtTokenResponse> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, JwtTokenResponse.class);
 
         String token = "Bearer " + authenticationResponse.getBody().getToken();
         HttpHeaders headers = getHeaders();
@@ -372,7 +375,7 @@ public class TodoIntegrationTest {
         String AUTHENTICATION_URL = baseUrl + port + "/authenticate";
 
         // Authenticate User and get JWT
-        ResponseEntity<ResponseToken> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, ResponseToken.class);
+        ResponseEntity<JwtTokenResponse> authenticationResponse = restTemplate.exchange(AUTHENTICATION_URL, HttpMethod.POST, authenticationEntity, JwtTokenResponse.class);
 
         String token = "Bearer " + authenticationResponse.getBody().getToken();
         HttpHeaders headers = getHeaders();

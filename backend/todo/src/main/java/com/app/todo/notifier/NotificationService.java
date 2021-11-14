@@ -3,20 +3,15 @@ package com.app.todo.notifier;
 import com.app.todo.business.Business;
 import com.app.todo.business.BusinessService;
 import com.app.todo.email.EmailService;
-import com.app.todo.industry.Industry;
 import com.app.todo.newsfunnel.News;
 import com.app.todo.phonetext.SmsRequest;
 import com.app.todo.phonetext.TwilioSenderService;
 import com.app.todo.user.User;
 import com.app.todo.user.UserService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,10 +25,11 @@ public class NotificationService {
     private TwilioSenderService senderService;
 
     @Autowired
-    public NotificationService(EmailService emailService, UserService userService, BusinessService businessService) {
+    public NotificationService(EmailService emailService, UserService userService, BusinessService businessService, TwilioSenderService senderService) {
         this.emailService = emailService;
         this.userService = userService;
         this.businessService = businessService;
+        this.senderService = senderService;
     }
 
     /**
