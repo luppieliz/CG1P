@@ -19,6 +19,18 @@ class AuthenticationService {
         return true
     }
 
+    executeJwtAuthenticationService(username, password) {
+        return axios.post(`${API_URL}/authenticate`, {
+            username,
+            password
+        })
+    }
+
+    registerSuccessfulLoginForJwt(email) {
+        return axios.get(`${API_URL}/user/email/${email}`)
+    }
+    
+    
     // CODE FOR BASIC AUTH
     // executeBasicAuthenticationService(email, password) {
     //     return axios.get(`${API_URL}/basicauth`,
@@ -41,17 +53,6 @@ class AuthenticationService {
     /*
         execute authentication
     */
-
-    executeJwtAuthenticationService(username, password) {
-        return axios.post(`${API_URL}/authenticate`, {
-            username,
-            password
-        })
-    }
-
-    registerSuccessfulLoginForJwt(email) {
-        return axios.get(`${API_URL}/user/email/${email}`)
-    }
 
 
 }
