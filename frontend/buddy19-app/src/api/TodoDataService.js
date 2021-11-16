@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL } from '../Constants'
+import {API_URL} from '../Constants'
 
 // API to facilitate sending HTTP requests to the backend via the Axios dependency
 class TodoDataService {

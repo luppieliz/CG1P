@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Form, Formik, Field, ErrorMessage } from 'formik'
+import React, {Component} from 'react'
+import {ErrorMessage, Field, Form, Formik} from 'formik'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -9,9 +9,9 @@ import Placeholder from 'react-bootstrap/Placeholder'
 import BusinessDataService from '../api/BusinessDataService.js';
 import UserDataService from '../api/UserDataService.js';
 import IndustryDataService from '../api/IndustryDataService.js'
-import ReactNotification, { store } from 'react-notifications-component'
+import ReactNotification, {store} from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 
 import GLOBE from 'vanta/dist/vanta.net.min'
@@ -39,7 +39,7 @@ class OwnerSignupComponent extends Component {
     componentDidMount() {
         IndustryDataService.retrieveAllIndustries().then(
             response => {
-                this.setState({ industryList: response.data })
+                this.setState({industryList: response.data})
             }
         );
         this.vantaEffect = GLOBE({
@@ -56,6 +56,7 @@ class OwnerSignupComponent extends Component {
             backgroundColor: 0x000000
         })
     }
+
     componentWillUnmount() {
         if (this.vantaEffect) this.vantaEffect.destroy()
     }
@@ -84,7 +85,9 @@ class OwnerSignupComponent extends Component {
                             authority: "ROLE_BUSINESSOWNER",
                             business: response2.data
                         }
-                        UserDataService.createUser(user).then(() => { showSuccess() }).catch((error) => {
+                        UserDataService.createUser(user).then(() => {
+                            showSuccess()
+                        }).catch((error) => {
                             throwError(error.response.data.message)
                         })
                     }
@@ -131,81 +134,97 @@ class OwnerSignupComponent extends Component {
 
     render() {
 
-        let { name, email, password, businessUEN, businessName, industry } = this.state
+        let {name, email, password, businessUEN, businessName, industry} = this.state
 
         return (
-            <div style={{ height: "92vh", width: "100%" }} ref={this.vantaRef}>
-                <ReactNotification />
+            <div style={{height: "92vh", width: "100%"}} ref={this.vantaRef}>
+                <ReactNotification/>
                 <Container>
                     <Row>
                         <Col></Col>
                         <Col>
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
 
                             <h0 className="cg1p-header">Buddy-19</h0>
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
                             <h1 className="cg1p-header" style={{color: "white"}}>Business Signup</h1>
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
                             <div className="container text-dark">
-                              <Card>
-                              <Card.Body>
-                                <Formik
-                                    initialValues={{ name, email, password, businessUEN, businessName, industry }}
-                                    onSubmit={this.onSubmit}
-                                    validateOnChange={false}
-                                    validateOnBlur={false}
-                                    validate={this.validate}
-                                    enableReinitialize={true}
-                                >
-                                    {
-                                        (props) => (
-                                            <Form>
-                                                <ErrorMessage name="name" component="div" className="alert alert-warning"></ErrorMessage>
-                                                <ErrorMessage name="email" component="div" className="alert alert-warning"></ErrorMessage>
-                                                <ErrorMessage name="password" component="div" className="alert alert-warning"></ErrorMessage>
-                                                <ErrorMessage name="businessUEN" component="div" className="alert alert-warning"></ErrorMessage>
-                                                <ErrorMessage name="businessName" component="div" className="alert alert-warning"></ErrorMessage>
-                                                <ErrorMessage name="industry" component="div" className="alert alert-warning"></ErrorMessage>
+                                <Card>
+                                    <Card.Body>
+                                        <Formik
+                                            initialValues={{name, email, password, businessUEN, businessName, industry}}
+                                            onSubmit={this.onSubmit}
+                                            validateOnChange={false}
+                                            validateOnBlur={false}
+                                            validate={this.validate}
+                                            enableReinitialize={true}
+                                        >
+                                            {
+                                                (props) => (
+                                                    <Form>
+                                                        <ErrorMessage name="name" component="div"
+                                                                      className="alert alert-warning"></ErrorMessage>
+                                                        <ErrorMessage name="email" component="div"
+                                                                      className="alert alert-warning"></ErrorMessage>
+                                                        <ErrorMessage name="password" component="div"
+                                                                      className="alert alert-warning"></ErrorMessage>
+                                                        <ErrorMessage name="businessUEN" component="div"
+                                                                      className="alert alert-warning"></ErrorMessage>
+                                                        <ErrorMessage name="businessName" component="div"
+                                                                      className="alert alert-warning"></ErrorMessage>
+                                                        <ErrorMessage name="industry" component="div"
+                                                                      className="alert alert-warning"></ErrorMessage>
 
-                                                <fieldset className="form-group">
-                                                    <label>Name</label>
-                                                    <Field className="form-control" type="text" placeholder="Enter name" name="name"></Field>
-                                                </fieldset>
-                                                <fieldset className="form-group">
-                                                    <label>Email Address</label>
-                                                    <Field className="form-control" type="email" placeholder="Enter email" name="email"></Field>
-                                                </fieldset>
-                                                <fieldset className="form-group">
-                                                    <label>Password</label>
-                                                    <Field className="form-control" type="password" placeholder="Enter password" name="password"></Field>
-                                                </fieldset>
-                                                <fieldset className="form-group">
-                                                    <label>Your Business UEN</label>
-                                                    <Field className="form-control" type="text" placeholder="Enter Business UEN" name="businessUEN"></Field>
-                                                </fieldset>
-                                                <fieldset className="form-group">
-                                                    <label>Your Business Name</label>
-                                                    <Field className="form-control" type="text" placeholder="Enter Business Name" name="businessName"></Field>
-                                                </fieldset>
+                                                        <fieldset className="form-group">
+                                                            <label>Name</label>
+                                                            <Field className="form-control" type="text"
+                                                                   placeholder="Enter name" name="name"></Field>
+                                                        </fieldset>
+                                                        <fieldset className="form-group">
+                                                            <label>Email Address</label>
+                                                            <Field className="form-control" type="email"
+                                                                   placeholder="Enter email" name="email"></Field>
+                                                        </fieldset>
+                                                        <fieldset className="form-group">
+                                                            <label>Password</label>
+                                                            <Field className="form-control" type="password"
+                                                                   placeholder="Enter password" name="password"></Field>
+                                                        </fieldset>
+                                                        <fieldset className="form-group">
+                                                            <label>Your Business UEN</label>
+                                                            <Field className="form-control" type="text"
+                                                                   placeholder="Enter Business UEN"
+                                                                   name="businessUEN"></Field>
+                                                        </fieldset>
+                                                        <fieldset className="form-group">
+                                                            <label>Your Business Name</label>
+                                                            <Field className="form-control" type="text"
+                                                                   placeholder="Enter Business Name"
+                                                                   name="businessName"></Field>
+                                                        </fieldset>
 
-                                                <fieldset className="form-group">
-                                                    <label>Your Industry</label>
-                                                    <Field className="form-control" as="select" name="industry">
-                                                        {this.state.industryList.map(
-                                                            oneIndustry =>
-                                                                <option key={oneIndustry.name} value={oneIndustry.name}>{oneIndustry.name}</option>
-                                                        )}
-                                                    </Field>
-                                                </fieldset>
-                                                <Placeholder xs={12} bg="transparent" />
-                                                <Button variant="outline-dark" type="submit" >Sign Up</Button>
-                                                <Link style={{ padding: '10px' }} className="new user text-left" to="/signup"><Button variant="outline-dark">Register as Employee</Button></Link>
-                                            </Form>
-                                        )
-                                    }
-                                </Formik>
-                                </Card.Body>
+                                                        <fieldset className="form-group">
+                                                            <label>Your Industry</label>
+                                                            <Field className="form-control" as="select" name="industry">
+                                                                {this.state.industryList.map(
+                                                                    oneIndustry =>
+                                                                        <option key={oneIndustry.name}
+                                                                                value={oneIndustry.name}>{oneIndustry.name}</option>
+                                                                )}
+                                                            </Field>
+                                                        </fieldset>
+                                                        <Placeholder xs={12} bg="transparent"/>
+                                                        <Button variant="outline-dark" type="submit">Sign Up</Button>
+                                                        <Link style={{padding: '10px'}} className="new user text-left"
+                                                              to="/signup"><Button variant="outline-dark">Register as
+                                                            Employee</Button></Link>
+                                                    </Form>
+                                                )
+                                            }
+                                        </Formik>
+                                    </Card.Body>
                                 </Card>
                             </div>
                         </Col>

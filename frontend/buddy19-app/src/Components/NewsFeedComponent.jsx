@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Card from 'react-bootstrap/Card';
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -9,7 +9,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import Button from 'react-bootstrap/Button';
 
 import '../newsfeed.css';
-import { SESSION_USER_BUSINESS_INDUSTRY } from "../Constants";
+import {SESSION_USER_BUSINESS_INDUSTRY} from "../Constants";
 
 class NewsFeedComponent extends Component {
 
@@ -38,18 +38,22 @@ class NewsFeedComponent extends Component {
             .then(
                 response => {
                     this.state.isEmpty = response.data.length === 0;
-                    this.setState({ news: response.data });
-                    this.setState({ newsDisplay: response.data });
+                    this.setState({news: response.data});
+                    this.setState({newsDisplay: response.data});
                     this.generateTaglist();
 
                     var industry = sessionStorage.getItem(SESSION_USER_BUSINESS_INDUSTRY);
-                    this.setState({ selectedValues: [{
-                        value: industry
-                    }]});
-                    this.setState({ tagsSelected: {
-                        [industry]: true
-                    }}, 
-                    this.showFilteredClicked);
+                    this.setState({
+                        selectedValues: [{
+                            value: industry
+                        }]
+                    });
+                    this.setState({
+                            tagsSelected: {
+                                [industry]: true
+                            }
+                        },
+                        this.showFilteredClicked);
                 }
             )
     }
@@ -67,7 +71,7 @@ class NewsFeedComponent extends Component {
                     if (!tags.hasOwnProperty(arr[s])) { //
                         tags[arr[s]] = 0;
                         // console.log("adding " + arr[s]);
-                        output[idx] = { value: arr[s] };
+                        output[idx] = {value: arr[s]};
                         idx++;
                     }
                 }
@@ -75,7 +79,7 @@ class NewsFeedComponent extends Component {
 
             }
         }
-        this.setState({ options: output })
+        this.setState({options: output})
     }
 
     //function to call the api to push news into database DEV ONLY
@@ -104,9 +108,9 @@ class NewsFeedComponent extends Component {
             }
         }
         if (output.length == 0) {
-            this.setState({ newsDisplay: this.state.news });
+            this.setState({newsDisplay: this.state.news});
         } else {
-            this.setState({ newsDisplay: output });
+            this.setState({newsDisplay: output});
         }
     }
 
@@ -142,8 +146,8 @@ class NewsFeedComponent extends Component {
             newsFeedColumn = <Row xs={1} md={2} className="g-4" style={{padding: "0"}}>
                 {Array.from(this.state.newsDisplay, (_, idx) => (
                     <Col>
-                        <Card bg={'light'} text={'dark'} style={{padding:"0"}}>
-                            <Card.Img variant="top" src={this.processTags(this.state.newsDisplay[idx].urlToImage)} />
+                        <Card bg={'light'} text={'dark'} style={{padding: "0"}}>
+                            <Card.Img variant="top" src={this.processTags(this.state.newsDisplay[idx].urlToImage)}/>
                             <Card.Body>
                                 <Card.Title>
                                     <Card.Link href={this.state.newsDisplay[idx].url}>
@@ -155,7 +159,8 @@ class NewsFeedComponent extends Component {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
-                                <small className="text-muted">{this.processTags(this.state.newsDisplay[idx].tagList)} | {this.state.newsDisplay[idx].publishedDate} | </small>
+                                <small
+                                    className="text-muted">{this.processTags(this.state.newsDisplay[idx].tagList)} | {this.state.newsDisplay[idx].publishedDate} | </small>
                             </Card.Footer>
                         </Card>
                     </Col>
@@ -177,12 +182,12 @@ class NewsFeedComponent extends Component {
 
         //==========Final render==========//
         return (
-            <div>         
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <h1  className="text-dark cg1p-header" >News</h1>
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
+            <div>
+                <Placeholder xs={12} bg="transparent"/>
+                <Placeholder xs={12} bg="transparent"/>
+                <h1 className="text-dark cg1p-header">News</h1>
+                <Placeholder xs={12} bg="transparent"/>
+                <Placeholder xs={12} bg="transparent"/>
 
                 <Container>
                     <Row>
@@ -193,16 +198,16 @@ class NewsFeedComponent extends Component {
                             <Button variant="outline-dark" onClick={() => this.showFilteredClicked()}>Filter</Button>
                         </Col>
                     </Row>
-                    <Placeholder xs={12} bg="transparent" />
-                    </Container>
+                    <Placeholder xs={12} bg="transparent"/>
+                </Container>
 
-                    <Container>
+                <Container>
                     <Row>
                         {/*news column*/}
                         {/*see newsFeedColumn definition for more information*/}
                         {newsFeedColumn}
                     </Row>
-                    <Placeholder xs={12} bg="transparent" />
+                    <Placeholder xs={12} bg="transparent"/>
                 </Container>
                 <Placeholder xs={12} bg="transparent" style={{paddingBottom: "50vh"}}/>
             </div>

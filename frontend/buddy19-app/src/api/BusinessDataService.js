@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { API_URL } from '../Constants';
+import {API_URL} from '../Constants';
 
 class BusinessDataService {
-    
+
     retrieveBusiness(uen) {
         return axios.get(`${API_URL}/business/uen/${uen}`
-                //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
+            //,{headers: { authorization: 'Basic ' + window.btoa(username + ":" + "goodpassword") }}
         );
     }
 

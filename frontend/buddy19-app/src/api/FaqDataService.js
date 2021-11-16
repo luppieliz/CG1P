@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL, SCRAPPED_SOURCE } from '../Constants';
+import {API_URL} from '../Constants';
 
 class FaqDataService {
     retrieveAllFAQ() {

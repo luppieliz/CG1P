@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { Form, Formik, Field, ErrorMessage } from 'formik'
+import React, {Component} from 'react'
+import {Field, Form, Formik} from 'formik'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import BusinessDataService from '../api/BusinessDataService.js';
 import UserDataService from '../api/UserDataService.js';
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
-import ReactNotification, { store } from 'react-notifications-component'
+import ReactNotification, {store} from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import GLOBE from 'vanta/dist/vanta.net.min'
 
@@ -31,24 +31,26 @@ class SignupComponent extends Component {
         this.validate = this.validate.bind(this);
 
     }
+
     componentDidMount() {
         this.vantaEffect = GLOBE({
-          el: this.vantaRef.current,
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.0,
-          minWidth: 200.0,
-          scale: 1.0,
-          scaleMobile: 1.0,
-          color: 0x777777,
-          color2: 0xFFFFFF,
-          backgroundColor: 0x000000
+            el: this.vantaRef.current,
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.0,
+            minWidth: 200.0,
+            scale: 1.0,
+            scaleMobile: 1.0,
+            color: 0x777777,
+            color2: 0xFFFFFF,
+            backgroundColor: 0x000000
         })
-      }
-      componentWillUnmount() {
+    }
+
+    componentWillUnmount() {
         if (this.vantaEffect) this.vantaEffect.destroy()
-      }
+    }
 
     onSubmit(values) {
 
@@ -66,7 +68,9 @@ class SignupComponent extends Component {
                     authority: "ROLE_EMPLOYEE",
                     business: response.data
                 }
-                UserDataService.createUser(user).then(() => { showSuccess() }).catch((error) => {
+                UserDataService.createUser(user).then(() => {
+                    showSuccess()
+                }).catch((error) => {
                     throwError(error.response.data.message)
                 })
             }
@@ -100,28 +104,28 @@ class SignupComponent extends Component {
     }
 
     render() {
-        let { name, email, password, businessUEN } = this.state
+        let {name, email, password, businessUEN} = this.state
         return (
-            <div style={{ height: "92vh", width: "100%"}}  ref={this.vantaRef}>
-                <ReactNotification />
+            <div style={{height: "92vh", width: "100%"}} ref={this.vantaRef}>
+                <ReactNotification/>
                 <Container>
                     <Row>
                         <Col></Col>
                         <Col>
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
 
                             <h0 className="cg1p-header">Buddy - 19</h0>
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
                             <h1 className="cg1p-header" style={{color: "white"}}>Employee Signup</h1>
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
                             <Card className="dark">
                                 <Card.Body>
                                     <div className="container text-dark">
 
                                         <Formik
-                                            initialValues={{ name, email, password, businessUEN }}
+                                            initialValues={{name, email, password, businessUEN}}
                                             onSubmit={this.onSubmit}
                                             validateOnChange={false}
                                             validateOnBlur={false}
@@ -137,23 +141,31 @@ class SignupComponent extends Component {
                                                 <ErrorMessage name="businessUEN" component="div" className="alert alert-warning"></ErrorMessage> */}
                                                         <fieldset className="form-group">
                                                             <label>Name</label>
-                                                            <Field className="form-control" type="text" placeholder="Enter name" name="name"></Field>
+                                                            <Field className="form-control" type="text"
+                                                                   placeholder="Enter name" name="name"></Field>
                                                         </fieldset>
                                                         <fieldset className="form-group">
                                                             <label>Email Address</label>
-                                                            <Field className="form-control" type="email" placeholder="Enter email" name="email"></Field>
+                                                            <Field className="form-control" type="email"
+                                                                   placeholder="Enter email" name="email"></Field>
                                                         </fieldset>
                                                         <fieldset className="form-group">
                                                             <label>Password</label>
-                                                            <Field className="form-control" type="password" placeholder="Enter password" name="password"></Field>
+                                                            <Field className="form-control" type="password"
+                                                                   placeholder="Enter password" name="password"></Field>
                                                         </fieldset>
                                                         <fieldset className="form-group">
                                                             <label>Your Business UEN</label>
-                                                            <Field className="form-control" type="text" placeholder="Enter Business UEN" name="businessUEN"></Field>
+                                                            <Field className="form-control" type="text"
+                                                                   placeholder="Enter Business UEN"
+                                                                   name="businessUEN"></Field>
                                                         </fieldset>
-                                                        <Button variant="outline-dark" type="submit" >Sign Up</Button>
-                                                        <Link style={{ padding: '10px' }} className="new user text-left" to="/signupbusiness"><Button variant="outline-dark">Register as Owner</Button></Link>
-                                                        <p className="forgot-password text-left">Already registered? <a href="/login">Sign In</a></p>
+                                                        <Button variant="outline-dark" type="submit">Sign Up</Button>
+                                                        <Link style={{padding: '10px'}} className="new user text-left"
+                                                              to="/signupbusiness"><Button variant="outline-dark">Register
+                                                            as Owner</Button></Link>
+                                                        <p className="forgot-password text-left">Already registered? <a
+                                                            href="/login">Sign In</a></p>
 
                                                     </Form>
                                                 )

@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import AuthenticationService from '../api/AuthenticationService.js'
-import { Image } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
@@ -9,7 +8,14 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
-import { SESSION_USER_BUSINESS, SESSION_USER_ID, SESSION_USER_NAME, SESSION_USER_ROLE, SESSION_TOKEN, SESSION_USER_BUSINESS_INDUSTRY } from '../Constants.js'
+import {
+    SESSION_TOKEN,
+    SESSION_USER_BUSINESS,
+    SESSION_USER_BUSINESS_INDUSTRY,
+    SESSION_USER_ID,
+    SESSION_USER_NAME,
+    SESSION_USER_ROLE
+} from '../Constants.js'
 
 import GLOBE from 'vanta/dist/vanta.net.min'
 
@@ -31,6 +37,7 @@ class LoginComponent extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
     }
+
     componentDidMount() {
         this.vantaEffect = GLOBE({
             el: this.vantaRef.current,
@@ -46,6 +53,7 @@ class LoginComponent extends Component {
             backgroundColor: 0x000000
         })
     }
+
     componentWillUnmount() {
         if (this.vantaEffect) this.vantaEffect.destroy()
     }
@@ -84,7 +92,7 @@ class LoginComponent extends Component {
                 this.props.history.push(`/welcome`)
             })
             .catch(() => {
-                this.setState({ hasLoginFailed: true })
+                this.setState({hasLoginFailed: true})
             })
     }
 
@@ -94,20 +102,20 @@ class LoginComponent extends Component {
 
             // In JavaScript, BOOLEAN && SHOW X means IF BOOLEAN, THEN SHOW X
             // If login is failed (reflected in state), display alert.
-            <div style={{ height: "92vh", width: "100%" }} ref={this.vantaRef}>
-                <Container >
+            <div style={{height: "92vh", width: "100%"}} ref={this.vantaRef}>
+                <Container>
                     <Row>
                         <Col>
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
-                            <h0 className="cg1p-header" >Buddy-19</h0>
-                            <Placeholder xs={12} bg="transparent" />
-                            <h1 className="cg1p-header" style={{color:"#ffffff"}}>Login</h1>
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <h0 className="cg1p-header">Buddy-19</h0>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <h1 className="cg1p-header" style={{color: "#ffffff"}}>Login</h1>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
                         </Col>
                     </Row>
                     <Row>
@@ -117,17 +125,22 @@ class LoginComponent extends Component {
                                 <Card.Body>
                                     <div className="form-group ">
                                         <label>Email</label>
-                                        <input type="text" className="form-control" name="email" value={this.state.email} onChange={this.handleChange} />
+                                        <input type="text" className="form-control" name="email"
+                                               value={this.state.email} onChange={this.handleChange}/>
                                     </div>
                                     <div className="form-group">
                                         <label>Password</label>
-                                        <input type="password" className="form-control" name="password" value={this.state.password} onChange={this.handleChange} />
+                                        <input type="password" className="form-control" name="password"
+                                               value={this.state.password} onChange={this.handleChange}/>
                                     </div>
-                                    <Placeholder xs={12} bg="transparent" />
+                                    <Placeholder xs={12} bg="transparent"/>
                                     <Button variant="outline-dark" onClick={this.loginClicked}>Login</Button>
-                                    <Placeholder xs={12} bg="transparent" />
-                                    <p className="forgot-password text-center"><a href="#placeholder">Forgot password?</a> or new to the app? <Link className="new user text-right" to="/signup">Sign up!</Link></p>
-                                    {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
+                                    <Placeholder xs={12} bg="transparent"/>
+                                    <p className="forgot-password text-center"><a href="#placeholder">Forgot
+                                        password?</a> or new to the app? <Link className="new user text-right"
+                                                                               to="/signup">Sign up!</Link></p>
+                                    {this.state.hasLoginFailed &&
+                                    <div className="alert alert-warning">Invalid Credentials</div>}
                                 </Card.Body>
                             </Card>
                         </Col>

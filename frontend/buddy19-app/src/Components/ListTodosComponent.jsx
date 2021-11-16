@@ -1,18 +1,15 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import TodoDataService from '../api/TodoDataService'
 import moment from 'moment'
 import Col from 'react-bootstrap/Col'
-import { SESSION_USER_ID } from '../Constants'
-import Card from 'react-bootstrap/Card';
-import { GrAdd } from "@react-icons/all-files/gr/GrAdd";
-import { FaTrashAlt } from "@react-icons/all-files/fa/FaTrashAlt";
-import { GrUpdate } from "@react-icons/all-files/gr/GrUpdate";
-import Offcanvas from 'react-bootstrap/Offcanvas'
+import {SESSION_USER_ID} from '../Constants'
+import {GrAdd} from "@react-icons/all-files/gr/GrAdd";
+import {FaTrashAlt} from "@react-icons/all-files/fa/FaTrashAlt";
+import {GrUpdate} from "@react-icons/all-files/gr/GrUpdate";
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Placeholder from 'react-bootstrap/Placeholder'
-
 
 
 // Display a list of all Todos, where the user can manage, add, update, delete todos.
@@ -37,13 +34,13 @@ class ListTodosComponent extends Component {
     // bring todos from axios get into current state for display, after initial render has been triggered.
     componentDidMount() {
         this.refreshTodos()
-        this.setState({ showSidebar: false });
+        this.setState({showSidebar: false});
     }
 
     // same as above, but for subsequent refreshes
     refreshTodos() {
         TodoDataService.retrieveCreatedTodos(this.state.userId)
-            .then(response => this.setState({ todos: response.data }))
+            .then(response => this.setState({todos: response.data}))
     }
 
     // handler for when add todo is clicked
@@ -60,7 +57,7 @@ class ListTodosComponent extends Component {
     deleteTodoClicked(todoId) {
         TodoDataService.deleteTodo(this.state.userId, todoId)
             .then(() => {
-                this.setState({ message: `Delete of todo ${todoId} was successful` })
+                this.setState({message: `Delete of todo ${todoId} was successful`})
                 this.refreshTodos()
             })
     }
@@ -71,50 +68,60 @@ class ListTodosComponent extends Component {
         return (
             <div>
                 <Container>
-                <Placeholder xs={12} bg="transparent"  />
+                    <Placeholder xs={12} bg="transparent"/>
                     <Row>
                         <Col>
-                        <Placeholder xs={12} bg="transparent"  />
-                        <h1 className ="text-dark cg1p-header">Employee Tasks</h1>
-                        <Placeholder xs={12} bg="transparent"  />
-                        <Placeholder xs={12} bg="transparent"  />
-                        <h3 class="text-dark ">Keeping track of all employee tasks assigned</h3>
-                        <Placeholder xs={12} bg="transparent"  />
-                        <Placeholder xs={12} bg="transparent"  />
-                            <div className="text-dark">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
+                            <Placeholder xs={12} bg="transparent"/>
+                            <h1 className="text-dark cg1p-header">Employee Tasks</h1>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <h3 class="text-dark ">Keeping track of all employee tasks assigned</h3>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <div className="text-dark">{this.state.message &&
+                            <div className="alert alert-success">{this.state.message}</div>}
                                 <table className="table text-dark">
                                     <thead>
-                                        <tr>
-                                            <th>Task</th>
-                                            <th>Created</th>
-                                            <th>Due</th>
-                                            <th>Update</th>
-                                            <th>Delete</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Created</th>
+                                        <th>Due</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        {
-                                            // script that for each todo, map it and display id, desc, done, targetDate, and buttons
-                                            this.state.todos.map(
-                                                todo =>
-                                                    <tr key={todo.id}>
-                                                        <td>{todo.description}</td>
-                                                        <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
-                                                        <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
-                                                        <td><button className="btn btn-warning" onClick={() => this.updateTodoClicked(todo.id)}><GrUpdate /></button></td>
-                                                        <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}><FaTrashAlt /></button></td>
-                                                    </tr>
-                                            )
-                                        }
+                                    {
+                                        // script that for each todo, map it and display id, desc, done, targetDate, and buttons
+                                        this.state.todos.map(
+                                            todo =>
+                                                <tr key={todo.id}>
+                                                    <td>{todo.description}</td>
+                                                    <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
+                                                    <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
+                                                    <td>
+                                                        <button className="btn btn-warning"
+                                                                onClick={() => this.updateTodoClicked(todo.id)}>
+                                                            <GrUpdate/></button>
+                                                    </td>
+                                                    <td>
+                                                        <button className="btn btn-danger"
+                                                                onClick={() => this.deleteTodoClicked(todo.id)}>
+                                                            <FaTrashAlt/></button>
+                                                    </td>
+                                                </tr>
+                                        )
+                                    }
                                     </tbody>
                                 </table>
-                                <div className="d-grid gap-2"><Button variant="outline-dark" onClick={() => this.addTodoClicked()}><GrAdd /></Button></div>
+                                <div className="d-grid gap-2"><Button variant="outline-dark"
+                                                                      onClick={() => this.addTodoClicked()}><GrAdd/></Button>
+                                </div>
                             </div>
                         </Col>
                     </Row>
 
-                    <Placeholder xs={12} bg="transparent" style={{ paddingBottom: "50vh" }} />
-                    
+                    <Placeholder xs={12} bg="transparent" style={{paddingBottom: "50vh"}}/>
 
 
                 </Container>

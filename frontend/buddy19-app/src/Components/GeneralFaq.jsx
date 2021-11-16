@@ -1,20 +1,11 @@
-import React, { Component } from 'react';
-import Navbar from 'react-bootstrap/Navbar'
-import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import FormControl from 'react-bootstrap/FormControl'
+import React, {Component} from 'react';
 import Row from 'react-bootstrap/Row'
 import Placeholder from 'react-bootstrap/Placeholder'
 import Col from 'react-bootstrap/Col'
-import Image from 'react-bootstrap/Image'
 import Card from 'react-bootstrap/Card'
-import Accordion from 'react-bootstrap/Accordion'
 import FaqDataService from '../api/FaqDataService';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-
-
 
 
 // Footer
@@ -41,7 +32,7 @@ class GeneralFaq extends Component {
             .then(
                 response => {
                     this.state.isEmpty = response.data.length === 0;
-                    this.setState({ faq: response.data })
+                    this.setState({faq: response.data})
                     // this.setState({ faqDisplay: response.data })
                     //             console.log("retrieval made");
                     // console.log(response);
@@ -73,7 +64,7 @@ class GeneralFaq extends Component {
         }
         //set the final list
         console.log(output);
-        this.setState({ faqDisplay: output })
+        this.setState({faqDisplay: output})
 
     }
 
@@ -89,17 +80,17 @@ class GeneralFaq extends Component {
     }
 
     render() {
-        
-        return (
-            <div >
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
-                <h1 className="cg1p-header">FAQ {this.state.userName}</h1>
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
 
-                <Row style={{ paddingLeft: "5vw", paddingRight: "5vw" }}>
+        return (
+            <div>
+                <Placeholder xs={12} bg="transparent"/>
+                <Placeholder xs={12} bg="transparent"/>
+                <Placeholder xs={12} bg="transparent"/>
+                <h1 className="cg1p-header">FAQ {this.state.userName}</h1>
+                <Placeholder xs={12} bg="transparent"/>
+                <Placeholder xs={12} bg="transparent"/>
+
+                <Row style={{paddingLeft: "5vw", paddingRight: "5vw"}}>
                     <Col>
                         <Card className="text-center">
                             <Card.Body>
@@ -111,7 +102,8 @@ class GeneralFaq extends Component {
                                     <h5 className="text-dark">
                                         <Card.Header>Language : {this.state.userLanguage ? 'English' : 'Chinese'}
                                         </Card.Header>
-                                        <FormControlLabel onClick={this.toggleLanguage} control={<Switch color="warning" />} label=""
+                                        <FormControlLabel onClick={this.toggleLanguage}
+                                                          control={<Switch color="warning"/>} label=""
                                         />
                                     </h5>
                                 </Card.Text>
@@ -120,14 +112,14 @@ class GeneralFaq extends Component {
                     </Col>
                 </Row>
 
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent"/>
+                <Placeholder xs={12} bg="transparent"/>
 
-                <Row xl={3} style={{ paddingLeft: "5vw", paddingRight: "5vw" }}>
+                <Row xl={3} style={{paddingLeft: "5vw", paddingRight: "5vw"}}>
                     {Array.from(this.state.faqDisplay, (_, idx) => (
                         <Col>
                             <Card>
-                                <Card.Img variant="top" src={this.state.faqDisplay[idx].url} />
+                                <Card.Img variant="top" src={this.state.faqDisplay[idx].url}/>
                                 <Card.Body>
                                     <Card.Title>
                                         <Card.Link href={this.state.faqDisplay[idx].url}>
@@ -139,7 +131,7 @@ class GeneralFaq extends Component {
                         </Col>
                     ))}
                 </Row>
-                <Placeholder xs={12} bg="transparent" style={{ paddingBottom: "5vh" }} />
+                <Placeholder xs={12} bg="transparent" style={{paddingBottom: "5vh"}}/>
 
             </div>
         )

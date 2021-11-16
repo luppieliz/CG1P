@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import moment from 'moment'
-import { Form, Formik, Field, ErrorMessage } from 'formik'
+import {ErrorMessage, Field, Form, Formik} from 'formik'
 import TodoDataService from '../api/TodoDataService.js'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -8,13 +8,9 @@ import Col from 'react-bootstrap/Col'
 import Placeholder from 'react-bootstrap/Placeholder'
 import Button from 'react-bootstrap/Button'
 
-import Card from 'react-bootstrap/Card'
-
-import { SESSION_USER_BUSINESS, SESSION_USER_ID } from '../Constants.js'
+import {SESSION_USER_BUSINESS, SESSION_USER_ID} from '../Constants.js'
 import UserDataService from '../api/UserDataService.js'
 import Multiselect from 'multiselect-react-dropdown'
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 // Page to update or add a specific todo
@@ -127,10 +123,9 @@ class TodoComponent extends Component {
     }
 
 
-
     render() {
         // rely on modern JS destructuring, can assign/retrieve together
-        let { description, targetDate } = this.state
+        let {description, targetDate} = this.state
 
         return (
             <div>
@@ -139,14 +134,14 @@ class TodoComponent extends Component {
                 <Col></Col>
                 <Col>
                     <Container>
-                    <Placeholder xs={12} bg="transparent" />
-                    <Placeholder xs={12} bg="transparent" />
+                        <Placeholder xs={12} bg="transparent"/>
+                        <Placeholder xs={12} bg="transparent"/>
                         <Row>
                             <h1 className="text-dark">Todo</h1>
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
                             <div className="container text-dark ">
                                 <Formik
-                                    initialValues={{ description, targetDate }}
+                                    initialValues={{description, targetDate}}
                                     onSubmit={this.onSubmit}
                                     validateOnChange={false}
                                     validateOnBlur={false}
@@ -156,52 +151,54 @@ class TodoComponent extends Component {
                                     {
                                         (props) => (
                                             <h5>
-                                            <Form>
-                                                <ErrorMessage name="description" component="div" className="alert alert-warning "></ErrorMessage>
-                                                <fieldset className="form-group">
-                                                    <label >Description</label>
-                                                    <Field className="form-control" type="text" name="description"></Field>
-                                                </fieldset>
-                                                <Placeholder xs={12} bg="transparent" />
-                                                <fieldset className="form-group">
-                                                    <label >Assign To</label>
-                                                    <Multiselect
-                                                        options={this.state.listItems}
-                                                        selectedValues={this.state.selectedValues}
-                                                        onSelect={this.onSelect}
-                                                        onRemove={this.onRemove}
-                                                        displayValue="name"
-                                                        showCheckbox
-                                                        closeOnSelect={false}
-                                                        placeholder="Select employees"
-                                                        hidePlaceholder
-                                                        avoidHighlightFirstOption
-                                                    />
-                                                </fieldset>
-                                                
-                                                <fieldset className="form-group">
-                                                    <label>Target Date</label>
-                                                    <Field className="form-control" type="date" name="targetDate" />
-                                                </fieldset>
+                                                <Form>
+                                                    <ErrorMessage name="description" component="div"
+                                                                  className="alert alert-warning "></ErrorMessage>
+                                                    <fieldset className="form-group">
+                                                        <label>Description</label>
+                                                        <Field className="form-control" type="text"
+                                                               name="description"></Field>
+                                                    </fieldset>
+                                                    <Placeholder xs={12} bg="transparent"/>
+                                                    <fieldset className="form-group">
+                                                        <label>Assign To</label>
+                                                        <Multiselect
+                                                            options={this.state.listItems}
+                                                            selectedValues={this.state.selectedValues}
+                                                            onSelect={this.onSelect}
+                                                            onRemove={this.onRemove}
+                                                            displayValue="name"
+                                                            showCheckbox
+                                                            closeOnSelect={false}
+                                                            placeholder="Select employees"
+                                                            hidePlaceholder
+                                                            avoidHighlightFirstOption
+                                                        />
+                                                    </fieldset>
 
-                                                <Placeholder xs={12} bg="transparent" />
-                                                <Button variant="outline-dark" type="submit" >Save</Button>
-                                            </Form>
+                                                    <fieldset className="form-group">
+                                                        <label>Target Date</label>
+                                                        <Field className="form-control" type="date" name="targetDate"/>
+                                                    </fieldset>
+
+                                                    <Placeholder xs={12} bg="transparent"/>
+                                                    <Button variant="outline-dark" type="submit">Save</Button>
+                                                </Form>
                                             </h5>
                                         )
                                     }
                                 </Formik>
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
-                                <Placeholder xs={12} bg="transparent" />
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
+                                <Placeholder xs={12} bg="transparent"/>
 
                             </div>
                         </Row>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL, SESSION_INTERCEPTOR, SESSION_TOKEN, SESSION_USER_ID } from '../Constants'
+import {API_URL, SESSION_INTERCEPTOR, SESSION_USER_ID} from '../Constants'
 
 // Service for keeping track of currently authenticated user
 // Also facilitates retrieval of currently logged in email
@@ -29,8 +29,8 @@ class AuthenticationService {
     registerSuccessfulLoginForJwt(email) {
         return axios.get(`${API_URL}/user/email/${email}`)
     }
-    
-    
+
+
     // CODE FOR BASIC AUTH
     // executeBasicAuthenticationService(email, password) {
     //     return axios.get(`${API_URL}/basicauth`,

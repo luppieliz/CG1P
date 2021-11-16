@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 // import routing features
 import QuoteService from '../api/QuoteService'
 import UserDataService from '../api/UserDataService'
 import TodoDataService from '../api/TodoDataService'
-import NewsDataService from '../api/NewsDataService'
 
 import Card from 'react-bootstrap/Card';
 import Placeholder from 'react-bootstrap/Placeholder';
@@ -14,16 +13,11 @@ import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
-
-import { GrUpdate } from "@react-icons/all-files/gr/GrUpdate";
 import moment from 'moment'
-import { GrAdd } from "@react-icons/all-files/gr/GrAdd";
-import { FaTrashAlt } from "@react-icons/all-files/fa/FaTrashAlt";
-import { SESSION_USER_ID, SESSION_USER_NAME } from '../Constants';
+import {SESSION_USER_ID, SESSION_USER_NAME} from '../Constants';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-
 
 
 // Welcome landing page, that links to the Todos page.
@@ -64,22 +58,22 @@ class WelcomeComponent extends Component {
     componentDidMount() {
         this.retrieveHealthStatus()
         this.refreshTodos()
-        this.setState({ showSidebar: false });
+        this.setState({showSidebar: false});
     }
 
     handleClose() { //sidebar
-        this.setState({ showSidebar: false });
+        this.setState({showSidebar: false});
     }
 
     handleShow() { //sidebar
-        this.setState({ showSidebar: true });
+        this.setState({showSidebar: true});
         this.refreshTodos();
     }
 
     // same as above, but for subsequent refreshes
     refreshTodos() {
         TodoDataService.retrieveAssignedTodos(this.state.userId)
-            .then(response => this.setState({ todos: response.data }))
+            .then(response => this.setState({todos: response.data}))
     }
 
     // handler for when add todo is clicked
@@ -96,7 +90,7 @@ class WelcomeComponent extends Component {
     deleteTodoClicked(todoId) {
         TodoDataService.deleteTodo(this.state.userId, todoId)
             .then(() => {
-                this.setState({ message: `Delete of todo ${todoId} was successful` })
+                this.setState({message: `Delete of todo ${todoId} was successful`})
                 this.refreshTodos()
             })
     }
@@ -107,14 +101,12 @@ class WelcomeComponent extends Component {
         return [
             'white',
         ].map((variant, idx) => (
-            <div style={{
-
-            }}>
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
+            <div style={{}}>
+                <Placeholder xs={12} bg="transparent"/>
+                <Placeholder xs={12} bg="transparent"/>
                 <h1 className="cg1p-header">Welcome Home, {this.state.userName}</h1>
-                <Placeholder xs={12} bg="transparent" />
-                <Placeholder xs={12} bg="transparent" />
+                <Placeholder xs={12} bg="transparent"/>
+                <Placeholder xs={12} bg="transparent"/>
 
                 <Container>
                     <Row>
@@ -136,31 +128,34 @@ class WelcomeComponent extends Component {
                                                         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                                                         <Card.Body>
                                                             <Card.Text>
-                                                                <iframe src="https://free.timeanddate.com/clock/i81r8hlp/n236/tlsg/fn6/fs20/fcfff/tc000/ftb/bacfff/pa8/tt0/tw1/th2/ta1/tb4" frameborder="0" width="333" height="68"></iframe>
+                                                                <iframe
+                                                                    src="https://free.timeanddate.com/clock/i81r8hlp/n236/tlsg/fn6/fs20/fcfff/tc000/ftb/bacfff/pa8/tt0/tw1/th2/ta1/tb4"
+                                                                    frameborder="0" width="333" height="68"></iframe>
                                                             </Card.Text>
                                                         </Card.Body>
                                                     </Card>
-                                                    <div className="text-dark">{this.state.message && <div className="alert alert-success">{this.state.message}</div>}
+                                                    <div className="text-dark">{this.state.message &&
+                                                    <div className="alert alert-success">{this.state.message}</div>}
                                                         <table className="table text-dark">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Task</th>
-                                                                    <th>Date Created</th>
-                                                                    <th>Target Date</th>
-                                                                </tr>
+                                                            <tr>
+                                                                <th>Task</th>
+                                                                <th>Date Created</th>
+                                                                <th>Target Date</th>
+                                                            </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {
-                                                                    // script that for each todo, map it and display id, desc, done, createdDate, and buttons
-                                                                    this.state.todos.map(
-                                                                        todo =>
-                                                                            <tr key={todo.id}>
-                                                                                <td>{todo.description}</td>
-                                                                                <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
-                                                                                <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
-                                                                            </tr>
-                                                                    )
-                                                                }
+                                                            {
+                                                                // script that for each todo, map it and display id, desc, done, createdDate, and buttons
+                                                                this.state.todos.map(
+                                                                    todo =>
+                                                                        <tr key={todo.id}>
+                                                                            <td>{todo.description}</td>
+                                                                            <td>{moment(todo.createdDate).format('YYYY-MM-DD')}</td>
+                                                                            <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
+                                                                        </tr>
+                                                                )
+                                                            }
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -170,16 +165,18 @@ class WelcomeComponent extends Component {
                                     </Offcanvas>
                                 </Container>
                             </Card>
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
 
                             <Card>
-                                <iframe width="300px" height="350px" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/99334c54-479f-472d-a6f5-fe38d2f9b1aa/view/c5b1cfad-f0c8-43e8-9bce-ea541923e9e7" frameBorder="0"> </iframe>
+                                <iframe width="300px" height="350px"
+                                        src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/99334c54-479f-472d-a6f5-fe38d2f9b1aa/view/c5b1cfad-f0c8-43e8-9bce-ea541923e9e7"
+                                        frameBorder="0"></iframe>
                             </Card>
                         </Col>
                         <Col xs={5}>
-                            <Card ><h2 className="cg1p-header">Announcements</h2></Card>
-                            <Placeholder xs={12} bg="transparent" />
-                            <Placeholder xs={12} bg="transparent" />
+                            <Card><h2 className="cg1p-header">Announcements</h2></Card>
+                            <Placeholder xs={12} bg="transparent"/>
+                            <Placeholder xs={12} bg="transparent"/>
 
                             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
                                 <Tab eventKey="Dining" title="Dining">
@@ -194,11 +191,15 @@ class WelcomeComponent extends Component {
                                 <Tab eventKey="vaccine" title="Vaccine">
                                     <Card className="text-dark">
                                         <Card.Text>
-                                            Progress in vaccination and boosters has contributed immensely to the tempering of COVID-19 cases.
+                                            Progress in vaccination and boosters has contributed immensely to the
+                                            tempering of COVID-19 cases.
                                             However, those who are not fully vaccinated continue to disproportionately
-                                            make up the bulk of severe and ICU cases, and impose a strain on our healthcare system
-                                            . There remains a need to protect them. Vaccination-Differentiated Safe Management Measures
-                                            (VDS) will therefore remain a crucial prong of our re-opening strategy in the coming weeks.
+                                            make up the bulk of severe and ICU cases, and impose a strain on our
+                                            healthcare system
+                                            . There remains a need to protect them. Vaccination-Differentiated Safe
+                                            Management Measures
+                                            (VDS) will therefore remain a crucial prong of our re-opening strategy in
+                                            the coming weeks.
                                         </Card.Text>
                                     </Card>
                                 </Tab>
@@ -224,8 +225,10 @@ class WelcomeComponent extends Component {
                                             ICU care at 0.3%, in the past 28 days.
                                             The number of cases in the ICU remains high but stable
                                             at around 140 cases, who occupy 70% of our current ICU bed capacity.
-                                            We have been actively expanding the capacity of COVID-19 Treatment Facilities
-                                            (CTFs) and Community Isolation Facilities (CIFs) over the past few weeks to take in
+                                            We have been actively expanding the capacity of COVID-19 Treatment
+                                            Facilities
+                                            (CTFs) and Community Isolation Facilities (CIFs) over the past few weeks to
+                                            take in
                                             COVID-19 patients who do not require acute care in hospitals.
                                         </Card.Text>
                                     </Card>
@@ -247,10 +250,10 @@ class WelcomeComponent extends Component {
                                 </Tab>
                             </Tabs>
 
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
 
 
-                            <Card className="card" bg={variant.toLowerCase()} >
+                            <Card className="card" bg={variant.toLowerCase()}>
                                 <Card.Body>
                                     <Card.Title className="text-danger">Employee Management</Card.Title>
                                     <Card.Text className="text-dark">
@@ -259,10 +262,10 @@ class WelcomeComponent extends Component {
                                 </Card.Body>
                             </Card>
 
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
 
 
-                            <Card className="card" bg={variant.toLowerCase()} >
+                            <Card className="card" bg={variant.toLowerCase()}>
                                 <Card.Body>
                                     <Card.Title className="text-warning">Todos</Card.Title>
                                     <Card.Text className="text-dark">
@@ -282,25 +285,29 @@ class WelcomeComponent extends Component {
                                     <Card.Text>
                                         <h5 className="text-dark">
                                             <Card.Header>SHN Status: {this.state.shnStatus ? 'Yes' : 'No'}</Card.Header>
-                                            <FormControlLabel onClick={this.toggleShnStatus} control={<Switch color="warning" />} label=""/>
+                                            <FormControlLabel onClick={this.toggleShnStatus}
+                                                              control={<Switch color="warning"/>} label=""/>
 
                                         </h5>
                                         <h5 className="text-dark">
-                                            <Card.Header>COVID Positive: {this.state.covidStatus ? 'Yes' : 'No'}</Card.Header>
-                                            <FormControlLabel onClick={this.toggleCovidStatus} control={<Switch color="warning" />} label="" />
+                                            <Card.Header>COVID
+                                                Positive: {this.state.covidStatus ? 'Yes' : 'No'}</Card.Header>
+                                            <FormControlLabel onClick={this.toggleCovidStatus}
+                                                              control={<Switch color="warning"/>} label=""/>
                                         </h5>
 
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
-                            <Placeholder xs={12} bg="transparent" />
+                            <Placeholder xs={12} bg="transparent"/>
                             <Card bg={variant.toLowerCase()} className="text-center">
                                 <Card.Body>
                                     <Card.Title>
                                         <h2 className="container text-dark">
                                             Get Inspired</h2>
                                         <div className="d-grid gap-2">
-                                            <Button size="lg" onClick={this.retrieveWelcomeMessage} variant="outline-dark" >Here</Button>
+                                            <Button size="lg" onClick={this.retrieveWelcomeMessage}
+                                                    variant="outline-dark">Here</Button>
                                         </div>
                                     </Card.Title>
                                     <Card.Text>
@@ -317,32 +324,34 @@ class WelcomeComponent extends Component {
                     </Row>
 
 
-
                     <Row>
-                        <Placeholder xs={12} bg="transparent" />
+                        <Placeholder xs={12} bg="transparent"/>
                         <Card className="text-dark">
                             <h2>Latest Covid-19 Cases updates</h2>
                         </Card>
-                        <Placeholder xs={12} bg="transparent" />
+                        <Placeholder xs={12} bg="transparent"/>
                         <Card>
-                            <iframe className="text-light" height="600px" width="100%;" src="https://infographics.channelnewsasia.com/covid-19/sgcovid19chart.html?type=embed&amp;channel=cna"></iframe>
+                            <iframe className="text-light" height="600px" width="100%;"
+                                    src="https://infographics.channelnewsasia.com/covid-19/sgcovid19chart.html?type=embed&amp;channel=cna"></iframe>
                         </Card>
-                        <Placeholder xs={12} bg="transparent" />
+                        <Placeholder xs={12} bg="transparent"/>
                         <Card>
-                            <iframe width="100%" height="600" scrolling="no" src="https://infographics.channelnewsasia.com/covid-19/asia-covid-19-daily-cases.html?type=embed&amp;channel=cna" ></iframe>
+                            <iframe width="100%" height="600" scrolling="no"
+                                    src="https://infographics.channelnewsasia.com/covid-19/asia-covid-19-daily-cases.html?type=embed&amp;channel=cna"></iframe>
                             {/* <iframe src="https://public.domo.com/cards/bWxVg" width="50%" height="600" marginheight="0" marginwidth="0" frameborder="0"></iframe> */}
                         </Card>
                     </Row>
 
                     <Row>
-                        <Placeholder xs={12} bg="transparent" />
+                        <Placeholder xs={12} bg="transparent"/>
                         <Card className="text-dark">
                             <h2>Plan your next business Trip</h2>
 
                         </Card>
-                        <Placeholder xs={12} bg="transparent" />
-                        <iframe className="text-light" height="800px" width="100%;" scrolling="no" src="https://www.farecompare.com/maps/SIN-"></iframe>
-                        <Placeholder xs={12} bg="transparent" />
+                        <Placeholder xs={12} bg="transparent"/>
+                        <iframe className="text-light" height="800px" width="100%;" scrolling="no"
+                                src="https://www.farecompare.com/maps/SIN-"></iframe>
+                        <Placeholder xs={12} bg="transparent"/>
                     </Row>
                 </Container>
             </div>
@@ -380,7 +389,7 @@ class WelcomeComponent extends Component {
             }
             UserDataService.updateUser(user);
         })
-        this.setState({ covidStatus: !this.state.covidStatus })
+        this.setState({covidStatus: !this.state.covidStatus})
     }
 
     toggleShnStatus() {
@@ -397,12 +406,12 @@ class WelcomeComponent extends Component {
             }
             UserDataService.updateUser(user);
         })
-        this.setState({ shnStatus: !this.state.shnStatus })
+        this.setState({shnStatus: !this.state.shnStatus})
     }
 
     handleSuccessfulResponse(response) {
         console.log(response)
-        this.setState({ welcomeMessage: response.data.content })
+        this.setState({welcomeMessage: response.data.content})
     }
 
     handleError(error) {
@@ -415,7 +424,7 @@ class WelcomeComponent extends Component {
             errorMessage += error.response.data.message
         }
 
-        this.setState({ errorMessage: errorMessage })
+        this.setState({errorMessage: errorMessage})
     }
 
 }

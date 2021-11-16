@@ -1,5 +1,5 @@
 // import react
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 // auth route, make sure route is valid for user
 import AuthenticatedRoute from './AuthenticatedRoute'
 // import routing features
@@ -35,26 +35,26 @@ class Buddy19App extends Component {
         return (
             <div className="TodoApp">
                 <Router>
-                    <HeaderComponent />
-                    
+                    <HeaderComponent/>
+
                     <Switch>
-                        <Route path="/" exact component={HomeComponent} />
-                        <Route path="/login" component={LoginComponent} />
-                        <Route path="/faq" exact component={ Faqcomponent } />
-                        <Route path="/news" exact component={NewsFeedComponent} />
-                        <Route path="/contactus" exact component={ContactusComponent} />
-                        <Route path="/aboutus" exact component={AboutusComponent} />
-                        <AuthenticatedRoute path="/logout" component={LogoutComponent} />
-                        <AuthenticatedRoute path="/welcome" component={WelcomeComponent} />
-                        <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
-                        <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
-                        <AuthenticatedRoute path="/profile" component={ProfileComponent} />
-                        <AuthenticatedRoute path="/emp" component={EmployeeManagementComponent} />
+                        <Route path="/" exact component={HomeComponent}/>
+                        <Route path="/login" component={LoginComponent}/>
+                        <Route path="/faq" exact component={Faqcomponent}/>
+                        <Route path="/news" exact component={NewsFeedComponent}/>
+                        <Route path="/contactus" exact component={ContactusComponent}/>
+                        <Route path="/aboutus" exact component={AboutusComponent}/>
+                        <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
+                        <AuthenticatedRoute path="/welcome" component={WelcomeComponent}/>
+                        <AuthenticatedRoute path="/todos/:id" component={TodoComponent}/>
+                        <AuthenticatedRoute path="/todos" component={ListTodosComponent}/>
+                        <AuthenticatedRoute path="/profile" component={ProfileComponent}/>
+                        <AuthenticatedRoute path="/emp" component={EmployeeManagementComponent}/>
                         <Route path="/signup" component={SignupComponent}/>
                         <Route path="/signupbusiness" component={OwnerSignupComponent}/>
-                        <Route component={ErrorComponent} />
+                        <Route component={ErrorComponent}/>
                     </Switch>
-                    <FooterComponent />
+                    <FooterComponent/>
                 </Router>
             </div>
         )

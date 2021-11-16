@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { QUOTE_SOURCE } from '../Constants';
+import {QUOTE_SOURCE} from '../Constants';
 
 class QuoteService {
     executeQuoteService() {

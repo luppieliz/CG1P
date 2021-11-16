@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Redirect, Route} from 'react-router-dom';
 import axios from 'axios'
 import AuthenticationService from '../api/AuthenticationService.js';
-import { SESSION_INTERCEPTOR, SESSION_TOKEN } from '../Constants.js';
+import {SESSION_INTERCEPTOR, SESSION_TOKEN} from '../Constants.js';
 
 // Ensures user is authenticated before granting access to a route, else redirect to login
 class AuthenticatedRoute extends Component {
@@ -31,7 +31,7 @@ class AuthenticatedRoute extends Component {
             // spread operator - take all properties
             return <Route {...this.props} />
         } else {
-            return <Redirect to="/login" />
+            return <Redirect to="/login"/>
         }
     }
 }

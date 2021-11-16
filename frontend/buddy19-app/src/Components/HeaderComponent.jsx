@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 // import routing features
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 // auth service
 import AuthenticationService from '../api/AuthenticationService.js'
 // import withRouter to wrap - auto update header based on auth
-import { withRouter } from 'react-router';
-
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import {withRouter} from 'react-router';
 
 
 import Offcanvas from 'react-bootstrap/Offcanvas'
@@ -18,8 +16,8 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Placeholder from 'react-bootstrap/Placeholder'
 
-import { AiOutlineMenu } from "@react-icons/all-files/ai/AiOutlineMenu";
-import { SESSION_USER_ROLE } from '../Constants';
+import {AiOutlineMenu} from "@react-icons/all-files/ai/AiOutlineMenu";
+import {SESSION_USER_ROLE} from '../Constants';
 
 
 // Header with navigation features as a navbar. Shows different things based on whether user is logged in.
@@ -38,11 +36,11 @@ class HeaderComponent extends Component {
     }
 
     handleClose() { //sidebar
-        this.setState({ showSidebar: false });
+        this.setState({showSidebar: false});
     }
 
     handleShow() { //sidebar
-        this.setState({ showSidebar: true });
+        this.setState({showSidebar: true});
     }
 
     render() {
@@ -53,13 +51,13 @@ class HeaderComponent extends Component {
 
         if (sessionStorage.getItem(SESSION_USER_ROLE) == "ROLE_EMPLOYEE") {
             isEmployee = true;
-        } 
+        }
 
         return (
             <header>
-                <Navbar bg="dark" expand={false} >
+                <Navbar bg="dark" expand={false}>
                     <Container fluid>
-                        <Button variant="light" onClick={this.handleShow}><AiOutlineMenu /></Button>
+                        <Button variant="light" onClick={this.handleShow}><AiOutlineMenu/></Button>
                         <Navbar.Brand className="cg1p-logo" href="/Welcome"><h4>Buddy-19</h4></Navbar.Brand>
                         <Offcanvas show={this.state.showSidebar} onHide={this.handleClose}>
                             <Offcanvas.Header closeButton>
@@ -68,29 +66,52 @@ class HeaderComponent extends Component {
                             <Offcanvas.Body className="text-dark">
                                 <Row>
                                     <Col>
-                                    <iframe src="https://free.timeanddate.com/clock/i81r8hlp/n236/tlsg/fn6/fs20/fcfff/tc000/ftb/bacfff/pa8/tt0/tw1/th2/ta1/tb4" frameborder="0" width="368" height="68"></iframe>
+                                        <iframe
+                                            src="https://free.timeanddate.com/clock/i81r8hlp/n236/tlsg/fn6/fs20/fcfff/tc000/ftb/bacfff/pa8/tt0/tw1/th2/ta1/tb4"
+                                            frameborder="0" width="368" height="68"></iframe>
                                         <Card className="text-dark">
                                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                                            <Card.Text className="text-dark" >
+                                            <Card.Text className="text-dark">
                                                 <h4>
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/welcome" onClick={this.handleClose}>Home</Link>}
-                                                    {isUserLoggedIn && !isEmployee && <Link className="nav-link" to="/emp" onClick={this.handleClose}>Employee Updates</Link>}
-                                                    {isUserLoggedIn && !isEmployee && <Link className="nav-link" to="/todos" onClick={this.handleClose}>Employee Tasks</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/login" onClick={this.handleClose}>Login</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/signup" onClick={this.handleClose}>Sign Up</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/news" onClick={this.handleClose}>News</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/news" onClick={this.handleClose}>News</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/faq" onClick={this.handleClose}>FAQ</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/faq" onClick={this.handleClose}>FAQ</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/aboutus" onClick={this.handleClose}>About Us</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/aboutus" onClick={this.handleClose}>About Us</Link>}
-                                                    {!isUserLoggedIn && <Link className="nav-link" to="/contactus" onClick={this.handleClose}>Contact Us</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/contactus" onClick={this.handleClose}>Contact Us</Link>}
-                                                    {isUserLoggedIn && <Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/welcome"
+                                                                             onClick={this.handleClose}>Home</Link>}
+                                                    {isUserLoggedIn && !isEmployee &&
+                                                    <Link className="nav-link" to="/emp" onClick={this.handleClose}>Employee
+                                                        Updates</Link>}
+                                                    {isUserLoggedIn && !isEmployee &&
+                                                    <Link className="nav-link" to="/todos" onClick={this.handleClose}>Employee
+                                                        Tasks</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/login"
+                                                                              onClick={this.handleClose}>Login</Link>}
+                                                    {!isUserLoggedIn &&
+                                                    <Link className="nav-link" to="/signup" onClick={this.handleClose}>Sign
+                                                        Up</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/news"
+                                                                              onClick={this.handleClose}>News</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/news"
+                                                                             onClick={this.handleClose}>News</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/faq"
+                                                                              onClick={this.handleClose}>FAQ</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/faq"
+                                                                             onClick={this.handleClose}>FAQ</Link>}
+                                                    {!isUserLoggedIn &&
+                                                    <Link className="nav-link" to="/aboutus" onClick={this.handleClose}>About
+                                                        Us</Link>}
+                                                    {isUserLoggedIn &&
+                                                    <Link className="nav-link" to="/aboutus" onClick={this.handleClose}>About
+                                                        Us</Link>}
+                                                    {!isUserLoggedIn && <Link className="nav-link" to="/contactus"
+                                                                              onClick={this.handleClose}>Contact
+                                                        Us</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/contactus"
+                                                                             onClick={this.handleClose}>Contact
+                                                        Us</Link>}
+                                                    {isUserLoggedIn && <Link className="nav-link" to="/logout"
+                                                                             onClick={AuthenticationService.logout}>Logout</Link>}
                                                 </h4>
                                             </Card.Text>
                                         </Card>
-                                        <Placeholder xs={12} bg="white" className="bg-black" />
+                                        <Placeholder xs={12} bg="white" className="bg-black"/>
                                     </Col>
                                 </Row>
                             </Offcanvas.Body>
