@@ -25,9 +25,9 @@ import ListTodosComponent from "./ListTodosComponent";
 import EmployeeManagementComponent from './EmployeeManagementComponent'
 
 
-class TodoApp extends Component {
+class Buddy19App extends Component {
 
-    // root component of TodoApp that displays header, footer, and the body depending on the route.
+    // root component of Buddy19App that displays header, footer, and the body depending on the route.
     // using react router dom dependency to route pages
     // default route (invalid page to ErrorComponent)
     // switch ensures only one of the path is launched (else pages will be merged)
@@ -61,4 +61,4 @@ class TodoApp extends Component {
     }
 }
 
-export default TodoApp;
+export default Buddy19App;
