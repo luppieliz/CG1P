@@ -1,7 +1,7 @@
 package com.app.todo.newsfunnel;
 
-import com.app.todo.measure.MeasureService;
 import com.app.todo.notifier.NotificationService;
+import com.app.todo.scraper.ScraperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +16,14 @@ import java.util.*;
 public class NewsServiceImpl implements NewsService {
 
     private NewsRepository newsRepository;
-    private MeasureService measureService;
+    private ScraperService scraperService;
     private NotificationService notificationService;
     final String STANDARD_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Autowired
-    public NewsServiceImpl(NewsRepository newsRepository, MeasureService measureService, NotificationService notificationService) {
+    public NewsServiceImpl(NewsRepository newsRepository, ScraperService scraperService, NotificationService notificationService) {
         this.newsRepository = newsRepository;
-        this.measureService = measureService;
+        this.scraperService = scraperService;
         this.notificationService = notificationService;
     }
 
@@ -78,7 +78,7 @@ public class NewsServiceImpl implements NewsService {
         }
 
         //get a map of all tags for each URL
-        Map<String,List<String>> tagMap = measureService.getTagMap(urlList);
+        Map<String,List<String>> tagMap = scraperService.scrapeMultipleArticlesForTags(urlList);
 
         List<News> resultNews = new ArrayList<>();
         for (NewsDTO newsDTO : newsFromAPI) {
@@ -100,7 +100,6 @@ public class NewsServiceImpl implements NewsService {
             singleNews.setUrlToImage(newsDTO.getUrlToImage());
 
             // Get tags for an article
-//            List<String> tagList = measureService.getTag(newsDTO.getUrl());
             List<String> tagList = tagMap.get(newsDTO.getUrl());
             System.out.println("successfully got tags for " + newsDTO.getUrl());
 

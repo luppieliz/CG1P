@@ -17,19 +17,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ScraperServiceTest {
 
     @InjectMocks
-    private ScraperServiceImpl scrapperService;
+    private ScraperServiceImpl scraperService;
 
     @Test
     void scrapeFAQ_Success() {
         String testURL = "https://www.enterprisesg.gov.sg/covid-19/safe-distance";
-        List<String> test = scrapperService.scrapeFAQ(testURL);
+        List<String> test = scraperService.scrapeFAQ(testURL);
         assertNotNull(test);
     }
 
     @Test
     void scrapeArticle_Success() {
         String testURL = "https://www.channelnewsasia.com/singapore/covid-19-rules-fnb-closed-fined-singing-toasting-safe-distance-2261256";
-        List<String> tagList = scrapperService.scrapeArticleForTags(testURL);
+        List<String> tagList = scraperService.scrapeArticleForTags(testURL);
         assertTrue(tagList.contains("F&B"));
     }
 }

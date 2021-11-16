@@ -1,17 +1,7 @@
 package com.app.todo.scheduler;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-
 import com.app.todo.faq.FAQController;
-import com.app.todo.faq.FAQService;
-import com.app.todo.measure.MeasureService;
 import com.app.todo.newsfunnel.NewsController;
-import com.app.todo.scraper.ScraperService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +9,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Component
 public class ScheduledTasks {
     private FAQController faqController;
-    private MeasureService measureService;
     private NewsController newsController;
 
     @Autowired
-    public ScheduledTasks(FAQController faqController, MeasureService measureService, NewsController newsController) {
+    public ScheduledTasks(FAQController faqController, NewsController newsController) {
         this.faqController = faqController;
-        this.measureService = measureService;
         this.newsController = newsController;
     }
 
@@ -54,8 +47,7 @@ public class ScheduledTasks {
         log.info("Fetching FAQ updates at {}", dateFormat.format(new Date()));
         try {
             String testURL = "https://www.enterprisesg.gov.sg/covid-19/safe-distance";
-//            List<String> sourcesLink = measureService.getMeasures(testURL);
-//            sourcesLink.forEach(src -> System.out.println("Link scraped: " + src));
+            //todo remove magic string
 
             faqController.updateFAQ(testURL);
         } catch(Exception e) {

@@ -1,19 +1,11 @@
 package com.app.todo.newsfunnel;
 
-import com.app.todo.measure.MeasureController;
-import com.app.todo.measure.MeasureService;
-import com.app.todo.phonetext.PhoneTextController;
-import com.app.todo.phonetext.SmsRequest;
-import com.app.todo.phonetext.TwilioSenderService;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins="http://localhost:4200")
@@ -22,15 +14,11 @@ import java.util.List;
 public class NewsController {
     private NewsAPIService newsAPIService;
     private NewsService newsService;
-    private TwilioSenderService senderService;
-    private MeasureService measureService;
 
     @Autowired
-    public NewsController(NewsAPIService newsAPIService, NewsService newsService,TwilioSenderService senderService, MeasureService measureService) {
+    public NewsController(NewsAPIService newsAPIService, NewsService newsService) {
         this.newsAPIService = newsAPIService;
         this.newsService = newsService;
-        this.senderService = senderService;
-        this.measureService = measureService;
     }
 
     @ApiOperation(value = "Get news with a specific country code and query")
