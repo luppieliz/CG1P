@@ -19,13 +19,14 @@ public class ScheduledTasks {
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final SimpleDateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
-    private static final SimpleDateFormat dateFormatTime = new SimpleDateFormat("HH:mm:ss");
     private FAQController faqController;
     private NewsController newsController;
     @Value("${scheduled.news.sources}")
     private String newsSources;
     @Value("${scheduled.news.query}")
     private String newsQuery;
+    @Value("${api.url.faq}")
+    private String faqUrl;
     @Autowired
     public ScheduledTasks(FAQController faqController, NewsController newsController) {
         this.faqController = faqController;
@@ -43,10 +44,7 @@ public class ScheduledTasks {
     public void getFAQUpdatesOnSchedule() {
         log.info("Fetching FAQ updates at {}", dateFormat.format(new Date()));
         try {
-            String testURL = "https://www.enterprisesg.gov.sg/covid-19/safe-distance";
-            //todo remove magic string
-
-            faqController.updateFAQ(testURL);
+            faqController.updateFAQ(faqUrl);
         } catch (Exception e) {
             System.out.println("Error updating faq!");
             System.out.println(e);

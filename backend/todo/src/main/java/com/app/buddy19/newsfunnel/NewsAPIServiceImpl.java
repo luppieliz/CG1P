@@ -62,10 +62,7 @@ public class NewsAPIServiceImpl implements NewsAPIService {
         HttpResponse<String> response = HttpClient.newHttpClient()
                                                   .send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
-        System.out.println("start timer...");
-        long time = System.currentTimeMillis();
         NewsAPIResponse newsResponse = new Gson().fromJson(response.body(), NewsAPIResponse.class);
-        System.out.println("time taken: " + (System.currentTimeMillis() - time));
         return newsResponse;
     }
 

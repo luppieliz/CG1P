@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @Getter
 public class NewsAPIConfig {
-    private final String URL = "https://newsapi.org/v2/top-headlines?";
+    @Value("${api.url.newsapi}")
+    private String URL;
 
     @Value("${newsAPI.API_KEY}")
     private String apiKey;
@@ -20,16 +21,15 @@ public class NewsAPIConfig {
     private String query;
 
     public String getAPIQuery(String country, String query) {
-        return URL + "country=" + country
+        return URL + "/top-headlines?country=" + country
                 + "&" + "q=" + query
                 + "&" + "apiKey=" + apiKey;
     }
 
     public String getAPIQueryv2(String sources, String query, String dateFrom) {
-        return "https://newsapi.org/v2/everything?domains=" + sources
+        return URL + "/everything?domains=" + sources
                 + "&q=" + query
                 + "&from=" + dateFrom
                 + "&" + "apiKey=" + apiKey;
     }
-    //https://newsapi.org/v2/everything?domains=channelnewsasia.com,straitstimes.com&from=2021-11-05&q=covid&apiKey=df40cdec224c4e9b8b6c98240f0cabb3
 }
