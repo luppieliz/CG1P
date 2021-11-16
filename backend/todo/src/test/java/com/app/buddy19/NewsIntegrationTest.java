@@ -1,7 +1,8 @@
 package com.app.buddy19;
 
-import com.app.buddy19.newsfunnel.*;
-
+import com.app.buddy19.newsfunnel.News;
+import com.app.buddy19.newsfunnel.NewsAPIServiceImpl;
+import com.app.buddy19.newsfunnel.NewsRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,11 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class NewsIntegrationTest {
 
+    private final String baseUrl = "http://localhost:";
     @LocalServerPort
     private int port;
-
-    private final String baseUrl = "http://localhost:";
-
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -42,7 +41,8 @@ public class NewsIntegrationTest {
 
         ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
 
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(200, result.getStatusCode()
+                                .value());
         assertNotNull(result.getBody());
     }
 
@@ -54,7 +54,8 @@ public class NewsIntegrationTest {
 
         ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
 
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(200, result.getStatusCode()
+                                .value());
         assertEquals(0, result.getBody().length);
     }
 
@@ -62,12 +63,13 @@ public class NewsIntegrationTest {
     public void getNewsFromDB_Success() throws Exception {
         URI uri = new URI(baseUrl + port + "/newsapi/newsdb/all");
         // yyyy-MM-dd HH:mm:ss
-        newsRepository.save(new News("cna.com.sg","Covid is all time high!", "2021-10-10 11:11:11"));
+        newsRepository.save(new News("cna.com.sg", "Covid is all time high!", "2021-10-10 11:11:11"));
 
         ResponseEntity<News[]> result = restTemplate.getForEntity(uri, News[].class);
         News[] news = result.getBody();
 
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(200, result.getStatusCode()
+                                .value());
     }
 
 }

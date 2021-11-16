@@ -13,7 +13,8 @@ public class NewsAPIResponse {
     private Integer totalResults;
     private JsonElement articles;
 
-    public NewsAPIResponse() {}
+    public NewsAPIResponse() {
+    }
 
     @Override
     public String toString() {

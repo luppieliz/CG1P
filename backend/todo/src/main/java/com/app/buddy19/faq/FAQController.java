@@ -1,5 +1,6 @@
 package com.app.buddy19.faq;
 
+import com.app.buddy19.scraper.ScraperService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-import com.app.buddy19.scraper.ScraperService;
 
 @RestController
 public class FAQController {
@@ -20,6 +19,7 @@ public class FAQController {
         this.scraperService = scraperService;
         this.faqService = faqService;
     }
+
     @ApiOperation(value = "Retrieve a list of FAQs from a website", response = Iterable.class)
     @GetMapping(path = "/faq/scrape")
     public List<FAQ> retrieveImage(@RequestParam String URL) {

@@ -8,34 +8,36 @@ import java.util.*;
 @Service
 public class FAQServiceImpl implements FAQService {
 
-    private FAQRepository faqRepository;
     private static Map<String, List<String>> languageMap = new HashMap<>();
     private static Map<String, List<String>> businessMap = new HashMap<>();
+
+    static {
+        String[] english = new String[]{"english"};
+        languageMap.put("English", Arrays.asList(english));
+
+        String[] chinese = new String[]{"chinese"};
+        languageMap.put("Chinese", Arrays.asList(chinese));
+
+        String[] fnb = new String[]{"fb"};
+        businessMap.put("F&B", Arrays.asList(fnb));
+
+        String[] retail = new String[]{"retail"};
+        businessMap.put("Retail", Arrays.asList(retail));
+
+        String[] delivery = new String[]{"delivery"};
+        businessMap.put("Delivery", Arrays.asList(delivery));
+    }
+
+    private FAQRepository faqRepository;
 
     @Autowired
     public FAQServiceImpl(FAQRepository faqRepository) {
         this.faqRepository = faqRepository;
     }
 
-    static {
-        String[] english = new String[] {"english"};
-        languageMap.put("English", Arrays.asList(english));
-
-        String[] chinese = new String[] {"chinese"};
-        languageMap.put("Chinese", Arrays.asList(chinese));
-
-        String[] fnb = new String[] {"fb"};
-        businessMap.put("F&B", Arrays.asList(fnb));
-
-        String[] retail = new String[] {"retail"};
-        businessMap.put("Retail", Arrays.asList(retail));
-
-        String[] delivery = new String[] {"delivery"};
-        businessMap.put("Delivery", Arrays.asList(delivery));
-    }
-
     /**
      * Return a list of FAQs from the scrapped sources and store into database. Throw FAQAlreadyExistedException if an FAQ has already existed.
+     *
      * @param scrappedSrc
      * @return A list of FAQs
      */
@@ -57,6 +59,7 @@ public class FAQServiceImpl implements FAQService {
 
     /**
      * Delete all FAQ from database, then return a list of FAQs from the scrapped sources and store into database. Throw FAQAlreadyExistedException if an FAQ has already existed.
+     *
      * @param scrappedSrc
      * @return A list of FAQs
      */
@@ -70,6 +73,7 @@ public class FAQServiceImpl implements FAQService {
 
     /**
      * Add a new FAQ to database
+     *
      * @param newFAQ
      * @return a newly added FAQ with a known language and a known industry.
      */
@@ -83,6 +87,7 @@ public class FAQServiceImpl implements FAQService {
 
     /**
      * Find the language of a given FAQ
+     *
      * @param faqURL
      * @return A string language if key word can be found.
      */
@@ -101,6 +106,7 @@ public class FAQServiceImpl implements FAQService {
 
     /**
      * Find the industry of a given FAQ
+     *
      * @param faqURL
      * @return A string industry if key word can be found.
      */

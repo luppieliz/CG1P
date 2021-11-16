@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path="api/v1/emailSender")
+@RequestMapping(path = "api/v1/emailSender")
 public class EmailController {
 
     private EmailService emailService;

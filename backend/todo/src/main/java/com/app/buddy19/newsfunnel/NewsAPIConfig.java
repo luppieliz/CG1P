@@ -24,6 +24,7 @@ public class NewsAPIConfig {
                 + "&" + "q=" + query
                 + "&" + "apiKey=" + apiKey;
     }
+
     public String getAPIQueryv2(String sources, String query, String dateFrom) {
         return "https://newsapi.org/v2/everything?domains=" + sources
                 + "&q=" + query

@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @Getter
@@ -16,7 +17,7 @@ public class News {
     private String author;
     private String title;
 
-    @Length(max=5000)
+    @Length(max = 5000)
     private String description;
 
     @Id
@@ -24,15 +25,16 @@ public class News {
 
     private String publishedDate;
 
-    @Length(max=50000000)
+    @Length(max = 50000000)
     private String urlToImage;
 
-    @Length(max=50000000)
+    @Length(max = 50000000)
     private String content;
 
     private String tagList;
 
-    public News() {}
+    public News() {
+    }
 
     public News(String title) {
         this.title = title;
@@ -45,7 +47,7 @@ public class News {
 
     public News(String URL, String title, String publishedDate) {
         this.URL = URL;
-        this. title = title;
+        this.title = title;
         this.publishedDate = publishedDate;
     }
 

@@ -13,10 +13,8 @@ import java.util.stream.Collectors;
 @Service
 public class ScraperServiceImpl implements ScraperService {
 
-    @Autowired
-    private ScraperConfig scraperConfig;
-
     private static Map<String, String> keywordMap = new HashMap<>(); //<keyword, tag>
+
     static {
         //put (keyword, tag)
         keywordMap.put("restaurants", "F&B");
@@ -34,10 +32,12 @@ public class ScraperServiceImpl implements ScraperService {
         keywordMap.put("shopping", "Retail");
     }
 
-
+    @Autowired
+    private ScraperConfig scraperConfig;
 
     /**
      * Find all the sources of info-graphics.
+     *
      * @param faqURL
      * @return A list of scrapped links for the info-graphics.
      */
@@ -55,7 +55,7 @@ public class ScraperServiceImpl implements ScraperService {
         final List<WebElement> tagList = driver.findElementsByTagName("img");
 
         // Find all the sources of safe-distance info-graphics
-        for (WebElement element:tagList) {
+        for (WebElement element : tagList) {
             String src = element.getAttribute("src");
             if (src.contains(TOPIC_KEYWORD)) {
                 scrappedSrc.add(src);
@@ -66,7 +66,7 @@ public class ScraperServiceImpl implements ScraperService {
         final List<WebElement> linksList = driver.findElementsByTagName("a");
 
         // Find all the sources of safe-distance info-graphics
-        for (WebElement element:linksList) {
+        for (WebElement element : linksList) {
             try {
                 String url = element.getAttribute("href");
                 if (url.contains(TOPIC_KEYWORD) && url.contains("png")) {
@@ -86,8 +86,9 @@ public class ScraperServiceImpl implements ScraperService {
 
     /**
      * Find all the related tags for a given article.
-     * @deprecated use scrapeMultipleArticlesForTags instead
+     *
      * @param articleURL
+     * @deprecated use scrapeMultipleArticlesForTags instead
      */
     @Override
     public List<String> scrapeArticleForTags(final String articleURL) {
@@ -99,23 +100,25 @@ public class ScraperServiceImpl implements ScraperService {
 
         final List<WebElement> tagList = driver.findElementsByTagName("p");
         /* new scraping
-        * collect all words into a string, then split into a string array
-        * convert all p elements into a map of word frequencies O(n): number of words
-        *       check if keyword list has entries in word frequencies list m number of keywords at O(1) each
-        * complexity: n^2
+         * collect all words into a string, then split into a string array
+         * convert all p elements into a map of word frequencies O(n): number of words
+         *       check if keyword list has entries in word frequencies list m number of keywords at O(1) each
+         * complexity: n^2
          */
 
         //process all the paragraphs into a list of strings of lowercase words without punctuation
         String allText = "";
-        for (WebElement element:tagList) {
-            String text = element.getText().replaceAll("\\p{Punct}", "").toLowerCase();
+        for (WebElement element : tagList) {
+            String text = element.getText()
+                                 .replaceAll("\\p{Punct}", "")
+                                 .toLowerCase();
             allText += " " + text;
         }
-        String [] words = allText.split(" ");
+        String[] words = allText.split(" ");
 
         //count all the words into a word freq map
         Map<String, Long> frequencyMap = Arrays.stream(words)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                                               .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         //compare words with keyword map
         for (String keyword : keywordMap.keySet()) {
@@ -135,6 +138,7 @@ public class ScraperServiceImpl implements ScraperService {
 
     /**
      * Find all the related tags for a list of given articles, returns a map of article URLs and list of tags.
+     *
      * @param articleURLList
      */
     @Override
@@ -157,15 +161,17 @@ public class ScraperServiceImpl implements ScraperService {
 
             //process all the paragraphs into a list of strings of lowercase words without punctuation
             String allText = "";
-            for (WebElement element:tagList) {
-                String text = element.getText().replaceAll("\\p{Punct}", "").toLowerCase();
+            for (WebElement element : tagList) {
+                String text = element.getText()
+                                     .replaceAll("\\p{Punct}", "")
+                                     .toLowerCase();
                 allText += " " + text;
             }
-            String [] words = allText.split(" ");
+            String[] words = allText.split(" ");
 
             //count all the words into a word freq map
             Map<String, Long> frequencyMap = Arrays.stream(words)
-                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                                                   .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
             //Get the tags from the frequency map
             List<String> resultTag = getTags(frequencyMap);
@@ -202,7 +208,7 @@ public class ScraperServiceImpl implements ScraperService {
         final ChromeOptions chromeOptions = new ChromeOptions();
 
         // For CI
-         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
         // For local IDE, local testing
 //         System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe"); // Windows

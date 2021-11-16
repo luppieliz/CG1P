@@ -1,9 +1,15 @@
 package com.app.buddy19;
 
-import com.app.buddy19.business.BusinessServiceImpl;
-import com.app.buddy19.user.*;
 import com.app.buddy19.business.Business;
+import com.app.buddy19.business.BusinessServiceImpl;
 import com.app.buddy19.industry.Industry;
+import com.app.buddy19.user.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,21 +19,11 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-    
+
     @Mock
     private UserRepository users;
 
@@ -45,7 +41,7 @@ public class UserServiceTest {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
         UUID userID = UUID.randomUUID();
-        User user = new User(userID,"admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
+        User user = new User(userID, "admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
         List<User> userList = new ArrayList<>();
         userList.add(user);
 
@@ -63,7 +59,7 @@ public class UserServiceTest {
         Industry industry = new Industry("Arts and Culture");
         Business business = new Business("asd789fhgj", "Singapore Museum", industry);
         UUID userID = UUID.randomUUID();
-        User user = new User(userID,"admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
+        User user = new User(userID, "admin@abc.com", "admin", "goodpassword", "ROLE_ADMIN", business);
         when(users.findById(user.getId())).thenReturn(Optional.of(user));
 
         User foundUser = userService.getUser(user.getId());

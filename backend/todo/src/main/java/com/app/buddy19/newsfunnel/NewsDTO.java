@@ -21,7 +21,8 @@ public class NewsDTO {
     private String publishedAt;
     private String content;
 
-    public NewsDTO() {}
+    public NewsDTO() {
+    }
 
     public NewsDTO(Map<Object, String> source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
         this.source = source;

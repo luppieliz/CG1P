@@ -15,10 +15,10 @@ import java.util.*;
 @Service
 public class NewsServiceImpl implements NewsService {
 
+    final String STANDARD_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private NewsRepository newsRepository;
     private ScraperService scraperService;
     private NotificationService notificationService;
-    final String STANDARD_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Autowired
     public NewsServiceImpl(NewsRepository newsRepository, ScraperService scraperService, NotificationService notificationService) {
@@ -29,6 +29,7 @@ public class NewsServiceImpl implements NewsService {
 
     /**
      * Add newly retrieved news article to database.
+     *
      * @param newNews
      * @return All newly retrieved news article.
      */
@@ -42,6 +43,7 @@ public class NewsServiceImpl implements NewsService {
 
     /**
      * Retrieve all articles, sorts by date
+     *
      * @return A list of all stored articles.
      */
     @Override
@@ -59,9 +61,10 @@ public class NewsServiceImpl implements NewsService {
 
     /**
      * Parse all news articles from API call and store them into database. Skips over duplicates
+     *
      * @param newsFromAPI
-     * @return: A list of newly retrieved articles.
      * @throws ParseException
+     * @return: A list of newly retrieved articles.
      */
     @Override
     public List<News> getNewsFromAPI(final NewsDTO[] newsFromAPI) throws ParseException {
@@ -71,14 +74,15 @@ public class NewsServiceImpl implements NewsService {
             //check if news item is already in the repo
             if (!newsRepository.existsByURL(newsDTO.getUrl())) {
                 //filter out non-singapore articles
-                if(newsDTO.getUrl().contains("/singapore")) {
+                if (newsDTO.getUrl()
+                           .contains("/singapore")) {
                     urlList.add(newsDTO.getUrl());
                 }
             }
         }
 
         //get a map of all tags for each URL
-        Map<String,List<String>> tagMap = scraperService.scrapeMultipleArticlesForTags(urlList);
+        Map<String, List<String>> tagMap = scraperService.scrapeMultipleArticlesForTags(urlList);
 
         List<News> resultNews = new ArrayList<>();
         for (NewsDTO newsDTO : newsFromAPI) {
@@ -90,7 +94,8 @@ public class NewsServiceImpl implements NewsService {
 
 
             News singleNews = new News();
-            singleNews.setPublisher(newsDTO.getSource().get("name"));
+            singleNews.setPublisher(newsDTO.getSource()
+                                           .get("name"));
             singleNews.setAuthor(newsDTO.getAuthor());
             singleNews.setTitle(newsDTO.getTitle());
             singleNews.setDescription(newsDTO.getDescription());
@@ -110,7 +115,7 @@ public class NewsServiceImpl implements NewsService {
             resultNews.add(singleNews);
             try {
                 addNews(singleNews);
-            } catch(NewsAlreadyRetrievedException e) {
+            } catch (NewsAlreadyRetrievedException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -121,6 +126,7 @@ public class NewsServiceImpl implements NewsService {
 
     /**
      * Retrieve all news articles from a given date.
+     *
      * @param dateFrom
      * @return A list of news articles whose published dates start from the requested date.
      * @throws ParseException
@@ -152,6 +158,7 @@ public class NewsServiceImpl implements NewsService {
 
     /**
      * Combine a list of tags into a string.
+     *
      * @param tagList
      * @return A string of tags.
      */
@@ -174,6 +181,7 @@ public class NewsServiceImpl implements NewsService {
 
     /**
      * Format a Date.
+     *
      * @param date
      * @return A string date in a standard format.
      * @throws ParseException

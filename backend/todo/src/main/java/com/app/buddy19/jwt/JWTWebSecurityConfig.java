@@ -56,42 +56,63 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors().and()
-                .csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/authenticate").permitAll()
+                .cors()
+                .and()
+                .csrf()
+                .disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/authenticate")
+                .permitAll()
 
                 // for TodoController
-                .antMatchers(HttpMethod.GET, "/**/todos", "/**/todos/**").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/**/todos/**").authenticated()
-                .antMatchers(HttpMethod.PUT, "/**/todos/**").authenticated()
-                .antMatchers(HttpMethod.POST, "/**/todos").authenticated()
+                .antMatchers(HttpMethod.GET, "/**/todos", "/**/todos/**")
+                .authenticated()
+                .antMatchers(HttpMethod.DELETE, "/**/todos/**")
+                .authenticated()
+                .antMatchers(HttpMethod.PUT, "/**/todos/**")
+                .authenticated()
+                .antMatchers(HttpMethod.POST, "/**/todos")
+                .authenticated()
 
                 // for UserController
-                .antMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/user")
+                .hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/user/**")
+                .hasRole("ADMIN")
 
                 // for MeasureController
-                .antMatchers(HttpMethod.GET, "/api/v1/industryMeasures").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/v1/industryMeasures")
+                .authenticated()
 
                 // for PhoneTextController
-                .antMatchers(HttpMethod.POST, "/sms").authenticated()
-                .antMatchers(HttpMethod.POST, "/mms").authenticated()
+                .antMatchers(HttpMethod.POST, "/sms")
+                .authenticated()
+                .antMatchers(HttpMethod.POST, "/mms")
+                .authenticated()
 
-                
-                .antMatchers("/").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
+
+                .antMatchers("/")
+                .permitAll()
+                .antMatchers("/h2-console/**")
+                .permitAll()
 
                 .and()
-                .formLogin().disable();
+                .formLogin()
+                .disable();
 
         httpSecurity
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         httpSecurity
                 .headers()
-                .frameOptions().sameOrigin()  //H2 Console Needs this setting
+                .frameOptions()
+                .sameOrigin()  //H2 Console Needs this setting
                 .cacheControl(); //disable caching
 
     }

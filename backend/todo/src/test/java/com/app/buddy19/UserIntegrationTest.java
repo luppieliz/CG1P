@@ -31,11 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UserIntegrationTest {
 
+    private final String baseUrl = "http://localhost:";
     @LocalServerPort
     private int port;
-
-    private final String baseUrl = "http://localhost:";
-
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -62,7 +60,7 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User newUser = new User("admin@gmail", "admin", userPassword,  "ROLE_ADMIN" ,business);
+        User newUser = new User("admin@gmail", "admin", userPassword, "ROLE_ADMIN", business);
 
         ResponseEntity<User> result = restTemplate.postForEntity(uri, newUser, User.class);
         assertEquals(200, result.getStatusCodeValue());
@@ -74,7 +72,7 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User user = new User("admin@gmail.com", "admin", userPassword, false,false, "ROLE_ADMIN", business);
+        User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
         ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
@@ -89,7 +87,8 @@ public class UserIntegrationTest {
             System.out.println("Failed authentication!");
         }
 
-        String token = postToken.getBody().getToken();
+        String token = postToken.getBody()
+                                .getToken();
 
         uri = new URI(baseUrl + port + "/user");
         HttpHeaders headers = new HttpHeaders();
@@ -108,11 +107,12 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User user = new User("admin@gmail.com", "admin", userPassword, false,false, "ROLE_ADMIN", business);
+        User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
         ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
-        UUID userID = postUser.getBody().getId();
+        UUID userID = postUser.getBody()
+                              .getId();
 
         uri = new URI(baseUrl + port + "/authenticate");
         JwtTokenRequest jwtTokenRequest = new JwtTokenRequest(user.getEmail(), userPassword);
@@ -124,7 +124,8 @@ public class UserIntegrationTest {
             System.out.println("Failed authentication!");
         }
 
-        String token = postToken.getBody().getToken();
+        String token = postToken.getBody()
+                                .getToken();
 
         uri = new URI(baseUrl + port + "/user/" + userID.toString());
         HttpHeaders headers = new HttpHeaders();
@@ -133,7 +134,8 @@ public class UserIntegrationTest {
 
         ResponseEntity<User> getAllUser = restTemplate.exchange(uri, HttpMethod.GET, request, User.class);
         assertEquals(200, getAllUser.getStatusCodeValue());
-        assertEquals(user.getEmail(), getAllUser.getBody().getEmail());
+        assertEquals(user.getEmail(), getAllUser.getBody()
+                                                .getEmail());
     }
 
     @Test
@@ -142,11 +144,12 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User user = new User("admin@gmail.com", "admin", userPassword, false,false, "ROLE_ADMIN", business);
+        User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
         ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
-        UUID userID = postUser.getBody().getId();
+        UUID userID = postUser.getBody()
+                              .getId();
         UUID randomID = UUID.randomUUID();
 
         uri = new URI(baseUrl + port + "/authenticate");
@@ -159,7 +162,8 @@ public class UserIntegrationTest {
             System.out.println("Failed authentication!");
         }
 
-        String token = postToken.getBody().getToken();
+        String token = postToken.getBody()
+                                .getToken();
 
         uri = new URI(baseUrl + port + "/user/" + randomID.toString());
         HttpHeaders headers = new HttpHeaders();
@@ -176,7 +180,7 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User user = new User("admin@gmail.com", "admin", userPassword, false,false, "ROLE_ADMIN", business);
+        User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
         ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
@@ -191,7 +195,8 @@ public class UserIntegrationTest {
             System.out.println("Failed authentication!");
         }
 
-        String token = postToken.getBody().getToken();
+        String token = postToken.getBody()
+                                .getToken();
 
         uri = new URI(baseUrl + port + "/user/email/" + user.getEmail());
         HttpHeaders headers = new HttpHeaders();
@@ -200,7 +205,8 @@ public class UserIntegrationTest {
 
         ResponseEntity<User> getAllUser = restTemplate.exchange(uri, HttpMethod.GET, request, User.class);
         assertEquals(200, getAllUser.getStatusCodeValue());
-        assertEquals(user.getEmail(), getAllUser.getBody().getEmail());
+        assertEquals(user.getEmail(), getAllUser.getBody()
+                                                .getEmail());
     }
 
     @Test
@@ -209,7 +215,7 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User user = new User("admin@gmail.com", "admin", userPassword, false,false, "ROLE_ADMIN", business);
+        User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
         ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
@@ -225,7 +231,8 @@ public class UserIntegrationTest {
             System.out.println("Failed authentication!");
         }
 
-        String token = postToken.getBody().getToken();
+        String token = postToken.getBody()
+                                .getToken();
 
         uri = new URI(baseUrl + port + "/user/email/" + testEmail);
         HttpHeaders headers = new HttpHeaders();
@@ -242,11 +249,13 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User user = new User("admin@gmail.com", "admin", userPassword, false,false, "ROLE_ADMIN", business);
+        User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
         ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
-        UUID businessID = postUser.getBody().getBusiness().getId();
+        UUID businessID = postUser.getBody()
+                                  .getBusiness()
+                                  .getId();
 
         uri = new URI(baseUrl + port + "/authenticate");
         JwtTokenRequest jwtTokenRequest = new JwtTokenRequest(user.getEmail(), userPassword);
@@ -258,7 +267,8 @@ public class UserIntegrationTest {
             System.out.println("Failed authentication!");
         }
 
-        String token = postToken.getBody().getToken();
+        String token = postToken.getBody()
+                                .getToken();
 
         uri = new URI(baseUrl + port + "/user/business/" + businessID.toString());
         HttpHeaders headers = new HttpHeaders();
@@ -267,7 +277,8 @@ public class UserIntegrationTest {
 
         ResponseEntity<User[]> getUser = restTemplate.exchange(uri, HttpMethod.GET, request, User[].class);
         assertEquals(200, getUser.getStatusCodeValue());
-        assertEquals(businessID, getUser.getBody()[0].getBusiness().getId());
+        assertEquals(businessID, getUser.getBody()[0].getBusiness()
+                                                     .getId());
     }
 
     @Test
@@ -276,7 +287,7 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User user = new User("admin@gmail.com", "admin", userPassword, false,false, "ROLE_ADMIN", business);
+        User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
         ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
@@ -292,7 +303,8 @@ public class UserIntegrationTest {
             System.out.println("Failed authentication!");
         }
 
-        String token = postToken.getBody().getToken();
+        String token = postToken.getBody()
+                                .getToken();
 
         uri = new URI(baseUrl + port + "/user/business/" + testID.toString());
         HttpHeaders headers = new HttpHeaders();
@@ -310,7 +322,7 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User newUser = new User("admin@gmail", "admin", userPassword,  "ROLE_ADMIN" ,business);
+        User newUser = new User("admin@gmail", "admin", userPassword, "ROLE_ADMIN", business);
 
         ResponseEntity<User> postOne = restTemplate.postForEntity(uri, newUser, User.class);
 
@@ -320,24 +332,26 @@ public class UserIntegrationTest {
     }
 
     @Test
-    public void updateUser_ExistingUser_Success() throws Exception{
+    public void updateUser_ExistingUser_Success() throws Exception {
         URI uri = new URI(baseUrl + port + "/user");
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User newUser = new User("admin@gmail", "admin", userPassword,  "ROLE_ADMIN" ,business);
+        User newUser = new User("admin@gmail", "admin", userPassword, "ROLE_ADMIN", business);
 
         ResponseEntity<User> postOne = restTemplate.postForEntity(uri, newUser, User.class);
 
-        postOne.getBody().setName("admin1");
+        postOne.getBody()
+               .setName("admin1");
 
         HttpEntity<User> request = new HttpEntity<>(postOne.getBody());
 
-        ResponseEntity<User> updateRequest = restTemplate.exchange(uri, HttpMethod.PUT ,request, User.class);
+        ResponseEntity<User> updateRequest = restTemplate.exchange(uri, HttpMethod.PUT, request, User.class);
 
         assertEquals(200, updateRequest.getStatusCodeValue());
-        assertEquals(newUser.getEmail(), updateRequest.getBody().getUsername());
+        assertEquals(newUser.getEmail(), updateRequest.getBody()
+                                                      .getUsername());
     }
 
     @Test
@@ -347,16 +361,18 @@ public class UserIntegrationTest {
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
 
         String userPassword = encoder.encode("goodpassword");
-        User newUser = new User("admin@gmail", "admin", userPassword,  "ROLE_ADMIN" ,business);
+        User newUser = new User("admin@gmail", "admin", userPassword, "ROLE_ADMIN", business);
 
         ResponseEntity<User> postOne = restTemplate.postForEntity(uri, newUser, User.class);
 
-        postOne.getBody().setName("admin1");
-        postOne.getBody().setId(UUID.randomUUID());
+        postOne.getBody()
+               .setName("admin1");
+        postOne.getBody()
+               .setId(UUID.randomUUID());
 
         HttpEntity<User> request = new HttpEntity<>(postOne.getBody());
 
-        ResponseEntity<User> updateRequest = restTemplate.exchange(uri, HttpMethod.PUT ,request, User.class);
+        ResponseEntity<User> updateRequest = restTemplate.exchange(uri, HttpMethod.PUT, request, User.class);
 
         assertEquals(404, updateRequest.getStatusCodeValue());
     }

@@ -32,11 +32,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class EmailIntegrationTest {
 
+    private final String baseUrl = "http://localhost:";
     @LocalServerPort
     private int port;
-
-    private final String baseUrl = "http://localhost:";
-
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -58,7 +56,8 @@ public class EmailIntegrationTest {
 
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
 
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(200, result.getStatusCode()
+                                .value());
     }
 
     @Test
@@ -72,7 +71,8 @@ public class EmailIntegrationTest {
 
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
 
-        assertEquals(500, result.getStatusCode().value());
+        assertEquals(500, result.getStatusCode()
+                                .value());
     }
 
     @Test
@@ -86,7 +86,8 @@ public class EmailIntegrationTest {
 
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
 
-        assertEquals(500, result.getStatusCode().value());
+        assertEquals(500, result.getStatusCode()
+                                .value());
     }
 
     @Test
@@ -100,7 +101,8 @@ public class EmailIntegrationTest {
 
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
 
-        assertEquals(500, result.getStatusCode().value());
+        assertEquals(500, result.getStatusCode()
+                                .value());
     }
 
     @Test
@@ -114,7 +116,8 @@ public class EmailIntegrationTest {
 
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
 
-        assertEquals(500, result.getStatusCode().value());
+        assertEquals(500, result.getStatusCode()
+                                .value());
     }
 
     @Test
@@ -128,6 +131,7 @@ public class EmailIntegrationTest {
 
         ResponseEntity<Void> result = restTemplate.postForEntity(uri, emailPost, Void.class);
 
-        assertEquals(500, result.getStatusCode().value());
+        assertEquals(500, result.getStatusCode()
+                                .value());
     }
 }

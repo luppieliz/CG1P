@@ -11,7 +11,6 @@ import com.app.buddy19.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +33,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     /**
      * Send newly updated news to all user via email
+     *
      * @param newsList
      * @param userList
      */
@@ -42,7 +42,7 @@ public class NotificationServiceImpl implements NotificationService {
         String emailBody = "Here are some articles for you to check out!\n";
 
         //generate email body
-        for(News news : newsList) {
+        for (News news : newsList) {
             emailBody += news.getURL() + "\n";
         }
 
@@ -55,6 +55,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     /**
      * Send newly updated news to all users via text
+     *
      * @param newsList
      * @param userList
      */
@@ -69,6 +70,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     /**
      * Send email and text of articles according to user's registered industry
+     *
      * @param newsList
      */
     @Override
@@ -77,9 +79,11 @@ public class NotificationServiceImpl implements NotificationService {
 
         //groups news by industry
         for (News news : newsList) {
-            String[] tags = news.getTagList().split(",");
+            String[] tags = news.getTagList()
+                                .split(",");
             for (String tag : tags) {
-                industryNewsMap.computeIfAbsent(tag, k -> new ArrayList<>()).add(news);
+                industryNewsMap.computeIfAbsent(tag, k -> new ArrayList<>())
+                               .add(news);
             }
         }
 
@@ -97,6 +101,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     /**
      * Craft a text message given a list of news articles.
+     *
      * @param newsList
      * @return A phone message created that indexed all the news articles.
      */
@@ -105,7 +110,7 @@ public class NotificationServiceImpl implements NotificationService {
         String message = "Check out the latest COVID news:\n";
         int idx = 1;
 
-        for (News news: newsList) {
+        for (News news : newsList) {
             message += idx + ". " + news.getURL() + "\n";
             idx++;
         }

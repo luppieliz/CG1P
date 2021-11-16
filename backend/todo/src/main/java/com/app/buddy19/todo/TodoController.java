@@ -1,5 +1,7 @@
 package com.app.buddy19.todo;
 
+import com.app.buddy19.user.User;
+import com.app.buddy19.user.UserNotAuthenticatedException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -7,24 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;
-
-import javax.validation.Valid;
-
-import com.app.buddy19.user.User;
-import com.app.buddy19.user.UserNotAuthenticatedException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -36,10 +27,10 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved todo list"),
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieved todo list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")})
 
     private void validateUser(UUID authenticatedUserId, UUID targetUserId) throws UserNotAuthenticatedException {
         if (!authenticatedUserId.equals(targetUserId)) {
@@ -65,7 +56,7 @@ public class TodoController {
     @ApiOperation(value = "View a specific todo of a specific user based on its id")
     @GetMapping(path = "/{userId}/todos/{todoId}", produces = "application/json")
     public Todo getTodo(@AuthenticationPrincipal User authenticatedUser, @PathVariable UUID userId,
-            @PathVariable UUID todoId) {
+                        @PathVariable UUID todoId) {
         validateUser(authenticatedUser.getId(), userId);
         return todoService.getTodo(todoId);
     }
@@ -73,20 +64,23 @@ public class TodoController {
     @ApiOperation(value = "Create a new todo by a specific user")
     @PostMapping(path = "/{userId}/todos", produces = "application/json")
     public ResponseEntity<Void> addTodo(@AuthenticationPrincipal User authenticatedUser, @PathVariable UUID userId,
-            @Valid @RequestBody Todo newTodo) {
+                                        @Valid @RequestBody Todo newTodo) {
         validateUser(authenticatedUser.getId(), userId);
         Todo createdNewTodo = todoService.addTodo(userId, newTodo);
 
         // append id to new URI
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdNewTodo.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                                             .path("/{id}")
+                                             .buildAndExpand(createdNewTodo.getId())
+                                             .toUri();
+        return ResponseEntity.created(uri)
+                             .build();
     }
 
     @ApiOperation(value = "Update a specific todo of a specific user based on its id")
     @PutMapping(path = "/{userId}/todos/{todoId}", produces = "application/json")
     public ResponseEntity<Todo> updateTodo(@AuthenticationPrincipal User authenticatedUser, @PathVariable UUID userId,
-            @PathVariable UUID todoId, @Valid @RequestBody Todo newTodo) {
+                                           @PathVariable UUID todoId, @Valid @RequestBody Todo newTodo) {
         validateUser(authenticatedUser.getId(), userId);
         todoService.updateTodo(todoId, newTodo);
 
@@ -96,11 +90,12 @@ public class TodoController {
     @ApiOperation(value = "Delete a specific todo of a specific user based on its id")
     @DeleteMapping(path = "/{userId}/todos/{todoId}", produces = "application/json")
     public ResponseEntity<Void> deleteTodo(@AuthenticationPrincipal User authenticatedUser, @PathVariable UUID userId,
-            @PathVariable UUID todoId) {
+                                           @PathVariable UUID todoId) {
         validateUser(authenticatedUser.getId(), userId);
         todoService.deleteTodo(todoId);
 
         // return 204 no content
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent()
+                             .build();
     }
 }

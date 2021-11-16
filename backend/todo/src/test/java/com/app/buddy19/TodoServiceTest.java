@@ -47,9 +47,9 @@ public class TodoServiceTest {
     @Test
     void getCreatedTodos_ValidUserId_ReturnTodos() {
         UUID userID = UUID.randomUUID();
-        User user = new User(userID,"alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER", new Business("fda"));
+        User user = new User(userID, "alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER", new Business("fda"));
 
-        Todo todo = new Todo(user,Date.valueOf(LocalDate.now()), "Submit Vaccination Status");
+        Todo todo = new Todo(user, Date.valueOf(LocalDate.now()), "Submit Vaccination Status");
 
         List<Todo> todoList = new ArrayList<>();
         todoList.add(todo);
@@ -65,7 +65,7 @@ public class TodoServiceTest {
     @Test
     void getAssignedTodos_ValidUserId_ReturnTodo() {
         UUID ownerID = UUID.randomUUID();
-        User owner = new User(ownerID,"alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER", new Business("fda"));
+        User owner = new User(ownerID, "alice@gmail.com", "Alice", "password1", "ROLE_BUSINESSOWNER", new Business("fda"));
 
         List<UUID> employeeIDs = new ArrayList<>();
         UUID employeeID1 = UUID.randomUUID();
@@ -73,8 +73,8 @@ public class TodoServiceTest {
         employeeIDs.add(employeeID1);
         employeeIDs.add(employeeID2);
 
-        Todo todo1 = new Todo(owner,Date.valueOf(LocalDate.now()), "Submit Vaccination Status", employeeIDs);
-        Todo todo2 = new Todo(owner,Date.valueOf(LocalDate.now()), "Upload schedule", employeeIDs);
+        Todo todo1 = new Todo(owner, Date.valueOf(LocalDate.now()), "Submit Vaccination Status", employeeIDs);
+        Todo todo2 = new Todo(owner, Date.valueOf(LocalDate.now()), "Upload schedule", employeeIDs);
 
         List<Todo> todoList = new ArrayList<>();
         todoList.add(todo1);
@@ -102,7 +102,7 @@ public class TodoServiceTest {
         userIDList.add(userID2);
 
         UUID todoID = UUID.randomUUID();
-        Todo todo = new Todo(todoID, "Submit Vaccination Status", Date.valueOf(LocalDate.now()), userIDList );
+        Todo todo = new Todo(todoID, "Submit Vaccination Status", Date.valueOf(LocalDate.now()), userIDList);
 
         when(todoRepository.findById(todoID)).thenReturn(Optional.of(todo));
 
@@ -123,7 +123,7 @@ public class TodoServiceTest {
         userIDList.add(userID2);
 
         UUID todoID = UUID.randomUUID();
-        Todo todo = new Todo(todoID, "Submit Vaccination Status", Date.valueOf(LocalDate.now()), userIDList );
+        Todo todo = new Todo(todoID, "Submit Vaccination Status", Date.valueOf(LocalDate.now()), userIDList);
 
         when(todoRepository.save(any(Todo.class))).thenReturn(todo);
 
@@ -143,8 +143,9 @@ public class TodoServiceTest {
         userIDList.add(userID2);
 
         UUID todoID = UUID.randomUUID();
-        Todo oldTodo = new Todo(todoID, "Submit Vaccination Status", Date.valueOf(LocalDate.now()), userIDList );
-        Todo newTodo = new Todo(todoID, "Update Work Schedule", Date.valueOf(LocalDate.now().plusDays(2)), userIDList );
+        Todo oldTodo = new Todo(todoID, "Submit Vaccination Status", Date.valueOf(LocalDate.now()), userIDList);
+        Todo newTodo = new Todo(todoID, "Update Work Schedule", Date.valueOf(LocalDate.now()
+                                                                                      .plusDays(2)), userIDList);
 
         when(todoRepository.findById(any(UUID.class))).thenReturn(Optional.of(oldTodo));
         when(todoRepository.save(oldTodo)).thenReturn(newTodo);
@@ -165,9 +166,10 @@ public class TodoServiceTest {
         userIDList.add(userID2);
 
         UUID todoID = UUID.randomUUID();
-        Todo oldTodo = new Todo(todoID, "Submit Vaccination Status", Date.valueOf(LocalDate.now()), userIDList );
+        Todo oldTodo = new Todo(todoID, "Submit Vaccination Status", Date.valueOf(LocalDate.now()), userIDList);
 
-        doNothing().when(todoRepository).deleteById(todoID);
+        doNothing().when(todoRepository)
+                   .deleteById(todoID);
 
         todoService.deleteTodo(oldTodo.getId());
         verify(todoRepository).deleteById(oldTodo.getId());

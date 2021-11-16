@@ -21,6 +21,7 @@ public class NewsAPIServiceImpl implements NewsAPIService {
 
     /**
      * Retrieve response from NewsAPI.
+     *
      * @param countryCode
      * @param query
      * @return A NewsAPIResponse from the API call.
@@ -30,10 +31,11 @@ public class NewsAPIServiceImpl implements NewsAPIService {
     @Override
     public NewsAPIResponse getAPIResponse(String countryCode, String query) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(newsAPIConfig.getAPIQuery(countryCode, query)))
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+                                         .uri(URI.create(newsAPIConfig.getAPIQuery(countryCode, query)))
+                                         .method("GET", HttpRequest.BodyPublishers.noBody())
+                                         .build();
+        HttpResponse<String> response = HttpClient.newHttpClient()
+                                                  .send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
 
         NewsAPIResponse newsResponse = new Gson().fromJson(response.body(), NewsAPIResponse.class);
@@ -42,6 +44,7 @@ public class NewsAPIServiceImpl implements NewsAPIService {
 
     /**
      * Retrieve response from NewsAPI, requires sources (comma seprated root domains, eg: "domain.com,another.sg"), query, date to retrieve from (format: yyyy-mm-dd)
+     *
      * @param sources
      * @param query
      * @param fromDate
@@ -53,10 +56,11 @@ public class NewsAPIServiceImpl implements NewsAPIService {
     public NewsAPIResponse getAPIResponsev2(String sources, String query, String fromDate) throws IOException, InterruptedException {
         System.out.println("Attempting request from: " + newsAPIConfig.getAPIQueryv2(sources, query, fromDate));
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(newsAPIConfig.getAPIQueryv2(sources, query, fromDate)))
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+                                         .uri(URI.create(newsAPIConfig.getAPIQueryv2(sources, query, fromDate)))
+                                         .method("GET", HttpRequest.BodyPublishers.noBody())
+                                         .build();
+        HttpResponse<String> response = HttpClient.newHttpClient()
+                                                  .send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
         System.out.println("start timer...");
         long time = System.currentTimeMillis();
@@ -67,6 +71,7 @@ public class NewsAPIServiceImpl implements NewsAPIService {
 
     /**
      * Parsing into NewsDTO array from a NewsAPIResponse.
+     *
      * @param newsAPIResponse
      * @return An array of NewsDTO to be parsed into news objects.
      */

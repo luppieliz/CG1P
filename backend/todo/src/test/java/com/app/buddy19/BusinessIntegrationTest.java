@@ -1,17 +1,11 @@
 package com.app.buddy19;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.net.URI;
-import java.util.UUID;
-
 import com.app.buddy19.business.Business;
-import com.app.buddy19.industry.Industry;
-import com.app.buddy19.user.User;
 import com.app.buddy19.business.BusinessRepository;
+import com.app.buddy19.industry.Industry;
 import com.app.buddy19.industry.IndustryRepository;
+import com.app.buddy19.user.User;
 import com.app.buddy19.user.UserRepository;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +17,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.net.URI;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class BusinessIntegrationTest {
 
+    private final String baseUrl = "http://localhost:";
     @LocalServerPort
     private int port;
-
-    private final String baseUrl = "http://localhost:";
-
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -63,7 +60,8 @@ public class BusinessIntegrationTest {
         ResponseEntity<Business[]> result = restTemplate.getForEntity(uri, Business[].class);
         Business[] businesses = result.getBody();
 
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(200, result.getStatusCode()
+                                .value());
         assertEquals(1, businesses.length);
         assertEquals(business.getUEN(), result.getBody()[0].getUEN());
     }
@@ -77,9 +75,12 @@ public class BusinessIntegrationTest {
 
         ResponseEntity<Business> result = restTemplate.getForEntity(uri, Business.class);
 
-        assertEquals(200, result.getStatusCode().value());
-        assertEquals(business.getId(), result.getBody().getId());
-        assertEquals(business.getUEN(), result.getBody().getUEN());
+        assertEquals(200, result.getStatusCode()
+                                .value());
+        assertEquals(business.getId(), result.getBody()
+                                             .getId());
+        assertEquals(business.getUEN(), result.getBody()
+                                              .getUEN());
     }
 
     @Test
@@ -92,7 +93,8 @@ public class BusinessIntegrationTest {
 
         ResponseEntity<Business> result = restTemplate.getForEntity(uri, Business.class);
 
-        assertEquals(404, result.getStatusCode().value());
+        assertEquals(404, result.getStatusCode()
+                                .value());
     }
 
     @Test
@@ -104,9 +106,12 @@ public class BusinessIntegrationTest {
 
         ResponseEntity<Business> result = restTemplate.getForEntity(uri, Business.class);
 
-        assertEquals(200, result.getStatusCode().value());
-        assertEquals(business.getId(), result.getBody().getId());
-        assertEquals(business.getUEN(), result.getBody().getUEN());
+        assertEquals(200, result.getStatusCode()
+                                .value());
+        assertEquals(business.getId(), result.getBody()
+                                             .getId());
+        assertEquals(business.getUEN(), result.getBody()
+                                              .getUEN());
     }
 
     @Test
@@ -117,7 +122,8 @@ public class BusinessIntegrationTest {
         URI uri = new URI(baseUrl + port + "/business/uen/" + business.getUEN());
         ResponseEntity<Business> result = restTemplate.getForEntity(uri, Business.class);
 
-        assertEquals(404, result.getStatusCode().value());
+        assertEquals(404, result.getStatusCode()
+                                .value());
     }
 
     @Test
@@ -132,10 +138,12 @@ public class BusinessIntegrationTest {
         Business testBusiness = new Business("asd788fhgj", "SMU Museum", industry);
 
         ResponseEntity<Business> result = restTemplate.withBasicAuth(user.getEmail(), userRawPassword)
-                .postForEntity(uri, testBusiness, Business.class);
+                                                      .postForEntity(uri, testBusiness, Business.class);
 
-        assertEquals(200, result.getStatusCode().value());
-        assertEquals(testBusiness.getUEN(), result.getBody().getUEN());
+        assertEquals(200, result.getStatusCode()
+                                .value());
+        assertEquals(testBusiness.getUEN(), result.getBody()
+                                                  .getUEN());
     }
 
     @Test
@@ -149,6 +157,7 @@ public class BusinessIntegrationTest {
 
         ResponseEntity<Business> result = restTemplate.postForEntity(uri, business, Business.class);
 
-        assertEquals(404, result.getStatusCode().value());
+        assertEquals(404, result.getStatusCode()
+                                .value());
     }
 }

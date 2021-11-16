@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface NewsRepository extends JpaRepository<News, String> {
 
     boolean existsByTitle(String title);
+
     boolean existsByURL(String URL);
 }

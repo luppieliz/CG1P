@@ -10,6 +10,8 @@ import java.util.UUID;
 @Repository
 public interface BusinessRepository extends JpaRepository<Business, UUID> {
     Optional<Business> findByUEN(String UEN);
+
     Boolean existsByUEN(String UEN);
+
     List<Business> findByIndustry_Name(String industryName);
 }

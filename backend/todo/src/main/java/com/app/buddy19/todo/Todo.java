@@ -1,29 +1,16 @@
 package com.app.buddy19.todo;
 
+import com.app.buddy19.user.User;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.app.buddy19.user.User;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import io.swagger.annotations.ApiModelProperty;
-
-import lombok.*;
 
 @Entity
 @Table
@@ -68,8 +55,8 @@ public class Todo {
     @ApiModelProperty(notes = "Target users for a todo")
     @ManyToMany
     @JoinTable(name = "todo_users",
-        joinColumns = @JoinColumn(name = "todo_id", nullable = false),
-        inverseJoinColumns = @JoinColumn(name = "created_for", nullable = false))
+            joinColumns = @JoinColumn(name = "todo_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "created_for", nullable = false))
     private List<User> createdFor;
 
     public Todo(String description, Date targetDate, List<UUID> createdForIds) {
@@ -78,7 +65,7 @@ public class Todo {
         this.createdForIds = createdForIds;
     }
 
-    public Todo(UUID id ,String description, Date targetDate, List<UUID> createdForIds) {
+    public Todo(UUID id, String description, Date targetDate, List<UUID> createdForIds) {
         this.id = id;
         this.description = description;
         this.targetDate = targetDate;

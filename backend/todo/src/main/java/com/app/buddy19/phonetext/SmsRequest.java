@@ -19,7 +19,8 @@ public class SmsRequest {
     @NotNull
     private String message;
 
-    public SmsRequest() {}
+    public SmsRequest() {
+    }
 
     public SmsRequest(@JsonProperty("phone_number") String destPhoneNumber,
                       @JsonProperty("message") String message) {

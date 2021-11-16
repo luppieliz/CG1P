@@ -1,9 +1,5 @@
 package com.app.buddy19.jwt.resource;
 
-import java.util.Objects;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.app.buddy19.jwt.JwtTokenUtil;
 import com.app.buddy19.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +12,13 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class JwtAuthenticationRestController {
 
     @Value("${jwt.http.request.header}")
@@ -39,7 +33,7 @@ public class JwtAuthenticationRestController {
     @Autowired
     private UserDetailsService jwtInMemoryUserDetailsService;
 
-    @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST, produces ="application/json" )
+    @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST, produces = "application/json")
     public JwtTokenResponse createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
             throws AuthenticationException {
 
@@ -63,13 +57,15 @@ public class JwtAuthenticationRestController {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
             return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
         } else {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest()
+                                 .body(null);
         }
     }
 
-    @ExceptionHandler({ AuthenticationException.class })
+    @ExceptionHandler({AuthenticationException.class})
     public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                             .body(e.getMessage());
     }
 
     private void authenticate(String username, String password) {

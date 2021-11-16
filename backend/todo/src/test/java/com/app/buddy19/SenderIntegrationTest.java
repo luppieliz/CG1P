@@ -20,46 +20,47 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class SenderIntegrationTest {
 
-    @LocalServerPort
-    private int port;
-
     private final String baseUrl = "http://localhost:";
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
     @Autowired
     TwilioSenderService senderService;
+    @LocalServerPort
+    private int port;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
     void sendSMS_Success() throws URISyntaxException {
         SmsRequest testSMSRequest = new SmsRequest("+65 8742 9618", "testMsg");
         URI uri = new URI(baseUrl + port + "/api/v1/sender/sms");
-        ResponseEntity<Void> result = restTemplate.postForEntity(uri, testSMSRequest ,Void.class);
-        assertEquals(200, result.getStatusCode().value());
+        ResponseEntity<Void> result = restTemplate.postForEntity(uri, testSMSRequest, Void.class);
+        assertEquals(200, result.getStatusCode()
+                                .value());
     }
 
     @Test
     void sendSMS_Unsuccessful() throws URISyntaxException {
         SmsRequest testSMSRequest = new SmsRequest("8742 9618", "testMsg");
         URI uri = new URI(baseUrl + port + "/api/v1/sender/sms");
-        ResponseEntity<Void> result = restTemplate.postForEntity(uri, testSMSRequest ,Void.class);
-        assertEquals(500, result.getStatusCode().value());
+        ResponseEntity<Void> result = restTemplate.postForEntity(uri, testSMSRequest, Void.class);
+        assertEquals(500, result.getStatusCode()
+                                .value());
     }
 
     @Test
     void sendMMS_Success() throws URISyntaxException {
         MmsRequest testMMSRequest = new MmsRequest("+65 8742 9618", "testMsg", "https://picsum.photos/200");
         URI uri = new URI(baseUrl + port + "/api/v1/sender/mms");
-        ResponseEntity<Void> result = restTemplate.postForEntity(uri, testMMSRequest ,Void.class);
-        assertEquals(200, result.getStatusCode().value());
+        ResponseEntity<Void> result = restTemplate.postForEntity(uri, testMMSRequest, Void.class);
+        assertEquals(200, result.getStatusCode()
+                                .value());
     }
 
     @Test
     void sendMMS_Unsuccessful() throws URISyntaxException {
         MmsRequest testMMSRequest = new MmsRequest("+65 8742 9618", "testMsg", null);
         URI uri = new URI(baseUrl + port + "/api/v1/sender/mms");
-        ResponseEntity<Void> result = restTemplate.postForEntity(uri, testMMSRequest ,Void.class);
-        assertEquals(400, result.getStatusCode().value());
+        ResponseEntity<Void> result = restTemplate.postForEntity(uri, testMMSRequest, Void.class);
+        assertEquals(400, result.getStatusCode()
+                                .value());
     }
 }

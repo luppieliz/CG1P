@@ -116,7 +116,7 @@ public class SenderServiceTest {
     /* Test for MMS */
     @Test
     void sendMMS_InvalidNumberWithCountryCodeWithNoSpaceValidMessageNonEmptyURL_ReturnIllegalArgumentException() {
-        MmsRequest testMMSRequest = new MmsRequest("+65999988888", "This is a test message","https://picsum.photos/200");
+        MmsRequest testMMSRequest = new MmsRequest("+65999988888", "This is a test message", "https://picsum.photos/200");
 
         Throwable testException = null;
 
@@ -131,7 +131,7 @@ public class SenderServiceTest {
 
     @Test
     void sendMMS_InvalidNumberWithCountryCodeWithSpaceValidMessageNonEmptyURL_ReturnIllegalArgumentException() {
-        MmsRequest testMMSRequest = new MmsRequest("+65 9999 88888", "This is a test message","https://picsum.photos/200");
+        MmsRequest testMMSRequest = new MmsRequest("+65 9999 88888", "This is a test message", "https://picsum.photos/200");
 
         Throwable testException = null;
 
@@ -146,7 +146,7 @@ public class SenderServiceTest {
 
     @Test
     void sendMMS_InvalidNumberWithoutCountryCodeWithoutSpaceValidMessageNonEmptyURL_ReturnIllegalArgumentException() {
-        MmsRequest testMMSRequest = new MmsRequest("999988888", "This is a test message","https://picsum.photos/200");
+        MmsRequest testMMSRequest = new MmsRequest("999988888", "This is a test message", "https://picsum.photos/200");
 
         Throwable testException = null;
 
@@ -161,7 +161,7 @@ public class SenderServiceTest {
 
     @Test
     void sendMMS_InvalidNumberWithoutCountryCodeWithSpaceValidMessageNonEmptyURL_ReturnIllegalArgumentException() {
-        MmsRequest testMMSRequest = new MmsRequest("9999 88888", "This is a test message","https://picsum.photos/200");
+        MmsRequest testMMSRequest = new MmsRequest("9999 88888", "This is a test message", "https://picsum.photos/200");
 
         Throwable testException = null;
 
@@ -176,7 +176,7 @@ public class SenderServiceTest {
 
     @Test
     void sendMMS_ValidNumberAboveMaxMessageLengthNonEmptyURL_ReturnAuthenticationException() {
-        MmsRequest testMMSRequest = new MmsRequest("+65 9999 8888", "This is a test message that is so long and it exceeds the number of length and it is not a valid message! You should not sending this kind of message!","https://picsum.photos/200");
+        MmsRequest testMMSRequest = new MmsRequest("+65 9999 8888", "This is a test message that is so long and it exceeds the number of length and it is not a valid message! You should not sending this kind of message!", "https://picsum.photos/200");
 
         Throwable testException = null;
 

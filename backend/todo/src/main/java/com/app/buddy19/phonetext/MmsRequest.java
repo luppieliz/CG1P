@@ -21,11 +21,12 @@ public class MmsRequest {
     @NotNull
     private String imageURL;
 
-    public MmsRequest() {}
+    public MmsRequest() {
+    }
 
     public MmsRequest(@JsonProperty("phone_number") String destPhoneNumber,
                       @JsonProperty("message") String message,
-    @JsonProperty("url") String imageURL) {
+                      @JsonProperty("url") String imageURL) {
         this.destPhoneNumber = destPhoneNumber;
         this.message = message;
         this.imageURL = imageURL;

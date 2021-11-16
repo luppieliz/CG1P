@@ -14,10 +14,10 @@ import java.util.Arrays;
 @Service
 public class TwilioSenderService implements SenderService {
 
-    private final TwilioConfig twilioConfig;
     private final static Logger LOGGER = LoggerFactory.getLogger(TwilioSenderService.class);
     final String SG_PHONE_CODE = "+65";
     final int NO_DIGITS = 8;
+    private final TwilioConfig twilioConfig;
 
 
     @Autowired
@@ -27,6 +27,7 @@ public class TwilioSenderService implements SenderService {
 
     /**
      * Send an SMS with a given SMS request. Throw IllegalArgumentException if phone number is invalid.
+     *
      * @param smsRequest
      */
     @Override
@@ -36,36 +37,38 @@ public class TwilioSenderService implements SenderService {
             PhoneNumber from = new PhoneNumber(twilioConfig.getPhoneNumber());
             String msg = smsRequest.getMessage();
 
-            MessageCreator msgCreator = new MessageCreator(to,from,msg);
+            MessageCreator msgCreator = new MessageCreator(to, from, msg);
 
             msgCreator.create();
             LOGGER.info("Sms sent: {}", smsRequest);
         } else {
-            throw new IllegalArgumentException("Phone number " + smsRequest.getDestPhoneNumber() + " is not valid!" );
+            throw new IllegalArgumentException("Phone number " + smsRequest.getDestPhoneNumber() + " is not valid!");
         }
     }
 
     /**
      * Send an MMS with a given MMS request. Throw IllegalArgumentException if phone number is invalid.
+     *
      * @param MmsRequest
      */
     public void sendMms(MmsRequest MmsRequest) {
         if (isPhoneNumberValid(MmsRequest.getDestPhoneNumber())) {
             Message message = Message.creator(
-                            new PhoneNumber(MmsRequest.getDestPhoneNumber()),
-                            new PhoneNumber(twilioConfig.getPhoneNumber()),
-                            MmsRequest.getMessage())
-                    .setMediaUrl(
-                            Arrays.asList(URI.create(MmsRequest.getImageURL())))
-                    .create();
+                    new PhoneNumber(MmsRequest.getDestPhoneNumber()),
+                    new PhoneNumber(twilioConfig.getPhoneNumber()),
+                    MmsRequest.getMessage())
+                                     .setMediaUrl(
+                                             Arrays.asList(URI.create(MmsRequest.getImageURL())))
+                                     .create();
             LOGGER.info("Sms sent: {}", MmsRequest);
         } else {
-            throw new IllegalArgumentException("Phone number " + MmsRequest.getDestPhoneNumber() + " is not valid!" );
+            throw new IllegalArgumentException("Phone number " + MmsRequest.getDestPhoneNumber() + " is not valid!");
         }
     }
 
     /**
      * Validate whether a phone number is a valid SG phone number.
+     *
      * @param destPhoneNumber
      * @return True if a phone number contains "+65" and has a total of 8 digits.
      */
@@ -80,7 +83,7 @@ public class TwilioSenderService implements SenderService {
         int totalDigits = 0;
 
         for (int i = strIdx; i < destPhoneNumber.length(); i++) {
-            if(Character.isSpaceChar(destPhoneNumber.charAt(i))) {
+            if (Character.isSpaceChar(destPhoneNumber.charAt(i))) {
                 continue;
             }
 

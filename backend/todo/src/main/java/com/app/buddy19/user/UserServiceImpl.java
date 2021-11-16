@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Get all registered users.
+     *
      * @return A list of registered users.
      */
     @Override
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Get all registered users by id.
+     *
      * @param userIds
      * @return A list of registered users.
      */
@@ -44,28 +46,33 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Get a specific user with a given userID.
+     *
      * @param userId
      * @return A registered user with a given userID. If it is already existed, throw a UserNotFoundException.
      * @throws UserNotFoundException
      */
     @Override
     public User getUser(UUID userId) throws UserNotFoundException {
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        return userRepository.findById(userId)
+                             .orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     /**
      * Get a specific user with a given email.
+     *
      * @param email
      * @return A registered user with a given email. If it is already existed, throw a UserNotFoundException.
      * @throws UserNotFoundException
      */
     @Override
     public User getUser(String email) throws UserNotFoundException {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+        return userRepository.findByEmail(email)
+                             .orElseThrow(() -> new UserNotFoundException(email));
     }
 
     /**
      * Get list of users with a given Business ID.
+     *
      * @param businessId
      * @return List of users with the given business ID.
      * @throws UserNotFoundException
@@ -78,6 +85,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Add a new User.
+     *
      * @param user
      * @return A newly registered user. If it is already existed, throw a UserNotFoundException.
      * @throws UserAlreadyRegisteredException
@@ -89,7 +97,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(email)) {
             throw new UserAlreadyRegisteredException(email);
         }
-        
+
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

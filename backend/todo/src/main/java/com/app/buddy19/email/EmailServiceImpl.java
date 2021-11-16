@@ -31,6 +31,7 @@ public class EmailServiceImpl implements EmailService {
 
     /**
      * Send a simple templated email. Throw IllegalArgumentException if missing address or email subject.
+     *
      * @param to
      * @param subject
      * @param bodyText
@@ -47,8 +48,10 @@ public class EmailServiceImpl implements EmailService {
         message.setText(bodyText);
         emailSender.send(message);
     }
+
     /**
      * Send a simple templated email to multiple recepients. Throw IllegalArgumentException if missing address or email subject.
+     *
      * @param to
      * @param subject
      * @param bodyText
@@ -67,9 +70,9 @@ public class EmailServiceImpl implements EmailService {
     }
 
     /**
-     *
      * Send a templated email with an attachment. Throw IllegalArgumentException if wrong host address,
      * missing address or missing subject body
+     *
      * @param email
      * @param template
      * @throws MessagingException

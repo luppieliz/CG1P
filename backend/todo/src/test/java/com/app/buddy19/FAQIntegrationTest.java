@@ -21,11 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class FAQIntegrationTest {
+    private final String baseUrl = "http://localhost:";
     @LocalServerPort
     private int port;
-
-    private final String baseUrl = "http://localhost:";
-
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -38,7 +36,8 @@ public class FAQIntegrationTest {
         URI uri = new URI(baseUrl + port + "/faq/scrape?URL=" + URL);
         ResponseEntity<FAQ[]> result = restTemplate.getForEntity(uri, FAQ[].class);
 
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(200, result.getStatusCode()
+                                .value());
         assertNotNull(result.getBody());
     }
 
@@ -54,8 +53,10 @@ public class FAQIntegrationTest {
         ResponseEntity<FAQ[]> result = restTemplate.getForEntity(uri, FAQ[].class);
         FAQ[] faqArr = result.getBody();
 
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(200, result.getStatusCode()
+                                .value());
         assertEquals(faqList.size(), faqArr.length);
-        assertEquals(faqList.get(0).getURL(), faqArr[0].getURL());
+        assertEquals(faqList.get(0)
+                            .getURL(), faqArr[0].getURL());
     }
 }

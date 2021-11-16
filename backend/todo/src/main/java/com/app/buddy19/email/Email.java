@@ -16,5 +16,6 @@ public class Email {
     private String message;
     private Map<String, Object> props;
 
-    public Email() {}
+    public Email() {
+    }
 }

@@ -16,24 +16,21 @@ import java.util.Date;
 
 @Component
 public class ScheduledTasks {
+    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat dateFormatTime = new SimpleDateFormat("HH:mm:ss");
     private FAQController faqController;
     private NewsController newsController;
-
+    @Value("${scheduled.news.sources}")
+    private String newsSources;
+    @Value("${scheduled.news.query}")
+    private String newsQuery;
     @Autowired
     public ScheduledTasks(FAQController faqController, NewsController newsController) {
         this.faqController = faqController;
         this.newsController = newsController;
     }
-
-    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
-
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private static final SimpleDateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
-    private static final SimpleDateFormat dateFormatTime = new SimpleDateFormat("HH:mm:ss");
-    @Value("${scheduled.news.sources}")
-    private String newsSources;
-    @Value("${scheduled.news.query}")
-    private String newsQuery;
 
     @Scheduled(cron = "${scheduled.newsRefreshCron}")
     public void getNewsOnSchedule() throws IOException, ParseException, InterruptedException {
@@ -50,7 +47,7 @@ public class ScheduledTasks {
             //todo remove magic string
 
             faqController.updateFAQ(testURL);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Error updating faq!");
             System.out.println(e);
         }

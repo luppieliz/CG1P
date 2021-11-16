@@ -14,7 +14,8 @@ import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,8 +43,8 @@ public class EmailServiceTest {
             exception = ex;
         }
 
-        assertEquals(IllegalArgumentException.class ,exception.getClass());
-        assertEquals("Missing to address or missing email subject" ,exception.getMessage());
+        assertEquals(IllegalArgumentException.class, exception.getClass());
+        assertEquals("Missing to address or missing email subject", exception.getMessage());
 
     }
 
@@ -60,8 +61,8 @@ public class EmailServiceTest {
             exception = ex;
         }
 
-        assertEquals(IllegalArgumentException.class ,exception.getClass());
-        assertEquals("Missing to address or missing email subject" ,exception.getMessage());
+        assertEquals(IllegalArgumentException.class, exception.getClass());
+        assertEquals("Missing to address or missing email subject", exception.getMessage());
 
     }
 
@@ -78,8 +79,8 @@ public class EmailServiceTest {
             exception = ex;
         }
 
-        assertEquals(IllegalArgumentException.class ,exception.getClass());
-        assertEquals("Missing to address or missing email subject" ,exception.getMessage());
+        assertEquals(IllegalArgumentException.class, exception.getClass());
+        assertEquals("Missing to address or missing email subject", exception.getMessage());
 
     }
 
@@ -96,8 +97,8 @@ public class EmailServiceTest {
             exception = ex;
         }
 
-        assertEquals(IllegalArgumentException.class ,exception.getClass());
-        assertEquals("Missing to address or missing email subject" ,exception.getMessage());
+        assertEquals(IllegalArgumentException.class, exception.getClass());
+        assertEquals("Missing to address or missing email subject", exception.getMessage());
 
     }
 
@@ -114,8 +115,8 @@ public class EmailServiceTest {
             exception = ex;
         }
 
-        assertEquals(IllegalArgumentException.class ,exception.getClass());
-        assertEquals("Missing to address or missing email subject" ,exception.getMessage());
+        assertEquals(IllegalArgumentException.class, exception.getClass());
+        assertEquals("Missing to address or missing email subject", exception.getMessage());
 
     }
 
@@ -149,7 +150,7 @@ public class EmailServiceTest {
         } catch (Throwable ex) {
             exception = ex;
         }
-        assertEquals(IllegalArgumentException.class ,exception.getClass());
-        assertEquals("Wrong host address!" ,exception.getMessage());
+        assertEquals(IllegalArgumentException.class, exception.getClass());
+        assertEquals("Wrong host address!", exception.getMessage());
     }
 }

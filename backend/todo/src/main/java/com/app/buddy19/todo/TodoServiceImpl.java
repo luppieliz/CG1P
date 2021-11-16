@@ -3,7 +3,6 @@ package com.app.buddy19.todo;
 import com.app.buddy19.user.User;
 import com.app.buddy19.user.UserNotFoundException;
 import com.app.buddy19.user.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +22,7 @@ public class TodoServiceImpl implements TodoService {
 
     /**
      * Get a business owner's created to-dos
+     *
      * @param userId
      * @return A list of to-dos of a user with a given userID
      */
@@ -33,6 +33,7 @@ public class TodoServiceImpl implements TodoService {
 
     /**
      * Get an employee's assigned to-dos
+     *
      * @param userId
      * @return A list of to-dos of a user with a given userID
      */
@@ -43,17 +44,20 @@ public class TodoServiceImpl implements TodoService {
 
     /**
      * Get a specific to-do with a given todoID
+     *
      * @param todoId
      * @return A to-do with a given todoID. If a to-do is not found, throw a TodoNotFoundException.
      * @throws TodoNotFoundException
      */
     @Override
     public Todo getTodo(UUID todoId) throws TodoNotFoundException {
-        return todoRepository.findById(todoId).orElseThrow(() -> new TodoNotFoundException(todoId));
+        return todoRepository.findById(todoId)
+                             .orElseThrow(() -> new TodoNotFoundException(todoId));
     }
 
     /**
      * Add a user's to-do.
+     *
      * @param userId
      * @param newTodo
      * @return A newly added to-do by a user with a given userID. If a user is not found, throw a UserNotFoundException.
@@ -72,6 +76,7 @@ public class TodoServiceImpl implements TodoService {
 
     /**
      * Update a specific to-do with a given todoID.
+     *
      * @param todoId
      * @param newTodo
      * @throws TodoNotFoundException
@@ -92,6 +97,7 @@ public class TodoServiceImpl implements TodoService {
 
     /**
      * Delete a specific to-do with a given todoID.
+     *
      * @param todoId
      */
     @Override

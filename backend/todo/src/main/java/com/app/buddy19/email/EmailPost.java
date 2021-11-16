@@ -12,7 +12,8 @@ public class EmailPost {
     private String emailTo;
     private String subject;
 
-    public EmailPost () {}
+    public EmailPost() {
+    }
 
     public EmailPost(@JsonProperty("name") String name,
                      @JsonProperty("message") String message,

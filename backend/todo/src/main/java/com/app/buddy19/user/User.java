@@ -1,37 +1,24 @@
 package com.app.buddy19.user;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import com.app.buddy19.business.Business;
 import com.app.buddy19.todo.Todo;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.*;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table
@@ -53,7 +40,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @JsonDeserialize(using= UUIDDeserializer.class)
+    @JsonDeserialize(using = UUIDDeserializer.class)
     @Column(name = "user_id")
     private UUID id;
 
@@ -120,7 +107,7 @@ public class User implements UserDetails {
     }
 
     public User(String email, String name, String password, Boolean shnStatus, Boolean covidStatus, String authority,
-            Business business) {
+                Business business) {
         this.email = email;
         this.name = name;
         this.password = password;

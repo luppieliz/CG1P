@@ -3,14 +3,12 @@ package com.app.buddy19.faq;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.GenericGenerator;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -26,7 +24,8 @@ public class FAQ {
     private String industry;
     private String language;
 
-    public FAQ() {}
+    public FAQ() {
+    }
 
     public FAQ(String URL) {
         this.URL = URL;

@@ -47,7 +47,8 @@ public class DailyResponse implements Serializable {
     @SerializedName("lastUpdate")
     private Date lastUpdate;
 
-    public DailyResponse() {}
+    public DailyResponse() {
+    }
 
     public DailyResponse(String country, String code, int confirmedCase, int recoveredCase, int criticalCase, int deathCase, Double longitude, Double latitude, Date lastChange, Date lastUpdate) {
         this.country = country;

@@ -1,7 +1,9 @@
 package com.app.buddy19;
 
-import com.app.buddy19.newsfunnel.*;
-
+import com.app.buddy19.newsfunnel.News;
+import com.app.buddy19.newsfunnel.NewsAlreadyRetrievedException;
+import com.app.buddy19.newsfunnel.NewsRepository;
+import com.app.buddy19.newsfunnel.NewsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class NewsServiceTest {
