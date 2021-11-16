@@ -33,7 +33,6 @@ class NewsFeedComponent extends Component {
 
     //function to retrieve all news items from the database
     refreshNews() {
-        //TODO implement retrieve by date
         NewsDataService.retrieveAllNews()
             .then(
                 response => {
@@ -59,7 +58,6 @@ class NewsFeedComponent extends Component {
     }
 
     //function to generate a list of tags based on news retrieved
-    //todo: reduce time complexity
     generateTaglist() {
         var tags = {}; //list of existing tags
         var output = []; //output format: [{value:"tag1"},{value:"tag2"}]
