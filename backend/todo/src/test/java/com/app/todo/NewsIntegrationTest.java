@@ -1,9 +1,6 @@
 package com.app.todo;
 
-import com.app.todo.newsfunnel.News;
-import com.app.todo.newsfunnel.NewsAPIResponse;
-import com.app.todo.newsfunnel.NewsAPIService;
-import com.app.todo.newsfunnel.NewsRepository;
+import com.app.todo.newsfunnel.*;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -36,7 +33,7 @@ public class NewsIntegrationTest {
     private NewsRepository newsRepository;
 
     @Autowired
-    private NewsAPIService newsAPIService;
+    private NewsAPIServiceImpl newsAPIService;
 
     @Test
     public void getNews_Success() throws URISyntaxException {

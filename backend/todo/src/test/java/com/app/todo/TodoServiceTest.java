@@ -3,10 +3,12 @@ package com.app.todo;
 import com.app.todo.business.Business;
 import com.app.todo.todo.Todo;
 import com.app.todo.todo.TodoRepository;
+import com.app.todo.todo.TodoService;
 import com.app.todo.todo.TodoServiceImpl;
 import com.app.todo.user.User;
 import com.app.todo.user.UserRepository;
 import com.app.todo.user.UserService;
+import com.app.todo.user.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -42,7 +44,7 @@ public class TodoServiceTest {
     private TodoServiceImpl todoService;
 
     @Mock
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Test
     void getCreatedTodos_ValidUserId_ReturnTodos() {

@@ -29,10 +29,10 @@ import com.app.todo.user.UserNotAuthenticatedException;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class TodoController {
-    private TodoServiceImpl todoService;
+    private TodoService todoService;
 
     @Autowired
-    public TodoController(TodoServiceImpl todoService) {
+    public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
 

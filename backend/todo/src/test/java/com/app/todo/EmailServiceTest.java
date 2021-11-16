@@ -2,6 +2,7 @@ package com.app.todo;
 
 import com.app.todo.email.Email;
 import com.app.todo.email.EmailService;
+import com.app.todo.email.EmailServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class EmailServiceTest {
     @InjectMocks
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
 
     @Mock
     private JavaMailSender emailSender;

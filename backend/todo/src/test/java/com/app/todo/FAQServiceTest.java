@@ -22,7 +22,7 @@ public class FAQServiceTest {
     private FAQRepository faqRepository;
 
     @InjectMocks
-    private FAQService faqService;
+    private FAQServiceImpl faqService;
 
     @Test
     void addFAQ_NewFAQ_ReturnSavedFAQ() {

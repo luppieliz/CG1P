@@ -3,6 +3,7 @@ package com.app.todo;
 import com.app.todo.email.EmailController;
 import com.app.todo.email.EmailPost;
 import com.app.todo.email.EmailService;
+import com.app.todo.email.EmailServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,7 +45,7 @@ public class EmailIntegrationTest {
     private EmailController emailController;
 
     @Autowired
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
 
 
     @Test

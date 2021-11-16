@@ -27,7 +27,7 @@ public class IndustryServiceTest {
     private IndustryRepository industryRepository;
 
     @InjectMocks
-    private IndustryService industryService;
+    private IndustryServiceImpl industryService;
 
     @Test
     void getAllIndustries_ReturnAllIndustries() {

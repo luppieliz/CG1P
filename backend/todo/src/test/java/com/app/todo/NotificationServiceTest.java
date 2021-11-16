@@ -2,14 +2,18 @@ package com.app.todo;
 
 import com.app.todo.business.Business;
 import com.app.todo.business.BusinessService;
+import com.app.todo.business.BusinessServiceImpl;
 import com.app.todo.email.EmailService;
+import com.app.todo.email.EmailServiceImpl;
 import com.app.todo.industry.Industry;
 import com.app.todo.newsfunnel.News;
 import com.app.todo.notifier.NotificationService;
+import com.app.todo.notifier.NotificationServiceImpl;
 import com.app.todo.phonetext.SmsRequest;
 import com.app.todo.phonetext.TwilioSenderService;
 import com.app.todo.user.User;
 import com.app.todo.user.UserService;
+import com.app.todo.user.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,16 +30,16 @@ import static org.mockito.Mockito.verify;
 public class NotificationServiceTest {
 
     @InjectMocks
-    private NotificationService notificationService;
+    private NotificationServiceImpl notificationService;
 
     @Mock
-    private EmailService emailService;
+    private EmailServiceImpl emailService;
 
     @Mock
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Mock
-    private BusinessService businessService;
+    private BusinessServiceImpl businessService;
 
     @Mock
     private TwilioSenderService senderService;

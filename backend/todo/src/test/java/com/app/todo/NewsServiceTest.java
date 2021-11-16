@@ -1,10 +1,7 @@
 package com.app.todo;
 
-import com.app.todo.newsfunnel.News;
-import com.app.todo.newsfunnel.NewsAlreadyRetrievedException;
-import com.app.todo.newsfunnel.NewsRepository;
+import com.app.todo.newsfunnel.*;
 
-import com.app.todo.newsfunnel.NewsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +18,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class NewsServiceTest {
     @InjectMocks
-    private NewsService newsService;
+    private NewsServiceImpl newsService;
 
     @Mock
     private NewsRepository newsRepository;

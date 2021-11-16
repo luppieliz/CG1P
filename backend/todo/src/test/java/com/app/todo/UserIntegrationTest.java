@@ -10,6 +10,7 @@ import com.app.todo.todo.Todo;
 import com.app.todo.user.User;
 import com.app.todo.user.UserRepository;
 import com.app.todo.user.UserService;
+import com.app.todo.user.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,7 +43,7 @@ public class UserIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private UserRepository userRepository;

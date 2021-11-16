@@ -2,6 +2,7 @@ package com.app.todo;
 
 import com.app.todo.scraper.ScraperService;
 
+import com.app.todo.scraper.ScraperServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ScraperServiceTest {
 
     @InjectMocks
-    private ScraperService scrapperService;
+    private ScraperServiceImpl scrapperService;
 
     @Test
     void scrapeFAQ_Success() {

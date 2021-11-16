@@ -26,7 +26,7 @@ public class BusinessServiceTest {
     private BusinessRepository businessRepository;
 
     @InjectMocks
-    private BusinessService businessService;
+    private BusinessServiceImpl businessService;
 
     @Mock
     private IndustryRepository industryRepository;

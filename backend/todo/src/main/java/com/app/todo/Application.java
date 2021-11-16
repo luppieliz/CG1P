@@ -1,6 +1,8 @@
 package com.app.todo;
 
+import com.app.todo.business.BusinessServiceImpl;
 import com.app.todo.covid.DailyResponse;
+import com.app.todo.industry.IndustryServiceImpl;
 import com.app.todo.scheduler.ScheduledTasks;
 import com.app.todo.user.User;
 import com.app.todo.user.UserService;
@@ -9,6 +11,7 @@ import com.app.todo.industry.IndustryService;
 import com.app.todo.business.Business;
 import com.app.todo.business.BusinessService;
 
+import com.app.todo.user.UserServiceImpl;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,7 +34,7 @@ public class Application {
 
 
 
-		IndustryService industries = ctx.getBean(IndustryService.class);
+		IndustryService industries = ctx.getBean(IndustryServiceImpl.class);
 		System.out.println("[Add industry]: " + industries.addIndustry(
 				new Industry("Healthcare")).getName());
 		System.out.println("[Add industry]: " + industries.addIndustry(
@@ -41,7 +44,7 @@ public class Application {
 		System.out.println("[Add industry]: " + industries.addIndustry(
 				new Industry("Retail")).getName());
 
-		BusinessService businesses = ctx.getBean(BusinessService.class);
+		BusinessService businesses = ctx.getBean(BusinessServiceImpl.class);
 		Industry industry = industries.getIndustry("Tourism");
 		System.out.println("[Add Business]: " + businesses.addBusiness(
 				new Business("abcde77777", "singapore museum", industry)).getName());
@@ -49,7 +52,7 @@ public class Application {
 		System.out.println("[Add Business]: " + businesses.addBusiness(
 				new Business("dfgjj90", "macdonalds", industry)).getName());
 
-		UserService users = ctx.getBean(UserService.class);
+		UserService users = ctx.getBean(UserServiceImpl.class);
 		Business business = businesses.getBusiness("abcde77777");
 		System.out.println("[Add user]: " + users.addUser(
 				new User("admin@gmail.com", "admin", "goodpassword", "ROLE_ADMIN", business)).getUsername());

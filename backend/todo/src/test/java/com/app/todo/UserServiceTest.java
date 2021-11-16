@@ -1,6 +1,7 @@
 package com.app.todo;
 
 import com.app.todo.business.BusinessService;
+import com.app.todo.business.BusinessServiceImpl;
 import com.app.todo.user.*;
 import com.app.todo.business.Business;
 import com.app.todo.industry.Industry;
@@ -35,10 +36,10 @@ public class UserServiceTest {
     private BCryptPasswordEncoder encoder;
 
     @Mock
-    private BusinessService businessService;
+    private BusinessServiceImpl businessService;
 
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Test
     void getAllUsers_ReturnAllUsers() {
