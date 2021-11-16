@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import routing features
-import HelloWorldService from '../api/HelloWorldService'
+import QuoteService from '../api/QuoteService'
 import UserDataService from '../api/UserDataService'
 import TodoDataService from '../api/TodoDataService'
 import NewsDataService from '../api/NewsDataService'
@@ -352,7 +352,7 @@ class WelcomeComponent extends Component {
     }
 
     retrieveWelcomeMessage() {
-        HelloWorldService.executeHelloWorldService(this.state.userName)
+        QuoteService.executeQuoteService()
             .then(response => this.handleSuccessfulResponse(response))
             .catch(error => this.handleError(error));
     }
@@ -401,7 +401,8 @@ class WelcomeComponent extends Component {
     }
 
     handleSuccessfulResponse(response) {
-        this.setState({ welcomeMessage: response.data.message })
+        console.log(response)
+        this.setState({ welcomeMessage: response.data.content })
     }
 
     handleError(error) {

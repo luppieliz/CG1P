@@ -9,7 +9,10 @@ export const SESSION_USER_BUSINESS = "userBusiness"
 export const SESSION_USER_BUSINESS_INDUSTRY = "userBusinessIndustry"
 export const SESSION_USER_ROLE = "userRole"
 export const SESSION_INTERCEPTOR = "interceptor"
+
+// URL sources
 export const SCRAPPED_SOURCE = "https://www.enterprisesg.gov.sg/covid-19/safe-distance"
+export const QUOTE_SOURCE = "https://api.quotable.io/random"
 
 // JPA API URL, use this for fetching resources. 
 // Using the API URL above for the same purpose will result in triggering the hardcoded service!

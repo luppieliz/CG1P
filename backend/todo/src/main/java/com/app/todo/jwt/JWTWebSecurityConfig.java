@@ -79,8 +79,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/sms").authenticated()
                 .antMatchers(HttpMethod.POST, "/mms").authenticated()
 
-                // for HellowWorld (Not working!)
-                .antMatchers(HttpMethod.GET, "/hello-world/**").hasAnyRole("ADMIN", "BUSINESSOWNER")
+                
                 .antMatchers("/").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
 
