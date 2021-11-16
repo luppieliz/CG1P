@@ -2,6 +2,9 @@ package com.app.buddy19.jwt.resource;
 
 import com.app.buddy19.jwt.JwtTokenUtil;
 import com.app.buddy19.user.User;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,11 @@ public class JwtAuthenticationRestController {
     @Autowired
     private UserDetailsService jwtInMemoryUserDetailsService;
 
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully created a token"),
+            @ApiResponse(code = 404, message = "Invalid credentials")})
+
+
+    @ApiOperation(value = "Generate Jwt token and authenticate user", response = JwtTokenResponse.class)
     @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST, produces = "application/json")
     public JwtTokenResponse createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
             throws AuthenticationException {
@@ -46,8 +54,9 @@ public class JwtAuthenticationRestController {
         return new JwtTokenResponse(token);
     }
 
+    @ApiOperation(value = "Request for a new Jwt Token", response = JwtTokenResponse.class)
     @RequestMapping(value = "${jwt.refresh.token.uri}", method = RequestMethod.GET)
-    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+    public JwtTokenResponse refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
@@ -55,10 +64,9 @@ public class JwtAuthenticationRestController {
 
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
-            return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
+            return new JwtTokenResponse(refreshedToken);
         } else {
-            return ResponseEntity.badRequest()
-                                 .body(null);
+            return null;
         }
     }
 
@@ -68,6 +76,11 @@ public class JwtAuthenticationRestController {
                              .body(e.getMessage());
     }
 
+    /**
+     * Authenticating user given a username and password
+     * @param username
+     * @param password
+     */
     private void authenticate(String username, String password) {
         Objects.requireNonNull(username);
         Objects.requireNonNull(password);

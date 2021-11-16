@@ -1,6 +1,8 @@
 package com.app.buddy19.email;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +27,10 @@ public class EmailController {
     public EmailController(EmailService emailService) {
         this.emailService = emailService;
     }
+
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully send an email"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")})
+
 
     @ApiOperation(value = "Send email")
     @PostMapping(produces = "application/json")

@@ -1,5 +1,9 @@
 package com.app.buddy19.business;
 
+import com.app.buddy19.industry.Industry;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,45 +21,32 @@ public class BusinessController {
         this.businessService = businessService;
     }
 
-    @GetMapping("/business")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieved a business list/ a business entity"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")})
+
+    @ApiOperation(value = "Retrieve all businesses", response = List.class)
+    @GetMapping(path = "/business", produces = "application/json")
     public List<Business> getAllBusinesses() {
         return businessService.getAllBusinesses();
     }
 
-    @GetMapping("/business/{businessId}")
+    @ApiOperation(value = "Get a specific business given a business id", response = Business.class)
+    @GetMapping(path = "/business/{businessId}", produces = "application/json")
     public Business getBusiness(@PathVariable UUID businessId) {
         return businessService.getBusiness(businessId);
     }
 
-    @GetMapping("/business/uen/{UEN}")
+    @ApiOperation(value = "Get a specific business given a business UEN", response = Business.class)
+    @GetMapping(path = "/business/uen/{UEN}", produces = "application/json")
     public Business getBusiness(@PathVariable String UEN) {
         return businessService.getBusiness(UEN);
     }
 
-    @PostMapping("/business")
+    @ApiOperation(value = "Add a new business", response = Business.class)
+    @PostMapping(path = "/business", produces = "application/json")
     public Business addBusiness(@Valid @RequestBody Business business) {
         return businessService.addBusiness(business);
     }
-
-    // @DeleteMapping("/business/{businessId}")
-    // public Business deleteBusiness(@Valid @PathVariable(value = "businessId") Long businessId) {
-    //     return businessService.deleteBusiness(businessId);
-    // }
-
-    // // not rly working sighs
-    // @PutMapping("/business/{businessId}")
-    // public Business updateBusiness(@PathVariable Long businessId, @Valid @RequestBody Business newBusiness) {
-    //     Business business = businessService.updateBusiness(businessId, newBusiness);
-    //     // if(business == null) throw new BusinessNotFoundException(businessId);
-    //     return business;
-    // }
-
-    // @GetMapping("/business/{businessId}/users")
-    // public List<User> getUsers(@Valid @PathVariable (value = "businessId") Long
-    // businessId) {
-    // if(!businessService.existsById(businessId)) {
-    // throw new BusinessNotFoundException(businessId);
-    // }
-    // return reviews.findByBookId(bookId);
-    // }
 }

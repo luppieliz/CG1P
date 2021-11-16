@@ -1,6 +1,9 @@
 package com.app.buddy19.newsfunnel;
 
+import com.app.buddy19.industry.Industry;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +24,12 @@ public class NewsController {
         this.newsService = newsService;
     }
 
-    @ApiOperation(value = "Get news with a specific country code and query")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieved news article list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")})
+
+    @ApiOperation(value = "Get news with a specific country code and query", response = List.class)
     @GetMapping(path = "/{country_code}/{query}", produces = "application/json")
     public List<News> getNews(@PathVariable(value = "country_code") String countryCode,
                               @PathVariable(value = "query") String query) throws IOException, InterruptedException, ParseException {
@@ -31,7 +39,7 @@ public class NewsController {
         return resultNews;
     }
 
-    @ApiOperation(value = "Get news from specific sources, from specific date, with query")
+    @ApiOperation(value = "Get news from specific sources, from specific date, with query", response = List.class)
     @GetMapping(path = "/{sources}/{query}/{fromDate}", produces = "application/json")
     public List<News> getNewsv2(@PathVariable(value = "sources") String sources,
                                 @PathVariable(value = "query") String query, @PathVariable(value = "fromDate") String fromDate) throws IOException, InterruptedException, ParseException {
@@ -41,13 +49,13 @@ public class NewsController {
         return resultNews;
     }
 
-    @ApiOperation(value = "Get all news from database")
+    @ApiOperation(value = "Get all news from database", response = List.class)
     @GetMapping(path = "/newsdb/all", produces = "application/json")
     public List<News> getNewsFromDB() throws ParseException {
         return newsService.getAllNews();
     }
 
-    @ApiOperation(value = "Get all news from database, from a given date")
+    @ApiOperation(value = "Get all news from database, from a given date", response = List.class)
     @GetMapping(path = "/newsdb/all/{dateFrom}", produces = "application/json")
     public List<News> getNewsFromDBFromDate(@PathVariable(value = "dateFrom") final String dateFrom) throws ParseException {
         return newsService.getAllNewsFromDate(dateFrom);
