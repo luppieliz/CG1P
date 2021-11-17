@@ -74,11 +74,11 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/**/todos", "/**/todos/**")
                 .authenticated()
                 .antMatchers(HttpMethod.DELETE, "/**/todos/**")
-                .authenticated()
+                .hasAnyRole("ADMIN", "BUSINESSOWNER")
                 .antMatchers(HttpMethod.PUT, "/**/todos/**")
-                .authenticated()
+                .hasAnyRole("ADMIN", "BUSINESSOWNER")
                 .antMatchers(HttpMethod.POST, "/**/todos")
-                .authenticated()
+                .hasAnyRole("ADMIN", "BUSINESSOWNER")
 
                 // for UserController
                 .antMatchers(HttpMethod.GET, "/user")

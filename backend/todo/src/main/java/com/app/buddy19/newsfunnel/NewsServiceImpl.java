@@ -47,16 +47,8 @@ public class NewsServiceImpl implements NewsService {
      * @return A list of all stored articles.
      */
     @Override
-    public List<News> getAllNews() throws ParseException {
-        List<News> allNews = newsRepository.findAll();
-        Map<LocalDate, News> newsMap = new TreeMap<>(Collections.reverseOrder());
-        for (News news : allNews) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(STANDARD_DATE_FORMAT);
-            LocalDate date = LocalDate.parse(news.getPublishedDate(), formatter);
-            newsMap.put(date, news);
-        }
-
-        return new ArrayList<>(newsMap.values());
+    public List<News> getAllNews() {
+        return newsRepository.findAll();
     }
 
     /**
