@@ -12,39 +12,45 @@
 # Running the Frontend
 
 ### Configure
-Go to /frontend/todo-app/package.json and check under "Scripts"
-FOR MAC        "start": "PORT=4200 react-scripts start",
-FOR WINDOWS    "start": "set PORT=4200 && react-scripts start",
+Go to /frontend/buddy19-app/package.json and check under "scripts"
+* Windows: `"start": "set PORT=4200 && react-scripts start"`
+* Mac: `"start": "PORT=4200 react-scripts start"`
 
 ### Run
-Navigate back to /frontend/todo-app then run:
-`npm install`
-`npm start`
+Navigate back to /frontend/buddy19-app and run the commands `npm install` followed by `npm start` in the terminal.
 
-It will automatically launch lo
-*localhost:4200*
+The app will automatically launch on *localhost:4200*
 
 # Running the Backend
 
 ### Configure
-Inside 
+In the folder
 ```
-CG1P/backend/todo/src/main/java/com/app/todo/scraper/ScraperConfig
+CG1P/backend/todo/src/main/java/com/app/buddy19/scraper/`
 ```
+Both the `ScraperConfig.java` and `ScraperServiceImpl.java` files have this line:
+```
+System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+```
+This configuration is set for the CI pipeline.<br><br>
 
-There is this line
-```
-System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/java/com/app/todo/scraper/chromedriver.exe");
-```
+No additional changes are required if running on **Windows** with these IDEs:
+* VSCode, via Spring Boot Dashboard (Spring Boot Extension Pack)
+* IntelliJ
 
-For Windows: Leave it as ```'chromedriver.exe'```<br>
-For Mac: Delete the ```'.exe'``` it should just be ```'chromedriver'```
-
-If using IntelliJ -> remove the `backend/todo/` at the start.
+Otherwise, use either of the following configurations accordingly:
+* Windows:
+```
+System.setProperty("webdriver.chrome.driver", "backend/todo/src/main/resources/chromedriver.exe");
+```
+* Mac:
+```
+System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+```
 
 ### Run
 ```
-restful-web-services/src/com/myapp/rest/webservices/restfulwebservices/RestfulWebServicesApplication.java
+CG1P/backend/todo/src/main/java/com/app/buddy19/Application.java
 ```
 In VSCode / IntelliJ, just "Run Application / Run Java"
 
