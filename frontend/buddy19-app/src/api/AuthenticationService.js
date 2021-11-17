@@ -14,7 +14,6 @@ class AuthenticationService {
     // Check if user is logged in
     isUserLoggedIn() {
         let userId = sessionStorage.getItem(SESSION_USER_ID)
-        console.log('logged in: %s', userId)
         if (userId === null) return false
         return true
     }
@@ -29,32 +28,6 @@ class AuthenticationService {
     registerSuccessfulLoginForJwt(email) {
         return axios.get(`${API_URL}/user/email/${email}`)
     }
-
-
-    // CODE FOR BASIC AUTH
-    // executeBasicAuthenticationService(email, password) {
-    //     return axios.get(`${API_URL}/basicauth`,
-    //         { headers: { authorization: this.createBasicAuthToken(email, password) } })
-    // }
-
-    // createBasicAuthToken(email, password) {
-    //     let token = 'Basic ' + window.btoa(email + ':' + password)
-    //     sessionStorage.setItem(SESSION_TOKEN, token)
-    //     console.log('token: %s', token)
-    //     return token
-    // }
-
-    // registerSuccessfulLoginForBasicAuth(email) {
-    //     return axios.get(`${API_URL}/user/email/${email}`)
-    // }
-
-    // BELOW CODE IS SPECIFICALLY FOR JWT AUTH
-
-    /*
-        execute authentication
-    */
-
-
 }
 
 export default new AuthenticationService()

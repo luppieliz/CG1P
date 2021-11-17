@@ -34,7 +34,6 @@ class ProfileComponent extends Component {
                 [event.target.name]: event.target.value
             }
         );
-        console.log(this.state)
     }
 
     EditClicked() {

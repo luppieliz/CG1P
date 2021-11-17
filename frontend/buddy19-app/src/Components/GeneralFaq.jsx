@@ -33,11 +33,6 @@ class GeneralFaq extends Component {
                 response => {
                     this.state.isEmpty = response.data.length === 0;
                     this.setState({faq: response.data})
-                    // this.setState({ faqDisplay: response.data })
-                    //             console.log("retrieval made");
-                    // console.log(response);
-                    //             this.generateTaglist();
-                    // console.log(this.state.faq[0]);
 
                     this.createUserDisplay();
                 }
@@ -50,20 +45,16 @@ class GeneralFaq extends Component {
         let userLanguage = this.state.userLanguage ? "English" : "Chinese"
         let output = [];
         let idx = 0;
-        console.log(this.state.faq);
         //traverse through the faq list to find matches
         for (var faqCount in this.state.faq) {
             let faqItem = this.state.faq[faqCount];
             //if there is a match, add it to faqDisplay
-            // console.log(faqItem.language);
-            // console.log(faqItem.industry)
             if (faqItem.language === userLanguage && faqItem.industry === userIndustry) {
                 output[idx] = faqItem;
                 idx++;
             }
         }
         //set the final list
-        console.log(output);
         this.setState({faqDisplay: output})
 
     }

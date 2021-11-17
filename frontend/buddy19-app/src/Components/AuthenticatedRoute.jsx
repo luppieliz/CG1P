@@ -12,7 +12,6 @@ class AuthenticatedRoute extends Component {
         const interceptor = axios.interceptors.request.use(
             config => {
                 if (AuthenticationService.isUserLoggedIn()) {
-                    console.log('isloggedin triggered from interceptor')
                     config.headers.authorization = sessionStorage.getItem(SESSION_TOKEN)
                 }
                 return config
@@ -27,7 +26,6 @@ class AuthenticatedRoute extends Component {
 
     render() {
         if (AuthenticationService.isUserLoggedIn()) {
-            console.log('isloggedin triggered from route render')
             // spread operator - take all properties
             return <Route {...this.props} />
         } else {

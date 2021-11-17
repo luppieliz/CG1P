@@ -410,12 +410,10 @@ class WelcomeComponent extends Component {
     }
 
     handleSuccessfulResponse(response) {
-        console.log(response)
         this.setState({welcomeMessage: response.data.content})
     }
 
     handleError(error) {
-        console.log(error.response)
         let errorMessage = '';
         if (error.message) {
             errorMessage += error.message

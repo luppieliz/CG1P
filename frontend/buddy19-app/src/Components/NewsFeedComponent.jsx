@@ -68,13 +68,10 @@ class NewsFeedComponent extends Component {
                 for (var s in arr) {
                     if (!tags.hasOwnProperty(arr[s])) { //
                         tags[arr[s]] = 0;
-                        // console.log("adding " + arr[s]);
                         output[idx] = {value: arr[s]};
                         idx++;
                     }
                 }
-                // console.log(this.state.news[i].tagList);
-
             }
         }
         this.setState({options: output})
@@ -116,14 +113,12 @@ class NewsFeedComponent extends Component {
     onSelect = (selectedList, selectedItem) => { //note usage of arrow function here, necessary as this refers to multiselect, not newsfeed component see https://stackoverflow.com/questions/32317154/react-uncaught-typeerror-cannot-read-property-setstate-of-undefined?rq=1
         var tag = selectedItem['value'];
         this.state.tagsSelected[tag] = true;
-        console.log(JSON.stringify(this.state.tagsSelected));
     }
 
     //function for when a filter option is removed
     onRemove = (selectedList, removedItem) => {
         var tag = removedItem['value'];
         this.state.tagsSelected[tag] = false;
-        console.log(JSON.stringify(this.state.tagsSelected));
     }
 
     //root component of NewsFeed that displays header, footer, and news cards

@@ -67,21 +67,17 @@ class TodoComponent extends Component {
                     employee.id
                 )
             }))
-
-        console.log(this.state.employees)
     }
 
     // for employee dropdown
     onSelect(selectedList, selectedItem) {
         this.state.employees.push(selectedItem.value)
-        console.log(this.state.employees)
     }
 
     // for employee dropdown
     onRemove(selectedList, removedItem) {
         const index = this.state.employees.indexOf(removedItem.value)
         this.state.employees.splice(index, 1)
-        console.log(this.state.employees)
     }
 
     // on Formik Submit
@@ -91,8 +87,6 @@ class TodoComponent extends Component {
             targetDate: values.targetDate,
             createdForIds: this.state.employees
         }
-
-        console.log(todo)
 
         // if state (todo id) is -1, means todo does not exist yet, means create todo
         if (this.state.id == -1) {

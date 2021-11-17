@@ -77,12 +77,9 @@ class LoginComponent extends Component {
             .then((response) => {
                 let JWTtoken = 'Bearer ' + response.data.token
                 sessionStorage.setItem(SESSION_TOKEN, JWTtoken)
-                console.log('Login phase 1 complete')
                 return AuthenticationService.registerSuccessfulLoginForJwt(this.state.email)
             })
             .then(response => {
-                console.log('Login phase 2 complete')
-                console.log('Response: ', response.data)
                 sessionStorage.setItem(SESSION_USER_ID, response.data.id)
                 sessionStorage.setItem(SESSION_USER_NAME, response.data.name)
                 sessionStorage.setItem(SESSION_USER_BUSINESS, response.data.business.id)

@@ -57,8 +57,6 @@ class SignupComponent extends Component {
         let uen = values.businessUEN
         BusinessDataService.retrieveBusiness(uen).then(
             response => {
-                // this.setState({business: response.data})
-                // console.log(response)
                 let user = {
                     email: values.email,
                     name: values.name,
