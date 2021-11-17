@@ -29,8 +29,8 @@ class LoginComponent extends Component {
 
         // State - contains the email, password, and hasLoginFailed boolean fields.
         this.state = {
-            email: 'admin@gmail.com',
-            password: 'goodpassword',
+            email: '',
+            password: '',
             hasLoginFailed: false, // boolean 1
         }
 

@@ -19,10 +19,10 @@ class SignupComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: 'anrev',
-            email: 'A@A',
-            password: 'aaaaaaaaa',
-            businessUEN: 'aaaa',
+            name: '',
+            email: '',
+            password: '',
+            businessUEN: '',
             business: {},
         }
         this.vantaRef = React.createRef()

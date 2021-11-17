@@ -23,12 +23,12 @@ class OwnerSignupComponent extends Component {
         this.vantaRef = React.createRef()
 
         this.state = {
-            name: 'aaaa',
-            email: 'a@a',
-            password: 'aaaaaaaaa',
-            businessUEN: 'abc',
-            businessName: 'name',
-            industry: 'Healthcare',
+            name: '',
+            email: '',
+            password: '',
+            businessUEN: '',
+            businessName: '',
+            industry: '',
             industryList: [],
         }
 
