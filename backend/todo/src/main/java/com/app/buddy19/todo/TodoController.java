@@ -1,6 +1,5 @@
 package com.app.buddy19.todo;
 
-import com.app.buddy19.industry.Industry;
 import com.app.buddy19.user.User;
 import com.app.buddy19.user.UserNotAuthenticatedException;
 import io.swagger.annotations.ApiOperation;

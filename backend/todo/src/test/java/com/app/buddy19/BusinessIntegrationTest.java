@@ -86,8 +86,7 @@ public class BusinessIntegrationTest {
     @Test
     public void getBusinessWithId_InvalidBusinessId_Failure() throws Exception {
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
-        Business business = businessRepository
-                .save(new Business(UUID.randomUUID(), "asd789fhgj", "Singapore Museum", industry));
+        businessRepository.save(new Business(UUID.randomUUID(), "asd789fhgj", "Singapore Museum", industry));
         UUID id = UUID.randomUUID();
         URI uri = new URI(baseUrl + port + "/business/" + id);
 
@@ -152,8 +151,7 @@ public class BusinessIntegrationTest {
         Industry industry = industryRepository.save(new Industry("Arts and Culture"));
         Business business = businessRepository.save(new Business("asd789fhgj", "Singapore Museum", industry));
         final String userRawPassword = "goodpassword";
-        User user = userRepository
-                .save(new User("admin@abc.com", "admin", encoder.encode(userRawPassword), "ROLE_ADMIN", business));
+        userRepository.save(new User("admin@abc.com", "admin", encoder.encode(userRawPassword), "ROLE_ADMIN", business));
 
         ResponseEntity<Business> result = restTemplate.postForEntity(uri, business, Business.class);
 

@@ -53,7 +53,7 @@ public class TwilioSenderService implements SenderService {
      */
     public void sendMms(MmsRequest MmsRequest) {
         if (isPhoneNumberValid(MmsRequest.getDestPhoneNumber())) {
-            Message message = Message.creator(
+            Message.creator(
                     new PhoneNumber(MmsRequest.getDestPhoneNumber()),
                     new PhoneNumber(twilioConfig.getPhoneNumber()),
                     MmsRequest.getMessage())

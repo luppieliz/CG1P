@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CustomAuthorityDeserializer extends JsonDeserializer {
+public class CustomAuthorityDeserializer extends JsonDeserializer<Object> {
 
     @Override
     public Object deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {

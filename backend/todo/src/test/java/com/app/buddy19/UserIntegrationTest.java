@@ -7,8 +7,6 @@ import com.app.buddy19.industry.IndustryRepository;
 import com.app.buddy19.jwt.resource.JwtTokenRequest;
 import com.app.buddy19.jwt.resource.JwtTokenResponse;
 import com.app.buddy19.user.User;
-import com.app.buddy19.user.UserRepository;
-import com.app.buddy19.user.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,16 +30,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UserIntegrationTest {
 
     private final String baseUrl = "http://localhost:";
+
     @LocalServerPort
     private int port;
+
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @Autowired
-    private UserServiceImpl userService;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private IndustryRepository industryRepository;
@@ -75,7 +69,7 @@ public class UserIntegrationTest {
         User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
-        ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
+        restTemplate.postForEntity(uri, user, User.class);
 
         uri = new URI(baseUrl + port + "/authenticate");
         JwtTokenRequest jwtTokenRequest = new JwtTokenRequest(user.getEmail(), userPassword);
@@ -147,9 +141,7 @@ public class UserIntegrationTest {
         User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
-        ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
-        UUID userID = postUser.getBody()
-                              .getId();
+        restTemplate.postForEntity(uri, user, User.class);
         UUID randomID = UUID.randomUUID();
 
         uri = new URI(baseUrl + port + "/authenticate");
@@ -183,7 +175,7 @@ public class UserIntegrationTest {
         User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
-        ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
+        restTemplate.postForEntity(uri, user, User.class);
 
         uri = new URI(baseUrl + port + "/authenticate");
         JwtTokenRequest jwtTokenRequest = new JwtTokenRequest(user.getEmail(), userPassword);
@@ -218,7 +210,7 @@ public class UserIntegrationTest {
         User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
-        ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
+        restTemplate.postForEntity(uri, user, User.class);
         String testEmail = "notadmin@gmail.com";
 
         uri = new URI(baseUrl + port + "/authenticate");
@@ -290,7 +282,7 @@ public class UserIntegrationTest {
         User user = new User("admin@gmail.com", "admin", userPassword, false, false, "ROLE_ADMIN", business);
 
         URI uri = new URI(baseUrl + port + "/user");
-        ResponseEntity<User> postUser = restTemplate.postForEntity(uri, user, User.class);
+        restTemplate.postForEntity(uri, user, User.class);
         UUID testID = UUID.randomUUID();
 
         uri = new URI(baseUrl + port + "/authenticate");
@@ -324,7 +316,7 @@ public class UserIntegrationTest {
         String userPassword = encoder.encode("goodpassword");
         User newUser = new User("admin@gmail", "admin", userPassword, "ROLE_ADMIN", business);
 
-        ResponseEntity<User> postOne = restTemplate.postForEntity(uri, newUser, User.class);
+        restTemplate.postForEntity(uri, newUser, User.class);
 
         ResponseEntity<User> postTwo = restTemplate.postForEntity(uri, newUser, User.class);
 

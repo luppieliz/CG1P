@@ -74,24 +74,4 @@ public class BusinessServiceImpl implements BusinessService {
     public List<Business> getAllBusinessByIndustryName(String industryName) {
         return businessRepository.findByIndustry_Name(industryName);
     }
-
-    // TODO: Implement other business services
-
-    // public Business deleteBusiness(Long businessId) {
-    // if (!businessRepository.existsById(businessId)) {
-    // throw new BusinessNotFoundException(businessId);
-    // }
-    // Business deleteBusiness = businessRepository.findById(businessId).get();
-    // businessRepository.deleteById(businessId);
-    // return deleteBusiness;
-    // }
-
-    // public Business updateBusiness(Long businessId, Business newBusiness) {
-    // if (!businessRepository.existsById(businessId)) {
-    // throw new BusinessNotFoundException(businessId);
-    // }
-    // Business business = businessRepository.findById(businessId).get();
-    // business = newBusiness;
-    // return business;
-    // }
 }

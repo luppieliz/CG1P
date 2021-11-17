@@ -67,8 +67,7 @@ public class BusinessServiceTest {
     @Test
     void getBusinessWithId_InvalidBusinessId_ReturnBusinessNotFoundException() {
         Industry industry = new Industry("Arts and Culture");
-        Business business = businessRepository
-                .save(new Business(UUID.randomUUID(), "asd789fhgj", "Singapore Museum", industry));
+        businessRepository.save(new Business(UUID.randomUUID(), "asd789fhgj", "Singapore Museum", industry));
         UUID testBusinessId = UUID.randomUUID();
 
         when(businessRepository.findById(testBusinessId)).thenReturn(Optional.ofNullable(null));
@@ -76,7 +75,7 @@ public class BusinessServiceTest {
         Throwable exception = null;
 
         try {
-            Business foundBusiness = businessService.getBusiness(testBusinessId);
+            businessService.getBusiness(testBusinessId);
         } catch (Throwable ex) {
             exception = ex;
         }
@@ -110,7 +109,7 @@ public class BusinessServiceTest {
         Throwable exception = null;
 
         try {
-            Business foundBusiness = businessService.getBusiness(testBusinessUEN);
+            businessService.getBusiness(testBusinessUEN);
         } catch (Throwable ex) {
             exception = ex;
         }
@@ -145,7 +144,7 @@ public class BusinessServiceTest {
         Throwable exception = null;
 
         try {
-            Business savedBusiness = businessService.addBusiness(newBusiness);
+            businessService.addBusiness(newBusiness);
         } catch (Throwable ex) {
             exception = ex;
         }

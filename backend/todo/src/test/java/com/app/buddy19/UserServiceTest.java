@@ -81,7 +81,7 @@ public class UserServiceTest {
         Throwable exception = null;
 
         try {
-            User foundUser = userService.getUser(testUserId);
+            userService.getUser(testUserId);
         } catch (Throwable ex) {
             exception = ex;
         }
@@ -116,7 +116,7 @@ public class UserServiceTest {
         Throwable exception = null;
 
         try {
-            User foundUser = userService.getUser(testUserEmail);
+            userService.getUser(testUserEmail);
         } catch (Throwable ex) {
             exception = ex;
         }
@@ -151,7 +151,7 @@ public class UserServiceTest {
         Throwable exception = null;
 
         try {
-            User savedUser = userService.addUser(user);
+            userService.addUser(user);
         } catch (Throwable ex) {
             exception = ex;
         }

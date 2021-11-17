@@ -1,6 +1,5 @@
 package com.app.buddy19.newsfunnel;
 
-import com.app.buddy19.industry.Industry;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

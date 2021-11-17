@@ -3,7 +3,6 @@ package com.app.buddy19.scraper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -31,9 +30,6 @@ public class ScraperServiceImpl implements ScraperService {
         keywordMap.put("retail", "Retail");
         keywordMap.put("shopping", "Retail");
     }
-
-    @Autowired
-    private ScraperConfig scraperConfig;
 
     /**
      * Find all the sources of info-graphics.

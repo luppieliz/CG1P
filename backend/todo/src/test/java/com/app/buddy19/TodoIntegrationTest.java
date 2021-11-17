@@ -111,7 +111,7 @@ public class TodoIntegrationTest {
 
         // Use Token to post Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
+        restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
 
         // Use Token to get Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");
@@ -232,7 +232,7 @@ public class TodoIntegrationTest {
 
         // Use Token to post Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
+        restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
 
         // Use Token to get Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");
@@ -345,7 +345,7 @@ public class TodoIntegrationTest {
 
         // Use Token to post Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
+        restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
 
         // Use Token to get Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");
@@ -407,7 +407,7 @@ public class TodoIntegrationTest {
 
         // Use Token to post Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos");
-        ResponseEntity<Todo> postResultTodo = restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
+        restTemplate.exchange(uri, HttpMethod.POST, jwtEntityPost, Todo.class);
 
         // Use Token to get Response
         uri = new URI(baseUrl + port + "/" + ownerId + "/todos/created");

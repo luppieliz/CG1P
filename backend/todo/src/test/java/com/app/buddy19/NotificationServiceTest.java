@@ -81,9 +81,6 @@ public class NotificationServiceTest {
         newsList.add(new1);
         newsList.add(new2);
 
-        Industry industry = new Industry("Arts and Culture");
-        Business business = new Business("asd789fhgj", "Singapore Museum", industry);
-
         User user1 = new User("+65 9999 8888", "alice@gmail.com", "alice", "goodpassword", false, false, "ROLE_BUSINESSOWNER");
         User user2 = new User("+65 8888 9999", "bob@gmail.com", "bob", "goodpassword", false, false, "ROLE_EMPLOYEE");
         List<User> userList = new ArrayList<>();

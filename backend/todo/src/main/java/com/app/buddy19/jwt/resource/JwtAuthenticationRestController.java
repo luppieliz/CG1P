@@ -1,7 +1,6 @@
 package com.app.buddy19.jwt.resource;
 
 import com.app.buddy19.jwt.JwtTokenUtil;
-import com.app.buddy19.user.User;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -60,7 +59,7 @@ public class JwtAuthenticationRestController {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
-        User user = (User) jwtInMemoryUserDetailsService.loadUserByUsername(username);
+        jwtInMemoryUserDetailsService.loadUserByUsername(username);
 
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);

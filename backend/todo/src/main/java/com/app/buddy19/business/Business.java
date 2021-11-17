@@ -28,7 +28,6 @@ public class Business {
     @Column(name = "business_id")
     private UUID id;
 
-    // TODO: Add proper UEN validation
     @NotNull(message = "UEN should not be null")
     @Column(name = "UEN")
     private String UEN;
@@ -60,16 +59,5 @@ public class Business {
         this.UEN = UEN;
         this.name = name;
         this.industry = industry;
-    }
-
-    @Override
-    public String toString() {
-        return "Business{" +
-                "id=" + id +
-                ", UEN='" + UEN + '\'' +
-                ", name='" + name + '\'' +
-                ", industry=" + industry +
-                ", users=" + users +
-                '}';
     }
 }
